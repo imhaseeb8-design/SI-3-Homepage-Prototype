@@ -1,0 +1,2351 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>SI Website Sections Preview</title>
+    <link rel="stylesheet" href="./components/SiAudienceCards.module.css" />
+    <link rel="stylesheet" href="./components/PartnerSection.module.css" />
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap");
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html,
+      body {
+        min-height: 100%;
+        margin: 0;
+        background: #08040f;
+      }
+
+      body {
+        display: block;
+      }
+
+      .preview-stack {
+        display: grid;
+        gap: 96px;
+        width: 100%;
+        padding-bottom: 96px;
+      }
+
+      .root {
+        order: 4;
+      }
+
+      .hero-preview-band {
+        position: relative;
+        order: 1;
+        min-height: 760px;
+        overflow: hidden;
+        background: #0d0816;
+        color: #fff;
+      }
+
+      .hero-sticky-frame {
+        position: relative;
+        top: 0;
+        min-height: 760px;
+        height: 100vh;
+        overflow: hidden;
+      }
+
+      .hero-preview-bg {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+
+      .hero-sticky-frame::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.1);
+      }
+
+      .hero-sticky-frame::after {
+        content: "";
+        position: absolute;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        height: 154px;
+        background: linear-gradient(180deg, rgba(13, 8, 22, 0) 0%, #0d0816 100%);
+      }
+
+      .hero-nav {
+        position: relative;
+        z-index: 3;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        width: min(1255px, calc(100% - 32px));
+        height: 65px;
+        margin: 0 auto;
+        padding-top: 6px;
+      }
+
+      .hero-logo {
+        display: inline-flex;
+        width: 90px;
+        height: 22px;
+      }
+
+      .hero-logo img {
+        display: block;
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+      }
+
+      .hero-nav-right {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+      }
+
+      .hero-nav-links {
+        display: flex;
+        align-items: center;
+        gap: 22px;
+        font-family: Geist, Arial, sans-serif;
+        font-size: 14px;
+        font-weight: 500;
+        line-height: 1;
+        color: rgba(255, 255, 255, 0.8);
+      }
+
+      .hero-nav-links a,
+      .hero-onboard,
+      .hero-ecosystem-cta,
+      .hero-card-cta {
+        color: inherit;
+        text-decoration: none;
+      }
+
+      .hero-onboard {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        height: 34px;
+        padding: 0 18px;
+        border-radius: 4px;
+        background: #fff;
+        font-family: Geist, Arial, sans-serif;
+        font-size: 14px;
+        font-weight: 500;
+        line-height: 1;
+        color: #000;
+      }
+
+      .hero-content {
+        position: relative;
+        z-index: 2;
+        display: flex;
+        align-items: flex-end;
+        gap: 155px;
+        width: min(1255px, calc(100% - 32px));
+        margin: 0 auto;
+        padding-top: 399px;
+        padding-bottom: 88px;
+      }
+
+      .hero-copy {
+        display: flex;
+        flex-direction: column;
+        gap: 28px;
+        width: 608px;
+        max-width: 100%;
+      }
+
+      .hero-title {
+        margin: 0;
+        font-family: Clesmont, "Clesmont Demo", Geist, Arial, sans-serif;
+        font-size: clamp(42px, 4.3vw, 62px);
+        font-weight: 700;
+        line-height: 1.1;
+        text-transform: uppercase;
+      }
+
+      .hero-title-line {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+      }
+
+      .hero-purple {
+        color: #bba9ff;
+      }
+
+      .hero-title-image {
+        display: inline-flex;
+        flex: 0 0 auto;
+        width: 73px;
+        height: 41px;
+        overflow: hidden;
+        border-radius: 999px;
+        vertical-align: middle;
+        box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.2);
+      }
+
+      .hero-title-image img {
+        display: block;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+
+      .hero-ecosystem-cta {
+        display: inline-flex;
+        align-items: flex-end;
+        gap: 3px;
+        width: max-content;
+        font-family: Geist, Arial, sans-serif;
+        font-size: 18px;
+        font-weight: 500;
+        line-height: 1;
+        color: #fff;
+      }
+
+      .hero-ecosystem-cta img {
+        width: 15px;
+        height: 15px;
+      }
+
+      .hero-accordion {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        width: 492px;
+        max-width: 100%;
+      }
+
+      .hero-card {
+        height: 56px;
+        overflow: hidden;
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        border-radius: 6px;
+        background: rgba(0, 0, 0, 0.2);
+        color: #fff;
+        box-shadow: 0 18px 44px rgba(0, 0, 0, 0.22);
+        backdrop-filter: blur(10px);
+        transition: height 300ms ease;
+      }
+
+      .hero-card.is-open {
+        height: 247px;
+      }
+
+      .hero-card-trigger {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        width: 100%;
+        height: 56px;
+        padding: 14px 18px;
+        border: 0;
+        background: transparent;
+        color: inherit;
+        cursor: pointer;
+      }
+
+      .hero-card-mark {
+        width: 13px;
+        height: 15px;
+        object-fit: contain;
+        opacity: 0.7;
+      }
+
+      .hero-card-actions {
+        display: inline-flex;
+        align-items: center;
+        gap: 12px;
+        margin-left: auto;
+      }
+
+      .hero-card-pill {
+        display: inline-flex;
+        align-items: flex-end;
+        gap: 8px;
+        height: 28px;
+        padding: 6px 9px 7px;
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        border-radius: 4px;
+        font-family: "Geist Mono", monospace;
+        font-size: 14px;
+        line-height: 1;
+        color: #fff;
+        backdrop-filter: blur(10px);
+      }
+
+      .hero-card-pill.si-her {
+        background: rgba(77, 90, 197, 0.2);
+      }
+
+      .hero-card-pill.grow3dge {
+        background: rgba(46, 25, 109, 0.2);
+      }
+
+      .hero-card-pill.well-being {
+        background: rgba(42, 104, 134, 0.2);
+      }
+
+      .hero-card-pill img {
+        flex: 0 0 auto;
+        object-fit: contain;
+      }
+
+      .hero-card-icon-si-her {
+        width: 14px;
+        height: 15px;
+      }
+
+      .hero-card-icon-grow3dge {
+        width: 22px;
+        height: 15px;
+      }
+
+      .hero-card-icon-well-being {
+        width: 11px;
+        height: 14px;
+      }
+
+      .hero-card-toggle {
+        position: relative;
+        display: grid;
+        width: 28px;
+        height: 28px;
+        place-items: center;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        border-radius: 4px;
+        background: rgba(255, 255, 255, 0.05);
+      }
+
+      .hero-card-toggle::before,
+      .hero-card-toggle::after {
+        content: "";
+        position: absolute;
+        border-radius: 10px;
+        background: #fff;
+      }
+
+      .hero-card-toggle::before {
+        width: 14px;
+        height: 2px;
+      }
+
+      .hero-card-toggle::after {
+        width: 2px;
+        height: 14px;
+      }
+
+      .hero-card.is-open .hero-card-toggle::after {
+        display: none;
+      }
+
+      .hero-card-body {
+        padding: 0 18px 20px;
+      }
+
+      .hero-card-divider {
+        height: 1px;
+        background: rgba(255, 255, 255, 0.15);
+      }
+
+      .hero-card-copy {
+        padding-top: 16px;
+      }
+
+      .hero-card-copy h2 {
+        margin: 0;
+        font-family: Clesmont, "Clesmont Demo", Geist, Arial, sans-serif;
+        font-size: 20px;
+        font-weight: 700;
+        line-height: 1.2;
+        text-transform: uppercase;
+      }
+
+      .hero-card-copy p {
+        margin: 6px 0 0;
+        font-family: Geist, Arial, sans-serif;
+        font-size: 17px;
+        line-height: 1.4;
+      }
+
+      .hero-card-cta {
+        display: inline-flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+        margin-top: 22px;
+        font-family: Geist, Arial, sans-serif;
+        font-size: 16px;
+        line-height: 1;
+        color: #fff;
+      }
+
+      .hero-card-cta span:first-child {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+      }
+
+      .hero-card-cta img {
+        width: 8px;
+        height: 8px;
+      }
+
+      .hero-card-cta-line {
+        width: 44px;
+        height: 1px;
+        background: #fff;
+      }
+
+      .hero-ticker {
+        position: absolute;
+        right: 0;
+        bottom: 12px;
+        left: 0;
+        z-index: 2;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 34px;
+        height: 16px;
+        overflow: hidden;
+        opacity: 0.5;
+        white-space: nowrap;
+      }
+
+      .hero-ticker span {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        font-family: "Geist Mono", monospace;
+        font-size: 13px;
+        line-height: 1;
+        letter-spacing: 2.6px;
+        color: #fff;
+      }
+
+      .hero-ticker img {
+        width: 8px;
+        height: 10px;
+      }
+
+      .crystal-content-stage {
+        position: relative;
+        order: 2;
+        margin-top: -96px;
+        isolation: isolate;
+        display: grid;
+        gap: 96px;
+        background: #08040f;
+        padding-bottom: 96px;
+      }
+
+      .crystal-backdrop-frame {
+        position: sticky;
+        top: 0;
+        z-index: 0;
+        order: 0;
+        display: grid;
+        height: 100vh;
+        min-height: 760px;
+        margin-bottom: calc(-100vh - 96px);
+        place-items: center;
+        overflow: hidden;
+        pointer-events: none;
+      }
+
+      .crystal-sticky-asset {
+        width: min(82vw, 860px);
+        height: min(82vw, 860px);
+        opacity: var(--sticky-crystal-opacity, 0.18);
+        transform: translateY(var(--sticky-crystal-y, 190px)) scale(var(--sticky-crystal-scale, 0.42));
+        transition: transform 200ms ease-out, opacity 200ms ease-out;
+      }
+
+      .crystal-sticky-asset img {
+        display: block;
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+      }
+
+      .crystal-content-stage > :not(.crystal-backdrop-frame) {
+        position: relative;
+        z-index: 1;
+      }
+
+      .crystal-content-stage .partner-preview-band,
+      .crystal-content-stage .inters3ction-preview-band,
+      .crystal-content-stage .si-u-preview-band,
+      .crystal-content-stage .growth-ticker-preview-band,
+      .crystal-content-stage .products-preview-band,
+      .crystal-content-stage .root,
+      .crystal-content-stage .partnerSection {
+        background: transparent;
+      }
+
+      @media (min-width: 1101px) {
+        .hero-sticky-frame {
+          min-height: 994px;
+        }
+      }
+
+      .partner-preview-band {
+        order: 1;
+        width: 100%;
+        padding: 40px 60px;
+      }
+
+      .inters3ction-preview-band {
+        order: 2;
+        width: 100%;
+        padding: 48px 60px;
+      }
+
+      .inters3ction-preview {
+        display: flex;
+        flex-direction: column;
+        gap: 45px;
+        max-width: 1254px;
+        margin: 0 auto;
+        color: #fff;
+      }
+
+      .inters3ction-header {
+        display: flex;
+        align-items: flex-end;
+        justify-content: space-between;
+        gap: 48px;
+      }
+
+      .inters3ction-title {
+        margin: 0;
+        font-family: Clesmont, "Clesmont Demo", Geist, Arial, sans-serif;
+        font-weight: 700;
+        line-height: 1.2;
+        text-transform: uppercase;
+        white-space: nowrap;
+      }
+
+      .inters3ction-title span:first-child {
+        display: block;
+        font-size: 32px;
+      }
+
+      .inters3ction-title span:last-child {
+        display: block;
+        font-family: Geist, Arial, sans-serif;
+        font-size: 30px;
+        font-style: italic;
+        font-weight: 400;
+        text-transform: none;
+      }
+
+      .inters3ction-copy {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+        gap: 12px;
+        width: 493px;
+        max-width: 100%;
+      }
+
+      .inters3ction-eyebrow {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        font-family: "Geist Mono", monospace;
+        font-size: 14px;
+        line-height: 1;
+        color: rgba(255, 255, 255, 0.7);
+        white-space: nowrap;
+      }
+
+      .inters3ction-eyebrow img {
+        width: 13px;
+        height: 15px;
+      }
+
+      .inters3ction-copy p {
+        margin: 0;
+        font-family: Geist, Arial, sans-serif;
+        font-size: 18px;
+        line-height: 1.4;
+        color: #cbcbcb;
+        text-align: right;
+      }
+
+      .inters3ction-card {
+        position: relative;
+        display: grid;
+        grid-template-columns: 405px minmax(0, 1fr);
+        gap: 44px;
+        height: 390px;
+        overflow: hidden;
+        padding: 38px 39px 40px;
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        border-radius: 6px;
+        background: rgba(0, 0, 0, 0.2);
+        backdrop-filter: blur(10px);
+      }
+
+      .inters3ction-card::before,
+      .inters3ction-card::after {
+        content: "";
+        position: absolute;
+        right: 0;
+        left: 0;
+        height: 1px;
+        background: rgba(255, 255, 255, 0.15);
+      }
+
+      .inters3ction-card::before {
+        top: 38px;
+      }
+
+      .inters3ction-card::after {
+        bottom: 40px;
+      }
+
+      .inters3ction-vline {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        width: 1px;
+        background: rgba(255, 255, 255, 0.15);
+      }
+
+      .inters3ction-vline.left {
+        left: 38px;
+      }
+
+      .inters3ction-vline.middle {
+        left: 444px;
+      }
+
+      .inters3ction-vline.right {
+        right: 39px;
+      }
+
+      .inters3ction-corner {
+        position: absolute;
+        width: 4px;
+        height: 4px;
+        background: #d3d3d3;
+      }
+
+      .inters3ction-corner.one {
+        top: 37px;
+        left: 38px;
+      }
+
+      .inters3ction-corner.two {
+        bottom: 41px;
+        left: 38px;
+      }
+
+      .inters3ction-corner.three {
+        top: 37px;
+        left: 444px;
+      }
+
+      .inters3ction-corner.four {
+        bottom: 41px;
+        left: 444px;
+      }
+
+      .inters3ction-corner.five {
+        top: 37px;
+        right: 38px;
+      }
+
+      .inters3ction-corner.six {
+        bottom: 41px;
+        right: 38px;
+      }
+
+      .inters3ction-image,
+      .inters3ction-content {
+        position: relative;
+        z-index: 1;
+      }
+
+      .inters3ction-image img {
+        display: block;
+        width: 405px;
+        height: 309px;
+        object-fit: cover;
+      }
+
+      .inters3ction-content {
+        display: flex;
+        flex-direction: column;
+        min-width: 0;
+        padding-top: 32px;
+      }
+
+      .inters3ction-stats {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 34px;
+        max-width: 632px;
+      }
+
+      .inters3ction-stat {
+        display: flex;
+        flex-direction: column;
+        gap: 14px;
+      }
+
+      .inters3ction-stat span:first-child {
+        font-family: "Geist Mono", monospace;
+        font-size: 14px;
+        line-height: 1;
+        letter-spacing: 0.84px;
+        color: #9a9a9b;
+      }
+
+      .inters3ction-stat span:last-child {
+        font-family: Geist, Arial, sans-serif;
+        font-size: 16px;
+        line-height: 1;
+        color: #fff;
+        white-space: nowrap;
+      }
+
+      .inters3ction-divider {
+        width: 100%;
+        max-width: 689px;
+        height: 1px;
+        margin-top: 23px;
+        background: rgba(255, 255, 255, 0.15);
+      }
+
+      .inters3ction-content h3 {
+        margin: 24px 0 0;
+        font-family: "Geist Mono", monospace;
+        font-size: 36px;
+        font-weight: 500;
+        line-height: normal;
+      }
+
+      .inters3ction-content p {
+        width: 565px;
+        max-width: 100%;
+        margin: 15px 0 0;
+        font-family: Geist, Arial, sans-serif;
+        font-size: 16px;
+        line-height: 1.3;
+        color: #a7a7a7;
+      }
+
+      .inters3ction-tags {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin-top: 36px;
+        padding-right: 86px;
+      }
+
+      .inters3ction-tags span {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        height: 30px;
+        padding: 0 18px;
+        border: 1px solid #5e5e5e;
+        border-radius: 100px;
+        background: rgba(0, 0, 0, 0.2);
+        font-family: "Geist Mono", monospace;
+        font-size: 12px;
+        line-height: 1;
+        letter-spacing: 0.72px;
+        color: #fff;
+        white-space: nowrap;
+      }
+
+      .inters3ction-arrow {
+        position: absolute;
+        right: 60px;
+        bottom: 60px;
+        z-index: 2;
+        display: grid;
+        width: 54px;
+        height: 54px;
+        place-items: center;
+        border: 1px solid rgba(255, 255, 255, 0.4);
+        border-radius: 999px;
+        background: rgba(0, 0, 0, 0.2);
+      }
+
+      .inters3ction-arrow img {
+        width: 10px;
+        height: 10px;
+      }
+
+      .si-u-preview-band {
+        order: 3;
+        width: 100%;
+        min-height: 145vh;
+        padding: 48px 60px;
+      }
+
+      .si-u-preview {
+        display: flex;
+        align-items: flex-start;
+        gap: 92px;
+        max-width: 1254px;
+        margin: 0 auto;
+        color: #fff;
+      }
+
+      @media (min-width: 1101px) {
+        .si-u-preview {
+          position: sticky;
+          top: 12vh;
+        }
+      }
+
+      .si-u-copy {
+        display: flex;
+        flex-direction: column;
+        gap: 31px;
+        width: 582px;
+        max-width: 100%;
+      }
+
+      .si-u-text {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+      }
+
+      .si-u-title-wrap {
+        position: relative;
+      }
+
+      .si-u-title-wrap img {
+        position: absolute;
+        top: 11px;
+        left: 0;
+        width: 13px;
+        height: 15px;
+      }
+
+      .si-u-title {
+        margin: 0;
+        padding-left: 28px;
+        font-family: Clesmont, "Clesmont Demo", Geist, Arial, sans-serif;
+        font-size: 32px;
+        font-weight: 700;
+        line-height: 1.2;
+        text-transform: uppercase;
+      }
+
+      .si-u-title span {
+        color: #bca9ff;
+      }
+
+      .si-u-copy p {
+        margin: 0;
+        font-family: Geist, Arial, sans-serif;
+        font-size: 18px;
+        line-height: 1.4;
+        color: rgba(255, 255, 255, 0.8);
+      }
+
+      .si-u-cta {
+        display: inline-flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+        width: max-content;
+        color: #fff;
+        font-family: Geist, Arial, sans-serif;
+        font-size: 16px;
+        font-weight: 500;
+        line-height: 1;
+        text-decoration: none;
+      }
+
+      .si-u-cta span:first-child {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+      }
+
+      .si-u-cta img {
+        width: 8px;
+        height: 8px;
+      }
+
+      .si-u-cta-line {
+        display: block;
+        width: 44px;
+        height: 1px;
+        background: #fff;
+      }
+
+      .si-u-feed-shell {
+        width: 579px;
+        height: 1070px;
+        flex: 0 0 auto;
+        margin-left: auto;
+      }
+
+      .si-u-feed {
+        width: 579px;
+        height: 363px;
+        overflow: hidden;
+        margin-left: auto;
+        border-radius: 4px;
+        transform: translateY(var(--si-u-feed-y, 0px)) scale(var(--si-u-feed-scale, 1));
+        transform-origin: right top;
+        transition: transform 75ms ease-out;
+        z-index: 1;
+      }
+
+      .si-u-feed img {
+        display: block;
+        width: 100%;
+        height: 113.65%;
+        object-fit: cover;
+        object-position: top;
+      }
+
+      .growth-ticker-preview-band {
+        order: 5;
+        width: 100%;
+        overflow: hidden;
+        padding: 16px 0;
+      }
+
+      .growth-ticker-track {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+        width: max-content;
+        transform: translateX(-232px);
+        color: #fff;
+      }
+
+      .growth-ticker-track p {
+        flex: 0 0 auto;
+        margin: 0;
+        font-family: "Bebas Neue", Clesmont, "Clesmont Demo", Geist, Arial, sans-serif;
+        font-size: 84px;
+        font-weight: 400;
+        line-height: 1;
+        text-transform: uppercase;
+        white-space: nowrap;
+      }
+
+      .growth-ticker-track img {
+        display: block;
+        width: 88px;
+        height: 116px;
+        flex: 0 0 auto;
+        object-fit: cover;
+      }
+
+      .products-preview-band {
+        order: 6;
+        width: 100%;
+        padding: 48px 60px;
+      }
+
+      .products-preview {
+        display: flex;
+        flex-direction: column;
+        gap: 106px;
+        max-width: 1256px;
+        margin: 0 auto;
+        color: #fff;
+      }
+
+      .products-header {
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+        gap: 48px;
+      }
+
+      .products-title-wrap {
+        position: relative;
+        width: 488px;
+        max-width: 100%;
+      }
+
+      .products-title-wrap img {
+        position: absolute;
+        top: 11px;
+        left: 0;
+        width: 13px;
+        height: 15px;
+      }
+
+      .products-title {
+        margin: 0;
+        padding-left: 32px;
+        font-family: Clesmont, "Clesmont Demo", Geist, Arial, sans-serif;
+        font-size: 32px;
+        font-weight: 700;
+        line-height: 1.2;
+        text-transform: uppercase;
+      }
+
+      .products-title span {
+        color: #bca9ff;
+      }
+
+      .products-copy {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+        gap: 20px;
+        width: 379px;
+        max-width: 100%;
+      }
+
+      .products-copy p {
+        margin: 0;
+        font-family: Geist, Arial, sans-serif;
+        font-size: 18px;
+        line-height: 1.4;
+        text-align: right;
+      }
+
+      .product-link {
+        display: inline-flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 9px;
+        width: max-content;
+        color: #fff;
+        font-family: Geist, Arial, sans-serif;
+        font-size: 16px;
+        font-weight: 500;
+        line-height: 1;
+        text-decoration: none;
+      }
+
+      .product-link span:first-child {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+      }
+
+      .product-link img {
+        width: 8px;
+        height: 8px;
+        transition: transform 150ms ease;
+      }
+
+      .product-link:hover img,
+      .product-link:focus-visible img {
+        transform: translate(2px, -2px);
+      }
+
+      .product-link-line {
+        width: 44px;
+        height: 1px;
+        background: #fff;
+        transition: width 150ms ease;
+      }
+
+      .product-link:hover .product-link-line,
+      .product-link:focus-visible .product-link-line {
+        width: 100%;
+      }
+
+      .products-body {
+        display: flex;
+        align-items: flex-start;
+        gap: 91px;
+      }
+
+      .products-tabs {
+        position: sticky;
+        top: 96px;
+        display: flex;
+        width: 223px;
+        flex: 0 0 auto;
+        flex-direction: column;
+        gap: 8px;
+      }
+
+      .product-tab {
+        position: relative;
+        width: 223px;
+        height: 60px;
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        background: rgba(0, 0, 0, 0.2);
+        backdrop-filter: blur(10px);
+        color: #fff;
+        font-family: Clesmont, "Clesmont Demo", Geist, Arial, sans-serif;
+        font-size: 18px;
+        line-height: 1.3;
+        text-transform: uppercase;
+      }
+
+      .product-tab.is-muted {
+        opacity: 0.3;
+      }
+
+      .product-corner {
+        position: absolute;
+        width: 4px;
+        height: 4px;
+        background: #d3d3d3;
+      }
+
+      .product-corner.top-left {
+        top: -1px;
+        left: -1px;
+      }
+
+      .product-corner.top-right {
+        top: -1px;
+        right: -1px;
+      }
+
+      .product-corner.bottom-left {
+        bottom: -1px;
+        left: -1px;
+      }
+
+      .product-corner.bottom-right {
+        right: -1px;
+        bottom: -1px;
+      }
+
+      .products-list {
+        display: flex;
+        min-width: 0;
+        flex: 1;
+        flex-direction: column;
+        gap: 47px;
+      }
+
+      .product-row {
+        display: grid;
+        grid-template-columns: minmax(360px, 562px) minmax(260px, 348px);
+        align-items: end;
+        gap: 31px;
+      }
+
+      .product-visual {
+        position: relative;
+        width: 100%;
+        max-width: 562px;
+        overflow: hidden;
+        border-radius: 4px;
+      }
+
+      .product-browser {
+        aspect-ratio: 562 / 537;
+        background: #eceef3;
+      }
+
+      .product-browser-top {
+        position: relative;
+        height: 23px;
+        background: #eef0f2;
+      }
+
+      .product-browser-dots {
+        position: absolute;
+        top: 8px;
+        left: 6px;
+        width: 24px;
+        height: 6px;
+        border-radius: 999px;
+        background: #b8bcc5;
+      }
+
+      .product-browser-address {
+        position: absolute;
+        top: 6px;
+        left: 50%;
+        width: 74px;
+        height: 10px;
+        transform: translateX(-50%);
+        border-radius: 2px;
+        background: #e0e2e6;
+      }
+
+      .product-browser-url {
+        position: absolute;
+        top: 7px;
+        left: 50%;
+        transform: translateX(-50%);
+        color: rgba(0, 0, 0, 0.4);
+        font-family: Geist, Arial, sans-serif;
+        font-size: 6px;
+        font-weight: 500;
+        line-height: 1;
+      }
+
+      .product-browser-body {
+        position: relative;
+        height: calc(100% - 23px);
+      }
+
+      .product-browser-body img,
+      .product-kaia img {
+        display: block;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+
+      .product-browser-body img {
+        object-position: top;
+      }
+
+      .product-browser-fade {
+        position: absolute;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        height: 166px;
+        background: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.2) 100%);
+      }
+
+      .product-kaia {
+        aspect-ratio: 562 / 539;
+        background: #a78eff;
+      }
+
+      .product-certificate {
+        display: grid;
+        aspect-ratio: 562 / 537;
+        place-items: center;
+        background:
+          radial-gradient(circle at 22% 18%, rgba(255, 255, 255, 0.56), transparent 24%),
+          radial-gradient(circle at 72% 26%, rgba(207, 188, 255, 0.78), transparent 29%),
+          linear-gradient(137deg, #8465f5 0%, #bca9ff 43%, #332070 100%);
+      }
+
+      .certificate-form {
+        position: relative;
+        display: flex;
+        width: 375px;
+        max-width: 78%;
+        height: 416px;
+        flex-direction: column;
+        padding: 33px 50px;
+        border-radius: 10px;
+        background: linear-gradient(180deg, rgba(51, 17, 113, 0.45) 0%, rgba(167, 142, 255, 0) 84%);
+        box-shadow: 0 24px 70px rgba(0, 0, 0, 0.24);
+        color: #fff;
+      }
+
+      .certificate-form h3 {
+        margin: 0;
+        font-family: Geist, Arial, sans-serif;
+        font-size: 19.5px;
+        font-weight: 500;
+        line-height: 1.25;
+        white-space: nowrap;
+      }
+
+      .certificate-wallet {
+        display: flex;
+        align-items: center;
+        gap: 13px;
+        height: 38px;
+        margin-top: 24px;
+        padding: 0 18px;
+        border-radius: 6px;
+        background: rgba(255, 255, 255, 0.2);
+        font-family: Geist, Arial, sans-serif;
+        font-size: 14.5px;
+        font-weight: 500;
+      }
+
+      .certificate-wallet span {
+        display: grid;
+        width: 16px;
+        height: 16px;
+        place-items: center;
+        border-radius: 999px;
+        background: #58d979;
+        font-size: 10px;
+      }
+
+      .certificate-handle {
+        margin-top: 12px;
+        padding: 13px 18px;
+        border-radius: 6px;
+        background: rgba(255, 255, 255, 0.1);
+        font-family: Geist, Arial, sans-serif;
+      }
+
+      .certificate-handle p {
+        margin: 0;
+        font-size: 13px;
+        line-height: 1;
+      }
+
+      .certificate-handle p:last-child {
+        font-size: 14.5px;
+        font-weight: 500;
+      }
+
+      .certificate-handle-line {
+        height: 1px;
+        margin: 8px 0;
+        background: rgba(255, 255, 255, 0.3);
+      }
+
+      .certificate-details {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 12px 10px;
+        margin-top: 32px;
+        font-family: Geist, Arial, sans-serif;
+        font-size: 11.4px;
+        line-height: 1.25;
+      }
+
+      .certificate-details p {
+        margin: 0;
+      }
+
+      .certificate-details p:first-child {
+        grid-column: 1 / -1;
+        font-size: 13px;
+        font-weight: 500;
+      }
+
+      .certificate-details p:nth-child(even) {
+        text-align: right;
+      }
+
+      .certificate-confirm {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        margin-top: 20px;
+        font-family: Geist, Arial, sans-serif;
+        font-size: 11.4px;
+        line-height: 1;
+      }
+
+      .certificate-confirm span {
+        display: grid;
+        width: 8px;
+        height: 8px;
+        place-items: center;
+        border-radius: 2px;
+        background: #fff;
+        color: #6d32ea;
+        font-size: 6px;
+      }
+
+      .certificate-button {
+        height: 33px;
+        margin-top: auto;
+        border: 0;
+        border-radius: 6px;
+        background: #fff;
+        box-shadow: 0 10px 13px rgba(0, 0, 0, 0.15);
+        color: #6d32ea;
+        font-family: Geist, Arial, sans-serif;
+        font-size: 13px;
+        font-weight: 500;
+      }
+
+      .product-info {
+        display: flex;
+        width: 100%;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 22px;
+      }
+
+      .product-tags {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+      }
+
+      .product-tag {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        height: 26px;
+        border: 1px solid #5e5e5e;
+        border-radius: 999px;
+        background: rgba(0, 0, 0, 0.2);
+        padding: 0 13px;
+        font-family: "Geist Mono", monospace;
+        font-size: 12px;
+        line-height: 1;
+        letter-spacing: 0.72px;
+      }
+
+      .product-info h3 {
+        margin: 0;
+        font-family: Clesmont, "Clesmont Demo", Geist, Arial, sans-serif;
+        font-size: 26px;
+        font-weight: 700;
+        line-height: 1.2;
+        text-transform: uppercase;
+      }
+
+      .product-info p {
+        margin: 10px 0 0;
+        font-family: Geist, Arial, sans-serif;
+        font-size: 17px;
+        line-height: 1.4;
+      }
+
+      @media (max-width: 1100px) {
+        .hero-content {
+          flex-direction: column;
+          align-items: flex-start;
+          gap: 40px;
+          padding-top: 260px;
+        }
+
+        .hero-accordion {
+          width: 100%;
+        }
+
+        .inters3ction-header {
+          align-items: flex-start;
+          flex-direction: column;
+        }
+
+        .inters3ction-copy {
+          align-items: flex-start;
+        }
+
+        .inters3ction-copy p {
+          text-align: left;
+        }
+
+        .inters3ction-card {
+          display: flex;
+          flex-direction: column;
+          height: auto;
+          gap: 0;
+          padding: 0;
+        }
+
+        .inters3ction-card::before,
+        .inters3ction-card::after,
+        .inters3ction-vline,
+        .inters3ction-corner {
+          display: none;
+        }
+
+        .inters3ction-image img {
+          width: 100%;
+          height: auto;
+          aspect-ratio: 405 / 309;
+        }
+
+        .inters3ction-content {
+          padding: 24px;
+        }
+
+        .inters3ction-stats {
+          gap: 18px;
+        }
+
+        .inters3ction-tags {
+          margin-top: 28px;
+          padding-right: 0;
+        }
+
+        .inters3ction-arrow {
+          position: static;
+          margin: 28px 0 0;
+        }
+
+        .si-u-preview {
+          flex-direction: column;
+          gap: 40px;
+        }
+
+        .si-u-feed-shell {
+          width: 100%;
+          max-width: 579px;
+          height: auto;
+          margin-left: auto;
+        }
+
+        .si-u-feed {
+          width: 100%;
+          height: auto;
+        }
+
+        .si-u-feed img {
+          aspect-ratio: 579 / 363;
+          height: auto;
+        }
+
+        .growth-ticker-track {
+          transform: none;
+        }
+
+        .growth-ticker-track p {
+          font-size: 64px;
+        }
+
+        .products-preview {
+          gap: 56px;
+        }
+
+        .products-header,
+        .products-body {
+          flex-direction: column;
+        }
+
+        .products-copy {
+          align-items: flex-start;
+        }
+
+        .products-copy p {
+          text-align: left;
+        }
+
+        .products-tabs {
+          position: static;
+          width: 100%;
+          flex-direction: row;
+          overflow-x: auto;
+        }
+
+        .product-row {
+          grid-template-columns: minmax(0, 1fr);
+          align-items: start;
+        }
+
+        .product-info {
+          max-width: 562px;
+        }
+      }
+
+      @media (max-width: 640px) {
+        .hero-preview-band {
+          min-height: 920px;
+        }
+
+        .hero-sticky-frame {
+          min-height: 920px;
+        }
+
+        .hero-nav-right {
+          display: none;
+        }
+
+        .hero-content {
+          padding-top: 250px;
+          padding-bottom: 72px;
+        }
+
+        .hero-title {
+          font-size: 42px;
+        }
+
+        .hero-title-image,
+        .hero-ticker {
+          display: none;
+        }
+
+        .hero-card-pill {
+          max-width: 190px;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          white-space: nowrap;
+        }
+
+        .partner-preview-band,
+        .inters3ction-preview-band,
+        .si-u-preview-band,
+        .products-preview-band {
+          padding-inline: 16px;
+        }
+
+        .growth-ticker-track p {
+          font-size: 52px;
+        }
+
+        .growth-ticker-track img {
+          width: 70px;
+          height: 92px;
+        }
+
+        .inters3ction-title span:first-child,
+        .si-u-title,
+        .products-title {
+          font-size: 30px;
+        }
+
+        .inters3ction-title span:last-child {
+          font-size: 26px;
+        }
+
+        .inters3ction-stats {
+          grid-template-columns: 1fr;
+        }
+
+        .inters3ction-content h3 {
+          font-size: 29px;
+        }
+
+        .certificate-form {
+          width: 88%;
+          max-width: 88%;
+          height: auto;
+          padding: 28px;
+        }
+
+        .certificate-form h3 {
+          font-size: 16px;
+          white-space: normal;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main class="preview-stack">
+      <section class="hero-preview-band" aria-labelledby="hero-preview-title">
+        <div class="hero-sticky-frame">
+          <img class="hero-preview-bg" src="./public/si-assets/hero-bg.png" alt="" />
+          <nav class="hero-nav" aria-label="Primary">
+            <a class="hero-logo" href="#" aria-label="SI home">
+              <img src="./public/si-assets/hero-logo.png" alt="SI&lt;3" />
+            </a>
+            <div class="hero-nav-right">
+              <div class="hero-nav-links">
+                <a href="#">Grow3dge</a>
+                <a href="#">Well-Being</a>
+                <a href="#">Si Her DAO</a>
+                <a href="#">Inters3ction</a>
+              </div>
+              <a class="hero-onboard" href="#">Onboard</a>
+            </div>
+          </nav>
+
+          <div class="hero-content">
+            <div class="hero-copy">
+              <h1 class="hero-title" id="hero-preview-title">
+                <span class="hero-title-line">
+                  <span class="hero-title-image"><img src="./public/si-assets/hero-title-vr-1.png" alt="" /></span>
+                  <span>Driving</span>
+                </span>
+                <span class="hero-title-line hero-purple">
+                  <span>Real</span>
+                  <span class="hero-title-image"><img src="./public/si-assets/hero-title-planet-1.png" alt="" /></span>
+                  <span>World</span>
+                </span>
+                <span class="hero-title-line">
+                  <span class="hero-purple">Web3</span>
+                  <span>Adoption</span>
+                </span>
+              </h1>
+              <a class="hero-ecosystem-cta" href="#">
+                <span>Explore Ecosystem</span>
+                <img src="./public/si-assets/si-inline-arrow.svg" alt="" />
+              </a>
+            </div>
+
+            <div class="hero-accordion" data-hero-accordion>
+              <article class="hero-card" data-hero-card="si-her">
+                <button class="hero-card-trigger" type="button" aria-expanded="false">
+                  <img class="hero-card-mark" src="./public/si-assets/partner-mark.svg" alt="" />
+                  <span class="hero-card-actions">
+                    <span class="hero-card-pill si-her">
+                      <img class="hero-card-icon-si-her" src="./public/si-assets/cta-guide.svg" alt="" />
+                      <span>Si Her DAO</span>
+                    </span>
+                    <span class="hero-card-toggle" aria-hidden="true"></span>
+                  </span>
+                </button>
+                <div class="hero-card-body">
+                  <div class="hero-card-divider"></div>
+                  <div class="hero-card-copy">
+                    <h2>For Web3 Leaders</h2>
+                    <p>Professional development, education and leadership paths for womxn established in Web3.</p>
+                    <a class="hero-card-cta" href="#">
+                      <span>Explore Si Her DAO <img src="./public/si-assets/si-inline-arrow.svg" alt="" /></span>
+                      <span class="hero-card-cta-line" aria-hidden="true"></span>
+                    </a>
+                  </div>
+                </div>
+              </article>
+
+              <article class="hero-card is-open" data-hero-card="grow3dge">
+                <button class="hero-card-trigger" type="button" aria-expanded="true">
+                  <img class="hero-card-mark" src="./public/si-assets/partner-mark.svg" alt="" />
+                  <span class="hero-card-actions">
+                    <span class="hero-card-pill grow3dge">
+                      <img class="hero-card-icon-grow3dge" src="./public/si-assets/cta-grow3dge.svg" alt="" />
+                      <span>Grow3dge</span>
+                    </span>
+                    <span class="hero-card-toggle" aria-hidden="true"></span>
+                  </span>
+                </button>
+                <div class="hero-card-body">
+                  <div class="hero-card-divider"></div>
+                  <div class="hero-card-copy">
+                    <h2>For Scaling Ecosystems</h2>
+                    <p>An emerging tech members club fostering collaborative growth &amp; partnerships.</p>
+                    <a class="hero-card-cta" href="#">
+                      <span>Explore Grow3dge <img src="./public/si-assets/si-inline-arrow.svg" alt="" /></span>
+                      <span class="hero-card-cta-line" aria-hidden="true"></span>
+                    </a>
+                  </div>
+                </div>
+              </article>
+
+              <article class="hero-card" data-hero-card="well-being">
+                <button class="hero-card-trigger" type="button" aria-expanded="false">
+                  <img class="hero-card-mark" src="./public/si-assets/partner-mark.svg" alt="" />
+                  <span class="hero-card-actions">
+                    <span class="hero-card-pill well-being">
+                      <img class="hero-card-icon-well-being" src="./public/si-assets/cta-wellbeing.svg" alt="" />
+                      <span>Well-Being</span>
+                    </span>
+                    <span class="hero-card-toggle" aria-hidden="true"></span>
+                  </span>
+                </button>
+                <div class="hero-card-body">
+                  <div class="hero-card-divider"></div>
+                  <div class="hero-card-copy">
+                    <h2>For Sustainable Growth</h2>
+                    <p>Programs and community experiences supporting well-being for builders in emerging tech.</p>
+                    <a class="hero-card-cta" href="#">
+                      <span>Explore Well-Being <img src="./public/si-assets/si-inline-arrow.svg" alt="" /></span>
+                      <span class="hero-card-cta-line" aria-hidden="true"></span>
+                    </a>
+                  </div>
+                </div>
+              </article>
+            </div>
+          </div>
+
+          <div class="hero-ticker" aria-hidden="true">
+            <span><img src="./public/si-assets/hero-si-more-mark.svg" alt="" />SI MORE</span>
+            <span><img src="./public/si-assets/hero-si-more-mark.svg" alt="" />SI MORE</span>
+            <span><img src="./public/si-assets/hero-si-more-mark.svg" alt="" />SI MORE</span>
+            <span><img src="./public/si-assets/hero-si-more-mark.svg" alt="" />SI MORE</span>
+            <span><img src="./public/si-assets/hero-si-more-mark.svg" alt="" />SI MORE</span>
+            <span><img src="./public/si-assets/hero-si-more-mark.svg" alt="" />SI MORE</span>
+            <span><img src="./public/si-assets/hero-si-more-mark.svg" alt="" />SI MORE</span>
+            <span><img src="./public/si-assets/hero-si-more-mark.svg" alt="" />SI MORE</span>
+            <span><img src="./public/si-assets/hero-si-more-mark.svg" alt="" />SI MORE</span>
+            <span><img src="./public/si-assets/hero-si-more-mark.svg" alt="" />SI MORE</span>
+          </div>
+        </div>
+      </section>
+
+      <div class="crystal-content-stage">
+        <div class="crystal-backdrop-frame" aria-hidden="true">
+          <div class="crystal-sticky-asset" data-sticky-crystal>
+            <img src="./public/si-assets/hero-sticky-crystal.png" alt="" />
+          </div>
+        </div>
+
+        <section class="root" aria-label="SI audience paths">
+        <header class="pathwaysIntro">
+          <h2>
+            OUR LEARNING
+            <br />
+            PATHWAYS
+          </h2>
+          <div class="pathwaysCopy">
+            <div class="pathwaysEyebrow">
+              <span>SI U Pathways</span>
+              <img src="./public/si-assets/partner-mark.svg" alt="" />
+            </div>
+            <p>Onboarding emerging tech professionals, communities and organizations.</p>
+          </div>
+        </header>
+        <div class="grid">
+        <div class="column">
+          <div class="sectionHeader">
+            <div class="sectionTitle">
+              <span class="sectionNumber">01</span>
+              <span class="sectionLabel">Explorer</span>
+            </div>
+            <span class="sectionLine" aria-hidden="true"></span>
+          </div>
+
+          <article class="card">
+            <div class="cardHeader">
+              <div class="cardHeaderMain">
+                <span class="dragDots" aria-hidden="true"><span></span><span></span><span></span><span></span></span>
+                <span class="cardNumber">/ 01</span>
+              </div>
+              <button class="minimizeButton" type="button" aria-label="Collapse Explorer"><span></span></button>
+            </div>
+            <div class="cardDivider"></div>
+            <div class="cardBody">
+              <div class="copyBlock">
+                <img
+                  class="cardIcon iconExplorer"
+                  src="./public/si-assets/card-explorer.svg"
+                  alt=""
+                />
+                <div class="textBlock">
+                  <h3>FOR WEB3 EXPLORERS</h3>
+                  <p>Education &amp; growth opportunities for professionals exploring Web3, emerging tech, and AI.</p>
+                </div>
+              </div>
+              <div class="actions">
+                <button class="actionButton" type="button">
+                  <span class="actionLabelWrap"><span>Join SI U Waitlist</span></span>
+                  <img class="arrowIcon" src="./public/si-assets/cta-arrow.svg" alt="" aria-hidden="true" />
+                </button>
+              </div>
+            </div>
+          </article>
+        </div>
+
+        <div class="column">
+          <div class="sectionHeader">
+            <div class="sectionTitle">
+              <span class="sectionNumber">02</span>
+              <span class="sectionLabel">Guide</span>
+            </div>
+            <span class="sectionLine" aria-hidden="true"></span>
+          </div>
+
+          <article class="card">
+            <div class="cardHeader">
+              <div class="cardHeaderMain">
+                <span class="dragDots" aria-hidden="true"><span></span><span></span><span></span><span></span></span>
+                <span class="cardNumber">/ 02</span>
+              </div>
+              <button class="minimizeButton" type="button" aria-label="Collapse Guide"><span></span></button>
+            </div>
+            <div class="cardDivider"></div>
+            <div class="cardBody">
+              <div class="copyBlock">
+                <img
+                  class="cardIcon iconGuide"
+                  src="./public/si-assets/card-guide.svg"
+                  alt=""
+                />
+                <div class="textBlock">
+                  <h3>FOR WEB3 GUIDES</h3>
+                  <p>
+                    Advancing Web3 professional development, education, leadership training, and networking for womxn
+                    established in Web3.
+                  </p>
+                </div>
+              </div>
+              <div class="actions">
+                <button class="actionButton" type="button">
+                  <span class="actionLabelWrap">
+                    <img
+                      class="actionIcon actionIconGuide"
+                      src="./public/si-assets/cta-guide.svg"
+                      alt=""
+                    />
+                    <span>Join Si Her</span>
+                  </span>
+                  <img class="arrowIcon" src="./public/si-assets/cta-arrow.svg" alt="" aria-hidden="true" />
+                </button>
+              </div>
+            </div>
+          </article>
+        </div>
+
+        <div class="column">
+          <div class="sectionHeader">
+            <div class="sectionTitle">
+              <span class="sectionNumber">03</span>
+              <span class="sectionLabel">Partner</span>
+            </div>
+            <span class="sectionLine" aria-hidden="true"></span>
+          </div>
+
+          <article class="card">
+            <div class="cardHeader">
+              <div class="cardHeaderMain">
+                <span class="dragDots" aria-hidden="true"><span></span><span></span><span></span><span></span></span>
+                <span class="cardNumber">/ 03</span>
+              </div>
+              <button class="minimizeButton" type="button" aria-label="Collapse Partner"><span></span></button>
+            </div>
+            <div class="cardDivider"></div>
+            <div class="cardBody">
+              <div class="copyBlock">
+                <img
+                  class="cardIcon iconPartner"
+                  src="./public/si-assets/card-partner.svg"
+                  alt=""
+                />
+                <div class="textBlock">
+                  <h3>FOR ORGANIZATIONS</h3>
+                  <p>Collaborative growth campaigns, business development and peer-to-peer learning.</p>
+                </div>
+              </div>
+              <div class="actions">
+                <button class="actionButton" type="button">
+                  <span class="actionLabelWrap">
+                    <img
+                      class="actionIcon actionIconGrow"
+                      src="./public/si-assets/cta-grow3dge.svg"
+                      alt=""
+                    />
+                    <span>Explore Grow3dge</span>
+                  </span>
+                  <img class="arrowIcon" src="./public/si-assets/cta-arrow.svg" alt="" aria-hidden="true" />
+                </button>
+                <button class="actionButton" type="button">
+                  <span class="actionLabelWrap">
+                    <img
+                      class="actionIcon actionIconWellbeing"
+                      src="./public/si-assets/cta-wellbeing.svg"
+                      alt=""
+                    />
+                    <span>Explore Well-Being</span>
+                  </span>
+                  <img class="arrowIcon" src="./public/si-assets/cta-arrow.svg" alt="" aria-hidden="true" />
+                </button>
+              </div>
+            </div>
+          </article>
+        </div>
+        </div>
+      </section>
+
+      <div class="partner-preview-band">
+        <section class="partnerSection" aria-labelledby="partners-title">
+          <header class="partnerHeader">
+            <div class="titleWrap">
+              <img class="sectionMark" src="./public/si-assets/partner-mark.svg" alt="" />
+              <h2 id="partners-title">PARTNERS</h2>
+            </div>
+            <p>
+              PROGRAM &amp; PRODUCT
+              <br />
+              PARTNERS WE SUPPORT
+            </p>
+          </header>
+
+          <div class="logoGrid">
+            <button class="logoTile" type="button" aria-label="Stellar">
+              <span class="cornerTopLeft"></span><span class="cornerTopRight"></span><span class="cornerBottomLeft"></span><span class="cornerBottomRight"></span>
+              <img class="logoImage logoStellar" src="./public/si-assets/logo-stellar.svg" alt="Stellar" />
+            </button>
+            <button class="logoTile" type="button" aria-label="Unlock">
+              <span class="cornerTopLeft"></span><span class="cornerTopRight"></span><span class="cornerBottomLeft"></span><span class="cornerBottomRight"></span>
+              <img class="logoImage logoUnlock" src="./public/si-assets/logo-unlock.svg" alt="Unlock" />
+            </button>
+            <button class="logoTile" type="button" aria-label="Dune">
+              <span class="cornerTopLeft"></span><span class="cornerTopRight"></span><span class="cornerBottomLeft"></span><span class="cornerBottomRight"></span>
+              <img class="logoImage logoDune" src="./public/si-assets/logo-dune.svg" alt="Dune" />
+            </button>
+            <button class="logoTile" type="button" aria-label="RARI">
+              <span class="cornerTopLeft"></span><span class="cornerTopRight"></span><span class="cornerBottomLeft"></span><span class="cornerBottomRight"></span>
+              <img class="logoImage logoRari" src="./public/si-assets/logo-rari.svg" alt="RARI" />
+            </button>
+            <button class="logoTile" type="button" aria-label="ENS">
+              <span class="cornerTopLeft"></span><span class="cornerTopRight"></span><span class="cornerBottomLeft"></span><span class="cornerBottomRight"></span>
+              <img class="logoImage logoEns" src="./public/si-assets/logo-ens.svg" alt="ENS" />
+            </button>
+            <button class="logoTile" type="button" aria-label="Uniswap Foundation">
+              <span class="cornerTopLeft"></span><span class="cornerTopRight"></span><span class="cornerBottomLeft"></span><span class="cornerBottomRight"></span>
+              <img class="logoImage logoUniswap" src="./public/si-assets/logo-uniswap.png" alt="Uniswap Foundation" />
+            </button>
+            <button class="logoTile" type="button" aria-label="Hacken">
+              <span class="cornerTopLeft"></span><span class="cornerTopRight"></span><span class="cornerBottomLeft"></span><span class="cornerBottomRight"></span>
+              <img class="logoImage logoHacken" src="./public/si-assets/logo-hacken.png" alt="Hacken" />
+            </button>
+            <button class="logoTile" type="button" aria-label="Zerion">
+              <span class="cornerTopLeft"></span><span class="cornerTopRight"></span><span class="cornerBottomLeft"></span><span class="cornerBottomRight"></span>
+              <img class="logoImage logoZerion" src="./public/si-assets/logo-zerion.svg" alt="Zerion" />
+            </button>
+            <button class="logoTile" type="button" aria-label="Arbitrum">
+              <span class="cornerTopLeft"></span><span class="cornerTopRight"></span><span class="cornerBottomLeft"></span><span class="cornerBottomRight"></span>
+              <img class="logoImage logoArbitrum" src="./public/si-assets/logo-arbitrum.svg" alt="Arbitrum" />
+            </button>
+            <button class="logoTile" type="button" aria-label="MoonDAO">
+              <span class="cornerTopLeft"></span><span class="cornerTopRight"></span><span class="cornerBottomLeft"></span><span class="cornerBottomRight"></span>
+              <span class="logoMoonDao">
+                <img class="logoMoonDaoMark" src="./public/si-assets/logo-moondao-mark.png" alt="" />
+                <img class="logoMoonDaoWordmark" src="./public/si-assets/logo-moondao-wordmark.png" alt="MoonDAO" />
+              </span>
+            </button>
+            <button class="logoTile" type="button" aria-label="Starknet">
+              <span class="cornerTopLeft"></span><span class="cornerTopRight"></span><span class="cornerBottomLeft"></span><span class="cornerBottomRight"></span>
+              <img class="logoImage logoStarknet" src="./public/si-assets/logo-starknet.png" alt="Starknet" />
+            </button>
+            <button class="logoTile" type="button" aria-label="Stellar">
+              <span class="cornerTopLeft"></span><span class="cornerTopRight"></span><span class="cornerBottomLeft"></span><span class="cornerBottomRight"></span>
+              <img class="logoImage logoStellar" src="./public/si-assets/logo-stellar-repeat.svg" alt="Stellar" />
+            </button>
+            <button class="logoTile" type="button" aria-label="Unlock">
+              <span class="cornerTopLeft"></span><span class="cornerTopRight"></span><span class="cornerBottomLeft"></span><span class="cornerBottomRight"></span>
+              <img class="logoImage logoUnlock" src="./public/si-assets/logo-unlock.svg" alt="Unlock" />
+            </button>
+            <button class="logoTile" type="button" aria-label="Dune">
+              <span class="cornerTopLeft"></span><span class="cornerTopRight"></span><span class="cornerBottomLeft"></span><span class="cornerBottomRight"></span>
+              <img class="logoImage logoDune" src="./public/si-assets/logo-dune.svg" alt="Dune" />
+            </button>
+          </div>
+        </section>
+      </div>
+
+      <div class="inters3ction-preview-band">
+        <section class="inters3ction-preview" aria-labelledby="inters3ction-preview-title">
+          <header class="inters3ction-header">
+            <h2 class="inters3ction-title" id="inters3ction-preview-title">
+              <span>INTERS3CTION SERIES</span>
+              <span>Where Worlds Meet</span>
+            </h2>
+            <div class="inters3ction-copy">
+              <div class="inters3ction-eyebrow">
+                <span>IRL Event Series</span>
+                <img src="./public/si-assets/partner-mark.svg" alt="" />
+              </div>
+              <p>A series of gatherings where Web3, AI &amp; Mobile converge.</p>
+            </div>
+          </header>
+
+          <article class="inters3ction-card">
+            <span class="inters3ction-vline left" aria-hidden="true"></span>
+            <span class="inters3ction-vline middle" aria-hidden="true"></span>
+            <span class="inters3ction-vline right" aria-hidden="true"></span>
+            <span class="inters3ction-corner one" aria-hidden="true"></span>
+            <span class="inters3ction-corner two" aria-hidden="true"></span>
+            <span class="inters3ction-corner three" aria-hidden="true"></span>
+            <span class="inters3ction-corner four" aria-hidden="true"></span>
+            <span class="inters3ction-corner five" aria-hidden="true"></span>
+            <span class="inters3ction-corner six" aria-hidden="true"></span>
+
+            <div class="inters3ction-image">
+              <img src="./public/si-assets/inters3ction-event.jpg" alt="Inters3ction event gathering" />
+            </div>
+            <div class="inters3ction-content">
+              <div class="inters3ction-stats">
+                <div class="inters3ction-stat">
+                  <span>FOCUS</span>
+                  <span>Mobile meets Web3</span>
+                </div>
+                <div class="inters3ction-stat">
+                  <span>FORMAT</span>
+                  <span>4-hour side events</span>
+                </div>
+                <div class="inters3ction-stat">
+                  <span>FOR WHOM</span>
+                  <span>Mobile adoption leaders</span>
+                </div>
+              </div>
+              <div class="inters3ction-divider" aria-hidden="true"></div>
+              <h3>Inters3ction Series</h3>
+              <p>A global side event series for the builders and marketers driving real-world mobile Web3 adoption.</p>
+              <div class="inters3ction-tags">
+                <span>NFT NYC</span>
+                <span>AI SUMMIT SF</span>
+                <span>SOLANA BREAKPOINT LONDON</span>
+              </div>
+            </div>
+            <a class="inters3ction-arrow" href="#" aria-label="Open Inters3ction Series">
+              <img src="./public/si-assets/cta-arrow.svg" alt="" />
+            </a>
+          </article>
+        </section>
+      </div>
+
+      <div class="si-u-preview-band">
+        <section class="si-u-preview" aria-labelledby="si-u-social-learning-preview-title">
+          <div class="si-u-copy">
+            <div class="si-u-text">
+              <div class="si-u-title-wrap">
+                <img src="./public/si-assets/si-section-mark.svg" alt="" />
+                <h2 class="si-u-title" id="si-u-social-learning-preview-title">
+                  A Social <span>Learning Network</span> For The New Economy
+                </h2>
+              </div>
+              <p>
+                An on-chain social network accelerating learning and professional connections in the emerging tech
+                industry.
+              </p>
+            </div>
+            <a class="si-u-cta" href="#">
+              <span>
+                Join SI U
+                <img src="./public/si-assets/si-inline-arrow.svg" alt="" />
+              </span>
+              <span class="si-u-cta-line" aria-hidden="true"></span>
+            </a>
+          </div>
+          <div class="si-u-feed-shell">
+            <div class="si-u-feed">
+              <img src="./public/si-assets/si-u-feed.png" alt="SI U social learning feed interface" />
+            </div>
+          </div>
+        </section>
+      </div>
+
+      <div class="growth-ticker-preview-band">
+        <section class="growth-ticker-preview" aria-label="SI growth themes">
+          <div class="growth-ticker-track">
+            <p>COLLABORATIVE GROWTH</p>
+            <img src="./public/si-assets/ticker-collaborative-growth.png" alt="" />
+            <p>ON-CHAIN LEARNING</p>
+            <img src="./public/si-assets/ticker-onchain-learning.png" alt="" />
+            <p>ECOSYSTEM PARTNERSHIPS</p>
+          </div>
+        </section>
+      </div>
+
+      <div class="products-preview-band">
+        <section class="products-preview" aria-labelledby="products-preview-title">
+          <header class="products-header">
+            <div class="products-title-wrap">
+              <img src="./public/si-assets/partner-mark.svg" alt="" />
+              <h2 class="products-title" id="products-preview-title">
+                <span>REAL-WORLD</span> AI &amp; WEB3
+                <br />
+                APPLICATIONS
+              </h2>
+            </div>
+            <div class="products-copy">
+              <p>Tools that support professional on-chain learning and growth, connection, and growth.</p>
+              <a class="product-link" href="#">
+                <span>
+                  Explore Products
+                  <img src="./public/si-assets/si-inline-arrow.svg" alt="" />
+                </span>
+                <span class="product-link-line" aria-hidden="true"></span>
+              </a>
+            </div>
+          </header>
+
+          <div class="products-body">
+            <div class="products-tabs" aria-label="Product categories">
+              <button class="product-tab" type="button" aria-pressed="true">
+                <span class="product-corner top-left"></span>
+                <span class="product-corner top-right"></span>
+                <span class="product-corner bottom-left"></span>
+                <span class="product-corner bottom-right"></span>
+                WEB3 IDENTITY
+              </button>
+              <button class="product-tab is-muted" type="button" aria-pressed="false">
+                <span class="product-corner top-left"></span>
+                <span class="product-corner top-right"></span>
+                <span class="product-corner bottom-left"></span>
+                <span class="product-corner bottom-right"></span>
+                AI AGENT
+              </button>
+              <button class="product-tab is-muted" type="button" aria-pressed="false">
+                <span class="product-corner top-left"></span>
+                <span class="product-corner top-right"></span>
+                <span class="product-corner bottom-left"></span>
+                <span class="product-corner bottom-right"></span>
+                CERTIFICATIONS
+              </button>
+            </div>
+
+            <div class="products-list">
+              <article class="product-row">
+                <div class="product-visual product-browser">
+                  <div class="product-browser-top">
+                    <span class="product-browser-dots" aria-hidden="true"></span>
+                    <span class="product-browser-address" aria-hidden="true"></span>
+                    <span class="product-browser-url">siher.eth</span>
+                  </div>
+                  <div class="product-browser-body">
+                    <img src="./public/si-assets/products-siher-publisher.png" alt="Si Her publisher website interface" />
+                    <span class="product-browser-fade" aria-hidden="true"></span>
+                  </div>
+                </div>
+                <div class="product-info">
+                  <div class="product-tags"><span class="product-tag">Si Her</span></div>
+                  <div>
+                    <h3>SIHER.ETH</h3>
+                    <p>Personal brand publisher designed for our Si Her DAO members to showcase their Web3 identities.</p>
+                  </div>
+                  <a class="product-link" href="#">
+                    <span>
+                      Explore Si Her Publisher
+                      <img src="./public/si-assets/si-inline-arrow.svg" alt="" />
+                    </span>
+                    <span class="product-link-line" aria-hidden="true"></span>
+                  </a>
+                </div>
+              </article>
+
+              <article class="product-row">
+                <div class="product-visual product-kaia">
+                  <img src="./public/si-assets/products-kaia-agent.png" alt="KAIA AI agent portrait" />
+                </div>
+                <div class="product-info">
+                  <div class="product-tags">
+                    <span class="product-tag">Si Her</span>
+                    <span class="product-tag">Grow3dge</span>
+                  </div>
+                  <div>
+                    <h3>KAIA AI AGENT</h3>
+                    <p>Match-making &amp; knowledge-sharing agent powering accelerated ecosystem connectivity and learning.</p>
+                  </div>
+                  <a class="product-link" href="#">
+                    <span>
+                      Explore KAIA
+                      <img src="./public/si-assets/si-inline-arrow.svg" alt="" />
+                    </span>
+                    <span class="product-link-line" aria-hidden="true"></span>
+                  </a>
+                </div>
+              </article>
+
+              <article class="product-row">
+                <div class="product-visual product-certificate">
+                  <div class="certificate-form">
+                    <h3>Claim Your Onchain Certificate</h3>
+                    <div class="certificate-wallet"><span>&#10003;</span> Wallet Connected</div>
+                    <div class="certificate-handle">
+                      <p>Enter or select a display handle</p>
+                      <div class="certificate-handle-line" aria-hidden="true"></div>
+                      <p>@stellarocks</p>
+                    </div>
+                    <div class="certificate-details">
+                      <p>Certificate Details</p>
+                      <p>Marketing Foundations</p>
+                      <p>30 June, 2026</p>
+                      <p>Stella Rocks</p>
+                      <p>Grow3dge Builder Incubator</p>
+                    </div>
+                    <div class="certificate-confirm"><span>&#10003;</span> I confirm this wallet for minting my certificate</div>
+                    <button class="certificate-button" type="button">Mint My Certificate</button>
+                  </div>
+                </div>
+                <div class="product-info">
+                  <div class="product-tags">
+                    <span class="product-tag">Grow3dge</span>
+                    <span class="product-tag">Well-Being</span>
+                  </div>
+                  <div>
+                    <h3>SI U CERTIFICATIONS</h3>
+                    <p>On-chain certifications for our incubator and cybersecurity programs</p>
+                  </div>
+                  <a class="product-link" href="#">
+                    <span>
+                      Explore Certifications
+                      <img src="./public/si-assets/si-inline-arrow.svg" alt="" />
+                    </span>
+                    <span class="product-link-line" aria-hidden="true"></span>
+                  </a>
+                </div>
+              </article>
+            </div>
+          </div>
+        </section>
+      </div>
+      </div>
+    </main>
+    <script>
+      (() => {
+        const section = document.querySelector(".crystal-content-stage");
+        const crystal = document.querySelector("[data-sticky-crystal]");
+
+        if (!section || !crystal || window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+          crystal?.style.setProperty("--sticky-crystal-scale", "1");
+          crystal?.style.setProperty("--sticky-crystal-y", "0px");
+          crystal?.style.setProperty("--sticky-crystal-opacity", "1");
+          return;
+        }
+
+        let frame = 0;
+
+        const updateCrystal = () => {
+          const rect = section.getBoundingClientRect();
+          const viewportHeight = window.innerHeight || 1;
+          const rawProgress = Math.min(Math.max((viewportHeight * 0.84 - rect.top) / (viewportHeight * 0.34), 0), 1);
+          const easedProgress = 1 - Math.pow(1 - rawProgress, 3);
+
+          crystal.style.setProperty("--sticky-crystal-scale", String(0.42 + easedProgress * 0.58));
+          crystal.style.setProperty("--sticky-crystal-y", `${(1 - easedProgress) * 190}px`);
+          crystal.style.setProperty("--sticky-crystal-opacity", String(0.18 + easedProgress * 0.82));
+        };
+
+        const requestUpdate = () => {
+          cancelAnimationFrame(frame);
+          frame = requestAnimationFrame(updateCrystal);
+        };
+
+        updateCrystal();
+        window.addEventListener("scroll", requestUpdate, { passive: true });
+        window.addEventListener("resize", requestUpdate);
+      })();
+
+      (() => {
+        const accordion = document.querySelector("[data-hero-accordion]");
+        if (!accordion) return;
+
+        const cards = Array.from(accordion.querySelectorAll("[data-hero-card]"));
+        cards.forEach((card) => {
+          const trigger = card.querySelector(".hero-card-trigger");
+          trigger?.addEventListener("click", () => {
+            const shouldOpen = !card.classList.contains("is-open");
+            cards.forEach((item) => {
+              item.classList.remove("is-open");
+              item.querySelector(".hero-card-trigger")?.setAttribute("aria-expanded", "false");
+            });
+
+            if (shouldOpen) {
+              card.classList.add("is-open");
+              trigger.setAttribute("aria-expanded", "true");
+            }
+          });
+        });
+      })();
+
+      (() => {
+        const section = document.querySelector(".si-u-preview-band");
+        const image = document.querySelector(".si-u-feed");
+
+        if (!section || !image || window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+          image?.style.setProperty("--si-u-feed-scale", "1");
+          image?.style.setProperty("--si-u-feed-y", "0px");
+          return;
+        }
+
+        let frame = 0;
+        image.style.setProperty("--si-u-feed-scale", "1");
+        image.style.setProperty("--si-u-feed-y", "0px");
+
+        const updateScale = () => {
+          const rect = section.getBoundingClientRect();
+          const viewportHeight = window.innerHeight || 1;
+          const scrollRange = Math.max(rect.height - viewportHeight * 0.45, 1);
+          const rawProgress = Math.min(Math.max((viewportHeight * 0.72 - rect.top) / scrollRange, 0), 1);
+          const progress = Math.min(Math.max((rawProgress - 0.14) / 0.86, 0), 1);
+          const easedProgress = 1 - Math.pow(1 - progress, 3);
+
+          image.style.setProperty("--si-u-feed-scale", String(1 + easedProgress * 1.16));
+          image.style.setProperty("--si-u-feed-y", `${easedProgress * 286}px`);
+        };
+
+        const requestUpdate = () => {
+          cancelAnimationFrame(frame);
+          frame = requestAnimationFrame(updateScale);
+        };
+
+        updateScale();
+        window.addEventListener("scroll", requestUpdate, { passive: true });
+        window.addEventListener("resize", requestUpdate);
+      })();
+    </script>
+  </body>
+</html>
