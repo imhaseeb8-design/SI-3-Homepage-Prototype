@@ -1,0 +1,354 @@
+/* Reconstructed from tailwind-handoff/SiAudienceCardsTailwind.tsx.
+   All rules scoped to .root[aria-label="SI audience paths"] so generic
+   class names (.card, .grid, .column, etc.) do not leak elsewhere. */
+
+.root[aria-label="SI audience paths"] {
+  width: 100%;
+  background: transparent;
+  color: #fff;
+  padding: 40px 16px;
+  box-sizing: border-box;
+}
+
+@media (min-width: 640px) {
+  .root[aria-label="SI audience paths"] { padding-left: 24px; padding-right: 24px; }
+}
+
+@media (min-width: 1024px) {
+  .root[aria-label="SI audience paths"] { padding: 53px 60px 20px; }
+}
+
+.root[aria-label="SI audience paths"] .pathwaysIntro {
+  max-width: 1255px;
+  margin: 0 auto 38px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 24px;
+}
+
+@media (min-width: 820px) {
+  .root[aria-label="SI audience paths"] .pathwaysIntro {
+    flex-direction: row;
+    align-items: flex-end;
+  }
+}
+
+.root[aria-label="SI audience paths"] .pathwaysIntro h2 {
+  margin: 0;
+  white-space: nowrap;
+  font-family: "Clesmont", "Geist", Arial, sans-serif;
+  font-size: 32px;
+  font-weight: 700;
+  line-height: 1.2;
+  text-transform: uppercase;
+  color: #fff;
+}
+
+.root[aria-label="SI audience paths"] .pathwaysCopy {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 12px;
+  width: 100%;
+  max-width: 364px;
+}
+
+@media (min-width: 820px) {
+  .root[aria-label="SI audience paths"] .pathwaysCopy { align-items: flex-end; }
+}
+
+.root[aria-label="SI audience paths"] .pathwaysEyebrow {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.root[aria-label="SI audience paths"] .pathwaysEyebrow span {
+  white-space: nowrap;
+  text-align: right;
+  font-family: var(--font-geist-mono), "Geist Mono", ui-monospace, monospace;
+  font-size: 14px;
+  line-height: 1;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.root[aria-label="SI audience paths"] .pathwaysEyebrow img {
+  width: 13px;
+  height: 15px;
+  object-fit: contain;
+}
+
+.root[aria-label="SI audience paths"] .pathwaysCopy p {
+  margin: 0;
+  font-family: var(--font-geist), "Geist", Arial, sans-serif;
+  font-size: 18px;
+  line-height: 1.4;
+  color: #cbcbcb;
+}
+
+@media (min-width: 820px) {
+  .root[aria-label="SI audience paths"] .pathwaysCopy p { text-align: right; }
+}
+
+.root[aria-label="SI audience paths"] .grid {
+  max-width: 1255px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 17px;
+  justify-content: center;
+}
+
+@media (min-width: 981px) {
+  .root[aria-label="SI audience paths"] .grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+.root[aria-label="SI audience paths"] .column {
+  display: grid;
+  grid-template-rows: 28px auto;
+  gap: 24px;
+  min-width: 0;
+}
+
+@media (min-width: 981px) {
+  .root[aria-label="SI audience paths"] .column { gap: 40px; }
+}
+
+.root[aria-label="SI audience paths"] .sectionHeader {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+}
+
+.root[aria-label="SI audience paths"] .sectionTitle {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+.root[aria-label="SI audience paths"] .sectionNumber {
+  display: grid;
+  place-items: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 4px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  font-family: var(--font-geist-mono), "Geist Mono", ui-monospace, monospace;
+  font-size: 14px;
+  line-height: 1;
+  color: #fff;
+}
+
+.root[aria-label="SI audience paths"] .sectionLabel {
+  font-family: var(--font-geist-mono), "Geist Mono", ui-monospace, monospace;
+  font-size: 14px;
+  line-height: 1;
+  letter-spacing: 0.56px;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.root[aria-label="SI audience paths"] .sectionLine {
+  height: 1px;
+  min-width: 40px;
+  flex: 1;
+  background: rgba(255, 255, 255, 0.25);
+}
+
+.root[aria-label="SI audience paths"] .card {
+  display: flex;
+  flex-direction: column;
+  min-height: 499px;
+  border-radius: 6px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  background: rgba(0, 0, 0, 0.2);
+  padding: 14px 18px 18px;
+  color: #fff;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  box-sizing: border-box;
+}
+
+.root[aria-label="SI audience paths"] .cardHeader {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+
+.root[aria-label="SI audience paths"] .cardHeaderMain {
+  display: flex;
+  flex: 1;
+  min-width: 0;
+  align-items: flex-end;
+  justify-content: space-between;
+}
+
+.root[aria-label="SI audience paths"] .dragDots {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  column-gap: 3px;
+  row-gap: 5px;
+  width: 13px;
+  height: 15px;
+}
+
+.root[aria-label="SI audience paths"] .dragDots > span {
+  width: 5px;
+  height: 5px;
+  border-radius: 9999px;
+  background: #8e8a95;
+}
+
+.root[aria-label="SI audience paths"] .cardNumber {
+  white-space: nowrap;
+  font-family: var(--font-geist-mono), "Geist Mono", ui-monospace, monospace;
+  font-size: 14px;
+  line-height: 1;
+  color: rgba(109, 109, 110, 0.7);
+}
+
+.root[aria-label="SI audience paths"] .minimizeButton {
+  display: flex;
+  align-items: center;
+  width: 28px;
+  height: 36px;
+  border-radius: 4px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: rgba(255, 255, 255, 0.05);
+  padding: 13px 7px;
+  cursor: pointer;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+.root[aria-label="SI audience paths"] .minimizeButton > span {
+  display: block;
+  width: 14px;
+  height: 2px;
+  border-radius: 10px;
+  background: #fff;
+}
+
+.root[aria-label="SI audience paths"] .cardDivider {
+  margin-top: 16px;
+  width: 100%;
+  height: 1px;
+  background: rgba(255, 255, 255, 0.15);
+}
+
+.root[aria-label="SI audience paths"] .cardBody {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 32px;
+  padding-top: 28px;
+}
+
+.root[aria-label="SI audience paths"] .copyBlock {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 25px;
+}
+
+.root[aria-label="SI audience paths"] .cardIcon {
+  display: block;
+  object-fit: contain;
+}
+
+.root[aria-label="SI audience paths"] .iconExplorer { width: 58px; height: 55px; }
+.root[aria-label="SI audience paths"] .iconGuide    { width: 58px; height: 52px; }
+.root[aria-label="SI audience paths"] .iconPartner  { width: 44px; height: 52px; }
+
+.root[aria-label="SI audience paths"] .textBlock {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  width: 100%;
+}
+
+.root[aria-label="SI audience paths"] .textBlock h3 {
+  margin: 0;
+  font-family: "Clesmont", "Geist", Arial, sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 1.2;
+  text-transform: uppercase;
+  color: #fff;
+}
+
+.root[aria-label="SI audience paths"] .textBlock p {
+  margin: 0;
+  max-width: 360px;
+  font-family: var(--font-geist), "Geist", Arial, sans-serif;
+  font-size: 17px;
+  line-height: 1.4;
+  color: #a6a6a6;
+}
+
+.root[aria-label="SI audience paths"] .actions {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.root[aria-label="SI audience paths"] .actionButton {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  min-height: 52px;
+  border-radius: 4px;
+  border: 1px solid #5e5e5e;
+  background: rgba(0, 0, 0, 0.2);
+  padding: 16px 22px;
+  text-align: left;
+  font-family: var(--font-geist), "Geist", Arial, sans-serif;
+  font-size: 16px;
+  line-height: 1;
+  color: #fff;
+  cursor: pointer;
+  transition: background 0.15s ease;
+  box-sizing: border-box;
+}
+
+.root[aria-label="SI audience paths"] .actionButton:hover,
+.root[aria-label="SI audience paths"] .actionButton:focus-visible {
+  background: rgba(41, 41, 41, 0.2);
+  outline: none;
+}
+
+.root[aria-label="SI audience paths"] .actionLabelWrap {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+}
+
+.root[aria-label="SI audience paths"] .actionLabelWrap img {
+  display: block;
+  flex-shrink: 0;
+  object-fit: contain;
+}
+
+.root[aria-label="SI audience paths"] .actionIcon         { display: block; flex-shrink: 0; object-fit: contain; }
+.root[aria-label="SI audience paths"] .actionIconGuide     { width: 18px; height: 19px; }
+.root[aria-label="SI audience paths"] .actionIconGrow      { width: 22px; height: 15px; }
+.root[aria-label="SI audience paths"] .actionIconWellbeing { width: 13px; height: 16px; }
+
+.root[aria-label="SI audience paths"] .arrowIcon {
+  display: block;
+  width: 15.578px;
+  height: 15.578px;
+  flex-shrink: 0;
+  object-fit: contain;
+}
