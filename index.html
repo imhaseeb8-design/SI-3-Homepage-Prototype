@@ -7,7 +7,12 @@
     <link rel="stylesheet" href="./components/SiAudienceCards.module.css" />
     <link rel="stylesheet" href="./components/PartnerSection.module.css" />
     <style>
-      @import url("https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap");
+      @import url("https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Geist:wght@100..900&family=Geist+Mono:wght@100..900&display=swap");
+
+      :root {
+        --font-geist: "Geist";
+        --font-geist-mono: "Geist Mono";
+      }
 
       * {
         box-sizing: border-box;
@@ -18,6 +23,8 @@
         min-height: 100%;
         margin: 0;
         background: #08040f;
+        font-family: "Geist", system-ui, -apple-system, "Helvetica Neue", Arial, sans-serif;
+        color: #fff;
       }
 
       body {
@@ -487,6 +494,8 @@
       .crystal-content-stage .si-u-preview-band,
       .crystal-content-stage .growth-ticker-preview-band,
       .crystal-content-stage .products-preview-band,
+      .crystal-content-stage .applications-ticker-band,
+      .crystal-content-stage .faq-preview-band,
       .crystal-content-stage .root,
       .crystal-content-stage .partnerSection {
         background: transparent;
@@ -1619,6 +1628,207 @@
           white-space: normal;
         }
       }
+
+      /* ---------- Applications ticker (after products) ---------- */
+      .applications-ticker-band {
+        order: 7;
+        width: 100%;
+        overflow: hidden;
+        padding: 16px 0;
+      }
+      .applications-ticker-track {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+        width: max-content;
+        color: #fff;
+        animation: applications-ticker-marquee 38s linear infinite;
+        will-change: transform;
+      }
+      .applications-ticker-track p {
+        flex: 0 0 auto;
+        margin: 0;
+        font-family: "Bebas Neue", Clesmont, "Clesmont Demo", Geist, Arial, sans-serif;
+        font-size: 84px;
+        font-weight: 400;
+        line-height: 1;
+        text-transform: uppercase;
+        white-space: nowrap;
+      }
+      .applications-ticker-track img {
+        display: block;
+        width: 88px;
+        height: 116px;
+        flex: 0 0 auto;
+        object-fit: cover;
+        border-radius: 2px;
+      }
+      @keyframes applications-ticker-marquee {
+        from { transform: translateX(0); }
+        to   { transform: translateX(-50%); }
+      }
+      @media (prefers-reduced-motion: reduce) {
+        .applications-ticker-track {
+          animation: none;
+          transform: translateX(-232px);
+        }
+      }
+
+      /* ---------- FAQ section ---------- */
+      .faq-preview-band {
+        order: 8;
+        width: 100%;
+        padding: 48px 60px;
+      }
+      .faq-preview {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 48px;
+        max-width: 1269px;
+        margin: 0 auto;
+        color: #fff;
+      }
+      @media (min-width: 981px) {
+        .faq-preview {
+          grid-template-columns: 430px 1fr;
+          gap: 206px;
+        }
+      }
+      .faq-intro {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 14px;
+        width: 100%;
+        max-width: 430px;
+      }
+      .faq-intro-title {
+        display: flex;
+        align-items: center;
+        gap: 13px;
+      }
+      .faq-intro-title img {
+        display: block;
+        width: 13px;
+        height: 15px;
+        flex-shrink: 0;
+        object-fit: contain;
+      }
+      .faq-intro-title h2 {
+        margin: 0;
+        font-family: "Clesmont", "Clesmont Demo", "Geist", Arial, sans-serif;
+        font-size: 32px;
+        font-weight: 700;
+        line-height: 1;
+        text-transform: uppercase;
+        color: #fff;
+      }
+      .faq-intro p {
+        margin: 0;
+        font-family: "Geist", system-ui, -apple-system, "Helvetica Neue", Arial, sans-serif;
+        font-size: 18px;
+        font-weight: 400;
+        line-height: 1.4;
+        color: #fff;
+      }
+
+      .faq-list {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        width: 100%;
+      }
+      .faq-item {
+        position: relative;
+        width: 100%;
+        margin: 0;
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        border-radius: 6px;
+        background: rgba(0, 0, 0, 0.2);
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+        padding: 0;
+        overflow: hidden;
+      }
+      .faq-item > summary {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 16px;
+        padding: 20px 26px 19px;
+        cursor: pointer;
+        list-style: none;
+        outline: none;
+      }
+      .faq-item > summary::-webkit-details-marker { display: none; }
+      .faq-item > summary::marker { content: ""; }
+      .faq-question {
+        margin: 0;
+        font-family: "Geist", system-ui, -apple-system, "Helvetica Neue", Arial, sans-serif;
+        font-size: 20px;
+        font-weight: 500;
+        line-height: 1.4;
+        color: #fff;
+        flex: 1 1 auto;
+      }
+      .faq-toggle {
+        position: relative;
+        width: 28px;
+        height: 28px;
+        flex-shrink: 0;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        border-radius: 4px;
+        background: rgba(255, 255, 255, 0.05);
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+      }
+      .faq-toggle::before,
+      .faq-toggle::after {
+        content: "";
+        position: absolute;
+        background: #fff;
+        border-radius: 10px;
+        top: 50%;
+        left: 50%;
+      }
+      .faq-toggle::before {
+        width: 14px;
+        height: 2px;
+        transform: translate(-50%, -50%);
+      }
+      .faq-toggle::after {
+        width: 2px;
+        height: 14px;
+        transform: translate(-50%, -50%);
+        transition: opacity 0.15s ease;
+      }
+      .faq-item[open] .faq-toggle::after { opacity: 0; }
+      .faq-answer-wrap {
+        padding: 0 26px 27px;
+      }
+      .faq-answer-wrap hr {
+        margin: 0 0 16px;
+        border: 0;
+        border-top: 1px solid rgba(255, 255, 255, 0.15);
+      }
+      .faq-answer {
+        margin: 0;
+        font-family: "Geist", system-ui, -apple-system, "Helvetica Neue", Arial, sans-serif;
+        font-size: 16px;
+        font-weight: 400;
+        line-height: 1.5;
+        color: rgba(255, 255, 255, 0.88);
+      }
+
+      @media (max-width: 720px) {
+        .faq-preview-band { padding: 32px 24px; }
+        .faq-intro-title h2 { font-size: 26px; }
+        .faq-question { font-size: 17px; }
+        .faq-item > summary { padding: 16px 20px 15px; }
+        .faq-answer-wrap { padding: 0 20px 20px; }
+        .applications-ticker-track p { font-size: 56px; }
+        .applications-ticker-track img { width: 60px; height: 80px; }
+      }
     </style>
   </head>
   <body>
@@ -2249,6 +2459,83 @@
                 </div>
               </article>
             </div>
+          </div>
+        </section>
+      </div>
+
+      <div class="applications-ticker-band">
+        <section class="applications-ticker" aria-label="SI applications themes">
+          <div class="applications-ticker-track">
+            <p>WEB2 + WEB3 MOBILE</p>
+            <img src="./si-assets/ticker-web3-mobile-head.png" alt="" />
+            <p>WEB3 COMMUNITIES</p>
+            <img src="./si-assets/ticker-emerging-tech-window.png" alt="" />
+            <p>EMERGING TECH ECOSYSTEMS</p>
+            <img src="./si-assets/ticker-web3-mobile-head.png" alt="" aria-hidden="true" />
+            <p aria-hidden="true">WEB2 + WEB3 MOBILE</p>
+            <img src="./si-assets/ticker-emerging-tech-window.png" alt="" aria-hidden="true" />
+            <p aria-hidden="true">WEB3 COMMUNITIES</p>
+            <img src="./si-assets/ticker-web3-mobile-head.png" alt="" aria-hidden="true" />
+            <p aria-hidden="true">EMERGING TECH ECOSYSTEMS</p>
+            <img src="./si-assets/ticker-emerging-tech-window.png" alt="" aria-hidden="true" />
+          </div>
+        </section>
+      </div>
+
+      <div class="faq-preview-band">
+        <section class="faq-preview" aria-labelledby="faq-title">
+          <header class="faq-intro">
+            <div class="faq-intro-title">
+              <img src="./si-assets/faq-mark.svg" alt="" />
+              <h2 id="faq-title">SI&lt;3&gt; FAQ</h2>
+            </div>
+            <p>Quick answers to common questions about SI&lt;3&gt;, our programs, and how to join our ecosystem.</p>
+          </header>
+
+          <div class="faq-list">
+            <details class="faq-item" open>
+              <summary>
+                <span class="faq-question">What is SI&lt;3&gt;</span>
+                <span class="faq-toggle" aria-hidden="true"></span>
+              </summary>
+              <div class="faq-answer-wrap">
+                <hr />
+                <p class="faq-answer">SI&lt;3&gt; is a global ecosystem designed to support learning, collaboration, and real participation. It brings together programs, tools, and communities that help individuals and teams grow, contribute, and build meaningful impact through shared knowledge and experiences.</p>
+              </div>
+            </details>
+
+            <details class="faq-item">
+              <summary>
+                <span class="faq-question">How does SI&lt;3&gt; drive real-world adoption?</span>
+                <span class="faq-toggle" aria-hidden="true"></span>
+              </summary>
+              <div class="faq-answer-wrap">
+                <hr />
+                <p class="faq-answer">SI&lt;3&gt; drives adoption through partner programs, IRL event series, and on-chain learning paths that move people from curiosity to active contribution across Web3, AI, and emerging tech.</p>
+              </div>
+            </details>
+
+            <details class="faq-item">
+              <summary>
+                <span class="faq-question">Who can join SI&lt;3&gt;'s ecosystem?</span>
+                <span class="faq-toggle" aria-hidden="true"></span>
+              </summary>
+              <div class="faq-answer-wrap">
+                <hr />
+                <p class="faq-answer">Web3 explorers, established Web3 builders and Si Her members, and partner organizations looking for collaborative growth, education, and peer-to-peer learning.</p>
+              </div>
+            </details>
+
+            <details class="faq-item">
+              <summary>
+                <span class="faq-question">How do I join into SI&lt;3&gt;?</span>
+                <span class="faq-toggle" aria-hidden="true"></span>
+              </summary>
+              <div class="faq-answer-wrap">
+                <hr />
+                <p class="faq-answer">Start by joining the SI U waitlist or exploring a pathway that fits you — Explorer, Guide, or Partner. Each path opens onboarding into the relevant communities, programs, and on-chain credentials.</p>
+              </div>
+            </details>
           </div>
         </section>
       </div>
