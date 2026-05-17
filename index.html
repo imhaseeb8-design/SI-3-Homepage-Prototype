@@ -496,6 +496,7 @@
       .crystal-content-stage .products-preview-band,
       .crystal-content-stage .applications-ticker-band,
       .crystal-content-stage .faq-preview-band,
+      .crystal-content-stage .cta-preview-band,
       .crystal-content-stage .root,
       .crystal-content-stage .partnerSection {
         background: transparent;
@@ -1824,6 +1825,141 @@
         .applications-ticker-track p { font-size: 56px; }
         .applications-ticker-track img { width: 60px; height: 80px; }
       }
+
+      /* ---------- Final CTA section ("Reach your potential with SI<3>") ---------- */
+      .cta-preview-band {
+        order: 9;
+        position: relative;
+        width: 100%;
+        padding: 96px 60px 120px;
+        overflow: hidden;
+      }
+      .cta-preview {
+        position: relative;
+        max-width: 1440px;
+        margin: 0 auto;
+        min-height: 920px;
+      }
+      .cta-text {
+        position: relative;
+        z-index: 2;
+        width: 100%;
+        max-width: 830px;
+        margin: 220px auto 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 34px;
+        text-align: center;
+        color: #fff;
+      }
+      .cta-title {
+        margin: 0;
+        font-family: "Clesmont", "Clesmont Demo", "Geist", Arial, sans-serif;
+        font-size: 84px;
+        font-weight: 700;
+        line-height: 1;
+        text-transform: uppercase;
+        letter-spacing: 0;
+        color: #fff;
+        word-break: break-word;
+      }
+      .cta-title .cta-accent { color: #bba9ff; }
+      .cta-subtitle {
+        margin: 0;
+        font-family: "Geist", system-ui, -apple-system, "Helvetica Neue", Arial, sans-serif;
+        font-size: 17px;
+        font-weight: 400;
+        line-height: 1.4;
+        color: #fff;
+      }
+      .cta-action {
+        display: inline-flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
+        text-decoration: none;
+        color: #fff;
+      }
+      .cta-action-link {
+        display: inline-flex;
+        align-items: center;
+        gap: 14px;
+        font-family: "Geist", system-ui, -apple-system, "Helvetica Neue", Arial, sans-serif;
+        font-size: 16px;
+        font-weight: 500;
+        line-height: 1;
+        color: #fff;
+      }
+      .cta-action-link img {
+        display: block;
+        width: 9px;
+        height: 9px;
+        object-fit: contain;
+        filter: brightness(0) invert(1);
+      }
+      .cta-action-line {
+        display: block;
+        width: 44px;
+        height: 1px;
+        background: rgba(255, 255, 255, 0.7);
+      }
+
+      .cta-floating {
+        position: absolute;
+        z-index: 1;
+        pointer-events: none;
+        display: block;
+        object-fit: cover;
+        will-change: transform;
+        filter: drop-shadow(0 30px 60px rgba(0, 0, 0, 0.45));
+      }
+      .cta-img-1 { /* VR portrait — top-left */
+        left: 11.4%;
+        top: 0;
+        width: 171px;
+        height: 227px;
+      }
+      .cta-img-2 { /* Saturn alien — right side */
+        right: 6.5%;
+        top: 230px;
+        width: 276px;
+        height: 276px;
+      }
+      .cta-img-3 { /* Sunflowers portal — bottom-left */
+        left: 13.5%;
+        top: 460px;
+        width: 220px;
+        height: 293px;
+      }
+      .cta-img-4 { /* Sunset profile — bottom-center */
+        left: 46.8%;
+        top: 588px;
+        width: 92px;
+        height: 115px;
+      }
+
+      @media (max-width: 1100px) {
+        .cta-title { font-size: 64px; }
+        .cta-text { margin-top: 160px; }
+        .cta-preview { min-height: 820px; }
+        .cta-img-1 { width: 130px; height: 173px; left: 4%; }
+        .cta-img-2 { width: 210px; height: 210px; right: 3%; top: 200px; }
+        .cta-img-3 { width: 170px; height: 226px; left: 5%; top: 430px; }
+        .cta-img-4 { width: 76px; height: 95px; top: 560px; }
+      }
+
+      @media (max-width: 720px) {
+        .cta-preview-band { padding: 64px 24px 80px; }
+        .cta-title { font-size: 44px; }
+        .cta-subtitle { font-size: 15px; }
+        .cta-text { margin-top: 120px; max-width: none; gap: 24px; }
+        .cta-preview { min-height: 720px; }
+        .cta-img-1 { width: 96px; height: 128px; left: 4%; top: 0; }
+        .cta-img-2 { width: 140px; height: 140px; right: 4%; top: 100px; }
+        .cta-img-3 { width: 120px; height: 160px; left: 6%; top: 470px; }
+        .cta-img-4 { width: 60px; height: 75px; left: 60%; top: 580px; }
+      }
     </style>
   </head>
   <body>
@@ -2532,6 +2668,29 @@
           </div>
         </section>
       </div>
+
+      <div class="cta-preview-band" data-cta-parallax>
+        <section class="cta-preview" aria-labelledby="cta-final-title">
+          <img class="cta-floating cta-img-1" data-parallax-speed="0.20" src="./si-assets/cta-vr-portrait.png" alt="" aria-hidden="true" />
+          <img class="cta-floating cta-img-2" data-parallax-speed="-0.16" src="./si-assets/cta-saturn-alien.png" alt="" aria-hidden="true" />
+          <img class="cta-floating cta-img-3" data-parallax-speed="0.12" src="./si-assets/cta-sunflowers-portal.png" alt="" aria-hidden="true" />
+          <img class="cta-floating cta-img-4" data-parallax-speed="-0.08" src="./si-assets/cta-sunset-profile.png" alt="" aria-hidden="true" />
+
+          <div class="cta-text">
+            <h2 class="cta-title" id="cta-final-title">
+              REACH <span class="cta-accent">YOUR<br />POTENTIAL</span> WITH<br />SI&lt;3&gt;
+            </h2>
+            <p class="cta-subtitle">Powering the next wave of emerging tech adoption.</p>
+            <a class="cta-action" href="#">
+              <span class="cta-action-link">
+                <span>Let&rsquo;s get started</span>
+                <img src="./si-assets/cta-arrow-up-right.svg" alt="" aria-hidden="true" />
+              </span>
+              <span class="cta-action-line" aria-hidden="true"></span>
+            </a>
+          </div>
+        </section>
+      </div>
       </div>
     </main>
     <script>
@@ -2625,6 +2784,44 @@
         updateScale();
         window.addEventListener("scroll", requestUpdate, { passive: true });
         window.addEventListener("resize", requestUpdate);
+      })();
+
+      (() => {
+        const band = document.querySelector("[data-cta-parallax]");
+        if (!band) return;
+        const images = Array.from(band.querySelectorAll(".cta-floating"));
+        if (!images.length) return;
+
+        if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+          return;
+        }
+
+        let frame = 0;
+
+        const apply = () => {
+          const rect = band.getBoundingClientRect();
+          const viewportHeight = window.innerHeight || 1;
+          // Range: section center moves from below viewport to above viewport.
+          // `offset` is negative when the section is below the viewport center,
+          // positive when above. We multiply by per-image speed so each image
+          // drifts at a different rate, giving the floating/parallax feel.
+          const sectionCenter = rect.top + rect.height / 2;
+          const offset = viewportHeight / 2 - sectionCenter;
+
+          images.forEach((img) => {
+            const speed = parseFloat(img.dataset.parallaxSpeed || "0.1");
+            img.style.transform = `translate3d(0, ${(offset * speed).toFixed(2)}px, 0)`;
+          });
+        };
+
+        const requestApply = () => {
+          cancelAnimationFrame(frame);
+          frame = requestAnimationFrame(apply);
+        };
+
+        apply();
+        window.addEventListener("scroll", requestApply, { passive: true });
+        window.addEventListener("resize", requestApply);
       })();
     </script>
   </body>
