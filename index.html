@@ -276,32 +276,12 @@
 
       .hero-ecosystem-cta img {
         /* Figma asset is a solid up-arrow; rotated 135° clockwise so it
-           points down-right (↘) to match Figma — doubles as a "scroll to
-           next section" hint. translateY is applied AFTER the rotation
-           in matrix order so the bob travels along the global Y axis,
-           not along the rotated local axis. */
+           points down-right (↘) — doubles as a "scroll to next section"
+           hint without needing motion. */
         width: 16px;
         height: 16px;
-        transform: translateY(0) rotate(135deg);
-        transition: transform var(--motion-fast) var(--ease-out-cubic);
-        animation: hero-cta-arrow-bob 2.4s var(--ease-in-out-cubic) infinite;
+        transform: rotate(135deg);
       }
-
-      .hero-ecosystem-cta:hover img,
-      .hero-ecosystem-cta:focus-visible img {
-        transform: translateY(3px) rotate(135deg);
-        animation-play-state: paused;
-      }
-
-      @keyframes hero-cta-arrow-bob {
-        0%, 100% { transform: translateY(0)   rotate(135deg); }
-        50%      { transform: translateY(4px) rotate(135deg); }
-      }
-
-      @media (prefers-reduced-motion: reduce) {
-        .hero-ecosystem-cta img { animation: none; }
-      }
-      body.motion-off .hero-ecosystem-cta img { animation: none; }
 
       .hero-accordion {
         display: flex;
