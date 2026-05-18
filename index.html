@@ -275,8 +275,11 @@
       }
 
       .hero-ecosystem-cta img {
-        width: 15px;
-        height: 15px;
+        /* Figma asset is a solid up-arrow; rotated 45° to point up-right.
+           Sized to match the Figma 15.85px square wrapper. */
+        width: 16px;
+        height: 16px;
+        transform: rotate(45deg);
       }
 
       .hero-accordion {
@@ -2280,7 +2283,7 @@
               </h1>
               <a class="hero-ecosystem-cta" href="#">
                 <span>Explore Ecosystem</span>
-                <img src="./si-assets/si-inline-arrow.svg" alt=""/>
+                <img src="./si-assets/hero-cta-arrow.svg" alt="" aria-hidden="true" />
               </a>
             </div>
 
