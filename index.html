@@ -12,10 +12,66 @@
       :root {
         --font-geist: "Geist";
         --font-geist-mono: "Geist Mono";
+
+        /* Motion tokens — keep all animation timing/easing references here so
+           variants can be A/B-tested by overriding under body.variant-X. */
+        --ease-out-cubic: cubic-bezier(0.215, 0.61, 0.355, 1);
+        --ease-out-quart: cubic-bezier(0.165, 0.84, 0.44, 1);
+        --ease-in-out-cubic: cubic-bezier(0.645, 0.045, 0.355, 1);
+        --ease-out-expo: cubic-bezier(0.19, 1, 0.22, 1);
+
+        --motion-fast: 220ms;
+        --motion-md: 420ms;
+        --motion-slow: 720ms;
+
+        --motion-rise-sm: 12px;
+        --motion-rise-md: 24px;
+        --motion-rise-lg: 48px;
+
+        --reveal-stagger: 80ms;
       }
+
+      /* Variant overrides land here, e.g.:
+         body.variant-b { --motion-md: 600ms; --motion-rise-md: 32px; } */
 
       * {
         box-sizing: border-box;
+      }
+
+      /* ---------- Reveal-on-scroll primitives ----------
+         Tag any element with data-anim="fade-up" (or "fade-in", "rise",
+         "scale-in") to opt into a reveal animation. JS adds .is-revealed
+         when the element enters the viewport. Variants can override timing
+         via the tokens above without touching markup. */
+      [data-anim] {
+        opacity: 0;
+        transition:
+          opacity var(--motion-md) var(--ease-out-cubic),
+          transform var(--motion-md) var(--ease-out-cubic);
+        transition-delay: var(--anim-delay, 0ms);
+        will-change: opacity, transform;
+      }
+      [data-anim="fade-up"] { transform: translate3d(0, var(--motion-rise-md), 0); }
+      [data-anim="fade-in"] { transform: none; }
+      [data-anim="rise"] { transform: translate3d(0, var(--motion-rise-lg), 0); }
+      [data-anim="scale-in"] { transform: scale(0.94); transform-origin: center; }
+      [data-anim].is-revealed {
+        opacity: 1;
+        transform: none;
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        [data-anim] {
+          opacity: 1;
+          transform: none;
+          transition: none;
+        }
+      }
+      /* ?motion=off URL override is applied via body.motion-off (see JS). */
+      body.motion-off [data-anim] {
+        opacity: 1;
+        transform: none;
+        transition: none;
       }
 
       html,
@@ -475,6 +531,7 @@
         opacity: var(--sticky-crystal-opacity, 0.18);
         transform: translateY(var(--sticky-crystal-y, 190px)) scale(var(--sticky-crystal-scale, 0.42));
         transition: transform 200ms ease-out, opacity 200ms ease-out;
+        will-change: transform, opacity;
       }
 
       .crystal-sticky-asset img {
@@ -916,6 +973,7 @@
         transform-origin: right top;
         transition: transform 75ms ease-out;
         z-index: 1;
+        will-change: transform;
       }
 
       .si-u-feed img {
@@ -1961,7 +2019,10 @@
         .cta-img-4 { width: 60px; height: 75px; left: 60%; top: 580px; }
       }
 
-      .preview-stack:has(+ .site-footer) {
+      /* When the stack is followed by the site footer, drop its trailing
+         padding — the footer handles its own top spacing. Using an explicit
+         class instead of :has() so the rule survives future DOM changes. */
+      .preview-stack.has-footer {
         padding-bottom: 0;
       }
 
@@ -2181,13 +2242,13 @@
     </style>
   </head>
   <body>
-    <main class="preview-stack">
+    <main class="preview-stack has-footer">
       <section class="hero-preview-band" aria-labelledby="hero-preview-title">
         <div class="hero-sticky-frame">
-          <img class="hero-preview-bg" src="./si-assets/hero-bg.png" alt="" />
+          <img class="hero-preview-bg" src="./si-assets/hero-bg.png" alt=""  fetchpriority="high" decoding="sync"/>
           <nav class="hero-nav" aria-label="Primary">
             <a class="hero-logo" href="#" aria-label="SI home">
-              <img src="./si-assets/hero-logo.png" alt="SI&lt;3" />
+              <img src="./si-assets/hero-logo.png" alt="SI&lt;3"/>
             </a>
             <div class="hero-nav-right">
               <div class="hero-nav-links">
@@ -2204,12 +2265,12 @@
             <div class="hero-copy">
               <h1 class="hero-title" id="hero-preview-title">
                 <span class="hero-title-line">
-                  <span class="hero-title-image"><img src="./si-assets/hero-title-vr-1.png" alt="" /></span>
+                  <span class="hero-title-image"><img src="./si-assets/hero-title-vr-1.png" alt=""/></span>
                   <span>Driving</span>
                 </span>
                 <span class="hero-title-line hero-purple">
                   <span>Real</span>
-                  <span class="hero-title-image"><img src="./si-assets/hero-title-planet-1.png" alt="" /></span>
+                  <span class="hero-title-image"><img src="./si-assets/hero-title-planet-1.png" alt=""/></span>
                   <span>World</span>
                 </span>
                 <span class="hero-title-line">
@@ -2219,17 +2280,17 @@
               </h1>
               <a class="hero-ecosystem-cta" href="#">
                 <span>Explore Ecosystem</span>
-                <img src="./si-assets/si-inline-arrow.svg" alt="" />
+                <img src="./si-assets/si-inline-arrow.svg" alt=""/>
               </a>
             </div>
 
             <div class="hero-accordion" data-hero-accordion>
               <article class="hero-card" data-hero-card="si-her">
                 <button class="hero-card-trigger" type="button" aria-expanded="false">
-                  <img class="hero-card-mark" src="./si-assets/partner-mark.svg" alt="" />
+                  <img class="hero-card-mark" src="./si-assets/partner-mark.svg" alt=""/>
                   <span class="hero-card-actions">
                     <span class="hero-card-pill si-her">
-                      <img class="hero-card-icon-si-her" src="./si-assets/cta-guide.svg" alt="" />
+                      <img class="hero-card-icon-si-her" src="./si-assets/cta-guide.svg" alt=""/>
                       <span>Si Her DAO</span>
                     </span>
                     <span class="hero-card-toggle" aria-hidden="true"></span>
@@ -2241,7 +2302,7 @@
                     <h2>For Web3 Leaders</h2>
                     <p>Professional development, education and leadership paths for womxn established in Web3.</p>
                     <a class="hero-card-cta" href="#">
-                      <span>Explore Si Her DAO <img src="./si-assets/si-inline-arrow.svg" alt="" /></span>
+                      <span>Explore Si Her DAO <img src="./si-assets/si-inline-arrow.svg" alt=""/></span>
                       <span class="hero-card-cta-line" aria-hidden="true"></span>
                     </a>
                   </div>
@@ -2250,10 +2311,10 @@
 
               <article class="hero-card is-open" data-hero-card="grow3dge">
                 <button class="hero-card-trigger" type="button" aria-expanded="true">
-                  <img class="hero-card-mark" src="./si-assets/partner-mark.svg" alt="" />
+                  <img class="hero-card-mark" src="./si-assets/partner-mark.svg" alt=""/>
                   <span class="hero-card-actions">
                     <span class="hero-card-pill grow3dge">
-                      <img class="hero-card-icon-grow3dge" src="./si-assets/cta-grow3dge.svg" alt="" />
+                      <img class="hero-card-icon-grow3dge" src="./si-assets/cta-grow3dge.svg" alt=""/>
                       <span>Grow3dge</span>
                     </span>
                     <span class="hero-card-toggle" aria-hidden="true"></span>
@@ -2265,7 +2326,7 @@
                     <h2>For Scaling Ecosystems</h2>
                     <p>An emerging tech members club fostering collaborative growth &amp; partnerships.</p>
                     <a class="hero-card-cta" href="#">
-                      <span>Explore Grow3dge <img src="./si-assets/si-inline-arrow.svg" alt="" /></span>
+                      <span>Explore Grow3dge <img src="./si-assets/si-inline-arrow.svg" alt=""/></span>
                       <span class="hero-card-cta-line" aria-hidden="true"></span>
                     </a>
                   </div>
@@ -2274,10 +2335,10 @@
 
               <article class="hero-card" data-hero-card="well-being">
                 <button class="hero-card-trigger" type="button" aria-expanded="false">
-                  <img class="hero-card-mark" src="./si-assets/partner-mark.svg" alt="" />
+                  <img class="hero-card-mark" src="./si-assets/partner-mark.svg" alt=""/>
                   <span class="hero-card-actions">
                     <span class="hero-card-pill well-being">
-                      <img class="hero-card-icon-well-being" src="./si-assets/cta-wellbeing.svg" alt="" />
+                      <img class="hero-card-icon-well-being" src="./si-assets/cta-wellbeing.svg" alt=""/>
                       <span>Well-Being</span>
                     </span>
                     <span class="hero-card-toggle" aria-hidden="true"></span>
@@ -2289,7 +2350,7 @@
                     <h2>For Sustainable Growth</h2>
                     <p>Programs and community experiences supporting well-being for builders in emerging tech.</p>
                     <a class="hero-card-cta" href="#">
-                      <span>Explore Well-Being <img src="./si-assets/si-inline-arrow.svg" alt="" /></span>
+                      <span>Explore Well-Being <img src="./si-assets/si-inline-arrow.svg" alt=""/></span>
                       <span class="hero-card-cta-line" aria-hidden="true"></span>
                     </a>
                   </div>
@@ -2299,16 +2360,16 @@
           </div>
 
           <div class="hero-ticker" aria-hidden="true">
-            <span><img src="./si-assets/hero-si-more-mark.svg" alt="" />SI MORE</span>
-            <span><img src="./si-assets/hero-si-more-mark.svg" alt="" />SI MORE</span>
-            <span><img src="./si-assets/hero-si-more-mark.svg" alt="" />SI MORE</span>
-            <span><img src="./si-assets/hero-si-more-mark.svg" alt="" />SI MORE</span>
-            <span><img src="./si-assets/hero-si-more-mark.svg" alt="" />SI MORE</span>
-            <span><img src="./si-assets/hero-si-more-mark.svg" alt="" />SI MORE</span>
-            <span><img src="./si-assets/hero-si-more-mark.svg" alt="" />SI MORE</span>
-            <span><img src="./si-assets/hero-si-more-mark.svg" alt="" />SI MORE</span>
-            <span><img src="./si-assets/hero-si-more-mark.svg" alt="" />SI MORE</span>
-            <span><img src="./si-assets/hero-si-more-mark.svg" alt="" />SI MORE</span>
+            <span><img src="./si-assets/hero-si-more-mark.svg" alt=""/>SI MORE</span>
+            <span><img src="./si-assets/hero-si-more-mark.svg" alt=""/>SI MORE</span>
+            <span><img src="./si-assets/hero-si-more-mark.svg" alt=""/>SI MORE</span>
+            <span><img src="./si-assets/hero-si-more-mark.svg" alt=""/>SI MORE</span>
+            <span><img src="./si-assets/hero-si-more-mark.svg" alt=""/>SI MORE</span>
+            <span><img src="./si-assets/hero-si-more-mark.svg" alt=""/>SI MORE</span>
+            <span><img src="./si-assets/hero-si-more-mark.svg" alt=""/>SI MORE</span>
+            <span><img src="./si-assets/hero-si-more-mark.svg" alt=""/>SI MORE</span>
+            <span><img src="./si-assets/hero-si-more-mark.svg" alt=""/>SI MORE</span>
+            <span><img src="./si-assets/hero-si-more-mark.svg" alt=""/>SI MORE</span>
           </div>
         </div>
       </section>
@@ -2316,7 +2377,7 @@
       <div class="crystal-content-stage">
         <div class="crystal-backdrop-frame" aria-hidden="true">
           <div class="crystal-sticky-asset" data-sticky-crystal>
-            <img src="./si-assets/hero-sticky-crystal.png" alt="" />
+            <img src="./si-assets/hero-sticky-crystal.png" alt=""  loading="lazy" decoding="async"/>
           </div>
         </div>
 
@@ -2330,7 +2391,7 @@
           <div class="pathwaysCopy">
             <div class="pathwaysEyebrow">
               <span>SI U Pathways</span>
-              <img src="./si-assets/partner-mark.svg" alt="" />
+              <img src="./si-assets/partner-mark.svg" alt=""  loading="lazy" decoding="async"/>
             </div>
             <p>Onboarding emerging tech professionals, communities and organizations.</p>
           </div>
@@ -2360,7 +2421,7 @@
                   class="cardIcon iconExplorer"
                   src="./si-assets/card-explorer.svg"
                   alt=""
-                />
+                 loading="lazy" decoding="async"/>
                 <div class="textBlock">
                   <h3>FOR WEB3 EXPLORERS</h3>
                   <p>Education &amp; growth opportunities for professionals exploring Web3, emerging tech, and AI.</p>
@@ -2369,7 +2430,7 @@
               <div class="actions">
                 <button class="actionButton" type="button">
                   <span class="actionLabelWrap"><span>Join SI U Waitlist</span></span>
-                  <img class="arrowIcon" src="./si-assets/cta-arrow.svg" alt="" aria-hidden="true" />
+                  <img class="arrowIcon" src="./si-assets/cta-arrow.svg" alt="" aria-hidden="true"  loading="lazy" decoding="async"/>
                 </button>
               </div>
             </div>
@@ -2400,7 +2461,7 @@
                   class="cardIcon iconGuide"
                   src="./si-assets/card-guide.svg"
                   alt=""
-                />
+                 loading="lazy" decoding="async"/>
                 <div class="textBlock">
                   <h3>FOR WEB3 GUIDES</h3>
                   <p>
@@ -2416,10 +2477,10 @@
                       class="actionIcon actionIconGuide"
                       src="./si-assets/cta-guide.svg"
                       alt=""
-                    />
+                     loading="lazy" decoding="async"/>
                     <span>Join Si Her</span>
                   </span>
-                  <img class="arrowIcon" src="./si-assets/cta-arrow.svg" alt="" aria-hidden="true" />
+                  <img class="arrowIcon" src="./si-assets/cta-arrow.svg" alt="" aria-hidden="true"  loading="lazy" decoding="async"/>
                 </button>
               </div>
             </div>
@@ -2450,7 +2511,7 @@
                   class="cardIcon iconPartner"
                   src="./si-assets/card-partner.svg"
                   alt=""
-                />
+                 loading="lazy" decoding="async"/>
                 <div class="textBlock">
                   <h3>FOR ORGANIZATIONS</h3>
                   <p>Collaborative growth campaigns, business development and peer-to-peer learning.</p>
@@ -2463,10 +2524,10 @@
                       class="actionIcon actionIconGrow"
                       src="./si-assets/cta-grow3dge.svg"
                       alt=""
-                    />
+                     loading="lazy" decoding="async"/>
                     <span>Explore Grow3dge</span>
                   </span>
-                  <img class="arrowIcon" src="./si-assets/cta-arrow.svg" alt="" aria-hidden="true" />
+                  <img class="arrowIcon" src="./si-assets/cta-arrow.svg" alt="" aria-hidden="true"  loading="lazy" decoding="async"/>
                 </button>
                 <button class="actionButton" type="button">
                   <span class="actionLabelWrap">
@@ -2474,10 +2535,10 @@
                       class="actionIcon actionIconWellbeing"
                       src="./si-assets/cta-wellbeing.svg"
                       alt=""
-                    />
+                     loading="lazy" decoding="async"/>
                     <span>Explore Well-Being</span>
                   </span>
-                  <img class="arrowIcon" src="./si-assets/cta-arrow.svg" alt="" aria-hidden="true" />
+                  <img class="arrowIcon" src="./si-assets/cta-arrow.svg" alt="" aria-hidden="true"  loading="lazy" decoding="async"/>
                 </button>
               </div>
             </div>
@@ -2490,7 +2551,7 @@
         <section class="partnerSection" aria-labelledby="partners-title">
           <header class="partnerHeader">
             <div class="titleWrap">
-              <img class="sectionMark" src="./si-assets/partner-mark.svg" alt="" />
+              <img class="sectionMark" src="./si-assets/partner-mark.svg" alt=""  loading="lazy" decoding="async"/>
               <h2 id="partners-title">PARTNERS</h2>
             </div>
             <p>
@@ -2503,62 +2564,62 @@
           <div class="logoGrid">
             <button class="logoTile" type="button" aria-label="Stellar">
               <span class="cornerTopLeft"></span><span class="cornerTopRight"></span><span class="cornerBottomLeft"></span><span class="cornerBottomRight"></span>
-              <img class="logoImage logoStellar" src="./si-assets/logo-stellar.svg" alt="Stellar" />
+              <img class="logoImage logoStellar" src="./si-assets/logo-stellar.svg" alt="Stellar"  loading="lazy" decoding="async"/>
             </button>
             <button class="logoTile" type="button" aria-label="Unlock">
               <span class="cornerTopLeft"></span><span class="cornerTopRight"></span><span class="cornerBottomLeft"></span><span class="cornerBottomRight"></span>
-              <img class="logoImage logoUnlock" src="./si-assets/logo-unlock.svg" alt="Unlock" />
+              <img class="logoImage logoUnlock" src="./si-assets/logo-unlock.svg" alt="Unlock"  loading="lazy" decoding="async"/>
             </button>
             <button class="logoTile" type="button" aria-label="Dune">
               <span class="cornerTopLeft"></span><span class="cornerTopRight"></span><span class="cornerBottomLeft"></span><span class="cornerBottomRight"></span>
-              <img class="logoImage logoDune" src="./si-assets/logo-dune.svg" alt="Dune" />
+              <img class="logoImage logoDune" src="./si-assets/logo-dune.svg" alt="Dune"  loading="lazy" decoding="async"/>
             </button>
             <button class="logoTile" type="button" aria-label="RARI">
               <span class="cornerTopLeft"></span><span class="cornerTopRight"></span><span class="cornerBottomLeft"></span><span class="cornerBottomRight"></span>
-              <img class="logoImage logoRari" src="./si-assets/logo-rari.svg" alt="RARI" />
+              <img class="logoImage logoRari" src="./si-assets/logo-rari.svg" alt="RARI"  loading="lazy" decoding="async"/>
             </button>
             <button class="logoTile" type="button" aria-label="ENS">
               <span class="cornerTopLeft"></span><span class="cornerTopRight"></span><span class="cornerBottomLeft"></span><span class="cornerBottomRight"></span>
-              <img class="logoImage logoEns" src="./si-assets/logo-ens.svg" alt="ENS" />
+              <img class="logoImage logoEns" src="./si-assets/logo-ens.svg" alt="ENS"  loading="lazy" decoding="async"/>
             </button>
             <button class="logoTile" type="button" aria-label="Uniswap Foundation">
               <span class="cornerTopLeft"></span><span class="cornerTopRight"></span><span class="cornerBottomLeft"></span><span class="cornerBottomRight"></span>
-              <img class="logoImage logoUniswap" src="./si-assets/logo-uniswap.png" alt="Uniswap Foundation" />
+              <img class="logoImage logoUniswap" src="./si-assets/logo-uniswap.png" alt="Uniswap Foundation"  loading="lazy" decoding="async"/>
             </button>
             <button class="logoTile" type="button" aria-label="Hacken">
               <span class="cornerTopLeft"></span><span class="cornerTopRight"></span><span class="cornerBottomLeft"></span><span class="cornerBottomRight"></span>
-              <img class="logoImage logoHacken" src="./si-assets/logo-hacken.png" alt="Hacken" />
+              <img class="logoImage logoHacken" src="./si-assets/logo-hacken.png" alt="Hacken"  loading="lazy" decoding="async"/>
             </button>
             <button class="logoTile" type="button" aria-label="Zerion">
               <span class="cornerTopLeft"></span><span class="cornerTopRight"></span><span class="cornerBottomLeft"></span><span class="cornerBottomRight"></span>
-              <img class="logoImage logoZerion" src="./si-assets/logo-zerion.svg" alt="Zerion" />
+              <img class="logoImage logoZerion" src="./si-assets/logo-zerion.svg" alt="Zerion"  loading="lazy" decoding="async"/>
             </button>
             <button class="logoTile" type="button" aria-label="Arbitrum">
               <span class="cornerTopLeft"></span><span class="cornerTopRight"></span><span class="cornerBottomLeft"></span><span class="cornerBottomRight"></span>
-              <img class="logoImage logoArbitrum" src="./si-assets/logo-arbitrum.svg" alt="Arbitrum" />
+              <img class="logoImage logoArbitrum" src="./si-assets/logo-arbitrum.svg" alt="Arbitrum"  loading="lazy" decoding="async"/>
             </button>
             <button class="logoTile" type="button" aria-label="MoonDAO">
               <span class="cornerTopLeft"></span><span class="cornerTopRight"></span><span class="cornerBottomLeft"></span><span class="cornerBottomRight"></span>
               <span class="logoMoonDao">
-                <img class="logoMoonDaoMark" src="./si-assets/logo-moondao-mark.png" alt="" />
-                <img class="logoMoonDaoWordmark" src="./si-assets/logo-moondao-wordmark.png" alt="MoonDAO" />
+                <img class="logoMoonDaoMark" src="./si-assets/logo-moondao-mark.png" alt=""  loading="lazy" decoding="async"/>
+                <img class="logoMoonDaoWordmark" src="./si-assets/logo-moondao-wordmark.png" alt="MoonDAO"  loading="lazy" decoding="async"/>
               </span>
             </button>
             <button class="logoTile" type="button" aria-label="Starknet">
               <span class="cornerTopLeft"></span><span class="cornerTopRight"></span><span class="cornerBottomLeft"></span><span class="cornerBottomRight"></span>
-              <img class="logoImage logoStarknet" src="./si-assets/logo-starknet.png" alt="Starknet" />
+              <img class="logoImage logoStarknet" src="./si-assets/logo-starknet.png" alt="Starknet"  loading="lazy" decoding="async"/>
             </button>
             <button class="logoTile" type="button" aria-label="Stellar">
               <span class="cornerTopLeft"></span><span class="cornerTopRight"></span><span class="cornerBottomLeft"></span><span class="cornerBottomRight"></span>
-              <img class="logoImage logoStellar" src="./si-assets/logo-stellar-repeat.svg" alt="Stellar" />
+              <img class="logoImage logoStellar" src="./si-assets/logo-stellar-repeat.svg" alt="Stellar"  loading="lazy" decoding="async"/>
             </button>
             <button class="logoTile" type="button" aria-label="Unlock">
               <span class="cornerTopLeft"></span><span class="cornerTopRight"></span><span class="cornerBottomLeft"></span><span class="cornerBottomRight"></span>
-              <img class="logoImage logoUnlock" src="./si-assets/logo-unlock.svg" alt="Unlock" />
+              <img class="logoImage logoUnlock" src="./si-assets/logo-unlock.svg" alt="Unlock"  loading="lazy" decoding="async"/>
             </button>
             <button class="logoTile" type="button" aria-label="Dune">
               <span class="cornerTopLeft"></span><span class="cornerTopRight"></span><span class="cornerBottomLeft"></span><span class="cornerBottomRight"></span>
-              <img class="logoImage logoDune" src="./si-assets/logo-dune.svg" alt="Dune" />
+              <img class="logoImage logoDune" src="./si-assets/logo-dune.svg" alt="Dune"  loading="lazy" decoding="async"/>
             </button>
           </div>
         </section>
@@ -2574,7 +2635,7 @@
             <div class="inters3ction-copy">
               <div class="inters3ction-eyebrow">
                 <span>IRL Event Series</span>
-                <img src="./si-assets/partner-mark.svg" alt="" />
+                <img src="./si-assets/partner-mark.svg" alt=""  loading="lazy" decoding="async"/>
               </div>
               <p>A series of gatherings where Web3, AI &amp; Mobile converge.</p>
             </div>
@@ -2592,7 +2653,7 @@
             <span class="inters3ction-corner six" aria-hidden="true"></span>
 
             <div class="inters3ction-image">
-              <img src="./si-assets/inters3ction-event.jpg" alt="Inters3ction event gathering" />
+              <img src="./si-assets/inters3ction-event.jpg" alt="Inters3ction event gathering"  loading="lazy" decoding="async"/>
             </div>
             <div class="inters3ction-content">
               <div class="inters3ction-stats">
@@ -2628,7 +2689,7 @@
           <div class="si-u-copy">
             <div class="si-u-text">
               <div class="si-u-title-wrap">
-                <img src="./si-assets/si-section-mark.svg" alt="" />
+                <img src="./si-assets/si-section-mark.svg" alt=""  loading="lazy" decoding="async"/>
                 <h2 class="si-u-title" id="si-u-social-learning-preview-title">
                   A Social <span>Learning Network</span> For The New Economy
                 </h2>
@@ -2641,14 +2702,14 @@
             <a class="si-u-cta" href="#">
               <span>
                 Join SI U
-                <img src="./si-assets/si-inline-arrow.svg" alt="" />
+                <img src="./si-assets/si-inline-arrow.svg" alt=""  loading="lazy" decoding="async"/>
               </span>
               <span class="si-u-cta-line" aria-hidden="true"></span>
             </a>
           </div>
           <div class="si-u-feed-shell">
             <div class="si-u-feed">
-              <img src="./si-assets/si-u-feed.png" alt="SI U social learning feed interface" />
+              <img src="./si-assets/si-u-feed.png" alt="SI U social learning feed interface"  loading="lazy" decoding="async"/>
             </div>
           </div>
         </section>
@@ -2658,9 +2719,9 @@
         <section class="growth-ticker-preview" aria-label="SI growth themes">
           <div class="growth-ticker-track">
             <p>COLLABORATIVE GROWTH</p>
-            <img src="./si-assets/ticker-collaborative-growth.png" alt="" />
+            <img src="./si-assets/ticker-collaborative-growth.png" alt=""  loading="lazy" decoding="async"/>
             <p>ON-CHAIN LEARNING</p>
-            <img src="./si-assets/ticker-onchain-learning.png" alt="" />
+            <img src="./si-assets/ticker-onchain-learning.png" alt=""  loading="lazy" decoding="async"/>
             <p>ECOSYSTEM PARTNERSHIPS</p>
           </div>
         </section>
@@ -2670,7 +2731,7 @@
         <section class="products-preview" aria-labelledby="products-preview-title">
           <header class="products-header">
             <div class="products-title-wrap">
-              <img src="./si-assets/partner-mark.svg" alt="" />
+              <img src="./si-assets/partner-mark.svg" alt=""  loading="lazy" decoding="async"/>
               <h2 class="products-title" id="products-preview-title">
                 <span>REAL-WORLD</span> AI &amp; WEB3
                 <br />
@@ -2682,7 +2743,7 @@
               <a class="product-link" href="#">
                 <span>
                   Explore Products
-                  <img src="./si-assets/si-inline-arrow.svg" alt="" />
+                  <img src="./si-assets/si-inline-arrow.svg" alt=""  loading="lazy" decoding="async"/>
                 </span>
                 <span class="product-link-line" aria-hidden="true"></span>
               </a>
@@ -2723,7 +2784,7 @@
                     <span class="product-browser-url">siher.eth</span>
                   </div>
                   <div class="product-browser-body">
-                    <img src="./si-assets/products-siher-publisher.png" alt="Si Her publisher website interface" />
+                    <img src="./si-assets/products-siher-publisher.png" alt="Si Her publisher website interface"  loading="lazy" decoding="async"/>
                     <span class="product-browser-fade" aria-hidden="true"></span>
                   </div>
                 </div>
@@ -2736,7 +2797,7 @@
                   <a class="product-link" href="#">
                     <span>
                       Explore Si Her Publisher
-                      <img src="./si-assets/si-inline-arrow.svg" alt="" />
+                      <img src="./si-assets/si-inline-arrow.svg" alt=""  loading="lazy" decoding="async"/>
                     </span>
                     <span class="product-link-line" aria-hidden="true"></span>
                   </a>
@@ -2745,7 +2806,7 @@
 
               <article class="product-row">
                 <div class="product-visual product-kaia">
-                  <img src="./si-assets/products-kaia-agent.png" alt="KAIA AI agent portrait" />
+                  <img src="./si-assets/products-kaia-agent.png" alt="KAIA AI agent portrait"  loading="lazy" decoding="async"/>
                 </div>
                 <div class="product-info">
                   <div class="product-tags">
@@ -2759,7 +2820,7 @@
                   <a class="product-link" href="#">
                     <span>
                       Explore KAIA
-                      <img src="./si-assets/si-inline-arrow.svg" alt="" />
+                      <img src="./si-assets/si-inline-arrow.svg" alt=""  loading="lazy" decoding="async"/>
                     </span>
                     <span class="product-link-line" aria-hidden="true"></span>
                   </a>
@@ -2799,7 +2860,7 @@
                   <a class="product-link" href="#">
                     <span>
                       Explore Certifications
-                      <img src="./si-assets/si-inline-arrow.svg" alt="" />
+                      <img src="./si-assets/si-inline-arrow.svg" alt=""  loading="lazy" decoding="async"/>
                     </span>
                     <span class="product-link-line" aria-hidden="true"></span>
                   </a>
@@ -2814,17 +2875,17 @@
         <section class="applications-ticker" aria-label="SI applications themes">
           <div class="applications-ticker-track">
             <p>WEB2 + WEB3 MOBILE</p>
-            <img src="./si-assets/ticker-web3-mobile-head.png" alt="" />
+            <img src="./si-assets/ticker-web3-mobile-head.png" alt=""  loading="lazy" decoding="async"/>
             <p>WEB3 COMMUNITIES</p>
-            <img src="./si-assets/ticker-emerging-tech-window.png" alt="" />
+            <img src="./si-assets/ticker-emerging-tech-window.png" alt=""  loading="lazy" decoding="async"/>
             <p>EMERGING TECH ECOSYSTEMS</p>
-            <img src="./si-assets/ticker-web3-mobile-head.png" alt="" aria-hidden="true" />
+            <img src="./si-assets/ticker-web3-mobile-head.png" alt="" aria-hidden="true"  loading="lazy" decoding="async"/>
             <p aria-hidden="true">WEB2 + WEB3 MOBILE</p>
-            <img src="./si-assets/ticker-emerging-tech-window.png" alt="" aria-hidden="true" />
+            <img src="./si-assets/ticker-emerging-tech-window.png" alt="" aria-hidden="true"  loading="lazy" decoding="async"/>
             <p aria-hidden="true">WEB3 COMMUNITIES</p>
-            <img src="./si-assets/ticker-web3-mobile-head.png" alt="" aria-hidden="true" />
+            <img src="./si-assets/ticker-web3-mobile-head.png" alt="" aria-hidden="true"  loading="lazy" decoding="async"/>
             <p aria-hidden="true">EMERGING TECH ECOSYSTEMS</p>
-            <img src="./si-assets/ticker-emerging-tech-window.png" alt="" aria-hidden="true" />
+            <img src="./si-assets/ticker-emerging-tech-window.png" alt="" aria-hidden="true"  loading="lazy" decoding="async"/>
           </div>
         </section>
       </div>
@@ -2833,7 +2894,7 @@
         <section class="faq-preview" aria-labelledby="faq-title">
           <header class="faq-intro">
             <div class="faq-intro-title">
-              <img src="./si-assets/faq-mark.svg" alt="" />
+              <img src="./si-assets/faq-mark.svg" alt=""  loading="lazy" decoding="async"/>
               <h2 id="faq-title">SI&lt;3&gt; FAQ</h2>
             </div>
             <p>Quick answers to common questions about SI&lt;3&gt;, our programs, and how to join our ecosystem.</p>
@@ -2889,10 +2950,10 @@
 
       <div class="cta-preview-band" data-cta-parallax>
         <section class="cta-preview" aria-labelledby="cta-final-title">
-          <img class="cta-floating cta-img-1" data-parallax-speed="0.20" src="./si-assets/cta-vr-portrait.png" alt="" aria-hidden="true" />
-          <img class="cta-floating cta-img-2" data-parallax-speed="-0.16" src="./si-assets/cta-saturn-alien.png" alt="" aria-hidden="true" />
-          <img class="cta-floating cta-img-3" data-parallax-speed="0.12" src="./si-assets/cta-sunflowers-portal.png" alt="" aria-hidden="true" />
-          <img class="cta-floating cta-img-4" data-parallax-speed="-0.08" src="./si-assets/cta-sunset-profile.png" alt="" aria-hidden="true" />
+          <img class="cta-floating cta-img-1" data-parallax-speed="0.20" src="./si-assets/cta-vr-portrait.png" alt="" aria-hidden="true"  loading="lazy" decoding="async"/>
+          <img class="cta-floating cta-img-2" data-parallax-speed="-0.16" src="./si-assets/cta-saturn-alien.png" alt="" aria-hidden="true"  loading="lazy" decoding="async"/>
+          <img class="cta-floating cta-img-3" data-parallax-speed="0.12" src="./si-assets/cta-sunflowers-portal.png" alt="" aria-hidden="true"  loading="lazy" decoding="async"/>
+          <img class="cta-floating cta-img-4" data-parallax-speed="-0.08" src="./si-assets/cta-sunset-profile.png" alt="" aria-hidden="true"  loading="lazy" decoding="async"/>
 
           <div class="cta-text">
             <h2 class="cta-title" id="cta-final-title">
@@ -2902,7 +2963,7 @@
             <a class="cta-action" href="#">
               <span class="cta-action-link">
                 <span>Let&rsquo;s get started</span>
-                <img src="./si-assets/cta-arrow-up-right.svg" alt="" aria-hidden="true" />
+                <img src="./si-assets/cta-arrow-up-right.svg" alt="" aria-hidden="true"  loading="lazy" decoding="async"/>
               </span>
               <span class="cta-action-line" aria-hidden="true"></span>
             </a>
@@ -2956,45 +3017,268 @@
         </nav>
       </div>
       <div class="footer-watermark" aria-hidden="true">
-        <img src="./si-assets/footer-si3-wordmark.svg" alt="" />
+        <img src="./si-assets/footer-si3-wordmark.svg" alt=""  loading="lazy" decoding="async"/>
       </div>
       <p class="footer-copyright">Copyright &copy; 2026 SI&lt;3&gt;, Inc. All rights reserved.</p>
     </footer>
     <script>
+      /* ============================================================
+         window.SI — site-wide animation, motion, and A/B toolkit.
+
+         Goals:
+           1. ONE shared rAF + scroll listener pool (not N per section).
+           2. ONE consistent prefers-reduced-motion policy: in reduced-motion
+              the per-section "rest" state is applied via opts.atRest(), then
+              we bail. No section is ever left in a half-animated state.
+           3. IntersectionObserver activation — off-screen sections don't run
+              progress math, so adding more animations stays cheap.
+           4. A/B variant hooks (URL ?variant=… + localStorage stable bucket)
+              expose `body.variant-X` plus per-experiment `body.exp-NAME-X`
+              classes so CSS can fork without touching markup.
+           5. URL overrides for QA: ?motion=off forces reduced-motion,
+              ?motion=on overrides the OS preference (useful when testing
+              animations on a machine that has them disabled).
+           6. Reveal-on-scroll for any element tagged with [data-anim] —
+              just add the attribute, no JS required per section.
+
+         Read SI.* anywhere. Don't reimplement scroll listeners.
+         ============================================================ */
+      (() => {
+        const params = new URLSearchParams(location.search);
+        const motionParam = params.get("motion");
+        const variantParam = params.get("variant");
+
+        const prefersReduced =
+          motionParam === "off"
+            ? true
+            : motionParam === "on"
+              ? false
+              : window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+        if (motionParam === "off") {
+          document.body.classList.add("motion-off");
+        }
+
+        // ----- A/B variant bucketing -----
+        // Visitors get a stable bucket in localStorage. `?variant=…` overrides
+        // for QA but is NOT persisted, so designers can preview without
+        // contaminating the user's real bucket.
+        const VARIANT_KEY = "si.variant";
+        const VARIANTS = ["a", "b"];
+        let storedVariant = null;
+        try {
+          storedVariant = localStorage.getItem(VARIANT_KEY);
+        } catch (_) {
+          /* private mode etc. — fall through to fresh pick */
+        }
+        let variant = variantParam && VARIANTS.includes(variantParam) ? variantParam : storedVariant;
+        if (!variant || !VARIANTS.includes(variant)) {
+          variant = VARIANTS[Math.floor(Math.random() * VARIANTS.length)];
+          try {
+            localStorage.setItem(VARIANT_KEY, variant);
+          } catch (_) {
+            /* ignore */
+          }
+        }
+        document.body.classList.add(`variant-${variant}`);
+        document.body.dataset.variant = variant;
+
+        // ----- Shared scroll/resize rAF pump -----
+        // Every progress task registers a tick fn here. We only listen to
+        // scroll/resize once for the whole page and coalesce into a single
+        // animation frame. Tasks gated by IntersectionObserver are skipped
+        // when off-screen.
+        const tasks = new Set();
+        let frame = 0;
+        const flush = () => {
+          frame = 0;
+          tasks.forEach((task) => {
+            if (task._active) task._tick();
+          });
+        };
+        const requestFlush = () => {
+          if (frame) return;
+          frame = requestAnimationFrame(flush);
+        };
+        window.addEventListener("scroll", requestFlush, { passive: true });
+        window.addEventListener("resize", requestFlush);
+
+        // ----- onScrollProgress(target, opts) -----
+        // Registers a task that gets called with progress 0→1 as `target`
+        // moves through the viewport. opts:
+        //   start, end:  fns receiving (rect, vh) and returning progress 0..1.
+        //                Default: section bottom enters → section top exits.
+        //   onProgress:  callback(progress, eased, rect)
+        //   ease:        progress → eased (default: easeOutCubic)
+        //   atRest:      callback() applied once when reduced-motion is on,
+        //                so the section settles at its "after" state.
+        //   skipReducedMotion: if true, do nothing under reduced-motion.
+        const easeOutCubic = (p) => 1 - Math.pow(1 - p, 3);
+        const clamp01 = (v) => Math.min(Math.max(v, 0), 1);
+
+        function onScrollProgress(target, opts) {
+          if (!target) return null;
+          const ease = opts.ease || easeOutCubic;
+          const compute = opts.compute; // (rect, vh) => progress 0..1
+
+          if (prefersReduced) {
+            if (typeof opts.atRest === "function") opts.atRest();
+            return null;
+          }
+
+          // `clamp` defaults to true (treat compute as 0..1 progress).
+          // Set to false for drift/parallax math that needs negative values.
+          const shouldClamp = opts.clamp !== false;
+          const task = {
+            _active: true, // toggled by IO
+            _tick() {
+              const rect = target.getBoundingClientRect();
+              const vh = window.innerHeight || 1;
+              const computed = compute(rect, vh);
+              const raw = shouldClamp ? clamp01(computed) : computed;
+              const eased = ease(raw);
+              opts.onProgress(raw, eased, rect);
+            },
+          };
+          tasks.add(task);
+
+          // IntersectionObserver gates the task so off-screen work is free.
+          // We expand the rootMargin so tasks fire slightly before they need
+          // to (avoids a "snap" at the entry threshold). On leave, we tick
+          // ONCE more so the section settles into whichever endpoint state
+          // its compute() resolves to off-screen — this prevents sections
+          // from being frozen mid-animation when the user scrolls fast.
+          if ("IntersectionObserver" in window) {
+            task._active = false;
+            const io = new IntersectionObserver(
+              (entries) => {
+                entries.forEach((e) => {
+                  if (e.isIntersecting) {
+                    task._active = true;
+                    requestFlush();
+                  } else {
+                    // settle, then deactivate
+                    task._tick();
+                    task._active = false;
+                  }
+                });
+              },
+              { rootMargin: "200px 0px 200px 0px" },
+            );
+            io.observe(target);
+          }
+
+          task._tick();
+          return task;
+        }
+
+        // ----- Reveal-on-scroll for [data-anim] -----
+        // Anything tagged with data-anim="…" fades/rises in once when it
+        // first crosses the viewport. Optional data-anim-delay="120" adds
+        // a per-element delay in ms; CSS reads it via --anim-delay.
+        // SI.refreshReveals(root) lets dynamically-injected content
+        // (e.g., an A/B variant swapped in after load) pick up reveals.
+        let revealIO = null;
+        function ensureRevealIO() {
+          if (revealIO || prefersReduced) return revealIO;
+          revealIO = new IntersectionObserver(
+            (entries) => {
+              entries.forEach((e) => {
+                if (!e.isIntersecting) return;
+                const delay = e.target.dataset.animDelay;
+                if (delay) e.target.style.setProperty("--anim-delay", `${delay}ms`);
+                e.target.classList.add("is-revealed");
+                revealIO.unobserve(e.target);
+              });
+            },
+            { rootMargin: "0px 0px -8% 0px", threshold: 0.05 },
+          );
+          return revealIO;
+        }
+        function refreshReveals(root) {
+          const scope = root || document;
+          const els = scope.querySelectorAll("[data-anim]:not(.is-revealed)");
+          if (!els.length) return 0;
+          if (prefersReduced || document.body.classList.contains("motion-off")) {
+            els.forEach((el) => el.classList.add("is-revealed"));
+            return els.length;
+          }
+          const io = ensureRevealIO();
+          els.forEach((el) => io.observe(el));
+          return els.length;
+        }
+
+        // ----- Experiment helper -----
+        // SI.experiment("hero-headline", ["control", "variantB"]) returns
+        // the bucketed variant and adds body.exp-hero-headline-VARIANT.
+        // Stored independently from the master variant so experiments can
+        // overlap without colliding.
+        function experiment(name, variants) {
+          if (!Array.isArray(variants) || !variants.length) return null;
+          const key = `si.exp.${name}`;
+          let picked = null;
+          try {
+            picked = localStorage.getItem(key);
+          } catch (_) {
+            /* ignore */
+          }
+          const urlPick = params.get(`exp.${name}`);
+          if (urlPick && variants.includes(urlPick)) picked = urlPick;
+          if (!picked || !variants.includes(picked)) {
+            picked = variants[Math.floor(Math.random() * variants.length)];
+            try {
+              localStorage.setItem(key, picked);
+            } catch (_) {
+              /* ignore */
+            }
+          }
+          document.body.classList.add(`exp-${name}-${picked}`);
+          return picked;
+        }
+
+        window.SI = {
+          prefersReducedMotion: prefersReduced,
+          variant,
+          experiment,
+          onScrollProgress,
+          refreshReveals,
+          easings: { easeOutCubic, clamp01 },
+          // Expose flush so a section that just mutated layout can ask for a
+          // tick without waiting for the next scroll event.
+          tick: requestFlush,
+        };
+
+        if (document.readyState === "loading") {
+          document.addEventListener("DOMContentLoaded", () => refreshReveals());
+        } else {
+          refreshReveals();
+        }
+      })();
+
+      /* ---------- Section: sticky crystal ---------- */
       (() => {
         const section = document.querySelector(".crystal-content-stage");
         const crystal = document.querySelector("[data-sticky-crystal]");
+        if (!section || !crystal) return;
 
-        if (!section || !crystal || window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-          crystal?.style.setProperty("--sticky-crystal-scale", "1");
-          crystal?.style.setProperty("--sticky-crystal-y", "0px");
-          crystal?.style.setProperty("--sticky-crystal-opacity", "1");
-          return;
-        }
-
-        let frame = 0;
-
-        const updateCrystal = () => {
-          const rect = section.getBoundingClientRect();
-          const viewportHeight = window.innerHeight || 1;
-          const rawProgress = Math.min(Math.max((viewportHeight * 0.84 - rect.top) / (viewportHeight * 0.34), 0), 1);
-          const easedProgress = 1 - Math.pow(1 - rawProgress, 3);
-
-          crystal.style.setProperty("--sticky-crystal-scale", String(0.42 + easedProgress * 0.58));
-          crystal.style.setProperty("--sticky-crystal-y", `${(1 - easedProgress) * 190}px`);
-          crystal.style.setProperty("--sticky-crystal-opacity", String(0.18 + easedProgress * 0.82));
+        const setRest = () => {
+          crystal.style.setProperty("--sticky-crystal-scale", "1");
+          crystal.style.setProperty("--sticky-crystal-y", "0px");
+          crystal.style.setProperty("--sticky-crystal-opacity", "1");
         };
 
-        const requestUpdate = () => {
-          cancelAnimationFrame(frame);
-          frame = requestAnimationFrame(updateCrystal);
-        };
-
-        updateCrystal();
-        window.addEventListener("scroll", requestUpdate, { passive: true });
-        window.addEventListener("resize", requestUpdate);
+        SI.onScrollProgress(section, {
+          atRest: setRest,
+          compute: (rect, vh) => (vh * 0.84 - rect.top) / (vh * 0.34),
+          onProgress: (_raw, eased) => {
+            crystal.style.setProperty("--sticky-crystal-scale", String(0.42 + eased * 0.58));
+            crystal.style.setProperty("--sticky-crystal-y", `${(1 - eased) * 190}px`);
+            crystal.style.setProperty("--sticky-crystal-opacity", String(0.18 + eased * 0.82));
+          },
+        });
       })();
 
+      /* ---------- Section: hero accordion (no animation, just behavior) ---------- */
       (() => {
         const accordion = document.querySelector("[data-hero-accordion]");
         if (!accordion) return;
@@ -3017,78 +3301,84 @@
         });
       })();
 
+      /* ---------- Section: si-u feed scale ---------- */
       (() => {
         const section = document.querySelector(".si-u-preview-band");
         const image = document.querySelector(".si-u-feed");
+        if (!section || !image) return;
 
-        if (!section || !image || window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-          image?.style.setProperty("--si-u-feed-scale", "1");
-          image?.style.setProperty("--si-u-feed-y", "0px");
-          return;
-        }
-
-        let frame = 0;
-        image.style.setProperty("--si-u-feed-scale", "1");
-        image.style.setProperty("--si-u-feed-y", "0px");
-
-        const updateScale = () => {
-          const rect = section.getBoundingClientRect();
-          const viewportHeight = window.innerHeight || 1;
-          const scrollRange = Math.max(rect.height - viewportHeight * 0.45, 1);
-          const rawProgress = Math.min(Math.max((viewportHeight * 0.72 - rect.top) / scrollRange, 0), 1);
-          const progress = Math.min(Math.max((rawProgress - 0.14) / 0.86, 0), 1);
-          const easedProgress = 1 - Math.pow(1 - progress, 3);
-
-          image.style.setProperty("--si-u-feed-scale", String(1 + easedProgress * 1.16));
-          image.style.setProperty("--si-u-feed-y", `${easedProgress * 286}px`);
+        const setRest = () => {
+          image.style.setProperty("--si-u-feed-scale", "1");
+          image.style.setProperty("--si-u-feed-y", "0px");
         };
+        setRest(); // initialize default before any motion runs
 
-        const requestUpdate = () => {
-          cancelAnimationFrame(frame);
-          frame = requestAnimationFrame(updateScale);
-        };
-
-        updateScale();
-        window.addEventListener("scroll", requestUpdate, { passive: true });
-        window.addEventListener("resize", requestUpdate);
+        SI.onScrollProgress(section, {
+          atRest: setRest,
+          compute: (rect, vh) => {
+            const scrollRange = Math.max(rect.height - vh * 0.45, 1);
+            const raw = (vh * 0.72 - rect.top) / scrollRange;
+            // gate the lower 14% out, then re-normalize — preserves original
+            // visual behavior exactly.
+            return (SI.easings.clamp01(raw) - 0.14) / 0.86;
+          },
+          onProgress: (_raw, eased) => {
+            image.style.setProperty("--si-u-feed-scale", String(1 + eased * 1.16));
+            image.style.setProperty("--si-u-feed-y", `${eased * 286}px`);
+          },
+        });
       })();
 
+      /* ---------- Section: CTA parallax floaters ---------- */
       (() => {
         const band = document.querySelector("[data-cta-parallax]");
         if (!band) return;
         const images = Array.from(band.querySelectorAll(".cta-floating"));
         if (!images.length) return;
 
-        if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-          return;
-        }
-
-        let frame = 0;
-
-        const apply = () => {
-          const rect = band.getBoundingClientRect();
-          const viewportHeight = window.innerHeight || 1;
-          // Range: section center moves from below viewport to above viewport.
-          // `offset` is negative when the section is below the viewport center,
-          // positive when above. We multiply by per-image speed so each image
-          // drifts at a different rate, giving the floating/parallax feel.
-          const sectionCenter = rect.top + rect.height / 2;
-          const offset = viewportHeight / 2 - sectionCenter;
-
+        const setRest = () => {
           images.forEach((img) => {
-            const speed = parseFloat(img.dataset.parallaxSpeed || "0.1");
-            img.style.transform = `translate3d(0, ${(offset * speed).toFixed(2)}px, 0)`;
+            img.style.transform = "translate3d(0, 0, 0)";
           });
         };
 
-        const requestApply = () => {
-          cancelAnimationFrame(frame);
-          frame = requestAnimationFrame(apply);
-        };
+        SI.onScrollProgress(band, {
+          atRest: setRest,
+          // This effect is a drift (not a 0..1 progress) — section center
+          // moves through viewport center, value can be negative or >1.
+          // Disable clamping so negative offsets reach the callback.
+          clamp: false,
+          ease: (p) => p,
+          compute: (rect, vh) => {
+            const sectionCenter = rect.top + rect.height / 2;
+            const offset = vh / 2 - sectionCenter;
+            return offset / vh; // normalized; recover px = value * vh
+          },
+          onProgress: (raw) => {
+            const vh = window.innerHeight || 1;
+            const offsetPx = raw * vh;
+            images.forEach((img) => {
+              const speed = parseFloat(img.dataset.parallaxSpeed || "0.1");
+              img.style.transform = `translate3d(0, ${(offsetPx * speed).toFixed(2)}px, 0)`;
+            });
+          },
+        });
+      })();
 
-        apply();
-        window.addEventListener("scroll", requestApply, { passive: true });
-        window.addEventListener("resize", requestApply);
+      /* ---------- Footer: newsletter form ---------- */
+      (() => {
+        const form = document.querySelector(".footer-newsletter");
+        if (!form) return;
+        form.addEventListener("submit", (e) => {
+          e.preventDefault();
+          // Hook for the real subscribe handler. Until that's wired up we
+          // just keep the page from doing a GET-reload and losing state.
+          const input = form.querySelector(".footer-newsletter-input");
+          if (input && input.value) {
+            // TODO: POST to subscribe endpoint.
+            input.value = "";
+          }
+        });
       })();
     </script>
   </body>
