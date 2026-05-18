@@ -275,12 +275,30 @@
       }
 
       .hero-ecosystem-cta img {
-        /* Figma asset is a solid up-arrow; rotated 45° to point up-right.
-           Sized to match the Figma 15.85px square wrapper. */
+        /* Figma asset is a solid up-arrow; rotated 180° to point down so
+           it doubles as a "scroll to next section" affordance. */
         width: 16px;
         height: 16px;
-        transform: rotate(45deg);
+        transform: rotate(180deg);
+        transition: transform var(--motion-fast) var(--ease-out-cubic);
+        animation: hero-cta-arrow-bob 2.4s var(--ease-in-out-cubic) infinite;
       }
+
+      .hero-ecosystem-cta:hover img,
+      .hero-ecosystem-cta:focus-visible img {
+        transform: rotate(180deg) translateY(2px);
+        animation-play-state: paused;
+      }
+
+      @keyframes hero-cta-arrow-bob {
+        0%, 100% { transform: rotate(180deg) translateY(0); }
+        50%      { transform: rotate(180deg) translateY(4px); }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        .hero-ecosystem-cta img { animation: none; }
+      }
+      body.motion-off .hero-ecosystem-cta img { animation: none; }
 
       .hero-accordion {
         display: flex;
@@ -2029,6 +2047,14 @@
         padding-bottom: 0;
       }
 
+      /* Smooth-scroll target hygiene */
+      #after-hero {
+        scroll-margin-top: 32px;
+      }
+      #after-hero:focus {
+        outline: none; /* programmatic focus shouldn't draw a ring */
+      }
+
       .site-footer {
         position: relative;
         display: flex;
@@ -2281,7 +2307,12 @@
                   <span>Adoption</span>
                 </span>
               </h1>
-              <a class="hero-ecosystem-cta" href="#">
+              <a
+                class="hero-ecosystem-cta"
+                href="#after-hero"
+                data-scroll-to="#after-hero"
+                aria-label="Explore Ecosystem — scroll to next section"
+              >
                 <span>Explore Ecosystem</span>
                 <img src="./si-assets/hero-cta-arrow.svg" alt="" aria-hidden="true" />
               </a>
@@ -2377,7 +2408,7 @@
         </div>
       </section>
 
-      <div class="crystal-content-stage">
+      <div class="crystal-content-stage" id="after-hero" tabindex="-1">
         <div class="crystal-backdrop-frame" aria-hidden="true">
           <div class="crystal-sticky-asset" data-sticky-crystal>
             <img src="./si-assets/hero-sticky-crystal.png" alt=""  loading="lazy" decoding="async"/>
@@ -3365,6 +3396,32 @@
               img.style.transform = `translate3d(0, ${(offsetPx * speed).toFixed(2)}px, 0)`;
             });
           },
+        });
+      })();
+
+      /* ---------- Smooth scroll for [data-scroll-to] ---------- */
+      (() => {
+        const links = document.querySelectorAll("[data-scroll-to]");
+        if (!links.length) return;
+        links.forEach((link) => {
+          link.addEventListener("click", (e) => {
+            const sel = link.getAttribute("data-scroll-to") || link.getAttribute("href");
+            if (!sel || !sel.startsWith("#")) return;
+            const target = document.querySelector(sel);
+            if (!target) return;
+            e.preventDefault();
+            const reduced = SI?.prefersReducedMotion || document.body.classList.contains("motion-off");
+            target.scrollIntoView({
+              behavior: reduced ? "auto" : "smooth",
+              block: "start",
+            });
+            // Keep the URL hash in sync without an additional scroll jump.
+            history.replaceState(null, "", sel);
+            // Move focus to the target for keyboard/screen-reader users.
+            if (typeof target.focus === "function") {
+              target.focus({ preventScroll: true });
+            }
+          });
         });
       })();
 
