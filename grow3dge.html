@@ -504,6 +504,17 @@
         opacity: 1;
       }
 
+      /* Each tile's backdrop-filter creates its own stacking context, so
+         a row-1 popup positioned below its tile would otherwise paint
+         BEHIND the row-2 tiles (later in DOM order). Lifting the hovered
+         tile to a higher z-index pulls its whole stacking context — and
+         therefore the popup inside it — above every sibling. */
+      .partnerSection .logoTile:hover,
+      .partnerSection .logoTile:focus-visible,
+      .partnerSection .logoTile:focus-within {
+        z-index: 30;
+      }
+
       /* ============================================================
          Hover popup — Figma 1:5899.
          White speech-bubble card with cover image + speaker name +
