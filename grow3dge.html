@@ -1,0 +1,369 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Grow3dge Page Preview</title>
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap");
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html,
+      body {
+        min-height: 100%;
+        margin: 0;
+        background: #0c0a18;
+      }
+
+      body {
+        display: block;
+      }
+
+      .grow3dge-page {
+        min-height: 100vh;
+        background: #0c0a18;
+      }
+
+      .grow3dge-preview-band {
+        position: relative;
+        width: 100%;
+        min-height: 927px;
+        overflow: hidden;
+        background: #0c0a18;
+        color: #fff;
+        isolation: isolate;
+      }
+
+      .grow3dge-preview-bg {
+        position: absolute;
+        inset: 0;
+        z-index: -2;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: center;
+      }
+
+      .grow3dge-preview-band::after {
+        content: "";
+        position: absolute;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        z-index: -1;
+        height: 87px;
+        background: linear-gradient(180deg, rgba(13, 8, 22, 0) 0%, #0c0a18 100%);
+      }
+
+      .grow3dge-nav {
+        position: relative;
+        z-index: 2;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        width: min(1255px, calc(100% - 32px));
+        height: 65px;
+        margin: 0 auto;
+      }
+
+      .grow3dge-logo {
+        display: inline-flex;
+        width: 90px;
+        height: 22px;
+      }
+
+      .grow3dge-logo img {
+        display: block;
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+      }
+
+      .grow3dge-nav-right {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+      }
+
+      .grow3dge-nav-links {
+        display: flex;
+        align-items: center;
+        gap: 22px;
+        font-family: Geist, Arial, sans-serif;
+        font-size: 14px;
+        font-weight: 500;
+        line-height: 1;
+        color: rgba(255, 255, 255, 0.8);
+      }
+
+      .grow3dge-nav-links a,
+      .grow3dge-onboard,
+      .grow3dge-cta {
+        color: inherit;
+        text-decoration: none;
+      }
+
+      .grow3dge-onboard {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        height: 34px;
+        padding: 0 18px;
+        border-radius: 4px;
+        background: #fff;
+        font-family: Geist, Arial, sans-serif;
+        font-size: 14px;
+        font-weight: 500;
+        line-height: 1;
+        color: #000;
+      }
+
+      .grow3dge-copy {
+        position: relative;
+        z-index: 1;
+        display: flex;
+        width: min(1255px, calc(100% - 32px));
+        margin: 0 auto;
+        padding-top: 574px;
+        padding-bottom: 86px;
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .grow3dge-pill {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        height: 30px;
+        padding: 0 18px;
+        border: 1px solid #5e5e5e;
+        border-radius: 999px;
+        background: rgba(0, 0, 0, 0.2);
+        font-family: "Geist Mono", monospace;
+        font-size: 12px;
+        line-height: 1;
+        letter-spacing: 0.72px;
+        text-transform: uppercase;
+      }
+
+      .grow3dge-title {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 4px 12px;
+        margin: 22px 0 0;
+        font-family: Clesmont, "Bebas Neue", "Clesmont Demo", Geist, Arial, sans-serif;
+        font-size: 62px;
+        font-weight: 700;
+        line-height: 0.9;
+        text-transform: uppercase;
+      }
+
+      .grow3dge-title-image {
+        position: relative;
+        display: inline-flex;
+        width: 89px;
+        height: 41px;
+        overflow: hidden;
+        border-radius: 999px;
+        background: linear-gradient(140deg, #08090d 7%, #1c1d3d 135%);
+        vertical-align: middle;
+        box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.1);
+      }
+
+      .grow3dge-title-image img {
+        position: absolute;
+        top: 0;
+        left: 16px;
+        display: block;
+        width: 58px;
+        max-width: none;
+        height: 100%;
+        object-fit: cover;
+      }
+
+      .grow3dge-copy p {
+        max-width: 572px;
+        margin: 20px 0 0;
+        font-family: Geist, Arial, sans-serif;
+        font-size: 18px;
+        line-height: 1.5;
+      }
+
+      .grow3dge-cta {
+        display: inline-flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+        margin-top: 22px;
+        font-family: Geist, Arial, sans-serif;
+        font-size: 16px;
+        line-height: 1;
+      }
+
+      .grow3dge-cta span:first-child {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+      }
+
+      .grow3dge-cta img {
+        width: 8px;
+        height: 8px;
+      }
+
+      .grow3dge-cta-line {
+        width: 44px;
+        height: 1px;
+        background: #fff;
+      }
+
+      .grow3dge-scroll {
+        position: absolute;
+        right: max(16px, calc((100vw - 1255px) / 2));
+        bottom: 86px;
+        display: grid;
+        width: 163px;
+        height: 163px;
+        place-items: center;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 999px;
+        background: rgba(0, 0, 0, 0.1);
+        backdrop-filter: blur(10px);
+      }
+
+      .grow3dge-scroll svg {
+        position: absolute;
+        inset: 17px;
+        width: 129px;
+        height: 129px;
+        overflow: visible;
+        animation: grow3dge-spin 18s linear infinite;
+        color: rgba(255, 255, 255, 0.85);
+        font-family: "Geist Mono", monospace;
+        font-size: 9px;
+        letter-spacing: 3.6px;
+        text-transform: uppercase;
+      }
+
+      .grow3dge-scroll img {
+        position: relative;
+        z-index: 1;
+        width: 49px;
+        height: 68px;
+        object-fit: cover;
+        object-position: center;
+      }
+
+      @keyframes grow3dge-spin {
+        to {
+          transform: rotate(360deg);
+        }
+      }
+
+      @media (max-width: 1100px) {
+        .grow3dge-preview-band {
+          min-height: 820px;
+        }
+
+        .grow3dge-copy {
+          padding-top: 500px;
+        }
+
+        .grow3dge-title {
+          font-size: 56px;
+        }
+
+        .grow3dge-scroll {
+          display: none;
+        }
+      }
+
+      @media (max-width: 640px) {
+        .grow3dge-preview-band {
+          min-height: 760px;
+        }
+
+        .grow3dge-nav-right {
+          display: none;
+        }
+
+        .grow3dge-copy {
+          padding-top: 420px;
+          padding-bottom: 70px;
+        }
+
+        .grow3dge-title {
+          font-size: 44px;
+        }
+
+        .grow3dge-title-image {
+          width: 66px;
+          height: 30px;
+        }
+
+        .grow3dge-title-image img {
+          left: 12px;
+          width: 43px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main class="grow3dge-page">
+      <section class="grow3dge-preview-band" aria-labelledby="grow3dge-preview-title">
+        <img class="grow3dge-preview-bg" src="./si-assets/grow3dge-hero-bg.png" alt="" />
+        <nav class="grow3dge-nav" aria-label="Grow3dge primary">
+          <a class="grow3dge-logo" href="./index.html" aria-label="SI home">
+            <img src="./si-assets/hero-logo.png" alt="SI<3>" />
+          </a>
+          <div class="grow3dge-nav-right">
+            <div class="grow3dge-nav-links">
+              <a href="./grow3dge.html" aria-current="page">Grow3dge</a>
+              <a href="./index.html#after-hero">Well-Being</a>
+              <a href="./index.html#after-hero">Si Her DAO</a>
+              <a href="./index.html#after-hero">Inters3ction</a>
+            </div>
+            <a class="grow3dge-onboard" href="#">Onboard</a>
+          </div>
+        </nav>
+
+        <div class="grow3dge-copy">
+          <span class="grow3dge-pill">Season 2 Live Now</span>
+          <h1 class="grow3dge-title" id="grow3dge-preview-title">
+            <span>Grow</span>
+            <span class="grow3dge-title-image" aria-hidden="true">
+              <img src="./si-assets/grow3dge-title-orb.png" alt="" />
+            </span>
+            <span>3dge</span>
+          </h1>
+          <p>Full-Funnel Growth for the Web3 Era.</p>
+          <a class="grow3dge-cta" href="#">
+            <span>
+              Explore Grow3dge
+              <img src="./si-assets/si-inline-arrow.svg" alt="" />
+            </span>
+            <span class="grow3dge-cta-line" aria-hidden="true"></span>
+          </a>
+        </div>
+
+        <div class="grow3dge-scroll" aria-hidden="true">
+          <svg viewBox="0 0 129 129">
+            <defs>
+              <path id="grow3dge-preview-scroll-path" d="M64.5,64.5 m-50,0 a50,50 0 1,1 100,0 a50,50 0 1,1 -100,0" />
+            </defs>
+            <text fill="currentColor">
+              <textPath href="#grow3dge-preview-scroll-path" startOffset="0%">
+                SCROLL DOWN - SCROLL DOWN - SCROLL DOWN -
+              </textPath>
+            </text>
+          </svg>
+          <img src="./si-assets/grow3dge-scroll-crystal.png" alt="" />
+        </div>
+      </section>
+    </main>
+  </body>
+</html>
