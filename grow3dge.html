@@ -133,7 +133,7 @@
       .grow3dge-content-stage .grow3dge-challenges,
       .grow3dge-content-stage .grow3dge-solutions,
       .grow3dge-content-stage .grow3dge-education,
-      .grow3dge-content-stage .grow3dge-network {
+      .grow3dge-content-stage .grow3dge-media {
         background: transparent;
       }
 
@@ -1676,28 +1676,37 @@
       }
 
       /* ============================================================
-         Network — Figma node 122:1903.
-         Invite-only member network with split image/story cards. */
-      .grow3dge-network {
+         Media — Figma node 122:1903.
+         Three-card lineup showcasing the bi-weekly broadcast surface. */
+      .grow3dge-media {
         position: relative;
         width: 100%;
-        padding: 31px 0 72px;
-        background: #0c0a18;
+        padding: 31px 0 96px;
         color: #fff;
       }
 
-      .grow3dge-network-inner {
+      .grow3dge-media-inner {
         width: min(1253px, calc(100% - 64px));
         margin: 0 auto;
       }
 
-      .grow3dge-network-header {
-        position: relative;
-        min-height: 209px;
+      .grow3dge-media-header {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) minmax(0, 550px);
+        align-items: end;
+        gap: 48px;
+        margin-bottom: 56px;
       }
 
-      .grow3dge-network-title {
-        margin: 24px 0 0;
+      .grow3dge-media-header-left {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 24px;
+      }
+
+      .grow3dge-media-title {
+        margin: 0;
         font-family: var(--font-clesmont), "Clesmont Demo", var(--font-geist), Arial, sans-serif;
         font-size: 32px;
         font-weight: 400;
@@ -1706,13 +1715,20 @@
         text-transform: uppercase;
       }
 
-      .grow3dge-network-title span {
+      .grow3dge-media-title span {
         color: #bca9ff;
       }
 
-      .grow3dge-network-header p {
+      .grow3dge-media-header-right {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+        text-align: right;
+      }
+
+      .grow3dge-media-header-right p {
         max-width: 550px;
-        margin: 10px 0 0;
+        margin: 0;
         font-family: var(--font-geist), system-ui, -apple-system, Arial, sans-serif;
         font-size: 18px;
         font-weight: 400;
@@ -1720,49 +1736,24 @@
         color: #cbcbcb;
       }
 
-      .grow3dge-network-header .grow3dge-link {
+      .grow3dge-media-header-right .grow3dge-link {
+        align-items: flex-end;
         margin-top: 16px;
       }
 
-      .grow3dge-network-scroll {
-        position: absolute;
-        top: 22px;
-        right: 0;
+      .grow3dge-media-cards {
         display: grid;
-        width: 112px;
-        height: 112px;
-        place-items: center;
-        color: rgba(255, 255, 255, 0.8);
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 16px;
       }
 
-      .grow3dge-network-scroll svg {
-        position: absolute;
-        inset: 0;
-        width: 112px;
-        height: 112px;
-        overflow: visible;
-        animation: grow3dge-spin 18s linear infinite;
-        font-family: var(--font-geist-mono), monospace;
-        font-size: 8px;
-        letter-spacing: 2.2px;
-        text-transform: uppercase;
-      }
-
-      .grow3dge-network-scroll img {
-        width: 18px;
-        height: 18px;
-        transform: rotate(90deg);
-      }
-
-      .grow3dge-network-cards {
+      .grow3dge-media-card {
+        position: relative;
         display: flex;
         flex-direction: column;
-        gap: 20px;
-      }
-
-      .grow3dge-network-card {
-        position: relative;
-        min-height: 390px;
+        gap: 12px;
+        min-height: 454px;
+        padding: 28px 26px;
         overflow: hidden;
         border: 1px solid rgba(255, 255, 255, 0.3);
         border-radius: 6px;
@@ -1771,126 +1762,64 @@
         -webkit-backdrop-filter: blur(10px);
       }
 
-      .grow3dge-network-card::before,
-      .grow3dge-network-card::after {
+      /* Soft purple glow gradient on the bottom 125px of each card. */
+      .grow3dge-media-card::after {
         content: "";
         position: absolute;
-        right: 40px;
-        left: 40px;
-        height: 1px;
-        background: rgba(255, 255, 255, 0.08);
+        right: 0;
+        bottom: 0;
+        left: 0;
+        z-index: 0;
+        height: 125px;
+        background: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(51, 17, 113, 0.28) 100%);
+        border-bottom-left-radius: 6px;
+        border-bottom-right-radius: 6px;
+        pointer-events: none;
       }
 
-      .grow3dge-network-card::before {
-        top: 39px;
+      .grow3dge-media-card > * {
+        position: relative;
+        z-index: 1;
       }
 
-      .grow3dge-network-card::after {
-        bottom: 39px;
-      }
-
-      .grow3dge-network-content {
-        position: absolute;
-        top: 72px;
-        width: 565px;
-        max-width: calc(100% - 180px);
-      }
-
-      .grow3dge-network-card.is-text-left .grow3dge-network-content {
-        left: 90px;
-      }
-
-      .grow3dge-network-card.is-text-right .grow3dge-network-content {
-        left: 579px;
-      }
-
-      .grow3dge-network-content h3 {
-        margin: 0;
+      .grow3dge-media-card-eyebrow {
+        display: block;
         font-family: var(--font-geist-mono), monospace;
-        font-size: 28px;
+        font-size: 12px;
+        font-weight: 400;
+        line-height: 1.4;
+        letter-spacing: 1.2px;
+        color: #7d7d7d;
+        text-transform: uppercase;
+      }
+
+      .grow3dge-media-card-title {
+        margin: 0;
+        font-family: var(--font-geist), system-ui, -apple-system, Arial, sans-serif;
+        font-size: 22px;
         font-weight: 500;
-        line-height: normal;
+        line-height: 1.3;
         color: #fff;
       }
 
-      .grow3dge-network-content p {
-        max-width: 565px;
-        margin: 16px 0 0;
+      .grow3dge-media-card-text {
+        margin: 0;
         font-family: var(--font-geist), system-ui, -apple-system, Arial, sans-serif;
-        font-size: 16px;
+        font-size: 17px;
         font-weight: 400;
-        line-height: 1.3;
-        color: #a7a7a7;
+        line-height: 1.4;
+        color: #ececec;
       }
 
-      .grow3dge-network-points {
-        display: flex;
-        flex-direction: column;
-        gap: 13px;
-        margin: 22px 0 0;
-        padding: 0;
-        list-style: none;
-      }
-
-      .grow3dge-network-points li {
-        position: relative;
-        padding-left: 17px;
-        font-family: var(--font-geist), system-ui, -apple-system, Arial, sans-serif;
-        font-size: 16px;
-        font-weight: 400;
-        line-height: 1.3;
-        color: #a7a7a7;
-      }
-
-      .grow3dge-network-points li::before {
-        content: "";
-        position: absolute;
-        top: 0.5em;
-        left: 0;
-        width: 5px;
-        height: 5px;
-        background: #b1a0f9;
-      }
-
-      .grow3dge-network-content .grow3dge-link {
-        margin-top: 18px;
-      }
-
-      .grow3dge-network-media {
-        position: absolute;
-        top: 40px;
-        width: 487px;
-        height: 309px;
+      .grow3dge-media-card-image {
+        margin-top: auto;
+        width: 100%;
+        height: 244px;
         overflow: hidden;
-        background: rgba(255, 255, 255, 0.04);
+        border-radius: 10px;
       }
 
-      .grow3dge-network-card.is-text-left .grow3dge-network-media {
-        right: 41px;
-      }
-
-      .grow3dge-network-card.is-text-right .grow3dge-network-media {
-        left: 41px;
-      }
-
-      .grow3dge-network-media .cornerTopLeft,
-      .grow3dge-network-media .cornerTopRight,
-      .grow3dge-network-media .cornerBottomLeft,
-      .grow3dge-network-media .cornerBottomRight {
-        content: "";
-        position: absolute;
-        z-index: 2;
-        width: 4px;
-        height: 4px;
-        background: #d3d3d3;
-      }
-
-      .grow3dge-network-media .cornerTopLeft { top: 0; left: 0; }
-      .grow3dge-network-media .cornerTopRight { top: 0; right: 0; }
-      .grow3dge-network-media .cornerBottomLeft { bottom: 0; left: 0; }
-      .grow3dge-network-media .cornerBottomRight { right: 0; bottom: 0; }
-
-      .grow3dge-network-media img {
+      .grow3dge-media-card-image img {
         display: block;
         width: 100%;
         height: 100%;
@@ -1898,76 +1827,54 @@
       }
 
       @media (max-width: 1100px) {
-        .grow3dge-network-header {
-          min-height: 180px;
-        }
-
-        .grow3dge-network-scroll {
-          display: none;
-        }
-
-        .grow3dge-network-card {
-          display: grid;
+        .grow3dge-media-header {
           grid-template-columns: 1fr;
+          align-items: flex-start;
           gap: 24px;
+        }
+
+        .grow3dge-media-header-right {
+          align-items: flex-start;
+          text-align: left;
+        }
+
+        .grow3dge-media-header-right .grow3dge-link {
+          align-items: flex-start;
+        }
+
+        .grow3dge-media-cards {
+          grid-template-columns: 1fr;
+        }
+
+        .grow3dge-media-card {
           min-height: 0;
-          padding: 40px;
-        }
-
-        .grow3dge-network-card::before,
-        .grow3dge-network-card::after {
-          display: none;
-        }
-
-        .grow3dge-network-card.is-text-right .grow3dge-network-media {
-          order: -1;
-        }
-
-        .grow3dge-network-content,
-        .grow3dge-network-card.is-text-left .grow3dge-network-content,
-        .grow3dge-network-card.is-text-right .grow3dge-network-content,
-        .grow3dge-network-media,
-        .grow3dge-network-card.is-text-left .grow3dge-network-media,
-        .grow3dge-network-card.is-text-right .grow3dge-network-media {
-          position: relative;
-          top: auto;
-          right: auto;
-          left: auto;
-          width: 100%;
-          max-width: none;
-        }
-
-        .grow3dge-network-media {
-          height: auto;
-          aspect-ratio: 487 / 309;
         }
       }
 
       @media (max-width: 720px) {
-        .grow3dge-network {
-          padding: 48px 0 64px;
+        .grow3dge-media {
+          padding-bottom: 64px;
         }
 
-        .grow3dge-network-inner {
+        .grow3dge-media-inner {
           width: min(100% - 32px, 1253px);
         }
 
-        .grow3dge-network-title {
+        .grow3dge-media-title {
           font-size: 28px;
         }
 
-        .grow3dge-network-header p,
-        .grow3dge-network-content p,
-        .grow3dge-network-points li {
-          font-size: 15px;
+        .grow3dge-media-header-right p {
+          font-size: 16px;
         }
 
-        .grow3dge-network-card {
+        .grow3dge-media-card {
           padding: 24px 20px;
         }
 
-        .grow3dge-network-content h3 {
-          font-size: 22px;
+        .grow3dge-media-card-image {
+          height: auto;
+          aspect-ratio: 356 / 244;
         }
       }
     </style>
@@ -2582,103 +2489,61 @@
         </div>
       </section>
 
-      <!-- Network — Figma 122:1903 -->
-      <section class="grow3dge-network" aria-labelledby="grow3dge-network-title">
-        <div class="grow3dge-network-inner">
-          <header class="grow3dge-network-header">
-            <span class="grow3dge-kicker">
-              <img src="./si-assets/snapshot-mark.svg" alt="" />
-              Network
-            </span>
-            <h2 class="grow3dge-network-title" id="grow3dge-network-title">
-              The Inner <span>Circle</span>
-            </h2>
-            <p>An invite-only network of 30+ ecosystems, founders, and operators where growth, intros, and deal flow compound monthly.</p>
-            <a class="grow3dge-link" href="#">
-              <span>
-                Request Invite
-                <img src="./si-assets/si-inline-arrow.svg" alt="" />
+      <!-- Media — Figma 122:1903 -->
+      <section class="grow3dge-media" aria-labelledby="grow3dge-media-title">
+        <div class="grow3dge-media-inner">
+          <header class="grow3dge-media-header">
+            <div class="grow3dge-media-header-left">
+              <span class="grow3dge-kicker">
+                <img src="./si-assets/snapshot-mark.svg" alt="" />
+                Media
               </span>
-            </a>
-            <div class="grow3dge-network-scroll" aria-hidden="true">
-              <svg viewBox="0 0 112 112">
-                <defs>
-                  <path id="grow3dge-network-scroll-path" d="M56,56 m-42,0 a42,42 0 1,1 84,0 a42,42 0 1,1 -84,0" />
-                </defs>
-                <text fill="currentColor">
-                  <textPath href="#grow3dge-network-scroll-path" startOffset="0%">
-                    SCROLL DOWN - SCROLL DOWN - SCROLL DOWN -
-                  </textPath>
-                </text>
-              </svg>
-              <img src="./si-assets/si-inline-arrow.svg" alt="" />
+              <h2 class="grow3dge-media-title" id="grow3dge-media-title">
+                On-Air <span>Bi-Weekly</span>
+              </h2>
+            </div>
+            <div class="grow3dge-media-header-right">
+              <p>Position your project in front of professional audiences at scale &mdash; generating 1k+ marketing qualified leads per broadcast.</p>
+              <a class="grow3dge-link" href="#">
+                <span>
+                  Request Info
+                  <img src="./si-assets/si-inline-arrow.svg" alt="" />
+                </span>
+              </a>
             </div>
           </header>
 
-          <div class="grow3dge-network-cards">
-            <article class="grow3dge-network-card is-text-left">
-              <div class="grow3dge-network-content">
-                <h3>Warm Intros, Not Cold DMs</h3>
-                <p>Skip cold outreach. Members access a curated network of operators with peer-targeted intros to ecosystems, partners, relevant partners, and capital.</p>
-                <ul class="grow3dge-network-points">
-                  <li>Strategic partnerships &amp; protocol integration facilitation</li>
-                  <li>Direct lines to ecosystems, grant programs, and venture groups</li>
-                  <li>Curated matchmaking based on stage and category</li>
-                </ul>
-                <a class="grow3dge-link" href="#">
-                  <span>
-                    Request Invite
-                    <img src="./si-assets/si-inline-arrow.svg" alt="" />
-                  </span>
-                </a>
-              </div>
-              <div class="grow3dge-network-media">
-                <span class="cornerTopLeft"></span><span class="cornerTopRight"></span><span class="cornerBottomLeft"></span><span class="cornerBottomRight"></span>
-                <img src="./si-assets/network-leaders.png" alt="" loading="lazy" decoding="async" />
+          <div class="grow3dge-media-cards">
+            <article class="grow3dge-media-card">
+              <span class="grow3dge-media-card-eyebrow">01/ Visibility</span>
+              <h3 class="grow3dge-media-card-title">Reach 1k+ MQL&rsquo;s</h3>
+              <p class="grow3dge-media-card-text">
+                Each session connects you with engaged Web3 builders, operators, and ecosystem leads who integrate and refer.
+              </p>
+              <div class="grow3dge-media-card-image">
+                <img src="./si-assets/media-mqls.png" alt="Live session with 1,247 watching, speaker grid and stats" loading="lazy" decoding="async" />
               </div>
             </article>
 
-            <article class="grow3dge-network-card is-text-right">
-              <div class="grow3dge-network-media">
-                <span class="cornerTopLeft"></span><span class="cornerTopRight"></span><span class="cornerBottomLeft"></span><span class="cornerBottomRight"></span>
-                <img src="./si-assets/network-warm-intros.png" alt="" loading="lazy" decoding="async" />
-              </div>
-              <div class="grow3dge-network-content">
-                <h3>Learn From Other Leaders</h3>
-                <p>Where founders and operators learn, share and build strategies side-by-side.</p>
-                <ul class="grow3dge-network-points">
-                  <li>Founder-to-founder intros across 30+ ecosystems</li>
-                  <li>Network with purpose and explore real partnership and integration opportunities</li>
-                  <li>Curated matchmaking based on stage and category</li>
-                </ul>
-                <a class="grow3dge-link" href="#">
-                  <span>
-                    Request Invite
-                    <img src="./si-assets/si-inline-arrow.svg" alt="" />
-                  </span>
-                </a>
+            <article class="grow3dge-media-card">
+              <span class="grow3dge-media-card-eyebrow">02/ Authority</span>
+              <h3 class="grow3dge-media-card-title">Thought Lead</h3>
+              <p class="grow3dge-media-card-text">
+                Go live on LinkedIn in a format that builds credibility and authority around your project, reaching professional audiences.
+              </p>
+              <div class="grow3dge-media-card-image">
+                <img src="./si-assets/media-linkedin.png" alt="LinkedIn featured speakers list for Season 02" loading="lazy" decoding="async" />
               </div>
             </article>
 
-            <article class="grow3dge-network-card is-text-left">
-              <div class="grow3dge-network-content">
-                <h3>Share Knowledge &amp; Connect IRL</h3>
-                <p>Kaia is our always-on network intelligence agent connecting the right people, knowledge, and opportunities across the Grow3dge ecosystem.</p>
-                <ul class="grow3dge-network-points">
-                  <li>Founder-to-founder intros across 30+ ecosystems</li>
-                  <li>Direct lines to BD leads, grant programs, and L2 foundations</li>
-                  <li>Curated matchmaking based on stage and category</li>
-                </ul>
-                <a class="grow3dge-link" href="#">
-                  <span>
-                    Request Invite
-                    <img src="./si-assets/si-inline-arrow.svg" alt="" />
-                  </span>
-                </a>
-              </div>
-              <div class="grow3dge-network-media">
-                <span class="cornerTopLeft"></span><span class="cornerTopRight"></span><span class="cornerBottomLeft"></span><span class="cornerBottomRight"></span>
-                <img src="./si-assets/network-kaia.png" alt="" loading="lazy" decoding="async" />
+            <article class="grow3dge-media-card">
+              <span class="grow3dge-media-card-eyebrow">03/ Evergreen</span>
+              <h3 class="grow3dge-media-card-title">Educate &amp; Onboard</h3>
+              <p class="grow3dge-media-card-text">
+                Every broadcast is a live sales moment converting professional audiences from cold to convinced in real time.
+              </p>
+              <div class="grow3dge-media-card-image">
+                <img src="./si-assets/media-session.png" alt="Building in Public episode 24 reach across platforms" loading="lazy" decoding="async" />
               </div>
             </article>
           </div>
