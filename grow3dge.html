@@ -4,6 +4,9 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Grow3dge Page Preview</title>
+    <!-- Reuse the homepage's partner-logo styling so brand marks render at
+         their native colors/sizes and fade-on-hover identically. -->
+    <link rel="stylesheet" href="./components/PartnerSection.module.css" />
     <style>
       @import url("https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Geist:wght@100..900&family=Geist+Mono:wght@100..900&display=swap");
 
@@ -446,75 +449,24 @@
         text-align: right;
       }
 
-      .grow3dge-snapshots-grid {
-        display: grid;
-        grid-template-columns: repeat(7, minmax(0, 1fr));
-        gap: 21px;
-      }
+      /* The .logoGrid + .logoTile + .logoImage rules now come from
+         components/PartnerSection.module.css so the tiles, sizing, hover
+         dim-and-highlight, and 4-corner dots match the homepage exactly.
+         The two overrides below adapt only what the Session Snapshots
+         design needs on top of that shared base. */
 
-      /* Card — Figma 114:1162 et al. 161×89, blurred dark fill,
-         1px translucent border, decorative 4px dots at each corner. */
-      .grow3dge-card {
-        position: relative;
+      /* Person tile — Figma 114:1206 / 114:1297. Keeps the homepage tile
+         frame (border, dark fill, backdrop-blur, corner dots, group-hover
+         dim) but houses an avatar + name + role instead of a logo image. */
+      .partnerSection .logoTile.logoTilePerson {
         display: flex;
         align-items: center;
-        justify-content: center;
-        height: 89px;
-        padding: 18px 16px;
-        border: 1px solid rgba(255, 255, 255, 0.3);
-        background: rgba(0, 0, 0, 0.2);
-        backdrop-filter: blur(10px);
-        -webkit-backdrop-filter: blur(10px);
-        opacity: 0.4;
-        transition: opacity var(--motion-fast, 220ms) var(--ease-out-cubic, ease-out);
-      }
-
-      .grow3dge-card:hover,
-      .grow3dge-card:focus-within,
-      .grow3dge-card--featured {
-        opacity: 1;
-      }
-
-      /* Four corner dots — pseudo-elements + a single ::before/::after pair
-         won't cover all four, so we draw two via the card itself (top-left,
-         bottom-right) and two via an inner span (top-right, bottom-left). */
-      .grow3dge-card::before,
-      .grow3dge-card::after,
-      .grow3dge-card-dots::before,
-      .grow3dge-card-dots::after {
-        content: "";
-        position: absolute;
-        width: 4px;
-        height: 4px;
-        background: #d3d3d3;
-      }
-      .grow3dge-card::before     { top: -1px; left: -1px; }
-      .grow3dge-card::after      { bottom: -1px; right: -1px; }
-      .grow3dge-card-dots {
-        position: absolute;
-        inset: 0;
-        pointer-events: none;
-      }
-      .grow3dge-card-dots::before { top: -1px;    right: -1px; }
-      .grow3dge-card-dots::after  { bottom: -1px; left: -1px; }
-
-      .grow3dge-card-logo {
-        max-width: 70%;
-        max-height: 36px;
-        width: auto;
-        height: auto;
-        object-fit: contain;
-        filter: brightness(0) invert(1);
-      }
-
-      /* Person card — Figma 114:1206 / 114:1297. Avatar + name + role. */
-      .grow3dge-card--person {
         justify-content: flex-start;
         gap: 8px;
         padding: 14px;
       }
 
-      .grow3dge-card-avatar {
+      .partnerSection .logoTile.logoTilePerson .logoTilePersonAvatar {
         flex: 0 0 auto;
         width: 37px;
         height: 37px;
@@ -522,42 +474,40 @@
         object-fit: cover;
       }
 
-      .grow3dge-card-person-meta {
+      .partnerSection .logoTile.logoTilePerson .logoTilePersonMeta {
         display: flex;
         flex-direction: column;
         gap: 4px;
         line-height: 1;
         min-width: 0;
+        text-align: left;
       }
 
-      .grow3dge-card-person-meta strong {
+      .partnerSection .logoTile.logoTilePerson .logoTilePersonMeta strong {
         font-family: "Geist", "Roobert TRIAL", system-ui, Arial, sans-serif;
         font-size: 14px;
         font-weight: 500;
         color: #fff;
       }
 
-      .grow3dge-card-person-meta span {
+      .partnerSection .logoTile.logoTilePerson .logoTilePersonMeta span {
         font-family: "Geist", "Roobert TRIAL", system-ui, Arial, sans-serif;
         font-size: 12px;
         font-weight: 400;
         color: #a4a4a4;
       }
 
-      @media (max-width: 1100px) {
-        .grow3dge-snapshots-grid {
-          grid-template-columns: repeat(4, minmax(0, 1fr));
-        }
-        .grow3dge-snapshots-eyebrow { font-size: 14px; }
+      /* Featured tile — stays at full opacity even when the grid is
+         in its hovered/dimmed state. Used for the second-row Stellar
+         card per the Figma. */
+      .partnerSection .logoGrid:hover .logoTile.logoTileFeatured {
+        opacity: 1;
       }
 
       @media (max-width: 640px) {
         .grow3dge-snapshots { padding: 40px 0 64px; }
         .grow3dge-snapshots-header { flex-direction: column; align-items: flex-start; gap: 12px; }
         .grow3dge-snapshots-eyebrow { text-align: left; }
-        .grow3dge-snapshots-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
-        .grow3dge-card { padding: 14px; }
-        .grow3dge-card--person { padding: 12px; }
       }
     </style>
   </head>
@@ -645,93 +595,97 @@
         </div>
       </div>
 
-      <!-- Session Snapshots — Figma 114:1147 -->
+      <!-- Session Snapshots — Figma 114:1147.
+           Logo tiles + corner dots + group-hover come from the homepage's
+           PartnerSection.module.css (linked above). Header still uses
+           Session Snapshots' own title + Geist Mono eyebrow. -->
       <section
-        class="grow3dge-snapshots"
+        class="grow3dge-snapshots partnerSection"
         aria-labelledby="grow3dge-snapshots-title"
       >
-        <div class="grow3dge-snapshots-inner">
-          <header class="grow3dge-snapshots-header">
-            <h2 class="grow3dge-snapshots-title" id="grow3dge-snapshots-title">
-              <span class="grow3dge-snapshots-mark" aria-hidden="true">
-                <img src="./si-assets/snapshot-mark.svg" alt="" />
-              </span>
-              Session Snapshots
-            </h2>
-            <p class="grow3dge-snapshots-eyebrow">
-              Program &amp; Product Partners We Support
-            </p>
-          </header>
+        <header class="grow3dge-snapshots-header">
+          <h2 class="grow3dge-snapshots-title" id="grow3dge-snapshots-title">
+            <span class="grow3dge-snapshots-mark" aria-hidden="true">
+              <img src="./si-assets/snapshot-mark.svg" alt="" />
+            </span>
+            Session Snapshots
+          </h2>
+          <p class="grow3dge-snapshots-eyebrow">
+            Program &amp; Product Partners We Support
+          </p>
+        </header>
 
-          <div class="grow3dge-snapshots-grid">
-            <!-- Row 1: Stellar, Unlock, Dune, Rari, ENS, Uniswap, Hacken -->
-            <div class="grow3dge-card">
-              <span class="grow3dge-card-dots" aria-hidden="true"></span>
-              <img class="grow3dge-card-logo" src="./si-assets/logo-stellar.svg" alt="Stellar" loading="lazy" decoding="async" />
-            </div>
-            <div class="grow3dge-card">
-              <span class="grow3dge-card-dots" aria-hidden="true"></span>
-              <img class="grow3dge-card-logo" src="./si-assets/logo-unlock.svg" alt="Unlock" loading="lazy" decoding="async" />
-            </div>
-            <div class="grow3dge-card">
-              <span class="grow3dge-card-dots" aria-hidden="true"></span>
-              <img class="grow3dge-card-logo" src="./si-assets/logo-dune.svg" alt="Dune" loading="lazy" decoding="async" />
-            </div>
-            <div class="grow3dge-card">
-              <span class="grow3dge-card-dots" aria-hidden="true"></span>
-              <img class="grow3dge-card-logo" src="./si-assets/logo-rari.svg" alt="Rari" loading="lazy" decoding="async" />
-            </div>
-            <div class="grow3dge-card">
-              <span class="grow3dge-card-dots" aria-hidden="true"></span>
-              <img class="grow3dge-card-logo" src="./si-assets/logo-ens.svg" alt="ENS" loading="lazy" decoding="async" />
-            </div>
-            <div class="grow3dge-card">
-              <span class="grow3dge-card-dots" aria-hidden="true"></span>
-              <img class="grow3dge-card-logo" src="./si-assets/logo-uniswap.png" alt="Uniswap Foundation" loading="lazy" decoding="async" />
-            </div>
-            <div class="grow3dge-card">
-              <span class="grow3dge-card-dots" aria-hidden="true"></span>
-              <img class="grow3dge-card-logo" src="./si-assets/logo-hacken.png" alt="Hacken" loading="lazy" decoding="async" />
-            </div>
+        <div class="logoGrid">
+          <!-- Row 1: Stellar, Unlock, Dune, Rari, ENS, Uniswap, Hacken -->
+          <button class="logoTile" type="button" aria-label="Stellar">
+            <span class="cornerTopLeft"></span><span class="cornerTopRight"></span><span class="cornerBottomLeft"></span><span class="cornerBottomRight"></span>
+            <img class="logoImage logoStellar" src="./si-assets/logo-stellar.svg" alt="Stellar" loading="lazy" decoding="async" />
+          </button>
+          <button class="logoTile" type="button" aria-label="Unlock">
+            <span class="cornerTopLeft"></span><span class="cornerTopRight"></span><span class="cornerBottomLeft"></span><span class="cornerBottomRight"></span>
+            <img class="logoImage logoUnlock" src="./si-assets/logo-unlock.svg" alt="Unlock" loading="lazy" decoding="async" />
+          </button>
+          <button class="logoTile" type="button" aria-label="Dune">
+            <span class="cornerTopLeft"></span><span class="cornerTopRight"></span><span class="cornerBottomLeft"></span><span class="cornerBottomRight"></span>
+            <img class="logoImage logoDune" src="./si-assets/logo-dune.svg" alt="Dune" loading="lazy" decoding="async" />
+          </button>
+          <button class="logoTile" type="button" aria-label="RARI">
+            <span class="cornerTopLeft"></span><span class="cornerTopRight"></span><span class="cornerBottomLeft"></span><span class="cornerBottomRight"></span>
+            <img class="logoImage logoRari" src="./si-assets/logo-rari.svg" alt="RARI" loading="lazy" decoding="async" />
+          </button>
+          <button class="logoTile" type="button" aria-label="ENS">
+            <span class="cornerTopLeft"></span><span class="cornerTopRight"></span><span class="cornerBottomLeft"></span><span class="cornerBottomRight"></span>
+            <img class="logoImage logoEns" src="./si-assets/logo-ens.svg" alt="ENS" loading="lazy" decoding="async" />
+          </button>
+          <button class="logoTile" type="button" aria-label="Uniswap Foundation">
+            <span class="cornerTopLeft"></span><span class="cornerTopRight"></span><span class="cornerBottomLeft"></span><span class="cornerBottomRight"></span>
+            <img class="logoImage logoUniswap" src="./si-assets/logo-uniswap.png" alt="Uniswap Foundation" loading="lazy" decoding="async" />
+          </button>
+          <button class="logoTile" type="button" aria-label="Hacken">
+            <span class="cornerTopLeft"></span><span class="cornerTopRight"></span><span class="cornerBottomLeft"></span><span class="cornerBottomRight"></span>
+            <img class="logoImage logoHacken" src="./si-assets/logo-hacken.png" alt="Hacken" loading="lazy" decoding="async" />
+          </button>
 
-            <!-- Row 2: Zerion, Sara Khan, MoonDAO, STARKNET, Stellar (featured), Lara Khan, Dune -->
-            <div class="grow3dge-card">
-              <span class="grow3dge-card-dots" aria-hidden="true"></span>
-              <img class="grow3dge-card-logo" src="./si-assets/logo-zerion.svg" alt="Zerion" loading="lazy" decoding="async" />
-            </div>
-            <div class="grow3dge-card grow3dge-card--person">
-              <span class="grow3dge-card-dots" aria-hidden="true"></span>
-              <img class="grow3dge-card-avatar" src="./si-assets/snapshot-sara.jpg" alt="" loading="lazy" decoding="async" />
-              <div class="grow3dge-card-person-meta">
-                <strong>Sara Khan</strong>
-                <span>Founder</span>
-              </div>
-            </div>
-            <div class="grow3dge-card">
-              <span class="grow3dge-card-dots" aria-hidden="true"></span>
-              <img class="grow3dge-card-logo" src="./si-assets/logo-moondao-wordmark.png" alt="MoonDAO" loading="lazy" decoding="async" />
-            </div>
-            <div class="grow3dge-card">
-              <span class="grow3dge-card-dots" aria-hidden="true"></span>
-              <img class="grow3dge-card-logo" src="./si-assets/logo-starknet.png" alt="Starknet" loading="lazy" decoding="async" />
-            </div>
-            <div class="grow3dge-card grow3dge-card--featured">
-              <span class="grow3dge-card-dots" aria-hidden="true"></span>
-              <img class="grow3dge-card-logo" src="./si-assets/logo-stellar.svg" alt="Stellar" loading="lazy" decoding="async" />
-            </div>
-            <div class="grow3dge-card grow3dge-card--person">
-              <span class="grow3dge-card-dots" aria-hidden="true"></span>
-              <img class="grow3dge-card-avatar" src="./si-assets/snapshot-lara.jpg" alt="" loading="lazy" decoding="async" />
-              <div class="grow3dge-card-person-meta">
-                <strong>Lara Khan</strong>
-                <span>Founder</span>
-              </div>
-            </div>
-            <div class="grow3dge-card">
-              <span class="grow3dge-card-dots" aria-hidden="true"></span>
-              <img class="grow3dge-card-logo" src="./si-assets/logo-dune.svg" alt="Dune" loading="lazy" decoding="async" />
-            </div>
-          </div>
+          <!-- Row 2: Zerion, Sara Khan, MoonDAO, STARKNET, Stellar (featured), Lara Khan, Dune -->
+          <button class="logoTile" type="button" aria-label="Zerion">
+            <span class="cornerTopLeft"></span><span class="cornerTopRight"></span><span class="cornerBottomLeft"></span><span class="cornerBottomRight"></span>
+            <img class="logoImage logoZerion" src="./si-assets/logo-zerion.svg" alt="Zerion" loading="lazy" decoding="async" />
+          </button>
+          <button class="logoTile logoTilePerson" type="button" aria-label="Sara Khan, Founder">
+            <span class="cornerTopLeft"></span><span class="cornerTopRight"></span><span class="cornerBottomLeft"></span><span class="cornerBottomRight"></span>
+            <img class="logoTilePersonAvatar" src="./si-assets/snapshot-sara.jpg" alt="" loading="lazy" decoding="async" />
+            <span class="logoTilePersonMeta">
+              <strong>Sara Khan</strong>
+              <span>Founder</span>
+            </span>
+          </button>
+          <button class="logoTile" type="button" aria-label="MoonDAO">
+            <span class="cornerTopLeft"></span><span class="cornerTopRight"></span><span class="cornerBottomLeft"></span><span class="cornerBottomRight"></span>
+            <span class="logoMoonDao">
+              <img class="logoMoonDaoMark" src="./si-assets/logo-moondao-mark.png" alt="" loading="lazy" decoding="async" />
+              <img class="logoMoonDaoWordmark" src="./si-assets/logo-moondao-wordmark.png" alt="MoonDAO" loading="lazy" decoding="async" />
+            </span>
+          </button>
+          <button class="logoTile" type="button" aria-label="Starknet">
+            <span class="cornerTopLeft"></span><span class="cornerTopRight"></span><span class="cornerBottomLeft"></span><span class="cornerBottomRight"></span>
+            <img class="logoImage logoStarknet" src="./si-assets/logo-starknet.png" alt="Starknet" loading="lazy" decoding="async" />
+          </button>
+          <button class="logoTile logoTileFeatured" type="button" aria-label="Stellar">
+            <span class="cornerTopLeft"></span><span class="cornerTopRight"></span><span class="cornerBottomLeft"></span><span class="cornerBottomRight"></span>
+            <img class="logoImage logoStellar" src="./si-assets/logo-stellar-repeat.svg" alt="Stellar" loading="lazy" decoding="async" />
+          </button>
+          <button class="logoTile logoTilePerson" type="button" aria-label="Lara Khan, Founder">
+            <span class="cornerTopLeft"></span><span class="cornerTopRight"></span><span class="cornerBottomLeft"></span><span class="cornerBottomRight"></span>
+            <img class="logoTilePersonAvatar" src="./si-assets/snapshot-lara.jpg" alt="" loading="lazy" decoding="async" />
+            <span class="logoTilePersonMeta">
+              <strong>Lara Khan</strong>
+              <span>Founder</span>
+            </span>
+          </button>
+          <button class="logoTile" type="button" aria-label="Dune">
+            <span class="cornerTopLeft"></span><span class="cornerTopRight"></span><span class="cornerBottomLeft"></span><span class="cornerBottomRight"></span>
+            <img class="logoImage logoDune" src="./si-assets/logo-dune.svg" alt="Dune" loading="lazy" decoding="async" />
+          </button>
         </div>
       </section>
     </main>
