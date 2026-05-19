@@ -504,6 +504,123 @@
         opacity: 1;
       }
 
+      /* ============================================================
+         Hover popup — Figma 1:5899.
+         White speech-bubble card with cover image + speaker name +
+         title. Anchored to the hovered tile; row 1 tiles open the
+         popup BELOW (tail up), row 2 tiles open it ABOVE (tail down)
+         so it never overlaps the section header awkwardly. */
+      .logoTilePopup {
+        --popup-w: 351px;
+        --tail-size: 16px;
+        --popup-gap: 14px;
+        position: absolute;
+        left: 50%;
+        z-index: 20;
+        width: var(--popup-w);
+        padding: 10px;
+        background: #fff;
+        border-radius: 8px;
+        box-shadow:
+          0 24px 56px rgba(0, 0, 0, 0.32),
+          0 2px 6px rgba(0, 0, 0, 0.18);
+        opacity: 0;
+        pointer-events: none;
+        cursor: default;
+        transition:
+          opacity 240ms var(--ease-out-cubic, ease-out),
+          transform 240ms var(--ease-out-cubic, ease-out);
+        /* Default placement = popup ABOVE the tile (used by row 2). */
+        bottom: calc(100% + var(--popup-gap));
+        transform: translate(-50%, 6px);
+      }
+
+      /* Tail — default is bottom-of-card, pointing down at the tile. */
+      .logoTilePopup::after {
+        content: "";
+        position: absolute;
+        left: 50%;
+        margin-left: calc(var(--tail-size) / -2);
+        width: var(--tail-size);
+        height: calc(var(--tail-size) * 0.7);
+        background: #fff;
+        top: 100%;
+        clip-path: polygon(0 0, 100% 0, 50% 100%);
+      }
+
+      /* Row 1 (first 7 tiles) — flip popup BELOW with tail pointing up. */
+      .partnerSection .logoGrid .logoTile:nth-child(-n+7) .logoTilePopup {
+        top: calc(100% + var(--popup-gap));
+        bottom: auto;
+        transform: translate(-50%, -6px);
+      }
+      .partnerSection .logoGrid .logoTile:nth-child(-n+7) .logoTilePopup::after {
+        top: auto;
+        bottom: 100%;
+        clip-path: polygon(0 100%, 100% 100%, 50% 0);
+      }
+
+      /* Reveal on hover or keyboard focus. */
+      .partnerSection .logoTile:hover .logoTilePopup,
+      .partnerSection .logoTile:focus-visible .logoTilePopup,
+      .partnerSection .logoTile:focus-within .logoTilePopup {
+        opacity: 1;
+        pointer-events: auto;
+        transform: translate(-50%, 0);
+      }
+
+      .logoTilePopupCover {
+        display: block;
+        width: 100%;
+        height: 146px;
+        object-fit: cover;
+        border-radius: 6px;
+      }
+
+      .logoTilePopupMeta {
+        display: flex;
+        flex-direction: column;
+        gap: 7px;
+        padding: 11px 4px 4px;
+        text-align: left;
+      }
+
+      .logoTilePopupMeta strong {
+        font-family: "Geist", "Roobert TRIAL", system-ui, Arial, sans-serif;
+        font-size: 16px;
+        font-weight: 500;
+        line-height: 1;
+        color: #000;
+      }
+
+      .logoTilePopupMeta span {
+        font-family: "Geist", "Roobert TRIAL", system-ui, Arial, sans-serif;
+        font-size: 14px;
+        font-weight: 400;
+        line-height: 1;
+        color: #727272;
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        .logoTilePopup { transition: opacity 120ms linear; transform: translate(-50%, 0); }
+        .partnerSection .logoGrid .logoTile:nth-child(-n+7) .logoTilePopup {
+          transform: translate(-50%, 0);
+        }
+      }
+      body.motion-off .logoTilePopup {
+        transition: opacity 120ms linear;
+        transform: translate(-50%, 0);
+      }
+      body.motion-off .partnerSection .logoGrid .logoTile:nth-child(-n+7) .logoTilePopup {
+        transform: translate(-50%, 0);
+      }
+
+      /* Touch devices have no hover — hide the popup so static content
+         isn't covered up by a near-invisible card on first tap. */
+      @media (hover: none), (max-width: 720px) {
+        .logoTilePopup { display: none; }
+      }
+
       @media (max-width: 640px) {
         .grow3dge-snapshots { padding: 40px 0 64px; }
         .grow3dge-snapshots-header { flex-direction: column; align-items: flex-start; gap: 12px; }
@@ -620,36 +737,92 @@
           <button class="logoTile" type="button" aria-label="Stellar">
             <span class="cornerTopLeft"></span><span class="cornerTopRight"></span><span class="cornerBottomLeft"></span><span class="cornerBottomRight"></span>
             <img class="logoImage logoStellar" src="./si-assets/logo-stellar.svg" alt="Stellar" loading="lazy" decoding="async" />
+            <span class="logoTilePopup" role="presentation">
+              <img class="logoTilePopupCover" src="./si-assets/snapshot-popup-cover.png" alt="" loading="lazy" decoding="async" />
+              <span class="logoTilePopupMeta">
+                <strong>Speaker Name</strong>
+                <span>Speaker title here</span>
+              </span>
+            </span>
           </button>
           <button class="logoTile" type="button" aria-label="Unlock">
             <span class="cornerTopLeft"></span><span class="cornerTopRight"></span><span class="cornerBottomLeft"></span><span class="cornerBottomRight"></span>
             <img class="logoImage logoUnlock" src="./si-assets/logo-unlock.svg" alt="Unlock" loading="lazy" decoding="async" />
+            <span class="logoTilePopup" role="presentation">
+              <img class="logoTilePopupCover" src="./si-assets/snapshot-popup-cover.png" alt="" loading="lazy" decoding="async" />
+              <span class="logoTilePopupMeta">
+                <strong>Speaker Name</strong>
+                <span>Speaker title here</span>
+              </span>
+            </span>
           </button>
           <button class="logoTile" type="button" aria-label="Dune">
             <span class="cornerTopLeft"></span><span class="cornerTopRight"></span><span class="cornerBottomLeft"></span><span class="cornerBottomRight"></span>
             <img class="logoImage logoDune" src="./si-assets/logo-dune.svg" alt="Dune" loading="lazy" decoding="async" />
+            <span class="logoTilePopup" role="presentation">
+              <img class="logoTilePopupCover" src="./si-assets/snapshot-popup-cover.png" alt="" loading="lazy" decoding="async" />
+              <span class="logoTilePopupMeta">
+                <strong>Speaker Name</strong>
+                <span>Speaker title here</span>
+              </span>
+            </span>
           </button>
           <button class="logoTile" type="button" aria-label="RARI">
             <span class="cornerTopLeft"></span><span class="cornerTopRight"></span><span class="cornerBottomLeft"></span><span class="cornerBottomRight"></span>
             <img class="logoImage logoRari" src="./si-assets/logo-rari.svg" alt="RARI" loading="lazy" decoding="async" />
+            <span class="logoTilePopup" role="presentation">
+              <img class="logoTilePopupCover" src="./si-assets/snapshot-popup-cover.png" alt="" loading="lazy" decoding="async" />
+              <span class="logoTilePopupMeta">
+                <strong>Speaker Name</strong>
+                <span>Speaker title here</span>
+              </span>
+            </span>
           </button>
           <button class="logoTile" type="button" aria-label="ENS">
             <span class="cornerTopLeft"></span><span class="cornerTopRight"></span><span class="cornerBottomLeft"></span><span class="cornerBottomRight"></span>
             <img class="logoImage logoEns" src="./si-assets/logo-ens.svg" alt="ENS" loading="lazy" decoding="async" />
+            <span class="logoTilePopup" role="presentation">
+              <img class="logoTilePopupCover" src="./si-assets/snapshot-popup-cover.png" alt="" loading="lazy" decoding="async" />
+              <span class="logoTilePopupMeta">
+                <strong>Speaker Name</strong>
+                <span>Speaker title here</span>
+              </span>
+            </span>
           </button>
           <button class="logoTile" type="button" aria-label="Uniswap Foundation">
             <span class="cornerTopLeft"></span><span class="cornerTopRight"></span><span class="cornerBottomLeft"></span><span class="cornerBottomRight"></span>
             <img class="logoImage logoUniswap" src="./si-assets/logo-uniswap.png" alt="Uniswap Foundation" loading="lazy" decoding="async" />
+            <span class="logoTilePopup" role="presentation">
+              <img class="logoTilePopupCover" src="./si-assets/snapshot-popup-cover.png" alt="" loading="lazy" decoding="async" />
+              <span class="logoTilePopupMeta">
+                <strong>Speaker Name</strong>
+                <span>Speaker title here</span>
+              </span>
+            </span>
           </button>
           <button class="logoTile" type="button" aria-label="Hacken">
             <span class="cornerTopLeft"></span><span class="cornerTopRight"></span><span class="cornerBottomLeft"></span><span class="cornerBottomRight"></span>
             <img class="logoImage logoHacken" src="./si-assets/logo-hacken.png" alt="Hacken" loading="lazy" decoding="async" />
+            <span class="logoTilePopup" role="presentation">
+              <img class="logoTilePopupCover" src="./si-assets/snapshot-popup-cover.png" alt="" loading="lazy" decoding="async" />
+              <span class="logoTilePopupMeta">
+                <strong>Speaker Name</strong>
+                <span>Speaker title here</span>
+              </span>
+            </span>
           </button>
 
           <!-- Row 2: Zerion, Sara Khan, MoonDAO, STARKNET, Stellar (featured), Lara Khan, Dune -->
           <button class="logoTile" type="button" aria-label="Zerion">
             <span class="cornerTopLeft"></span><span class="cornerTopRight"></span><span class="cornerBottomLeft"></span><span class="cornerBottomRight"></span>
             <img class="logoImage logoZerion" src="./si-assets/logo-zerion.svg" alt="Zerion" loading="lazy" decoding="async" />
+            <span class="logoTilePopup" role="presentation">
+              <img class="logoTilePopupCover" src="./si-assets/snapshot-popup-cover.png" alt="" loading="lazy" decoding="async" />
+              <span class="logoTilePopupMeta">
+                <strong>Speaker Name</strong>
+                <span>Speaker title here</span>
+              </span>
+            </span>
           </button>
           <button class="logoTile logoTilePerson" type="button" aria-label="Sara Khan, Founder">
             <span class="cornerTopLeft"></span><span class="cornerTopRight"></span><span class="cornerBottomLeft"></span><span class="cornerBottomRight"></span>
@@ -658,6 +831,13 @@
               <strong>Sara Khan</strong>
               <span>Founder</span>
             </span>
+            <span class="logoTilePopup" role="presentation">
+              <img class="logoTilePopupCover" src="./si-assets/snapshot-popup-cover.png" alt="" loading="lazy" decoding="async" />
+              <span class="logoTilePopupMeta">
+                <strong>Sara Khan</strong>
+                <span>Founder</span>
+              </span>
+            </span>
           </button>
           <button class="logoTile" type="button" aria-label="MoonDAO">
             <span class="cornerTopLeft"></span><span class="cornerTopRight"></span><span class="cornerBottomLeft"></span><span class="cornerBottomRight"></span>
@@ -665,14 +845,35 @@
               <img class="logoMoonDaoMark" src="./si-assets/logo-moondao-mark.png" alt="" loading="lazy" decoding="async" />
               <img class="logoMoonDaoWordmark" src="./si-assets/logo-moondao-wordmark.png" alt="MoonDAO" loading="lazy" decoding="async" />
             </span>
+            <span class="logoTilePopup" role="presentation">
+              <img class="logoTilePopupCover" src="./si-assets/snapshot-popup-cover.png" alt="" loading="lazy" decoding="async" />
+              <span class="logoTilePopupMeta">
+                <strong>Speaker Name</strong>
+                <span>Speaker title here</span>
+              </span>
+            </span>
           </button>
           <button class="logoTile" type="button" aria-label="Starknet">
             <span class="cornerTopLeft"></span><span class="cornerTopRight"></span><span class="cornerBottomLeft"></span><span class="cornerBottomRight"></span>
             <img class="logoImage logoStarknet" src="./si-assets/logo-starknet.png" alt="Starknet" loading="lazy" decoding="async" />
+            <span class="logoTilePopup" role="presentation">
+              <img class="logoTilePopupCover" src="./si-assets/snapshot-popup-cover.png" alt="" loading="lazy" decoding="async" />
+              <span class="logoTilePopupMeta">
+                <strong>Speaker Name</strong>
+                <span>Speaker title here</span>
+              </span>
+            </span>
           </button>
           <button class="logoTile logoTileFeatured" type="button" aria-label="Stellar">
             <span class="cornerTopLeft"></span><span class="cornerTopRight"></span><span class="cornerBottomLeft"></span><span class="cornerBottomRight"></span>
             <img class="logoImage logoStellar" src="./si-assets/logo-stellar-repeat.svg" alt="Stellar" loading="lazy" decoding="async" />
+            <span class="logoTilePopup" role="presentation">
+              <img class="logoTilePopupCover" src="./si-assets/snapshot-popup-cover.png" alt="" loading="lazy" decoding="async" />
+              <span class="logoTilePopupMeta">
+                <strong>Speaker Name</strong>
+                <span>Speaker title here</span>
+              </span>
+            </span>
           </button>
           <button class="logoTile logoTilePerson" type="button" aria-label="Lara Khan, Founder">
             <span class="cornerTopLeft"></span><span class="cornerTopRight"></span><span class="cornerBottomLeft"></span><span class="cornerBottomRight"></span>
@@ -681,10 +882,24 @@
               <strong>Lara Khan</strong>
               <span>Founder</span>
             </span>
+            <span class="logoTilePopup" role="presentation">
+              <img class="logoTilePopupCover" src="./si-assets/snapshot-popup-cover.png" alt="" loading="lazy" decoding="async" />
+              <span class="logoTilePopupMeta">
+                <strong>Lara Khan</strong>
+                <span>Founder</span>
+              </span>
+            </span>
           </button>
           <button class="logoTile" type="button" aria-label="Dune">
             <span class="cornerTopLeft"></span><span class="cornerTopRight"></span><span class="cornerBottomLeft"></span><span class="cornerBottomRight"></span>
             <img class="logoImage logoDune" src="./si-assets/logo-dune.svg" alt="Dune" loading="lazy" decoding="async" />
+            <span class="logoTilePopup" role="presentation">
+              <img class="logoTilePopupCover" src="./si-assets/snapshot-popup-cover.png" alt="" loading="lazy" decoding="async" />
+              <span class="logoTilePopupMeta">
+                <strong>Speaker Name</strong>
+                <span>Speaker title here</span>
+              </span>
+            </span>
           </button>
         </div>
       </section>
