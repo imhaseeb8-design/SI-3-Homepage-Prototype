@@ -9,6 +9,17 @@
     <style>
       @import url("https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Geist:wght@100..900&family=Geist+Mono:wght@100..900&display=swap");
 
+      /* Local display font for headings — Clesmont Demo. The file ships
+         a single regular cut; we accept any requested weight so font-weight
+         declarations on .hero-title etc. don't trigger fake-bold synthesis. */
+      @font-face {
+        font-family: "Clesmont";
+        src: url("./si-assets/clesmont.ttf") format("truetype");
+        font-weight: 100 900;
+        font-style: normal;
+        font-display: swap;
+      }
+
       :root {
         --font-geist: "Geist";
         --font-geist-mono: "Geist Mono";
@@ -2177,7 +2188,7 @@
 
       .footer-links-col-title {
         margin: 0;
-        font-family: "Bebas Neue", Geist, Arial, sans-serif;
+        font-family: Clesmont, "Bebas Neue", Geist, Arial, sans-serif;
         font-size: 16px;
         font-weight: 400;
         line-height: 1.1;
