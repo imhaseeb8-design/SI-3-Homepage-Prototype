@@ -8,7 +8,7 @@
          their native colors/sizes and fade-on-hover identically. -->
     <link rel="stylesheet" href="./components/PartnerSection.module.css" />
     <style>
-      @import url("https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Geist:wght@100..900&family=Geist+Mono:wght@100..900&display=swap");
+      @import url("https://fonts.googleapis.com/css2?family=Geist:wght@100..900&family=Geist+Mono:wght@100..900&display=swap");
 
       /* Local display font for headings — Clesmont Demo. The file ships
          a single regular cut; we accept any requested weight so font-weight
@@ -21,7 +21,40 @@
         font-display: swap;
       }
 
+      @font-face {
+        font-family: "Geist";
+        src: url("./si-assets/fonts/Geist-VariableFont_wght.ttf") format("truetype");
+        font-weight: 100 900;
+        font-style: normal;
+        font-display: swap;
+      }
+
+      @font-face {
+        font-family: "Geist";
+        src: url("./si-assets/fonts/Geist-Italic-VariableFont_wght.ttf") format("truetype");
+        font-weight: 100 900;
+        font-style: italic;
+        font-display: swap;
+      }
+
+      @font-face {
+        font-family: "Geist Mono";
+        src: url("./si-assets/fonts/GeistMono-VariableFont_wght.ttf") format("truetype");
+        font-weight: 100 900;
+        font-style: normal;
+        font-display: swap;
+      }
+
+      @font-face {
+        font-family: "Geist Mono";
+        src: url("./si-assets/fonts/GeistMono-Italic-VariableFont_wght.ttf") format("truetype");
+        font-weight: 100 900;
+        font-style: italic;
+        font-display: swap;
+      }
+
       :root {
+        --font-clesmont: "Clesmont";
         --font-geist: "Geist";
         --font-geist-mono: "Geist Mono";
       }
@@ -36,7 +69,7 @@
         margin: 0;
         background: #0c0a18;
         /* Match the homepage body font so type stays consistent across pages. */
-        font-family: "Geist", system-ui, -apple-system, "Helvetica Neue", Arial, sans-serif;
+        font-family: var(--font-geist), system-ui, -apple-system, "Helvetica Neue", Arial, sans-serif;
         color: #fff;
       }
 
@@ -114,7 +147,7 @@
         display: flex;
         align-items: center;
         gap: 22px;
-        font-family: Geist, Arial, sans-serif;
+        font-family: var(--font-geist), Arial, sans-serif;
         font-size: 14px;
         font-weight: 500;
         line-height: 1;
@@ -136,7 +169,7 @@
         padding: 0 18px;
         border-radius: 4px;
         background: #fff;
-        font-family: Geist, Arial, sans-serif;
+        font-family: var(--font-geist), Arial, sans-serif;
         font-size: 14px;
         font-weight: 500;
         line-height: 1;
@@ -164,7 +197,7 @@
         border: 1px solid #5e5e5e;
         border-radius: 999px;
         background: rgba(0, 0, 0, 0.2);
-        font-family: "Geist Mono", monospace;
+        font-family: var(--font-geist-mono), monospace;
         font-size: 12px;
         line-height: 1;
         letter-spacing: 0.72px;
@@ -177,7 +210,7 @@
         align-items: center;
         gap: 4px 12px;
         margin: 22px 0 0;
-        font-family: Clesmont, "Bebas Neue", "Clesmont Demo", Geist, Arial, sans-serif;
+        font-family: var(--font-clesmont), "Clesmont Demo", var(--font-geist), Arial, sans-serif;
         font-size: 62px;
         font-weight: 700;
         line-height: 0.9;
@@ -210,7 +243,7 @@
       .grow3dge-copy p {
         max-width: 572px;
         margin: 20px 0 0;
-        font-family: Geist, Arial, sans-serif;
+        font-family: var(--font-geist), Arial, sans-serif;
         font-size: 18px;
         line-height: 1.5;
       }
@@ -224,7 +257,7 @@
         align-items: flex-start;
         gap: 8.5px;
         margin-top: 22px;
-        font-family: "Geist", system-ui, -apple-system, Arial, sans-serif;
+        font-family: var(--font-geist), system-ui, -apple-system, Arial, sans-serif;
         font-size: 16px;
         font-weight: 400;
         line-height: 1;
@@ -272,7 +305,7 @@
         overflow: visible;
         animation: grow3dge-spin 18s linear infinite;
         color: rgba(255, 255, 255, 0.85);
-        font-family: "Geist Mono", monospace;
+        font-family: var(--font-geist-mono), monospace;
         font-size: 12px;
         letter-spacing: 3.6px;
         text-transform: uppercase;
@@ -357,7 +390,7 @@
         gap: 32px;
         width: max-content;
         color: rgba(255, 255, 255, 0.5);
-        font-family: "Montserrat", "Geist", system-ui, Arial, sans-serif;
+        font-family: var(--font-geist-mono), monospace;
         font-size: 13px;
         font-weight: 400;
         letter-spacing: 2.6px;
@@ -417,7 +450,7 @@
         align-items: center;
         gap: 12px;
         margin: 0;
-        font-family: Clesmont, "Bebas Neue", "Clesmont Demo", Geist, Arial, sans-serif;
+        font-family: var(--font-clesmont), "Clesmont Demo", var(--font-geist), Arial, sans-serif;
         font-size: 26px;
         font-weight: 400;
         line-height: 1.1;
@@ -441,7 +474,7 @@
 
       .grow3dge-snapshots-eyebrow {
         margin: 0;
-        font-family: "Geist Mono", "Roobert Mono", monospace;
+        font-family: var(--font-geist-mono), "Roobert Mono", monospace;
         font-size: 16px;
         line-height: 1.4;
         letter-spacing: 0.06em;
@@ -484,14 +517,14 @@
       }
 
       .partnerSection .logoTile.logoTilePerson .logoTilePersonMeta strong {
-        font-family: "Geist", "Roobert TRIAL", system-ui, Arial, sans-serif;
+        font-family: var(--font-geist), "Roobert TRIAL", system-ui, Arial, sans-serif;
         font-size: 14px;
         font-weight: 500;
         color: #fff;
       }
 
       .partnerSection .logoTile.logoTilePerson .logoTilePersonMeta span {
-        font-family: "Geist", "Roobert TRIAL", system-ui, Arial, sans-serif;
+        font-family: var(--font-geist), "Roobert TRIAL", system-ui, Arial, sans-serif;
         font-size: 12px;
         font-weight: 400;
         color: #a4a4a4;
@@ -597,7 +630,7 @@
       }
 
       .logoTilePopupMeta strong {
-        font-family: "Geist", "Roobert TRIAL", system-ui, Arial, sans-serif;
+        font-family: var(--font-geist), "Roobert TRIAL", system-ui, Arial, sans-serif;
         font-size: 16px;
         font-weight: 500;
         line-height: 1;
@@ -605,7 +638,7 @@
       }
 
       .logoTilePopupMeta span {
-        font-family: "Geist", "Roobert TRIAL", system-ui, Arial, sans-serif;
+        font-family: var(--font-geist), "Roobert TRIAL", system-ui, Arial, sans-serif;
         font-size: 14px;
         font-weight: 400;
         line-height: 1;
@@ -636,6 +669,1236 @@
         .grow3dge-snapshots { padding: 40px 0 64px; }
         .grow3dge-snapshots-header { flex-direction: column; align-items: flex-start; gap: 12px; }
         .grow3dge-snapshots-eyebrow { text-align: left; }
+      }
+
+      /* ============================================================
+         Challenges — Figma node 118:1638.
+         Three-column funnel barrier cards below Session Snapshots. */
+      .grow3dge-challenges {
+        width: 100%;
+        padding: 0 0 112px;
+      }
+
+      .grow3dge-challenges-inner {
+        display: flex;
+        flex-direction: column;
+        gap: 38px;
+        width: min(1253px, calc(100% - 64px));
+        margin: 0 auto;
+      }
+
+      .grow3dge-challenges-header {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 22px;
+        width: min(589px, 100%);
+      }
+
+      .grow3dge-kicker {
+        display: inline-flex;
+        align-items: center;
+        gap: 12px;
+        font-family: var(--font-geist-mono), monospace;
+        font-size: 14px;
+        font-weight: 400;
+        line-height: 1;
+        color: rgba(255, 255, 255, 0.7);
+      }
+
+      .grow3dge-kicker img {
+        display: block;
+        width: 13px;
+        height: 15px;
+        object-fit: contain;
+      }
+
+      .grow3dge-challenges-title {
+        margin: 0;
+        font-size: 0;
+        color: #fff;
+      }
+
+      .grow3dge-challenges-title strong,
+      .grow3dge-challenges-title em {
+        display: block;
+        line-height: 1.2;
+      }
+
+      .grow3dge-challenges-title strong {
+        font-family: var(--font-clesmont), "Clesmont Demo", var(--font-geist), Arial, sans-serif;
+        font-size: 32px;
+        font-weight: 700;
+        text-transform: uppercase;
+      }
+
+      .grow3dge-challenges-title em {
+        font-family: var(--font-geist), system-ui, -apple-system, Arial, sans-serif;
+        font-size: 30px;
+        font-style: italic;
+        font-weight: 400;
+      }
+
+      .grow3dge-challenge-grid {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 16px;
+        width: 100%;
+      }
+
+      .grow3dge-challenge-card {
+        display: flex;
+        min-height: 217px;
+        flex-direction: column;
+        gap: 16px;
+        padding: 14px 14px 27px 18px;
+        overflow: hidden;
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        border-radius: 6px;
+        background: rgba(0, 0, 0, 0.2);
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+      }
+
+      .grow3dge-challenge-card-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 16px;
+        width: 100%;
+      }
+
+      .grow3dge-card-collapse {
+        position: relative;
+        flex: 0 0 auto;
+        width: 28px;
+        height: 28px;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        border-radius: 4px;
+        background: rgba(255, 255, 255, 0.05);
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+      }
+
+      .grow3dge-card-collapse::before {
+        content: "";
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 14px;
+        height: 2px;
+        border-radius: 999px;
+        background: #fff;
+        transform: translate(-50%, -50%);
+      }
+
+      .grow3dge-challenge-card-body {
+        display: flex;
+        flex: 1;
+        flex-direction: column;
+        gap: 20px;
+      }
+
+      .grow3dge-challenge-rule {
+        width: 100%;
+        height: 1px;
+        background: rgba(255, 255, 255, 0.1);
+      }
+
+      .grow3dge-challenge-copy {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+      }
+
+      .grow3dge-challenge-copy h3,
+      .grow3dge-challenge-copy p {
+        margin: 0;
+      }
+
+      .grow3dge-challenge-copy h3 {
+        max-width: 356px;
+        font-family: var(--font-clesmont), "Clesmont Demo", var(--font-geist), Arial, sans-serif;
+        font-size: 20px;
+        font-weight: 400;
+        line-height: 1.4;
+        color: #fff;
+        text-transform: uppercase;
+      }
+
+      .grow3dge-challenge-copy p {
+        max-width: 375px;
+        font-family: var(--font-geist), system-ui, -apple-system, Arial, sans-serif;
+        font-size: 17px;
+        font-weight: 400;
+        font-style: normal;
+        line-height: 1.4;
+        color: #ECECEC;
+      }
+
+      @media (max-width: 980px) {
+        .grow3dge-challenge-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .grow3dge-challenge-card {
+          min-height: 0;
+        }
+      }
+
+      @media (max-width: 640px) {
+        .grow3dge-challenges {
+          padding-bottom: 72px;
+        }
+
+        .grow3dge-challenges-inner {
+          width: min(100% - 32px, 1253px);
+          gap: 30px;
+        }
+
+        .grow3dge-challenges-title strong {
+          font-size: 28px;
+        }
+
+        .grow3dge-challenges-title em {
+          font-size: 25px;
+        }
+
+        .grow3dge-challenge-card {
+          padding: 14px 14px 24px;
+        }
+
+        .grow3dge-kicker {
+          font-size: 12px;
+        }
+      }
+
+      /* ============================================================
+         Solutions — Figma node 1:6925.
+         Sticky intro copy with three tabbed program cards. */
+      .grow3dge-solutions {
+        width: 100%;
+        padding: 24px 0 96px;
+        background: #0c0a18;
+        color: #fff;
+      }
+
+      .grow3dge-solutions-inner {
+        display: grid;
+        grid-template-columns: minmax(0, 506px) minmax(0, 634px);
+        justify-content: space-between;
+        gap: 72px;
+        width: min(1253px, calc(100% - 64px));
+        margin: 0 auto;
+      }
+
+      .grow3dge-solutions-copy {
+        position: sticky;
+        top: 67px;
+        align-self: start;
+        padding-top: 43px;
+      }
+
+      .grow3dge-solutions-copy .grow3dge-kicker {
+        margin-bottom: 24px;
+      }
+
+      .grow3dge-solutions-title {
+        max-width: 360px;
+        margin: 0;
+        font-family: var(--font-clesmont), "Clesmont Demo", var(--font-geist), Arial, sans-serif;
+        font-size: 40px;
+        font-weight: 400;
+        line-height: 1.1;
+        color: #fff;
+        text-transform: uppercase;
+      }
+
+      .grow3dge-solutions-title span {
+        color: #bca9ff;
+      }
+
+      .grow3dge-solutions-copy p {
+        max-width: 506px;
+        margin: 10px 0 0;
+        font-family: var(--font-geist), system-ui, -apple-system, Arial, sans-serif;
+        font-size: 18px;
+        font-weight: 400;
+        line-height: 1.4;
+        color: #cbcbcb;
+      }
+
+      .grow3dge-link {
+        display: inline-flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8.5px;
+        margin-top: 24px;
+        font-family: var(--font-geist), system-ui, -apple-system, Arial, sans-serif;
+        font-size: 16px;
+        font-weight: 400;
+        line-height: 1;
+        color: #fff;
+        text-decoration: none;
+      }
+
+      .grow3dge-link span:first-child {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+      }
+
+      .grow3dge-link img {
+        width: 9px;
+        height: 9px;
+        transform: rotate(45deg);
+      }
+
+      .grow3dge-link::after {
+        content: "";
+        display: block;
+        width: 44px;
+        height: 1px;
+        background: currentColor;
+      }
+
+      .grow3dge-solutions-list {
+        display: flex;
+        flex-direction: column;
+        gap: 30px;
+        min-width: 0;
+      }
+
+      .grow3dge-solution-card {
+        --solution-bg: rgba(19, 16, 24, 0.6);
+        --solution-border: #29272e;
+        position: relative;
+        width: 100%;
+        max-width: 634px;
+        padding-top: 61px;
+      }
+
+      .grow3dge-solution-card.is-featured {
+        --solution-bg: rgba(19, 12, 38, 0.82);
+        --solution-border: #30225e;
+      }
+
+      .grow3dge-solution-tab {
+        position: absolute;
+        top: 0;
+        z-index: 1;
+        display: flex;
+        align-items: flex-start;
+        height: 62px;
+        width: 128px;
+        padding: 20px 18px 0;
+        border: 1px solid var(--solution-border);
+        background: var(--solution-bg);
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+        font-family: var(--font-geist-mono), monospace;
+        font-size: 12px;
+        font-weight: 400;
+        line-height: 1;
+        letter-spacing: 0.24px;
+        color: #a1a1a1;
+      }
+
+      .grow3dge-solution-card.is-left .grow3dge-solution-tab {
+        left: 0;
+        border-bottom: 0;
+        border-radius: 10px 0 0 0;
+        clip-path: polygon(0 0, 79px 0, 100% 100%, 0 100%);
+      }
+
+      .grow3dge-solution-card.is-center .grow3dge-solution-tab {
+        left: 50%;
+        justify-content: center;
+        width: 176px;
+        padding-inline: 0;
+        border-bottom: 0;
+        border-radius: 10px 10px 0 0;
+        clip-path: polygon(26% 0, 74% 0, 100% 100%, 0 100%);
+        transform: translateX(-50%);
+      }
+
+      .grow3dge-solution-card.is-right .grow3dge-solution-tab {
+        right: 0;
+        justify-content: flex-end;
+        border-bottom: 0;
+        border-radius: 0 10px 0 0;
+        clip-path: polygon(38% 0, 100% 0, 100% 100%, 0 100%);
+      }
+
+      .grow3dge-solution-panel {
+        position: relative;
+        z-index: 2;
+        min-height: 332px;
+        padding: 29px 30px 21px;
+        border: 1px solid var(--solution-border);
+        border-radius: 0 10px 10px 10px;
+        background: var(--solution-bg);
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+      }
+
+      .grow3dge-solution-card.is-center .grow3dge-solution-panel {
+        border-radius: 10px;
+      }
+
+      .grow3dge-solution-card.is-right .grow3dge-solution-panel {
+        border-radius: 10px 0 10px 10px;
+      }
+
+      .grow3dge-solution-head {
+        display: flex;
+        align-items: center;
+        gap: 18px;
+      }
+
+      .grow3dge-solution-head h3 {
+        margin: 0;
+        font-family: var(--font-clesmont), "Clesmont Demo", var(--font-geist), Arial, sans-serif;
+        font-size: 30px;
+        font-weight: 400;
+        line-height: 1.1;
+        color: #fff;
+        text-transform: uppercase;
+      }
+
+      .grow3dge-solution-pill {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 26px;
+        padding: 0 19px;
+        border: 1px solid #5e5e5e;
+        border-radius: 999px;
+        background: rgba(0, 0, 0, 0.2);
+        font-family: var(--font-geist-mono), monospace;
+        font-size: 12px;
+        font-weight: 400;
+        line-height: 1;
+        letter-spacing: 0.72px;
+        color: #a1a1a1;
+        text-transform: uppercase;
+      }
+
+      .grow3dge-solution-description {
+        max-width: 485px;
+        margin: 12px 0 0;
+        font-family: var(--font-geist), system-ui, -apple-system, Arial, sans-serif;
+        font-size: 18px;
+        font-weight: 400;
+        line-height: 1.4;
+        color: #cbcbcb;
+      }
+
+      .grow3dge-solution-rule {
+        display: block;
+        width: 100%;
+        height: 1px;
+        margin: 21px 0 0;
+        background: rgba(255, 255, 255, 0.1);
+      }
+
+      .grow3dge-solution-meta {
+        display: grid;
+        grid-template-columns: 146px 137px minmax(0, 177px);
+        gap: 45px;
+        margin-top: 16px;
+      }
+
+      .grow3dge-solution-meta dt,
+      .grow3dge-solution-meta dd {
+        margin: 0;
+      }
+
+      .grow3dge-solution-meta dt {
+        font-family: var(--font-geist-mono), monospace;
+        font-size: 14px;
+        font-weight: 400;
+        line-height: 1;
+        letter-spacing: 0.84px;
+        color: #9a9a9b;
+        text-transform: uppercase;
+      }
+
+      .grow3dge-solution-meta dd {
+        margin-top: 14px;
+        font-family: var(--font-geist), system-ui, -apple-system, Arial, sans-serif;
+        font-size: 16px;
+        font-weight: 400;
+        line-height: 1;
+        color: #fff;
+      }
+
+      .grow3dge-solution-panel .grow3dge-link {
+        margin-top: 17px;
+      }
+
+      @media (max-width: 1100px) {
+        .grow3dge-solutions-inner {
+          grid-template-columns: 1fr;
+          gap: 48px;
+        }
+
+        .grow3dge-solutions-copy {
+          position: relative;
+          top: auto;
+          padding-top: 0;
+        }
+
+        .grow3dge-solution-card {
+          max-width: none;
+        }
+      }
+
+      @media (max-width: 720px) {
+        .grow3dge-solutions {
+          padding-bottom: 72px;
+        }
+
+        .grow3dge-solutions-inner {
+          width: min(100% - 32px, 1253px);
+        }
+
+        .grow3dge-solutions-title {
+          font-size: 34px;
+        }
+
+        .grow3dge-solutions-copy p,
+        .grow3dge-solution-description {
+          font-size: 16px;
+        }
+
+        .grow3dge-solution-panel {
+          min-height: 0;
+          padding: 24px 20px 22px;
+        }
+
+        .grow3dge-solution-head {
+          align-items: flex-start;
+          flex-direction: column;
+          gap: 12px;
+        }
+
+        .grow3dge-solution-head h3 {
+          font-size: 26px;
+        }
+
+        .grow3dge-solution-meta {
+          grid-template-columns: 1fr;
+          gap: 18px;
+        }
+
+        .grow3dge-solution-meta dd {
+          margin-top: 8px;
+        }
+      }
+
+      /* ============================================================
+         Education — Figma node 121:1677.
+         Incubator overview with asymmetric glass cards. */
+      .grow3dge-education {
+        width: 100%;
+        padding: 62px 0 70px;
+        background: #0c0a18;
+        color: #fff;
+      }
+
+      .grow3dge-education-inner {
+        width: min(1248px, calc(100% - 64px));
+        margin: 0 auto;
+      }
+
+      .grow3dge-education-header {
+        display: grid;
+        grid-template-columns: minmax(0, 420px) minmax(0, 581px);
+        justify-content: space-between;
+        gap: 64px;
+        margin-bottom: 32px;
+      }
+
+      .grow3dge-education-title {
+        margin: 24px 0 0;
+        font-family: var(--font-clesmont), "Clesmont Demo", var(--font-geist), Arial, sans-serif;
+        font-size: 32px;
+        font-weight: 400;
+        line-height: 1.1;
+        color: #fff;
+        text-transform: uppercase;
+      }
+
+      .grow3dge-education-title span {
+        color: #bca9ff;
+      }
+
+      .grow3dge-education-intro {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+        padding-top: 12px;
+        text-align: right;
+      }
+
+      .grow3dge-education-intro p {
+        max-width: 581px;
+        margin: 0;
+        font-family: var(--font-geist), system-ui, -apple-system, Arial, sans-serif;
+        font-size: 18px;
+        font-weight: 400;
+        line-height: 1.4;
+        color: #cbcbcb;
+      }
+
+      .grow3dge-education-intro .grow3dge-link {
+        margin-top: 16px;
+      }
+
+      .grow3dge-education-board {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+      }
+
+      .grow3dge-education-row {
+        display: grid;
+        gap: 12px;
+        width: 100%;
+      }
+
+      .grow3dge-education-row.is-top {
+        grid-template-columns: minmax(0, 837fr) minmax(0, 399fr);
+      }
+
+      .grow3dge-education-row.is-middle {
+        grid-template-columns: minmax(0, 697fr) minmax(0, 539fr);
+      }
+
+      .grow3dge-education-row.is-bottom {
+        grid-template-columns: minmax(0, 618fr) minmax(0, 617fr);
+      }
+
+      .grow3dge-education-card {
+        position: relative;
+        min-height: 243px;
+        overflow: hidden;
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        border-radius: 6px;
+        background: rgba(0, 0, 0, 0.2);
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+      }
+
+      .grow3dge-education-card.is-market {
+        padding: 24px 30px 26px;
+      }
+
+      .grow3dge-education-card.is-stats {
+        padding: 16px 16px 20px;
+      }
+
+      .grow3dge-education-card.is-pillars {
+        padding: 32px 56px 28px 20px;
+      }
+
+      .grow3dge-education-card.is-certifications {
+        padding: 43px 37px 28px;
+      }
+
+      .grow3dge-education-card.is-mentors {
+        padding: 20px 30px 22px;
+      }
+
+      .grow3dge-education-card.is-builder {
+        padding: 22px 20px 27px;
+      }
+
+      .grow3dge-education-pill {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 26px;
+        padding: 0 19px;
+        border: 1px solid #5e5e5e;
+        border-radius: 999px;
+        background: rgba(0, 0, 0, 0.2);
+        font-family: var(--font-geist-mono), monospace;
+        font-size: 12px;
+        font-weight: 400;
+        line-height: 1;
+        letter-spacing: 0.72px;
+        color: #a1a1a1;
+        text-transform: uppercase;
+      }
+
+      .grow3dge-education-card h3 {
+        margin: 17px 0 0;
+        font-family: var(--font-geist-mono), monospace;
+        font-size: 28px;
+        font-weight: 500;
+        line-height: 1.1;
+        color: #fff;
+        letter-spacing: 0;
+      }
+
+      .grow3dge-education-card h3 span,
+      .grow3dge-education-number {
+        color: #bca9ff;
+      }
+
+      .grow3dge-education-card p {
+        margin: 8px 0 0;
+        font-family: var(--font-geist), system-ui, -apple-system, Arial, sans-serif;
+        font-size: 16px;
+        font-weight: 400;
+        line-height: 1.4;
+        color: #cbcbcb;
+      }
+
+      .grow3dge-education-card.is-market p {
+        max-width: 506px;
+      }
+
+      .grow3dge-education-card.is-certifications p {
+        max-width: 446px;
+      }
+
+      .grow3dge-education-card.is-mentors p {
+        max-width: 477px;
+      }
+
+      .grow3dge-education-card .grow3dge-link {
+        margin-top: 25px;
+      }
+
+      .grow3dge-education-market-art {
+        position: absolute;
+        right: 30px;
+        bottom: 23px;
+        width: 206px;
+        height: 198px;
+        object-fit: contain;
+        object-position: bottom center;
+        filter: drop-shadow(0 4px 40px rgba(51, 17, 113, 0.2));
+        pointer-events: none;
+      }
+
+      .grow3dge-education-stats {
+        display: flex;
+        height: 100%;
+        flex-direction: column;
+      }
+
+      .grow3dge-education-stat {
+        min-height: 105px;
+      }
+
+      .grow3dge-education-stat + .grow3dge-education-stat {
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+        padding-top: 15px;
+      }
+
+      .grow3dge-education-number {
+        display: block;
+        font-family: var(--font-geist-mono), monospace;
+        font-size: 30px;
+        font-weight: 500;
+        line-height: 0.9;
+      }
+
+      .grow3dge-education-stat p {
+        max-width: 358px;
+        margin-top: 11px;
+      }
+
+      .grow3dge-education-modules {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 24px 64px;
+        margin: 23px 0 0;
+        padding: 0;
+        list-style: none;
+      }
+
+      .grow3dge-education-modules li {
+        display: grid;
+        grid-template-columns: 45px minmax(0, 1fr);
+        gap: 16px;
+        align-items: baseline;
+        font-family: var(--font-geist), system-ui, -apple-system, Arial, sans-serif;
+        font-size: 16px;
+        font-weight: 400;
+        line-height: 1.4;
+        color: #fff;
+      }
+
+      .grow3dge-education-modules span {
+        font-family: var(--font-geist-mono), monospace;
+        font-size: 14px;
+        color: #bca9ff;
+      }
+
+      .grow3dge-education-mentor-avatars {
+        display: flex;
+        align-items: center;
+        margin-top: 27px;
+      }
+
+      .grow3dge-education-mentor-avatars img {
+        width: 33px;
+        height: 33px;
+        border-radius: 999px;
+        object-fit: cover;
+        box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.18);
+      }
+
+      .grow3dge-education-mentor-avatars img + img {
+        margin-left: -16px;
+      }
+
+      .grow3dge-education-mentor-more {
+        margin-left: 9px;
+        font-family: var(--font-geist), system-ui, -apple-system, Arial, sans-serif;
+        font-size: 12px;
+        line-height: 1.4;
+        color: #bebebe;
+      }
+
+      .grow3dge-education-crystal {
+        position: absolute;
+        right: -26px;
+        bottom: -34px;
+        width: 156px;
+        height: 156px;
+        object-fit: contain;
+        pointer-events: none;
+      }
+
+      .grow3dge-education-builder-grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 18px 44px;
+        margin-top: 18px;
+      }
+
+      .grow3dge-education-builder-item {
+        display: flex;
+        align-items: baseline;
+        gap: 8px;
+        white-space: nowrap;
+      }
+
+      .grow3dge-education-builder-item dt,
+      .grow3dge-education-builder-item dd {
+        margin: 0;
+      }
+
+      .grow3dge-education-builder-item dt {
+        font-family: var(--font-geist-mono), monospace;
+        font-size: 12px;
+        font-weight: 400;
+        line-height: 1.4;
+        color: #cbcbcb;
+        text-transform: uppercase;
+      }
+
+      .grow3dge-education-builder-item dd {
+        font-family: var(--font-geist), system-ui, -apple-system, Arial, sans-serif;
+        font-size: 16px;
+        font-weight: 400;
+        line-height: 1.4;
+        color: #fff;
+      }
+
+      .grow3dge-education-divider {
+        display: block;
+        width: 100%;
+        height: 1px;
+        margin: 17px 0;
+        background: rgba(255, 255, 255, 0.1);
+      }
+
+      .grow3dge-education-card.is-builder .grow3dge-link {
+        margin-top: 19px;
+      }
+
+      @media (max-width: 1100px) {
+        .grow3dge-education-header {
+          grid-template-columns: 1fr;
+          gap: 24px;
+        }
+
+        .grow3dge-education-intro {
+          align-items: flex-start;
+          text-align: left;
+        }
+
+        .grow3dge-education-row,
+        .grow3dge-education-row.is-top,
+        .grow3dge-education-row.is-middle,
+        .grow3dge-education-row.is-bottom {
+          grid-template-columns: 1fr;
+        }
+
+        .grow3dge-education-card {
+          min-height: 0;
+        }
+      }
+
+      @media (max-width: 720px) {
+        .grow3dge-education {
+          padding: 48px 0 64px;
+        }
+
+        .grow3dge-education-inner {
+          width: min(100% - 32px, 1248px);
+        }
+
+        .grow3dge-education-title {
+          font-size: 28px;
+        }
+
+        .grow3dge-education-intro p {
+          font-size: 16px;
+        }
+
+        .grow3dge-education-card.is-market,
+        .grow3dge-education-card.is-stats,
+        .grow3dge-education-card.is-pillars,
+        .grow3dge-education-card.is-certifications,
+        .grow3dge-education-card.is-mentors,
+        .grow3dge-education-card.is-builder {
+          padding: 22px 20px;
+        }
+
+        .grow3dge-education-card h3 {
+          font-size: 22px;
+        }
+
+        .grow3dge-education-market-art {
+          position: relative;
+          right: auto;
+          bottom: auto;
+          display: block;
+          width: min(206px, 70%);
+          height: auto;
+          margin: 18px 0 0 auto;
+        }
+
+        .grow3dge-education-modules,
+        .grow3dge-education-builder-grid {
+          grid-template-columns: 1fr;
+          gap: 14px;
+        }
+
+        .grow3dge-education-builder-item {
+          white-space: normal;
+        }
+
+        .grow3dge-education-crystal {
+          width: 116px;
+          height: 116px;
+          right: -32px;
+          bottom: -24px;
+        }
+      }
+
+      /* ============================================================
+         Network — Figma node 122:1903.
+         Invite-only member network with split image/story cards. */
+      .grow3dge-network {
+        position: relative;
+        width: 100%;
+        padding: 31px 0 72px;
+        background: #0c0a18;
+        color: #fff;
+      }
+
+      .grow3dge-network-inner {
+        width: min(1253px, calc(100% - 64px));
+        margin: 0 auto;
+      }
+
+      .grow3dge-network-header {
+        position: relative;
+        min-height: 209px;
+      }
+
+      .grow3dge-network-title {
+        margin: 24px 0 0;
+        font-family: var(--font-clesmont), "Clesmont Demo", var(--font-geist), Arial, sans-serif;
+        font-size: 32px;
+        font-weight: 400;
+        line-height: 1.1;
+        color: #fff;
+        text-transform: uppercase;
+      }
+
+      .grow3dge-network-title span {
+        color: #bca9ff;
+      }
+
+      .grow3dge-network-header p {
+        max-width: 550px;
+        margin: 10px 0 0;
+        font-family: var(--font-geist), system-ui, -apple-system, Arial, sans-serif;
+        font-size: 18px;
+        font-weight: 400;
+        line-height: 1.4;
+        color: #cbcbcb;
+      }
+
+      .grow3dge-network-header .grow3dge-link {
+        margin-top: 16px;
+      }
+
+      .grow3dge-network-scroll {
+        position: absolute;
+        top: 22px;
+        right: 0;
+        display: grid;
+        width: 112px;
+        height: 112px;
+        place-items: center;
+        color: rgba(255, 255, 255, 0.8);
+      }
+
+      .grow3dge-network-scroll svg {
+        position: absolute;
+        inset: 0;
+        width: 112px;
+        height: 112px;
+        overflow: visible;
+        animation: grow3dge-spin 18s linear infinite;
+        font-family: var(--font-geist-mono), monospace;
+        font-size: 8px;
+        letter-spacing: 2.2px;
+        text-transform: uppercase;
+      }
+
+      .grow3dge-network-scroll img {
+        width: 18px;
+        height: 18px;
+        transform: rotate(90deg);
+      }
+
+      .grow3dge-network-cards {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+      }
+
+      .grow3dge-network-card {
+        position: relative;
+        min-height: 390px;
+        overflow: hidden;
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        border-radius: 6px;
+        background: rgba(0, 0, 0, 0.2);
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+      }
+
+      .grow3dge-network-card::before,
+      .grow3dge-network-card::after {
+        content: "";
+        position: absolute;
+        right: 40px;
+        left: 40px;
+        height: 1px;
+        background: rgba(255, 255, 255, 0.08);
+      }
+
+      .grow3dge-network-card::before {
+        top: 39px;
+      }
+
+      .grow3dge-network-card::after {
+        bottom: 39px;
+      }
+
+      .grow3dge-network-content {
+        position: absolute;
+        top: 72px;
+        width: 565px;
+        max-width: calc(100% - 180px);
+      }
+
+      .grow3dge-network-card.is-text-left .grow3dge-network-content {
+        left: 90px;
+      }
+
+      .grow3dge-network-card.is-text-right .grow3dge-network-content {
+        left: 579px;
+      }
+
+      .grow3dge-network-content h3 {
+        margin: 0;
+        font-family: var(--font-geist-mono), monospace;
+        font-size: 28px;
+        font-weight: 500;
+        line-height: normal;
+        color: #fff;
+      }
+
+      .grow3dge-network-content p {
+        max-width: 565px;
+        margin: 16px 0 0;
+        font-family: var(--font-geist), system-ui, -apple-system, Arial, sans-serif;
+        font-size: 16px;
+        font-weight: 400;
+        line-height: 1.3;
+        color: #a7a7a7;
+      }
+
+      .grow3dge-network-points {
+        display: flex;
+        flex-direction: column;
+        gap: 13px;
+        margin: 22px 0 0;
+        padding: 0;
+        list-style: none;
+      }
+
+      .grow3dge-network-points li {
+        position: relative;
+        padding-left: 17px;
+        font-family: var(--font-geist), system-ui, -apple-system, Arial, sans-serif;
+        font-size: 16px;
+        font-weight: 400;
+        line-height: 1.3;
+        color: #a7a7a7;
+      }
+
+      .grow3dge-network-points li::before {
+        content: "";
+        position: absolute;
+        top: 0.5em;
+        left: 0;
+        width: 5px;
+        height: 5px;
+        background: #b1a0f9;
+      }
+
+      .grow3dge-network-content .grow3dge-link {
+        margin-top: 18px;
+      }
+
+      .grow3dge-network-media {
+        position: absolute;
+        top: 40px;
+        width: 487px;
+        height: 309px;
+        overflow: hidden;
+        background: rgba(255, 255, 255, 0.04);
+      }
+
+      .grow3dge-network-card.is-text-left .grow3dge-network-media {
+        right: 41px;
+      }
+
+      .grow3dge-network-card.is-text-right .grow3dge-network-media {
+        left: 41px;
+      }
+
+      .grow3dge-network-media .cornerTopLeft,
+      .grow3dge-network-media .cornerTopRight,
+      .grow3dge-network-media .cornerBottomLeft,
+      .grow3dge-network-media .cornerBottomRight {
+        content: "";
+        position: absolute;
+        z-index: 2;
+        width: 4px;
+        height: 4px;
+        background: #d3d3d3;
+      }
+
+      .grow3dge-network-media .cornerTopLeft { top: 0; left: 0; }
+      .grow3dge-network-media .cornerTopRight { top: 0; right: 0; }
+      .grow3dge-network-media .cornerBottomLeft { bottom: 0; left: 0; }
+      .grow3dge-network-media .cornerBottomRight { right: 0; bottom: 0; }
+
+      .grow3dge-network-media img {
+        display: block;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+
+      @media (max-width: 1100px) {
+        .grow3dge-network-header {
+          min-height: 180px;
+        }
+
+        .grow3dge-network-scroll {
+          display: none;
+        }
+
+        .grow3dge-network-card {
+          display: grid;
+          grid-template-columns: 1fr;
+          gap: 24px;
+          min-height: 0;
+          padding: 40px;
+        }
+
+        .grow3dge-network-card::before,
+        .grow3dge-network-card::after {
+          display: none;
+        }
+
+        .grow3dge-network-card.is-text-right .grow3dge-network-media {
+          order: -1;
+        }
+
+        .grow3dge-network-content,
+        .grow3dge-network-card.is-text-left .grow3dge-network-content,
+        .grow3dge-network-card.is-text-right .grow3dge-network-content,
+        .grow3dge-network-media,
+        .grow3dge-network-card.is-text-left .grow3dge-network-media,
+        .grow3dge-network-card.is-text-right .grow3dge-network-media {
+          position: relative;
+          top: auto;
+          right: auto;
+          left: auto;
+          width: 100%;
+          max-width: none;
+        }
+
+        .grow3dge-network-media {
+          height: auto;
+          aspect-ratio: 487 / 309;
+        }
+      }
+
+      @media (max-width: 720px) {
+        .grow3dge-network {
+          padding: 48px 0 64px;
+        }
+
+        .grow3dge-network-inner {
+          width: min(100% - 32px, 1253px);
+        }
+
+        .grow3dge-network-title {
+          font-size: 28px;
+        }
+
+        .grow3dge-network-header p,
+        .grow3dge-network-content p,
+        .grow3dge-network-points li {
+          font-size: 15px;
+        }
+
+        .grow3dge-network-card {
+          padding: 24px 20px;
+        }
+
+        .grow3dge-network-content h3 {
+          font-size: 22px;
+        }
       }
     </style>
   </head>
@@ -912,6 +2175,431 @@
               </span>
             </span>
           </button>
+        </div>
+      </section>
+
+      <!-- Challenges — Figma 118:1638 -->
+      <section class="grow3dge-challenges" aria-labelledby="grow3dge-challenges-title">
+        <div class="grow3dge-challenges-inner">
+          <header class="grow3dge-challenges-header">
+            <span class="grow3dge-kicker">
+              <img src="./si-assets/snapshot-mark.svg" alt="" />
+              Challenges
+            </span>
+            <h2 class="grow3dge-challenges-title" id="grow3dge-challenges-title">
+              <strong>Web3 Growth Barriers Exist.</strong>
+              <em>At every stage of the funnel.</em>
+            </h2>
+          </header>
+
+          <div class="grow3dge-challenge-grid">
+            <article class="grow3dge-challenge-card">
+              <div class="grow3dge-challenge-card-header">
+                <span class="grow3dge-kicker">
+                  <img src="./si-assets/snapshot-mark.svg" alt="" />
+                  Awareness &amp; Activation
+                </span>
+                <span class="grow3dge-card-collapse" aria-hidden="true"></span>
+              </div>
+              <div class="grow3dge-challenge-card-body">
+                <span class="grow3dge-challenge-rule" aria-hidden="true"></span>
+                <div class="grow3dge-challenge-copy">
+                  <h3>Web3 Growth Channels<br />Aren't Converting</h3>
+                  <p>Web3 growth channels aren't reaching your target customer demographics.</p>
+                </div>
+              </div>
+            </article>
+
+            <article class="grow3dge-challenge-card">
+              <div class="grow3dge-challenge-card-header">
+                <span class="grow3dge-kicker">
+                  <img src="./si-assets/snapshot-mark.svg" alt="" />
+                  Engagement &amp; Retention
+                </span>
+                <span class="grow3dge-card-collapse" aria-hidden="true"></span>
+              </div>
+              <div class="grow3dge-challenge-card-body">
+                <span class="grow3dge-challenge-rule" aria-hidden="true"></span>
+                <div class="grow3dge-challenge-copy">
+                  <h3>Builder Projects<br />Aren't Delivering</h3>
+                  <p>Builders and grantees' projects are struggling to achieve ROI for their ecosystems.</p>
+                </div>
+              </div>
+            </article>
+
+            <article class="grow3dge-challenge-card">
+              <div class="grow3dge-challenge-card-header">
+                <span class="grow3dge-kicker">
+                  <img src="./si-assets/snapshot-mark.svg" alt="" />
+                  Referral &amp; Revenue
+                </span>
+                <span class="grow3dge-card-collapse" aria-hidden="true"></span>
+              </div>
+              <div class="grow3dge-challenge-card-body">
+                <span class="grow3dge-challenge-rule" aria-hidden="true"></span>
+                <div class="grow3dge-challenge-copy">
+                  <h3>Organizations Are Siloed</h3>
+                  <p>Reaching new business leads is becoming increasingly competitive.</p>
+                </div>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <!-- Solutions — Figma 1:6925 -->
+      <section class="grow3dge-solutions" aria-labelledby="grow3dge-solutions-title">
+        <div class="grow3dge-solutions-inner">
+          <div class="grow3dge-solutions-copy">
+            <span class="grow3dge-kicker">
+              <img src="./si-assets/snapshot-mark.svg" alt="" />
+              Solutions
+            </span>
+            <h2 class="grow3dge-solutions-title" id="grow3dge-solutions-title">
+              How <span>Grow3dge</span><br />Solves it
+            </h2>
+            <p>Opportunities within our program to accelerate new business and accelerated channel growth.</p>
+            <a class="grow3dge-link" href="#">
+              <span>
+                Explore Program
+                <img src="./si-assets/si-inline-arrow.svg" alt="" />
+              </span>
+            </a>
+          </div>
+
+          <div class="grow3dge-solutions-list">
+            <article class="grow3dge-solution-card is-left">
+              <span class="grow3dge-solution-tab">01/Education</span>
+              <div class="grow3dge-solution-panel">
+                <div class="grow3dge-solution-head">
+                  <h3>Incubator</h3>
+                  <span class="grow3dge-solution-pill">Engagement &amp; Retention</span>
+                </div>
+                <p class="grow3dge-solution-description">
+                  A structured growth framework for Web3 builders &mdash; modules, mentors, and on-chain certifications that turn an MVP into a market-ready.
+                </p>
+                <span class="grow3dge-solution-rule" aria-hidden="true"></span>
+                <dl class="grow3dge-solution-meta">
+                  <div>
+                    <dt>Benefits</dt>
+                    <dd>GTM-ready project</dd>
+                  </div>
+                  <div>
+                    <dt>Format</dt>
+                    <dd>6-Month Framework</dd>
+                  </div>
+                  <div>
+                    <dt>Outcome</dt>
+                    <dd>On-Chain Credentials</dd>
+                  </div>
+                </dl>
+                <span class="grow3dge-solution-rule" aria-hidden="true"></span>
+                <a class="grow3dge-link" href="#">
+                  <span>
+                    View Incubator
+                    <img src="./si-assets/si-inline-arrow.svg" alt="" />
+                  </span>
+                </a>
+              </div>
+            </article>
+
+            <article class="grow3dge-solution-card is-center is-featured">
+              <span class="grow3dge-solution-tab">02/Network</span>
+              <div class="grow3dge-solution-panel">
+                <div class="grow3dge-solution-head">
+                  <h3>Members Club</h3>
+                  <span class="grow3dge-solution-pill">Referral &amp; Revenue</span>
+                </div>
+                <p class="grow3dge-solution-description">
+                  An exclusive circle of 30+ ecosystems, founders, and operators peer-to-peer strategy, warm intros, and deal flow that compounds.
+                </p>
+                <span class="grow3dge-solution-rule" aria-hidden="true"></span>
+                <dl class="grow3dge-solution-meta">
+                  <div>
+                    <dt>Benefits</dt>
+                    <dd>Access to 35+ Orgs</dd>
+                  </div>
+                  <div>
+                    <dt>Format</dt>
+                    <dd>Private Group</dd>
+                  </div>
+                  <div>
+                    <dt>Outcome</dt>
+                    <dd>BD &amp; Partnerships</dd>
+                  </div>
+                </dl>
+                <span class="grow3dge-solution-rule" aria-hidden="true"></span>
+                <a class="grow3dge-link" href="#">
+                  <span>
+                    Join the Club
+                    <img src="./si-assets/si-inline-arrow.svg" alt="" />
+                  </span>
+                </a>
+              </div>
+            </article>
+
+            <article class="grow3dge-solution-card is-right">
+              <span class="grow3dge-solution-tab">03/Media</span>
+              <div class="grow3dge-solution-panel">
+                <div class="grow3dge-solution-head">
+                  <h3>Livestreams</h3>
+                  <span class="grow3dge-solution-pill">Live Sessions</span>
+                </div>
+                <p class="grow3dge-solution-description">
+                  Bi-weekly live sessions putting builders, ecosystems, and operators in front of an audience that buys, partners, and integrates &mdash; visibility that converts.
+                </p>
+                <span class="grow3dge-solution-rule" aria-hidden="true"></span>
+                <dl class="grow3dge-solution-meta">
+                  <div>
+                    <dt>Benefits</dt>
+                    <dd>New business leads</dd>
+                  </div>
+                  <div>
+                    <dt>Format</dt>
+                    <dd>Livestream</dd>
+                  </div>
+                  <div>
+                    <dt>Outcome</dt>
+                    <dd>1k+ Leads</dd>
+                  </div>
+                </dl>
+                <span class="grow3dge-solution-rule" aria-hidden="true"></span>
+                <a class="grow3dge-link" href="#">
+                  <span>
+                    Explore Livestream
+                    <img src="./si-assets/si-inline-arrow.svg" alt="" />
+                  </span>
+                </a>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <!-- Education — Figma 121:1677 -->
+      <section class="grow3dge-education" aria-labelledby="grow3dge-education-title">
+        <div class="grow3dge-education-inner">
+          <header class="grow3dge-education-header">
+            <div>
+              <span class="grow3dge-kicker">
+                <img src="./si-assets/snapshot-mark.svg" alt="" />
+                Education
+              </span>
+              <h2 class="grow3dge-education-title" id="grow3dge-education-title">
+                Builder Growth<br /><span>Incubator</span>
+              </h2>
+            </div>
+            <div class="grow3dge-education-intro">
+              <p>A 6-month program transforming Web3 builders into market-ready organizations with applied modules, expert mentors, and certifications.</p>
+              <a class="grow3dge-link" href="#">
+                <span>
+                  Explore Program
+                  <img src="./si-assets/si-inline-arrow.svg" alt="" />
+                </span>
+              </a>
+            </div>
+          </header>
+
+          <div class="grow3dge-education-board">
+            <div class="grow3dge-education-row is-top">
+              <article class="grow3dge-education-card is-market">
+                <span class="grow3dge-education-pill">For Scaling Ecosystems</span>
+                <h3>From MVP to Market-Ready</h3>
+                <p>An applied learning framework and curriculum where builders learn, connect, and grow... together.</p>
+                <a class="grow3dge-link" href="#">
+                  <span>
+                    Explore Incubator
+                    <img src="./si-assets/si-inline-arrow.svg" alt="" />
+                  </span>
+                </a>
+                <img class="grow3dge-education-market-art" src="./si-assets/education-market-ready.png" alt="" loading="lazy" decoding="async" />
+              </article>
+
+              <article class="grow3dge-education-card is-stats">
+                <div class="grow3dge-education-stats">
+                  <div class="grow3dge-education-stat">
+                    <span class="grow3dge-education-number">06</span>
+                    <p>Applied learning modules supporting projects in moving from build to growth phase.</p>
+                  </div>
+                  <div class="grow3dge-education-stat">
+                    <span class="grow3dge-education-number">30+</span>
+                    <p>Grow3dge members club access for targeted introductions</p>
+                  </div>
+                </div>
+              </article>
+            </div>
+
+            <div class="grow3dge-education-row is-middle">
+              <article class="grow3dge-education-card is-pillars">
+                <h3>Six Pillars, One Trajectory</h3>
+                <ol class="grow3dge-education-modules">
+                  <li><span>01 /</span>Marketing Foundations</li>
+                  <li><span>04 /</span>Activate Your Community</li>
+                  <li><span>02 /</span>Know Your Customers</li>
+                  <li><span>05 /</span>Media &amp; Partnerships</li>
+                  <li><span>03 /</span>Go-to-Market</li>
+                  <li><span>06 /</span>Fund Your Growth</li>
+                </ol>
+              </article>
+
+              <article class="grow3dge-education-card is-certifications">
+                <span class="grow3dge-education-pill">Market-Ready Signal</span>
+                <h3>On-Chain <span>Certifications</span></h3>
+                <p>Successful incubator graduates receive on-chain certifications, signaling their readiness for funding and customer growth.</p>
+              </article>
+            </div>
+
+            <div class="grow3dge-education-row is-bottom">
+              <article class="grow3dge-education-card is-mentors">
+                <span class="grow3dge-education-pill">Expert Mentors</span>
+                <h3>Operators Who&rsquo;ve Shipped</h3>
+                <p>Leaders in the areas of revenue fundamentals, finops, analytics, founder leadership, and vibe coding and more.</p>
+                <div class="grow3dge-education-mentor-avatars" aria-label="Mentor avatars">
+                  <img src="./si-assets/education-mentor-1.png" alt="" loading="lazy" decoding="async" />
+                  <img src="./si-assets/education-mentor-2.png" alt="" loading="lazy" decoding="async" />
+                  <img src="./si-assets/education-mentor-3.png" alt="" loading="lazy" decoding="async" />
+                  <img src="./si-assets/education-mentor-4.png" alt="" loading="lazy" decoding="async" />
+                  <img src="./si-assets/education-mentor-5.png" alt="" loading="lazy" decoding="async" />
+                  <span class="grow3dge-education-mentor-more">+ many more</span>
+                </div>
+                <img class="grow3dge-education-crystal" src="./si-assets/education-crystal.png" alt="" loading="lazy" decoding="async" />
+              </article>
+
+              <article class="grow3dge-education-card is-builder">
+                <h3>Designed for Serious Builders</h3>
+                <dl class="grow3dge-education-builder-grid">
+                  <div class="grow3dge-education-builder-item">
+                    <dt>Cadence:</dt>
+                    <dd>Weekly deliverables</dd>
+                  </div>
+                  <div class="grow3dge-education-builder-item">
+                    <dt>Mentorship:</dt>
+                    <dd>Bi-weekly sessions</dd>
+                  </div>
+                </dl>
+                <span class="grow3dge-education-divider" aria-hidden="true"></span>
+                <dl class="grow3dge-education-builder-grid">
+                  <div class="grow3dge-education-builder-item">
+                    <dt>Builder Focus:</dt>
+                    <dd>Web3/AI/Mobile</dd>
+                  </div>
+                  <div class="grow3dge-education-builder-item">
+                    <dt>Builder Commitment:</dt>
+                    <dd>~5 hrs / week</dd>
+                  </div>
+                </dl>
+                <a class="grow3dge-link" href="#">
+                  <span>
+                    Explore Program
+                    <img src="./si-assets/si-inline-arrow.svg" alt="" />
+                  </span>
+                </a>
+              </article>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Network — Figma 122:1903 -->
+      <section class="grow3dge-network" aria-labelledby="grow3dge-network-title">
+        <div class="grow3dge-network-inner">
+          <header class="grow3dge-network-header">
+            <span class="grow3dge-kicker">
+              <img src="./si-assets/snapshot-mark.svg" alt="" />
+              Network
+            </span>
+            <h2 class="grow3dge-network-title" id="grow3dge-network-title">
+              The Inner <span>Circle</span>
+            </h2>
+            <p>An invite-only network of 30+ ecosystems, founders, and operators where growth, intros, and deal flow compound monthly.</p>
+            <a class="grow3dge-link" href="#">
+              <span>
+                Request Invite
+                <img src="./si-assets/si-inline-arrow.svg" alt="" />
+              </span>
+            </a>
+            <div class="grow3dge-network-scroll" aria-hidden="true">
+              <svg viewBox="0 0 112 112">
+                <defs>
+                  <path id="grow3dge-network-scroll-path" d="M56,56 m-42,0 a42,42 0 1,1 84,0 a42,42 0 1,1 -84,0" />
+                </defs>
+                <text fill="currentColor">
+                  <textPath href="#grow3dge-network-scroll-path" startOffset="0%">
+                    SCROLL DOWN - SCROLL DOWN - SCROLL DOWN -
+                  </textPath>
+                </text>
+              </svg>
+              <img src="./si-assets/si-inline-arrow.svg" alt="" />
+            </div>
+          </header>
+
+          <div class="grow3dge-network-cards">
+            <article class="grow3dge-network-card is-text-left">
+              <div class="grow3dge-network-content">
+                <h3>Warm Intros, Not Cold DMs</h3>
+                <p>Skip cold outreach. Members access a curated network of operators with peer-targeted intros to ecosystems, partners, relevant partners, and capital.</p>
+                <ul class="grow3dge-network-points">
+                  <li>Strategic partnerships &amp; protocol integration facilitation</li>
+                  <li>Direct lines to ecosystems, grant programs, and venture groups</li>
+                  <li>Curated matchmaking based on stage and category</li>
+                </ul>
+                <a class="grow3dge-link" href="#">
+                  <span>
+                    Request Invite
+                    <img src="./si-assets/si-inline-arrow.svg" alt="" />
+                  </span>
+                </a>
+              </div>
+              <div class="grow3dge-network-media">
+                <span class="cornerTopLeft"></span><span class="cornerTopRight"></span><span class="cornerBottomLeft"></span><span class="cornerBottomRight"></span>
+                <img src="./si-assets/network-leaders.png" alt="" loading="lazy" decoding="async" />
+              </div>
+            </article>
+
+            <article class="grow3dge-network-card is-text-right">
+              <div class="grow3dge-network-media">
+                <span class="cornerTopLeft"></span><span class="cornerTopRight"></span><span class="cornerBottomLeft"></span><span class="cornerBottomRight"></span>
+                <img src="./si-assets/network-warm-intros.png" alt="" loading="lazy" decoding="async" />
+              </div>
+              <div class="grow3dge-network-content">
+                <h3>Learn From Other Leaders</h3>
+                <p>Where founders and operators learn, share and build strategies side-by-side.</p>
+                <ul class="grow3dge-network-points">
+                  <li>Founder-to-founder intros across 30+ ecosystems</li>
+                  <li>Network with purpose and explore real partnership and integration opportunities</li>
+                  <li>Curated matchmaking based on stage and category</li>
+                </ul>
+                <a class="grow3dge-link" href="#">
+                  <span>
+                    Request Invite
+                    <img src="./si-assets/si-inline-arrow.svg" alt="" />
+                  </span>
+                </a>
+              </div>
+            </article>
+
+            <article class="grow3dge-network-card is-text-left">
+              <div class="grow3dge-network-content">
+                <h3>Share Knowledge &amp; Connect IRL</h3>
+                <p>Kaia is our always-on network intelligence agent connecting the right people, knowledge, and opportunities across the Grow3dge ecosystem.</p>
+                <ul class="grow3dge-network-points">
+                  <li>Founder-to-founder intros across 30+ ecosystems</li>
+                  <li>Direct lines to BD leads, grant programs, and L2 foundations</li>
+                  <li>Curated matchmaking based on stage and category</li>
+                </ul>
+                <a class="grow3dge-link" href="#">
+                  <span>
+                    Request Invite
+                    <img src="./si-assets/si-inline-arrow.svg" alt="" />
+                  </span>
+                </a>
+              </div>
+              <div class="grow3dge-network-media">
+                <span class="cornerTopLeft"></span><span class="cornerTopRight"></span><span class="cornerBottomLeft"></span><span class="cornerBottomRight"></span>
+                <img src="./si-assets/network-kaia.png" alt="" loading="lazy" decoding="async" />
+              </div>
+            </article>
+          </div>
         </div>
       </section>
     </main>
