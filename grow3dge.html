@@ -325,6 +325,229 @@
           width: 43px;
         }
       }
+
+      /* ============================================================
+         Mini "SI MORE" ticker — Figma node 114:759.
+         Continuous horizontal marquee strip placed right under the hero. */
+      .grow3dge-mini-ticker {
+        position: relative;
+        width: 100%;
+        overflow: hidden;
+        padding: 28px 0;
+        background: transparent;
+      }
+
+      .grow3dge-mini-ticker-track {
+        display: flex;
+        align-items: center;
+        gap: 32px;
+        width: max-content;
+        color: rgba(255, 255, 255, 0.5);
+        font-family: "Montserrat", "Geist", system-ui, Arial, sans-serif;
+        font-size: 13px;
+        font-weight: 400;
+        letter-spacing: 2.6px;
+        text-transform: uppercase;
+        white-space: nowrap;
+        animation: grow3dge-mini-ticker-scroll 36s linear infinite;
+        will-change: transform;
+      }
+
+      .grow3dge-mini-ticker-track span {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .grow3dge-mini-ticker-track img {
+        flex: 0 0 auto;
+        width: 8px;
+        height: 10px;
+      }
+
+      @keyframes grow3dge-mini-ticker-scroll {
+        from { transform: translate3d(0, 0, 0); }
+        /* Track is duplicated, so shifting by -50% gives a seamless loop. */
+        to   { transform: translate3d(-50%, 0, 0); }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        .grow3dge-mini-ticker-track { animation: none; }
+      }
+      body.motion-off .grow3dge-mini-ticker-track { animation: none; }
+
+      /* ============================================================
+         Session Snapshots — Figma node 114:1147.
+         Heading row + 7-column grid of partner / contributor cards. */
+      .grow3dge-snapshots {
+        position: relative;
+        width: 100%;
+        padding: 64px 0 96px;
+      }
+
+      .grow3dge-snapshots-inner {
+        width: min(1253px, calc(100% - 64px));
+        margin: 0 auto;
+      }
+
+      .grow3dge-snapshots-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 32px;
+        margin-bottom: 36px;
+      }
+
+      .grow3dge-snapshots-title {
+        display: inline-flex;
+        align-items: center;
+        gap: 12px;
+        margin: 0;
+        font-family: "Bebas Neue", "Clesmont Demo", Geist, Arial, sans-serif;
+        font-size: 26px;
+        font-weight: 400;
+        line-height: 1.1;
+        letter-spacing: 0.04em;
+        color: #fff;
+        text-transform: uppercase;
+      }
+
+      .grow3dge-snapshots-mark {
+        flex: 0 0 auto;
+        display: inline-block;
+        width: 13px;
+        height: 15px;
+      }
+
+      .grow3dge-snapshots-mark img {
+        display: block;
+        width: 100%;
+        height: 100%;
+      }
+
+      .grow3dge-snapshots-eyebrow {
+        margin: 0;
+        font-family: "Geist Mono", "Roobert Mono", monospace;
+        font-size: 16px;
+        line-height: 1.4;
+        letter-spacing: 0.06em;
+        color: rgba(255, 255, 255, 0.8);
+        text-align: right;
+      }
+
+      .grow3dge-snapshots-grid {
+        display: grid;
+        grid-template-columns: repeat(7, minmax(0, 1fr));
+        gap: 21px;
+      }
+
+      /* Card — Figma 114:1162 et al. 161×89, blurred dark fill,
+         1px translucent border, decorative 4px dots at each corner. */
+      .grow3dge-card {
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 89px;
+        padding: 18px 16px;
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        background: rgba(0, 0, 0, 0.2);
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+        opacity: 0.4;
+        transition: opacity var(--motion-fast, 220ms) var(--ease-out-cubic, ease-out);
+      }
+
+      .grow3dge-card:hover,
+      .grow3dge-card:focus-within,
+      .grow3dge-card--featured {
+        opacity: 1;
+      }
+
+      /* Four corner dots — pseudo-elements + a single ::before/::after pair
+         won't cover all four, so we draw two via the card itself (top-left,
+         bottom-right) and two via an inner span (top-right, bottom-left). */
+      .grow3dge-card::before,
+      .grow3dge-card::after,
+      .grow3dge-card-dots::before,
+      .grow3dge-card-dots::after {
+        content: "";
+        position: absolute;
+        width: 4px;
+        height: 4px;
+        background: #d3d3d3;
+      }
+      .grow3dge-card::before     { top: -1px; left: -1px; }
+      .grow3dge-card::after      { bottom: -1px; right: -1px; }
+      .grow3dge-card-dots {
+        position: absolute;
+        inset: 0;
+        pointer-events: none;
+      }
+      .grow3dge-card-dots::before { top: -1px;    right: -1px; }
+      .grow3dge-card-dots::after  { bottom: -1px; left: -1px; }
+
+      .grow3dge-card-logo {
+        max-width: 70%;
+        max-height: 36px;
+        width: auto;
+        height: auto;
+        object-fit: contain;
+        filter: brightness(0) invert(1);
+      }
+
+      /* Person card — Figma 114:1206 / 114:1297. Avatar + name + role. */
+      .grow3dge-card--person {
+        justify-content: flex-start;
+        gap: 8px;
+        padding: 14px;
+      }
+
+      .grow3dge-card-avatar {
+        flex: 0 0 auto;
+        width: 37px;
+        height: 37px;
+        border-radius: 2px;
+        object-fit: cover;
+      }
+
+      .grow3dge-card-person-meta {
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+        line-height: 1;
+        min-width: 0;
+      }
+
+      .grow3dge-card-person-meta strong {
+        font-family: "Geist", "Roobert TRIAL", system-ui, Arial, sans-serif;
+        font-size: 14px;
+        font-weight: 500;
+        color: #fff;
+      }
+
+      .grow3dge-card-person-meta span {
+        font-family: "Geist", "Roobert TRIAL", system-ui, Arial, sans-serif;
+        font-size: 12px;
+        font-weight: 400;
+        color: #a4a4a4;
+      }
+
+      @media (max-width: 1100px) {
+        .grow3dge-snapshots-grid {
+          grid-template-columns: repeat(4, minmax(0, 1fr));
+        }
+        .grow3dge-snapshots-eyebrow { font-size: 14px; }
+      }
+
+      @media (max-width: 640px) {
+        .grow3dge-snapshots { padding: 40px 0 64px; }
+        .grow3dge-snapshots-header { flex-direction: column; align-items: flex-start; gap: 12px; }
+        .grow3dge-snapshots-eyebrow { text-align: left; }
+        .grow3dge-snapshots-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+        .grow3dge-card { padding: 14px; }
+        .grow3dge-card--person { padding: 12px; }
+      }
     </style>
   </head>
   <body>
@@ -377,6 +600,127 @@
             </text>
           </svg>
           <img src="./si-assets/grow3dge-scroll-crystal.png" alt="" />
+        </div>
+      </section>
+
+      <!-- Mini "SI MORE" ticker — Figma 114:759 -->
+      <div class="grow3dge-mini-ticker" aria-hidden="true">
+        <div class="grow3dge-mini-ticker-track">
+          <!-- Track is rendered twice; the animation translates by -50%
+               so the second copy seamlessly takes over for a perfect loop. -->
+          <span><img src="./si-assets/ticker-play.svg" alt="" />SI MORE</span>
+          <span><img src="./si-assets/ticker-play.svg" alt="" />SI MORE</span>
+          <span><img src="./si-assets/ticker-play.svg" alt="" />SI MORE</span>
+          <span><img src="./si-assets/ticker-play.svg" alt="" />SI MORE</span>
+          <span><img src="./si-assets/ticker-play.svg" alt="" />SI MORE</span>
+          <span><img src="./si-assets/ticker-play.svg" alt="" />SI MORE</span>
+          <span><img src="./si-assets/ticker-play.svg" alt="" />SI MORE</span>
+          <span><img src="./si-assets/ticker-play.svg" alt="" />SI MORE</span>
+          <span><img src="./si-assets/ticker-play.svg" alt="" />SI MORE</span>
+          <span><img src="./si-assets/ticker-play.svg" alt="" />SI MORE</span>
+          <span><img src="./si-assets/ticker-play.svg" alt="" />SI MORE</span>
+          <!-- duplicate set for seamless loop -->
+          <span><img src="./si-assets/ticker-play.svg" alt="" />SI MORE</span>
+          <span><img src="./si-assets/ticker-play.svg" alt="" />SI MORE</span>
+          <span><img src="./si-assets/ticker-play.svg" alt="" />SI MORE</span>
+          <span><img src="./si-assets/ticker-play.svg" alt="" />SI MORE</span>
+          <span><img src="./si-assets/ticker-play.svg" alt="" />SI MORE</span>
+          <span><img src="./si-assets/ticker-play.svg" alt="" />SI MORE</span>
+          <span><img src="./si-assets/ticker-play.svg" alt="" />SI MORE</span>
+          <span><img src="./si-assets/ticker-play.svg" alt="" />SI MORE</span>
+          <span><img src="./si-assets/ticker-play.svg" alt="" />SI MORE</span>
+          <span><img src="./si-assets/ticker-play.svg" alt="" />SI MORE</span>
+          <span><img src="./si-assets/ticker-play.svg" alt="" />SI MORE</span>
+        </div>
+      </div>
+
+      <!-- Session Snapshots — Figma 114:1147 -->
+      <section
+        class="grow3dge-snapshots"
+        aria-labelledby="grow3dge-snapshots-title"
+      >
+        <div class="grow3dge-snapshots-inner">
+          <header class="grow3dge-snapshots-header">
+            <h2 class="grow3dge-snapshots-title" id="grow3dge-snapshots-title">
+              <span class="grow3dge-snapshots-mark" aria-hidden="true">
+                <img src="./si-assets/snapshot-mark.svg" alt="" />
+              </span>
+              Session Snapshots
+            </h2>
+            <p class="grow3dge-snapshots-eyebrow">
+              Program &amp; Product Partners We Support
+            </p>
+          </header>
+
+          <div class="grow3dge-snapshots-grid">
+            <!-- Row 1: Stellar, Unlock, Dune, Rari, ENS, Uniswap, Hacken -->
+            <div class="grow3dge-card">
+              <span class="grow3dge-card-dots" aria-hidden="true"></span>
+              <img class="grow3dge-card-logo" src="./si-assets/logo-stellar.svg" alt="Stellar" loading="lazy" decoding="async" />
+            </div>
+            <div class="grow3dge-card">
+              <span class="grow3dge-card-dots" aria-hidden="true"></span>
+              <img class="grow3dge-card-logo" src="./si-assets/logo-unlock.svg" alt="Unlock" loading="lazy" decoding="async" />
+            </div>
+            <div class="grow3dge-card">
+              <span class="grow3dge-card-dots" aria-hidden="true"></span>
+              <img class="grow3dge-card-logo" src="./si-assets/logo-dune.svg" alt="Dune" loading="lazy" decoding="async" />
+            </div>
+            <div class="grow3dge-card">
+              <span class="grow3dge-card-dots" aria-hidden="true"></span>
+              <img class="grow3dge-card-logo" src="./si-assets/logo-rari.svg" alt="Rari" loading="lazy" decoding="async" />
+            </div>
+            <div class="grow3dge-card">
+              <span class="grow3dge-card-dots" aria-hidden="true"></span>
+              <img class="grow3dge-card-logo" src="./si-assets/logo-ens.svg" alt="ENS" loading="lazy" decoding="async" />
+            </div>
+            <div class="grow3dge-card">
+              <span class="grow3dge-card-dots" aria-hidden="true"></span>
+              <img class="grow3dge-card-logo" src="./si-assets/logo-uniswap.png" alt="Uniswap Foundation" loading="lazy" decoding="async" />
+            </div>
+            <div class="grow3dge-card">
+              <span class="grow3dge-card-dots" aria-hidden="true"></span>
+              <img class="grow3dge-card-logo" src="./si-assets/logo-hacken.png" alt="Hacken" loading="lazy" decoding="async" />
+            </div>
+
+            <!-- Row 2: Zerion, Sara Khan, MoonDAO, STARKNET, Stellar (featured), Lara Khan, Dune -->
+            <div class="grow3dge-card">
+              <span class="grow3dge-card-dots" aria-hidden="true"></span>
+              <img class="grow3dge-card-logo" src="./si-assets/logo-zerion.svg" alt="Zerion" loading="lazy" decoding="async" />
+            </div>
+            <div class="grow3dge-card grow3dge-card--person">
+              <span class="grow3dge-card-dots" aria-hidden="true"></span>
+              <img class="grow3dge-card-avatar" src="./si-assets/snapshot-sara.jpg" alt="" loading="lazy" decoding="async" />
+              <div class="grow3dge-card-person-meta">
+                <strong>Sara Khan</strong>
+                <span>Founder</span>
+              </div>
+            </div>
+            <div class="grow3dge-card">
+              <span class="grow3dge-card-dots" aria-hidden="true"></span>
+              <img class="grow3dge-card-logo" src="./si-assets/logo-moondao-wordmark.png" alt="MoonDAO" loading="lazy" decoding="async" />
+            </div>
+            <div class="grow3dge-card">
+              <span class="grow3dge-card-dots" aria-hidden="true"></span>
+              <img class="grow3dge-card-logo" src="./si-assets/logo-starknet.png" alt="Starknet" loading="lazy" decoding="async" />
+            </div>
+            <div class="grow3dge-card grow3dge-card--featured">
+              <span class="grow3dge-card-dots" aria-hidden="true"></span>
+              <img class="grow3dge-card-logo" src="./si-assets/logo-stellar.svg" alt="Stellar" loading="lazy" decoding="async" />
+            </div>
+            <div class="grow3dge-card grow3dge-card--person">
+              <span class="grow3dge-card-dots" aria-hidden="true"></span>
+              <img class="grow3dge-card-avatar" src="./si-assets/snapshot-lara.jpg" alt="" loading="lazy" decoding="async" />
+              <div class="grow3dge-card-person-meta">
+                <strong>Lara Khan</strong>
+                <span>Founder</span>
+              </div>
+            </div>
+            <div class="grow3dge-card">
+              <span class="grow3dge-card-dots" aria-hidden="true"></span>
+              <img class="grow3dge-card-logo" src="./si-assets/logo-dune.svg" alt="Dune" loading="lazy" decoding="async" />
+            </div>
+          </div>
         </div>
       </section>
     </main>
