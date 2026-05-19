@@ -82,6 +82,61 @@
         background: #0c0a18;
       }
 
+      /* ============================================================
+         Sticky crystal backdrop — mirrors the homepage's
+         hero-sticky-crystal treatment. A 100vh sticky frame holds the
+         purple-crystal image; all post-hero sections scroll over it. */
+      .grow3dge-content-stage {
+        position: relative;
+        isolation: isolate;
+        background: #0c0a18;
+      }
+
+      .grow3dge-crystal-frame {
+        position: sticky;
+        top: 0;
+        z-index: 0;
+        display: grid;
+        height: 100vh;
+        min-height: 760px;
+        margin-bottom: -100vh;
+        place-items: center;
+        overflow: hidden;
+        pointer-events: none;
+      }
+
+      .grow3dge-crystal-asset {
+        width: min(82vw, 860px);
+        height: min(82vw, 860px);
+        opacity: var(--sticky-crystal-opacity, 0.22);
+        transform: translateY(var(--sticky-crystal-y, 190px))
+          scale(var(--sticky-crystal-scale, 0.42));
+        transition: transform 200ms ease-out, opacity 200ms ease-out;
+        will-change: transform, opacity;
+      }
+
+      .grow3dge-crystal-asset img {
+        display: block;
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+      }
+
+      .grow3dge-content-stage > :not(.grow3dge-crystal-frame) {
+        position: relative;
+        z-index: 1;
+      }
+
+      /* Wrapped sections render transparent so the crystal shows through. */
+      .grow3dge-content-stage .grow3dge-mini-ticker,
+      .grow3dge-content-stage .grow3dge-snapshots,
+      .grow3dge-content-stage .grow3dge-challenges,
+      .grow3dge-content-stage .grow3dge-solutions,
+      .grow3dge-content-stage .grow3dge-education,
+      .grow3dge-content-stage .grow3dge-network {
+        background: transparent;
+      }
+
       .grow3dge-preview-band {
         position: relative;
         width: 100%;
@@ -1970,6 +2025,18 @@
         </div>
       </section>
 
+      <div class="grow3dge-content-stage">
+        <div class="grow3dge-crystal-frame" aria-hidden="true">
+          <div class="grow3dge-crystal-asset" data-grow3dge-crystal>
+            <img
+              src="./si-assets/grow3dge-sticky-crystal.png"
+              alt=""
+              loading="lazy"
+              decoding="async"
+            />
+          </div>
+        </div>
+
       <!-- Mini "SI MORE" ticker — Figma 114:759 -->
       <div class="grow3dge-mini-ticker" aria-hidden="true">
         <div class="grow3dge-mini-ticker-track">
@@ -2617,6 +2684,43 @@
           </div>
         </div>
       </section>
+      </div><!-- /.grow3dge-content-stage -->
     </main>
+
+    <script>
+      /* Sticky crystal backdrop animation — mirrors the homepage's
+         scroll-progress curve so scale/opacity/y all settle as the
+         content-stage scrolls into view. */
+      (() => {
+        const stage = document.querySelector(".grow3dge-content-stage");
+        const crystal = document.querySelector("[data-grow3dge-crystal]");
+        if (!stage || !crystal) return;
+
+        const easeOutCubic = (t) => 1 - Math.pow(1 - t, 3);
+        const clamp01 = (v) => (v < 0 ? 0 : v > 1 ? 1 : v);
+
+        let ticking = false;
+        const update = () => {
+          const rect = stage.getBoundingClientRect();
+          const vh = window.innerHeight || document.documentElement.clientHeight;
+          const raw = (vh * 0.84 - rect.top) / (vh * 0.34);
+          const eased = easeOutCubic(clamp01(raw));
+          crystal.style.setProperty("--sticky-crystal-scale", String(0.42 + eased * 0.58));
+          crystal.style.setProperty("--sticky-crystal-y", `${(1 - eased) * 190}px`);
+          crystal.style.setProperty("--sticky-crystal-opacity", String(0.18 + eased * 0.82));
+          ticking = false;
+        };
+
+        const onScroll = () => {
+          if (ticking) return;
+          ticking = true;
+          requestAnimationFrame(update);
+        };
+
+        window.addEventListener("scroll", onScroll, { passive: true });
+        window.addEventListener("resize", onScroll, { passive: true });
+        update();
+      })();
+    </script>
   </body>
 </html>
