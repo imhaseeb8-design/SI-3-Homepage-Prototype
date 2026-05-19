@@ -1877,6 +1877,283 @@
           aspect-ratio: 356 / 244;
         }
       }
+
+      /* ============================================================
+         Testimonial — Figma node 134:2212.
+         Click any avatar to jump to that voice; clicking anywhere
+         else in the section advances to the next one. */
+      .grow3dge-testimonial {
+        position: relative;
+        width: 100%;
+        padding: 95px 0 96px;
+        background: #0c0a18;
+        color: #fff;
+        cursor: pointer;
+        user-select: none;
+      }
+
+      .grow3dge-testimonial-inner {
+        display: flex;
+        flex-direction: column;
+        gap: 44px;
+        width: min(1253px, calc(100% - 64px));
+        margin: 0 auto;
+      }
+
+      .grow3dge-testimonial-head {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 24px;
+      }
+
+      .grow3dge-testimonial-title {
+        margin: 0;
+        font-family: var(--font-clesmont), "Clesmont Demo", var(--font-geist), Arial, sans-serif;
+        font-size: 32px;
+        font-weight: 400;
+        line-height: 1.1;
+        color: #fff;
+        text-transform: uppercase;
+      }
+
+      .grow3dge-testimonial-title em {
+        color: #bca9ff;
+        font-style: normal;
+      }
+
+      .grow3dge-testimonial-tag {
+        font-family: var(--font-geist-mono), monospace;
+        font-size: 16px;
+        font-weight: 400;
+        line-height: 1.4;
+        color: rgba(255, 255, 255, 0.8);
+        text-align: right;
+        text-transform: uppercase;
+        white-space: nowrap;
+      }
+
+      .grow3dge-testimonial-avatars {
+        display: flex;
+        align-items: center;
+      }
+
+      .grow3dge-testimonial-avatar {
+        position: relative;
+        flex: 0 0 auto;
+        width: 52px;
+        height: 52px;
+        margin: 0;
+        margin-right: -22px;
+        padding: 0;
+        border: 0;
+        border-radius: 50%;
+        background: transparent;
+        cursor: pointer;
+        transition: transform 200ms ease, z-index 0s 200ms;
+      }
+
+      .grow3dge-testimonial-avatar:last-child {
+        margin-right: 0;
+      }
+
+      .grow3dge-testimonial-avatar img {
+        display: block;
+        width: 100%;
+        height: 100%;
+        border-radius: 50%;
+        object-fit: cover;
+        filter: grayscale(1);
+        transition: filter 250ms ease;
+      }
+
+      .grow3dge-testimonial-avatar:hover img,
+      .grow3dge-testimonial-avatar:focus-visible img,
+      .grow3dge-testimonial-avatar.is-active img {
+        filter: grayscale(0);
+      }
+
+      .grow3dge-testimonial-avatar.is-active {
+        z-index: 2;
+      }
+
+      .grow3dge-testimonial-avatar:hover,
+      .grow3dge-testimonial-avatar:focus-visible {
+        z-index: 3;
+        transform: translateY(-3px) scale(1.06);
+        transition: transform 200ms ease, z-index 0s;
+      }
+
+      .grow3dge-testimonial-quote {
+        display: flex;
+        flex-direction: column;
+        gap: 28px;
+        width: min(992px, 100%);
+      }
+
+      .grow3dge-testimonial-quote-mark {
+        display: block;
+        width: 32px;
+        height: 26px;
+        opacity: 0.9;
+      }
+
+      .grow3dge-testimonial-quote p {
+        margin: 0;
+        font-family: var(--font-geist), system-ui, -apple-system, Arial, sans-serif;
+        font-size: 24px;
+        font-weight: 400;
+        line-height: 1.4;
+        color: #fff;
+        transition: opacity 220ms ease;
+      }
+
+      .grow3dge-testimonial.is-changing .grow3dge-testimonial-quote p,
+      .grow3dge-testimonial.is-changing .grow3dge-testimonial-attribution {
+        opacity: 0.25;
+      }
+
+      .grow3dge-testimonial-attribution {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        transition: opacity 220ms ease;
+      }
+
+      .grow3dge-testimonial-attribution-avatar {
+        width: 52px;
+        height: 52px;
+        border-radius: 50%;
+        object-fit: cover;
+      }
+
+      .grow3dge-testimonial-attribution-text {
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+        min-width: 0;
+      }
+
+      .grow3dge-testimonial-attribution-text strong {
+        font-family: var(--font-geist), system-ui, -apple-system, Arial, sans-serif;
+        font-size: 18px;
+        font-style: italic;
+        font-weight: 400;
+        line-height: 1;
+        color: #fff;
+      }
+
+      .grow3dge-testimonial-attribution-text span {
+        font-family: var(--font-geist), system-ui, -apple-system, Arial, sans-serif;
+        font-size: 14px;
+        font-style: italic;
+        font-weight: 400;
+        line-height: 1.1;
+        color: rgba(255, 255, 255, 0.5);
+      }
+
+      .grow3dge-testimonial-attribution-divider {
+        width: 1px;
+        height: 38px;
+        margin: 0 6px;
+        background: rgba(255, 255, 255, 0.2);
+      }
+
+      .grow3dge-testimonial-attribution-brand {
+        height: 21px;
+        width: auto;
+        object-fit: contain;
+      }
+
+      .grow3dge-testimonial-attribution-brand[hidden] {
+        display: none;
+      }
+
+      .grow3dge-testimonial-foot {
+        display: flex;
+        flex-direction: column;
+        gap: 19px;
+        width: 100%;
+      }
+
+      .grow3dge-testimonial-progress {
+        position: relative;
+        width: 100%;
+        height: 2px;
+        background: rgba(255, 255, 255, 0.12);
+      }
+
+      .grow3dge-testimonial-progress-fill {
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 100%;
+        background: rgba(255, 255, 255, 0.7);
+        transition: width 320ms ease;
+      }
+
+      .grow3dge-testimonial-foot-row {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        font-family: var(--font-geist-mono), monospace;
+        font-size: 14px;
+        font-weight: 400;
+        line-height: 1.4;
+        color: rgba(255, 255, 255, 0.6);
+        text-transform: uppercase;
+      }
+
+      .grow3dge-testimonial-foot-row .grow3dge-testimonial-hint::after {
+        content: " ›";
+      }
+
+      @media (max-width: 1100px) {
+        .grow3dge-testimonial {
+          padding: 64px 0 72px;
+        }
+
+        .grow3dge-testimonial-head {
+          flex-direction: column;
+          align-items: flex-start;
+          gap: 16px;
+        }
+
+        .grow3dge-testimonial-tag {
+          text-align: left;
+        }
+
+        .grow3dge-testimonial-quote p {
+          font-size: 20px;
+        }
+      }
+
+      @media (max-width: 720px) {
+        .grow3dge-testimonial {
+          padding: 48px 0 64px;
+        }
+
+        .grow3dge-testimonial-inner {
+          width: min(100% - 32px, 1253px);
+          gap: 32px;
+        }
+
+        .grow3dge-testimonial-title {
+          font-size: 26px;
+        }
+
+        .grow3dge-testimonial-quote p {
+          font-size: 17px;
+        }
+
+        .grow3dge-testimonial-attribution {
+          flex-wrap: wrap;
+        }
+
+        .grow3dge-testimonial-attribution-brand {
+          height: 18px;
+        }
+      }
     </style>
   </head>
   <body>
@@ -2550,6 +2827,153 @@
         </div>
       </section>
       </div><!-- /.grow3dge-content-stage -->
+
+      <!-- Testimonial — Figma 134:2212 -->
+      <section
+        class="grow3dge-testimonial"
+        aria-labelledby="grow3dge-testimonial-title"
+        data-grow3dge-testimonial
+      >
+        <div class="grow3dge-testimonial-inner">
+          <div class="grow3dge-testimonial-head">
+            <span class="grow3dge-kicker">
+              <img src="./si-assets/snapshot-mark.svg" alt="" />
+              <span class="grow3dge-testimonial-title" id="grow3dge-testimonial-title">
+                Grow3dge <em>Testimonials</em>
+              </span>
+            </span>
+            <span class="grow3dge-testimonial-tag">Builder Incubator + Inner Circle</span>
+          </div>
+
+          <div class="grow3dge-testimonial-avatars" role="tablist" aria-label="Choose a voice">
+            <button
+              type="button"
+              class="grow3dge-testimonial-avatar"
+              data-testimonial-avatar="0"
+              role="tab"
+              aria-selected="false"
+              aria-label="Marcus Chen, Stellar Labs"
+            >
+              <img src="./si-assets/testimonial-avatar-1.png" alt="" loading="lazy" decoding="async" />
+            </button>
+            <button
+              type="button"
+              class="grow3dge-testimonial-avatar"
+              data-testimonial-avatar="1"
+              role="tab"
+              aria-selected="false"
+              aria-label="Sara Kim, MoonDAO"
+            >
+              <img src="./si-assets/testimonial-avatar-2.png" alt="" loading="lazy" decoding="async" />
+            </button>
+            <button
+              type="button"
+              class="grow3dge-testimonial-avatar"
+              data-testimonial-avatar="2"
+              role="tab"
+              aria-selected="false"
+              aria-label="Devon Reyes, Arbitrum Foundation"
+            >
+              <img src="./si-assets/testimonial-avatar-3.png" alt="" loading="lazy" decoding="async" />
+            </button>
+            <button
+              type="button"
+              class="grow3dge-testimonial-avatar is-active"
+              data-testimonial-avatar="3"
+              role="tab"
+              aria-selected="true"
+              aria-label="Daria Saji, Huddle01"
+            >
+              <img src="./si-assets/testimonial-avatar-4.png" alt="" loading="lazy" decoding="async" />
+            </button>
+          </div>
+
+          <blockquote class="grow3dge-testimonial-quote" aria-live="polite">
+            <img
+              class="grow3dge-testimonial-quote-mark"
+              src="./si-assets/testimonial-quote.svg"
+              alt=""
+              aria-hidden="true"
+            />
+            <p data-testimonial-quote>
+              &ldquo;In the Grow3dge program, I was able to present in a thoughtfully curated experience with other industry leaders. SI&lt;3&gt; brings a rare mix of warmth, insight, and purpose to everything they do. We&rsquo;re grateful for the new business leads we have received from this program and look forward to what&rsquo;s ahead.&rdquo;
+            </p>
+          </blockquote>
+
+          <figcaption class="grow3dge-testimonial-attribution">
+            <img
+              class="grow3dge-testimonial-attribution-avatar"
+              src="./si-assets/testimonial-avatar-4.png"
+              alt=""
+              data-testimonial-attribution-avatar
+              loading="lazy"
+              decoding="async"
+            />
+            <div class="grow3dge-testimonial-attribution-text">
+              <strong data-testimonial-name>Daria Saji</strong>
+              <span data-testimonial-role>Product Manager at Huddle01</span>
+            </div>
+            <span class="grow3dge-testimonial-attribution-divider" aria-hidden="true"></span>
+            <img
+              class="grow3dge-testimonial-attribution-brand"
+              src="./si-assets/testimonial-huddle01.png"
+              alt="Huddle01"
+              data-testimonial-brand
+              loading="lazy"
+              decoding="async"
+            />
+          </figcaption>
+
+          <div class="grow3dge-testimonial-foot">
+            <div class="grow3dge-testimonial-progress" aria-hidden="true">
+              <span class="grow3dge-testimonial-progress-fill" data-testimonial-progress></span>
+            </div>
+            <div class="grow3dge-testimonial-foot-row">
+              <span>Testimonials / Real Voices</span>
+              <span class="grow3dge-testimonial-hint">Click anywhere for next</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Testimonial data lives inline so the markup above stays the
+             default; JS swaps content via this JSON payload. -->
+        <script type="application/json" data-testimonial-data>
+        [
+          {
+            "quote": "“The mentorship inside Grow3dge totally changed how we ship growth. Strategic, hands-on, and genuinely invested in our outcome — the warm intros alone paid for the program.”",
+            "name": "Marcus Chen",
+            "role": "Co-founder at Stellar Labs",
+            "avatar": "./si-assets/testimonial-avatar-1.png",
+            "brand": null,
+            "brandLabel": "Stellar Labs"
+          },
+          {
+            "quote": "“The Inner Circle gave us instant access to the warmest intros in Web3. Two protocol partnerships and a closed deal within our first quarter — the ROI is hard to argue with.”",
+            "name": "Sara Kim",
+            "role": "Head of BD at MoonDAO",
+            "avatar": "./si-assets/testimonial-avatar-2.png",
+            "brand": null,
+            "brandLabel": "MoonDAO"
+          },
+          {
+            "quote": "“The bi-weekly livestream put our project in front of an audience that actually converts. 1.2k qualified leads from one session — and they stuck around for the next one.”",
+            "name": "Devon Reyes",
+            "role": "CMO at Arbitrum Foundation",
+            "avatar": "./si-assets/testimonial-avatar-3.png",
+            "brand": null,
+            "brandLabel": "Arbitrum"
+          },
+          {
+            "quote": "“In the Grow3dge program, I was able to present in a thoughtfully curated experience with other industry leaders. SI<3> brings a rare mix of warmth, insight, and purpose to everything they do. We’re grateful for the new business leads we have received from this program and look forward to what’s ahead.”",
+            "name": "Daria Saji",
+            "role": "Product Manager at Huddle01",
+            "avatar": "./si-assets/testimonial-avatar-4.png",
+            "brand": "./si-assets/testimonial-huddle01.png",
+            "brandLabel": "Huddle01"
+          }
+        ]
+        </script>
+      </section>
     </main>
 
     <script>
@@ -2585,6 +3009,116 @@
         window.addEventListener("scroll", onScroll, { passive: true });
         window.addEventListener("resize", onScroll, { passive: true });
         update();
+      })();
+
+      /* Testimonial carousel — Figma 134:2212.
+         Click an avatar to jump to that voice; click anywhere else in
+         the section background to advance to the next testimonial. */
+      (() => {
+        const section = document.querySelector("[data-grow3dge-testimonial]");
+        if (!section) return;
+
+        const dataEl = section.querySelector("[data-testimonial-data]");
+        let testimonials;
+        try {
+          testimonials = JSON.parse(dataEl.textContent);
+        } catch (err) {
+          return;
+        }
+        if (!Array.isArray(testimonials) || testimonials.length === 0) return;
+
+        const avatars = Array.from(
+          section.querySelectorAll("[data-testimonial-avatar]")
+        );
+        const quoteEl = section.querySelector("[data-testimonial-quote]");
+        const nameEl = section.querySelector("[data-testimonial-name]");
+        const roleEl = section.querySelector("[data-testimonial-role]");
+        const attrAvatarEl = section.querySelector(
+          "[data-testimonial-attribution-avatar]"
+        );
+        const brandEl = section.querySelector("[data-testimonial-brand]");
+        const progressEl = section.querySelector("[data-testimonial-progress]");
+
+        const initial = avatars.findIndex((a) => a.classList.contains("is-active"));
+        let active = initial >= 0 ? initial : 0;
+        let pending = false;
+
+        const setProgress = (i) => {
+          if (!progressEl) return;
+          progressEl.style.width = `${((i + 1) / testimonials.length) * 100}%`;
+        };
+
+        const render = (animate) => {
+          const t = testimonials[active];
+          if (!t) return;
+
+          const commit = () => {
+            if (quoteEl) quoteEl.textContent = t.quote;
+            if (nameEl) nameEl.textContent = t.name;
+            if (roleEl) roleEl.textContent = t.role;
+            if (attrAvatarEl && t.avatar) attrAvatarEl.src = t.avatar;
+            if (brandEl) {
+              if (t.brand) {
+                brandEl.src = t.brand;
+                if (t.brandLabel) brandEl.alt = t.brandLabel;
+                brandEl.hidden = false;
+              } else {
+                brandEl.removeAttribute("src");
+                brandEl.alt = t.brandLabel || "";
+                brandEl.hidden = true;
+              }
+            }
+            avatars.forEach((a, i) => {
+              const on = i === active;
+              a.classList.toggle("is-active", on);
+              a.setAttribute("aria-selected", on ? "true" : "false");
+            });
+            setProgress(active);
+            section.classList.remove("is-changing");
+          };
+
+          if (!animate) {
+            commit();
+            return;
+          }
+          section.classList.add("is-changing");
+          window.setTimeout(commit, 180);
+        };
+
+        const setActive = (i) => {
+          const next = ((i % testimonials.length) + testimonials.length) %
+            testimonials.length;
+          if (next === active) return;
+          active = next;
+          render(true);
+        };
+
+        avatars.forEach((avatar, i) => {
+          avatar.addEventListener("click", (e) => {
+            e.stopPropagation();
+            setActive(i);
+          });
+          avatar.addEventListener("keydown", (e) => {
+            if (e.key === "ArrowRight") {
+              e.preventDefault();
+              setActive(active + 1);
+              avatars[(active) % avatars.length].focus();
+            } else if (e.key === "ArrowLeft") {
+              e.preventDefault();
+              setActive(active - 1);
+              avatars[active].focus();
+            }
+          });
+        });
+
+        section.addEventListener("click", (e) => {
+          // Ignore clicks on real interactive children (avatars, links).
+          if (e.target.closest("[data-testimonial-avatar], a, button")) return;
+          setActive(active + 1);
+        });
+
+        // Sync initial progress fill from the default active index.
+        setProgress(active);
       })();
     </script>
   </body>
