@@ -13,6 +13,10 @@
         --font-geist: "Geist";
         --font-geist-mono: "Geist Mono";
 
+        /* Page background — single source of truth for the dark surface. */
+        --page-bg: #13091F;
+        --page-bg-rgb: 19, 9, 31;
+
         /* Motion tokens — keep all animation timing/easing references here so
            variants can be A/B-tested by overriding under body.variant-X. */
         --ease-out-cubic: cubic-bezier(0.215, 0.61, 0.355, 1);
@@ -78,7 +82,7 @@
       body {
         min-height: 100%;
         margin: 0;
-        background: #08040f;
+        background: var(--page-bg);
         font-family: "Geist", system-ui, -apple-system, "Helvetica Neue", Arial, sans-serif;
         color: #fff;
       }
@@ -103,7 +107,7 @@
         order: 1;
         min-height: 760px;
         overflow: hidden;
-        background: #0d0816;
+        background: var(--page-bg);
         color: #fff;
       }
 
@@ -137,7 +141,7 @@
         bottom: 0;
         left: 0;
         height: 154px;
-        background: linear-gradient(180deg, rgba(13, 8, 22, 0) 0%, #0d0816 100%);
+        background: linear-gradient(180deg, rgba(var(--page-bg-rgb), 0) 0%, var(--page-bg) 100%);
       }
 
       .hero-nav {
@@ -511,7 +515,7 @@
         isolation: isolate;
         display: grid;
         gap: 96px;
-        background: #08040f;
+        background: var(--page-bg);
         padding-bottom: 96px;
       }
 
