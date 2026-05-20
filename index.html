@@ -2444,7 +2444,7 @@
                 <span class="dragDots" aria-hidden="true"><span></span><span></span><span></span><span></span></span>
                 <span class="cardNumber">/ 01</span>
               </div>
-              <button class="minimizeButton" type="button" aria-label="Collapse Explorer"><span></span></button>
+              <button class="minimizeButton" type="button" aria-expanded="true" aria-label="Collapse Explorer card"><span></span></button>
             </div>
             <div class="cardDivider"></div>
             <div class="cardBody">
@@ -2484,7 +2484,7 @@
                 <span class="dragDots" aria-hidden="true"><span></span><span></span><span></span><span></span></span>
                 <span class="cardNumber">/ 02</span>
               </div>
-              <button class="minimizeButton" type="button" aria-label="Collapse Guide"><span></span></button>
+              <button class="minimizeButton" type="button" aria-expanded="true" aria-label="Collapse Guide card"><span></span></button>
             </div>
             <div class="cardDivider"></div>
             <div class="cardBody">
@@ -2534,7 +2534,7 @@
                 <span class="dragDots" aria-hidden="true"><span></span><span></span><span></span><span></span></span>
                 <span class="cardNumber">/ 03</span>
               </div>
-              <button class="minimizeButton" type="button" aria-label="Collapse Partner"><span></span></button>
+              <button class="minimizeButton" type="button" aria-expanded="true" aria-label="Collapse Partner card"><span></span></button>
             </div>
             <div class="cardDivider"></div>
             <div class="cardBody">
@@ -3436,6 +3436,30 @@
             // TODO: POST to subscribe endpoint.
             input.value = "";
           }
+        });
+      })();
+
+      /* ---------- Section: SI audience pathway cards (collapse/expand) ---------- */
+      (() => {
+        const root = document.querySelector('.root[aria-label="SI audience paths"]');
+        if (!root) return;
+        const buttons = root.querySelectorAll(".minimizeButton");
+        buttons.forEach((btn) => {
+          const card = btn.closest(".card");
+          if (!card) return;
+          btn.addEventListener("click", () => {
+            const expanded = btn.getAttribute("aria-expanded") !== "false";
+            const next = !expanded;
+            btn.setAttribute("aria-expanded", next ? "true" : "false");
+            card.classList.toggle("isCollapsed", !next);
+            const labelBase = (btn.getAttribute("aria-label") || "")
+              .replace(/^Collapse\s+/i, "")
+              .replace(/^Expand\s+/i, "");
+            btn.setAttribute(
+              "aria-label",
+              (next ? "Collapse " : "Expand ") + labelBase
+            );
+          });
         });
       })();
     </script>

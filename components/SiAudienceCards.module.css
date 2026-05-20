@@ -218,23 +218,66 @@
 .root[aria-label="SI audience paths"] .minimizeButton {
   display: flex;
   align-items: center;
+  justify-content: center;
   width: 28px;
   height: 36px;
   border-radius: 4px;
   border: 1px solid rgba(255, 255, 255, 0.2);
   background: rgba(255, 255, 255, 0.05);
-  padding: 13px 7px;
+  padding: 0;
   cursor: pointer;
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
+  transition: background 160ms ease, border-color 160ms ease;
 }
 
+.root[aria-label="SI audience paths"] .minimizeButton:hover,
+.root[aria-label="SI audience paths"] .minimizeButton:focus-visible {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.35);
+}
+
+/* The button's child span is the horizontal bar of the icon; the ::before
+   pseudo on it is the vertical bar that only appears when the card is
+   collapsed, turning the minus into a plus. */
 .root[aria-label="SI audience paths"] .minimizeButton > span {
+  position: relative;
   display: block;
   width: 14px;
   height: 2px;
   border-radius: 10px;
   background: #fff;
+}
+
+.root[aria-label="SI audience paths"] .minimizeButton > span::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 2px;
+  height: 14px;
+  border-radius: 10px;
+  background: #fff;
+  transform: translate(-50%, -50%) scaleY(0);
+  transform-origin: center;
+  transition: transform 200ms ease;
+}
+
+.root[aria-label="SI audience paths"] .card.isCollapsed .minimizeButton > span::before {
+  transform: translate(-50%, -50%) scaleY(1);
+}
+
+/* Collapse the card body to just the header row. The column it sits in
+   is a single-cell grid that would otherwise stretch the card to fill;
+   align-self:start releases it so the card actually shrinks. */
+.root[aria-label="SI audience paths"] .card.isCollapsed {
+  min-height: 0;
+  align-self: start;
+}
+
+.root[aria-label="SI audience paths"] .card.isCollapsed .cardDivider,
+.root[aria-label="SI audience paths"] .card.isCollapsed .cardBody {
+  display: none;
 }
 
 .root[aria-label="SI audience paths"] .cardDivider {
