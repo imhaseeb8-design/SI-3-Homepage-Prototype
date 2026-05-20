@@ -479,251 +479,327 @@
       body.motion-off .grow3dge-mini-ticker-track { animation: none; }
 
       /* ============================================================
-         Session Snapshots — Figma node 114:1147.
-         Heading row + 7-column grid of partner / contributor cards. */
-      .grow3dge-snapshots {
-        position: relative;
+         Grow3dge Strategists — Figma node 185:868.
+         Updated second section with a featured session and compact rows. */
+      .grow3dge-strategists {
         width: 100%;
-        padding: 64px 0 96px;
+        padding: 64px 0 48px;
+        background: #0c0a18;
+        color: #fff;
       }
 
-      .grow3dge-snapshots-inner {
+      .grow3dge-strategists-inner {
+        display: flex;
+        flex-direction: column;
+        gap: 25px;
         width: min(1253px, calc(100% - 64px));
         margin: 0 auto;
       }
 
-      .grow3dge-snapshots-header {
+      .grow3dge-strategists-header {
         display: flex;
-        align-items: center;
-        justify-content: space-between;
-        gap: 32px;
-        margin-bottom: 36px;
+        width: 462px;
+        max-width: 100%;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 22px;
       }
 
-      .grow3dge-snapshots-title {
+      .grow3dge-strategists-kicker {
         display: inline-flex;
         align-items: center;
         gap: 12px;
-        margin: 0;
-        font-family: var(--font-clesmont), "Clesmont Demo", var(--font-geist), Arial, sans-serif;
-        font-size: 26px;
+        font-family: var(--font-geist-mono), monospace;
+        font-size: 14px;
         font-weight: 400;
-        line-height: 1.1;
-        letter-spacing: 0.04em;
-        color: #fff;
-        text-transform: uppercase;
+        line-height: 1;
+        color: rgba(255, 255, 255, 0.7);
       }
 
-      .grow3dge-snapshots-mark {
-        flex: 0 0 auto;
-        display: inline-block;
+      .grow3dge-strategists-kicker img {
         width: 13px;
         height: 15px;
       }
 
-      .grow3dge-snapshots-mark img {
-        display: block;
-        width: 100%;
-        height: 100%;
-      }
-
-      .grow3dge-snapshots-eyebrow {
+      .grow3dge-strategists-title {
         margin: 0;
-        font-family: var(--font-geist-mono), "Roobert Mono", monospace;
-        font-size: 16px;
-        line-height: 1.4;
-        letter-spacing: 0.06em;
-        color: rgba(255, 255, 255, 0.8);
-        text-align: right;
+        font-family: var(--font-clesmont), "Clesmont Demo", var(--font-geist), Arial, sans-serif;
+        font-size: 32px;
+        font-weight: 400;
+        line-height: 1.2;
+        color: #fff;
+        text-transform: uppercase;
       }
 
-      /* The .logoGrid + .logoTile + .logoImage rules now come from
-         components/PartnerSection.module.css so the tiles, sizing, hover
-         dim-and-highlight, and 4-corner dots match the homepage exactly.
-         The two overrides below adapt only what the Session Snapshots
-         design needs on top of that shared base. */
+      .grow3dge-strategists-header p {
+        margin: 8px 0 0;
+        font-family: var(--font-geist), system-ui, -apple-system, Arial, sans-serif;
+        font-size: 18px;
+        font-weight: 400;
+        line-height: 1.4;
+        color: #cbcbcb;
+      }
 
-      /* Person tile — Figma 114:1206 / 114:1297. Keeps the homepage tile
-         frame (border, dark fill, backdrop-blur, corner dots, group-hover
-         dim) but houses an avatar + name + role instead of a logo image. */
-      .partnerSection .logoTile.logoTilePerson {
+      .grow3dge-strategists-board {
+        display: flex;
+        flex-direction: column;
+        gap: 18px;
+        width: 100%;
+      }
+
+      .grow3dge-strategists-main {
         display: flex;
         align-items: center;
-        justify-content: flex-start;
-        gap: 8px;
-        padding: 14px;
+        gap: 10px;
+        width: 100%;
       }
 
-      .partnerSection .logoTile.logoTilePerson .logoTilePersonAvatar {
-        flex: 0 0 auto;
-        width: 37px;
-        height: 37px;
-        border-radius: 2px;
+      .grow3dge-featured-session {
+        position: relative;
+        flex: 0 0 650px;
+        height: 392px;
+        overflow: hidden;
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        border-radius: 8px;
+        background: rgba(26, 26, 26, 0.3);
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+      }
+
+      .grow3dge-featured-session > img {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
         object-fit: cover;
       }
 
-      .partnerSection .logoTile.logoTilePerson .logoTilePersonMeta {
-        display: flex;
-        flex-direction: column;
-        gap: 4px;
-        line-height: 1;
-        min-width: 0;
-        text-align: left;
+      .grow3dge-featured-session::after {
+        content: "";
+        position: absolute;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        height: 316px;
+        background: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, #000 100%);
       }
 
-      .partnerSection .logoTile.logoTilePerson .logoTilePersonMeta strong {
-        font-family: var(--font-geist), "Roobert TRIAL", system-ui, Arial, sans-serif;
-        font-size: 14px;
+      .grow3dge-featured-meta {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        z-index: 1;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 28px;
+      }
+
+      .grow3dge-featured-tag {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        padding: 6px 13px;
+        border: 1px solid rgba(255, 255, 255, 0.24);
+        border-radius: 999px;
+        background: rgba(0, 0, 0, 0.4);
+        font-family: var(--font-geist-mono), monospace;
+        font-size: 10.5px;
+        font-weight: 400;
+        line-height: 1;
+        color: #fff;
+        text-transform: uppercase;
+      }
+
+      .grow3dge-featured-meta h3 {
+        margin: 12px 0 0;
+        font-family: var(--font-geist), system-ui, -apple-system, Arial, sans-serif;
+        font-size: 28px;
+        font-weight: 500;
+        line-height: 1.02;
+        letter-spacing: 0.28px;
+        color: #fff;
+      }
+
+      .grow3dge-featured-meta p {
+        margin: 4px 0 0;
+        font-family: var(--font-geist), system-ui, -apple-system, Arial, sans-serif;
+        font-size: 16px;
+        font-weight: 400;
+        line-height: normal;
+        color: #b3b3b3;
+      }
+
+      .grow3dge-featured-logo {
+        display: block;
+        width: 65px;
+        height: 18px;
+        margin-top: 16px;
+        object-fit: contain;
+        object-position: left center;
+      }
+
+      .grow3dge-strategists-list {
+        display: flex;
+        flex: 1 1 auto;
+        min-width: 0;
+        flex-direction: column;
+        gap: 11px;
+      }
+
+      .grow3dge-strategist-row {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        width: 100%;
+        height: 70px;
+        overflow: hidden;
+        padding: 9px 18px 9px 9px;
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        border-radius: 8px;
+        background: rgba(17, 17, 17, 0.2);
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+      }
+
+      .grow3dge-strategist-row.is-compact {
+        height: 68px;
+      }
+
+      .grow3dge-strategist-avatar {
+        flex: 0 0 auto;
+        width: 50px;
+        height: 50px;
+        overflow: hidden;
+        border-radius: 4px;
+      }
+
+      .grow3dge-strategist-avatar img {
+        display: block;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+
+      .grow3dge-strategist-info {
+        display: flex;
+        min-width: 0;
+        flex: 1 1 auto;
+        flex-direction: column;
+        gap: 2px;
+      }
+
+      .grow3dge-strategist-info h3,
+      .grow3dge-strategist-info p {
+        margin: 0;
+        overflow: hidden;
+        font-family: var(--font-geist), system-ui, -apple-system, Arial, sans-serif;
+        line-height: normal;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+
+      .grow3dge-strategist-info h3 {
+        font-size: 18px;
         font-weight: 500;
         color: #fff;
       }
 
-      .partnerSection .logoTile.logoTilePerson .logoTilePersonMeta span {
-        font-family: var(--font-geist), "Roobert TRIAL", system-ui, Arial, sans-serif;
-        font-size: 12px;
-        font-weight: 400;
-        color: #a4a4a4;
-      }
-
-      /* Featured tile — stays at full opacity even when the grid is
-         in its hovered/dimmed state. Used for the second-row Stellar
-         card per the Figma. */
-      .partnerSection .logoGrid:hover .logoTile.logoTileFeatured {
-        opacity: 1;
-      }
-
-      /* Each tile's backdrop-filter creates its own stacking context, so
-         a row-1 popup positioned below its tile would otherwise paint
-         BEHIND the row-2 tiles (later in DOM order). Lifting the hovered
-         tile to a higher z-index pulls its whole stacking context — and
-         therefore the popup inside it — above every sibling. */
-      .partnerSection .logoTile:hover,
-      .partnerSection .logoTile:focus-visible,
-      .partnerSection .logoTile:focus-within {
-        z-index: 30;
-      }
-
-      /* ============================================================
-         Hover popup — Figma 1:5899.
-         White speech-bubble card with cover image + speaker name +
-         title. Anchored to the hovered tile; row 1 tiles open the
-         popup BELOW (tail up), row 2 tiles open it ABOVE (tail down)
-         so it never overlaps the section header awkwardly. */
-      .logoTilePopup {
-        --popup-w: 351px;
-        --tail-size: 16px;
-        --popup-gap: 14px;
-        position: absolute;
-        left: 50%;
-        z-index: 20;
-        width: var(--popup-w);
-        padding: 10px;
-        background: #fff;
-        border-radius: 8px;
-        box-shadow:
-          0 24px 56px rgba(0, 0, 0, 0.32),
-          0 2px 6px rgba(0, 0, 0, 0.18);
-        opacity: 0;
-        pointer-events: none;
-        cursor: default;
-        transition:
-          opacity 240ms var(--ease-out-cubic, ease-out),
-          transform 240ms var(--ease-out-cubic, ease-out);
-        /* Default placement = popup ABOVE the tile (used by row 2). */
-        bottom: calc(100% + var(--popup-gap));
-        transform: translate(-50%, 6px);
-      }
-
-      /* Tail — default is bottom-of-card, pointing down at the tile. */
-      .logoTilePopup::after {
-        content: "";
-        position: absolute;
-        left: 50%;
-        margin-left: calc(var(--tail-size) / -2);
-        width: var(--tail-size);
-        height: calc(var(--tail-size) * 0.7);
-        background: #fff;
-        top: 100%;
-        clip-path: polygon(0 0, 100% 0, 50% 100%);
-      }
-
-      /* Row 1 (first 7 tiles) — flip popup BELOW with tail pointing up. */
-      .partnerSection .logoGrid .logoTile:nth-child(-n+7) .logoTilePopup {
-        top: calc(100% + var(--popup-gap));
-        bottom: auto;
-        transform: translate(-50%, -6px);
-      }
-      .partnerSection .logoGrid .logoTile:nth-child(-n+7) .logoTilePopup::after {
-        top: auto;
-        bottom: 100%;
-        clip-path: polygon(0 100%, 100% 100%, 50% 0);
-      }
-
-      /* Reveal on hover or keyboard focus. */
-      .partnerSection .logoTile:hover .logoTilePopup,
-      .partnerSection .logoTile:focus-visible .logoTilePopup,
-      .partnerSection .logoTile:focus-within .logoTilePopup {
-        opacity: 1;
-        pointer-events: auto;
-        transform: translate(-50%, 0);
-      }
-
-      .logoTilePopupCover {
-        display: block;
-        width: 100%;
-        height: 146px;
-        object-fit: cover;
-        border-radius: 6px;
-      }
-
-      .logoTilePopupMeta {
-        display: flex;
-        flex-direction: column;
-        gap: 7px;
-        padding: 11px 4px 4px;
-        text-align: left;
-      }
-
-      .logoTilePopupMeta strong {
-        font-family: var(--font-geist), "Roobert TRIAL", system-ui, Arial, sans-serif;
-        font-size: 16px;
-        font-weight: 500;
-        line-height: 1;
-        color: #000;
-      }
-
-      .logoTilePopupMeta span {
-        font-family: var(--font-geist), "Roobert TRIAL", system-ui, Arial, sans-serif;
+      .grow3dge-strategist-info p {
         font-size: 14px;
         font-weight: 400;
-        line-height: 1;
-        color: #727272;
+        color: #b3b3b3;
       }
 
-      @media (prefers-reduced-motion: reduce) {
-        .logoTilePopup { transition: opacity 120ms linear; transform: translate(-50%, 0); }
-        .partnerSection .logoGrid .logoTile:nth-child(-n+7) .logoTilePopup {
-          transform: translate(-50%, 0);
+      .grow3dge-strategist-logo {
+        flex: 0 0 auto;
+        object-fit: contain;
+        object-position: right center;
+      }
+
+      .grow3dge-strategist-logo.is-stellar { width: 105px; height: 58px; }
+      .grow3dge-strategist-logo.is-unlock { width: 104px; height: 54px; }
+      .grow3dge-strategist-logo.is-rari { width: 136px; height: 49px; }
+      .grow3dge-strategist-logo.is-dune { width: 108px; height: 64px; }
+      .grow3dge-strategist-logo.is-zerion { width: 108px; height: 56px; }
+
+      .grow3dge-strategists-view-all {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        min-height: 48px;
+        padding: 15px;
+        border: 1px dashed rgba(255, 255, 255, 0.4);
+        border-radius: 14px;
+        color: #fff;
+        font-family: var(--font-geist), system-ui, -apple-system, Arial, sans-serif;
+        font-size: 12px;
+        font-weight: 500;
+        line-height: normal;
+        text-align: center;
+        text-decoration: none;
+      }
+
+      @media (max-width: 1100px) {
+        .grow3dge-strategists-main {
+          align-items: stretch;
+          flex-direction: column;
         }
-      }
-      body.motion-off .logoTilePopup {
-        transition: opacity 120ms linear;
-        transform: translate(-50%, 0);
-      }
-      body.motion-off .partnerSection .logoGrid .logoTile:nth-child(-n+7) .logoTilePopup {
-        transform: translate(-50%, 0);
-      }
 
-      /* Touch devices have no hover — hide the popup so static content
-         isn't covered up by a near-invisible card on first tap. */
-      @media (hover: none), (max-width: 720px) {
-        .logoTilePopup { display: none; }
+        .grow3dge-featured-session {
+          flex-basis: auto;
+          width: 100%;
+          height: auto;
+          aspect-ratio: 650 / 392;
+        }
+
+        .grow3dge-strategists-list {
+          width: 100%;
+        }
       }
 
       @media (max-width: 640px) {
-        .grow3dge-snapshots { padding: 40px 0 64px; }
-        .grow3dge-snapshots-header { flex-direction: column; align-items: flex-start; gap: 12px; }
-        .grow3dge-snapshots-eyebrow { text-align: left; }
+        .grow3dge-strategists {
+          padding: 48px 0 56px;
+        }
+
+        .grow3dge-strategists-inner {
+          width: min(100% - 32px, 1253px);
+        }
+
+        .grow3dge-strategists-title {
+          font-size: 28px;
+        }
+
+        .grow3dge-strategists-header p {
+          font-size: 16px;
+        }
+
+        .grow3dge-featured-meta {
+          padding: 22px;
+        }
+
+        .grow3dge-featured-meta h3 {
+          font-size: 24px;
+        }
+
+        .grow3dge-strategist-row {
+          gap: 12px;
+          padding-right: 12px;
+        }
+
+        .grow3dge-strategist-logo {
+          max-width: 88px;
+        }
+
+        .grow3dge-strategist-info h3 {
+          font-size: 16px;
+        }
+
+        .grow3dge-strategist-info p {
+          font-size: 12px;
+        }
       }
 
       /* ============================================================
@@ -2251,195 +2327,94 @@
         </div>
       </div>
 
-      <!-- Session Snapshots — Figma 114:1147.
-           Logo tiles + corner dots + group-hover come from the homepage's
-           PartnerSection.module.css (linked above). Header still uses
-           Session Snapshots' own title + Geist Mono eyebrow. -->
-      <section
-        class="grow3dge-snapshots partnerSection"
-        aria-labelledby="grow3dge-snapshots-title"
-      >
-        <header class="grow3dge-snapshots-header">
-          <h2 class="grow3dge-snapshots-title" id="grow3dge-snapshots-title">
-            <span class="grow3dge-snapshots-mark" aria-hidden="true">
-              <img src="./si-assets/snapshot-mark.svg" alt="" />
+      <!-- Grow3dge Strategists — Figma 185:868 -->
+      <section class="grow3dge-strategists" id="grow3dge-strategists" aria-labelledby="grow3dge-strategists-title">
+        <div class="grow3dge-strategists-inner">
+          <header class="grow3dge-strategists-header">
+            <span class="grow3dge-strategists-kicker">
+              <img src="./si-assets/strategists-mark.svg" alt="" />
+              Program &amp; Product Partners
             </span>
-            Session Snapshots
-          </h2>
-          <p class="grow3dge-snapshots-eyebrow">
-            Program &amp; Product Partners We Support
-          </p>
-        </header>
+            <div>
+              <h2 class="grow3dge-strategists-title" id="grow3dge-strategists-title">
+                Grow3dge Strategists
+              </h2>
+              <p>Featured voices from Season 2 livestreams.</p>
+            </div>
+          </header>
 
-        <div class="logoGrid">
-          <!-- Row 1: Stellar, Unlock, Dune, Rari, ENS, Uniswap, Hacken -->
-          <button class="logoTile" type="button" aria-label="Stellar">
-            <span class="cornerTopLeft"></span><span class="cornerTopRight"></span><span class="cornerBottomLeft"></span><span class="cornerBottomRight"></span>
-            <img class="logoImage logoStellar" src="./si-assets/logo-stellar.svg" alt="Stellar" loading="lazy" decoding="async" />
-            <span class="logoTilePopup" role="presentation">
-              <img class="logoTilePopupCover" src="./si-assets/snapshot-popup-cover.png" alt="" loading="lazy" decoding="async" />
-              <span class="logoTilePopupMeta">
-                <strong>Speaker Name</strong>
-                <span>Speaker title here</span>
-              </span>
-            </span>
-          </button>
-          <button class="logoTile" type="button" aria-label="Unlock">
-            <span class="cornerTopLeft"></span><span class="cornerTopRight"></span><span class="cornerBottomLeft"></span><span class="cornerBottomRight"></span>
-            <img class="logoImage logoUnlock" src="./si-assets/logo-unlock.svg" alt="Unlock" loading="lazy" decoding="async" />
-            <span class="logoTilePopup" role="presentation">
-              <img class="logoTilePopupCover" src="./si-assets/snapshot-popup-cover.png" alt="" loading="lazy" decoding="async" />
-              <span class="logoTilePopupMeta">
-                <strong>Speaker Name</strong>
-                <span>Speaker title here</span>
-              </span>
-            </span>
-          </button>
-          <button class="logoTile" type="button" aria-label="Dune">
-            <span class="cornerTopLeft"></span><span class="cornerTopRight"></span><span class="cornerBottomLeft"></span><span class="cornerBottomRight"></span>
-            <img class="logoImage logoDune" src="./si-assets/logo-dune.svg" alt="Dune" loading="lazy" decoding="async" />
-            <span class="logoTilePopup" role="presentation">
-              <img class="logoTilePopupCover" src="./si-assets/snapshot-popup-cover.png" alt="" loading="lazy" decoding="async" />
-              <span class="logoTilePopupMeta">
-                <strong>Speaker Name</strong>
-                <span>Speaker title here</span>
-              </span>
-            </span>
-          </button>
-          <button class="logoTile" type="button" aria-label="RARI">
-            <span class="cornerTopLeft"></span><span class="cornerTopRight"></span><span class="cornerBottomLeft"></span><span class="cornerBottomRight"></span>
-            <img class="logoImage logoRari" src="./si-assets/logo-rari.svg" alt="RARI" loading="lazy" decoding="async" />
-            <span class="logoTilePopup" role="presentation">
-              <img class="logoTilePopupCover" src="./si-assets/snapshot-popup-cover.png" alt="" loading="lazy" decoding="async" />
-              <span class="logoTilePopupMeta">
-                <strong>Speaker Name</strong>
-                <span>Speaker title here</span>
-              </span>
-            </span>
-          </button>
-          <button class="logoTile" type="button" aria-label="ENS">
-            <span class="cornerTopLeft"></span><span class="cornerTopRight"></span><span class="cornerBottomLeft"></span><span class="cornerBottomRight"></span>
-            <img class="logoImage logoEns" src="./si-assets/logo-ens.svg" alt="ENS" loading="lazy" decoding="async" />
-            <span class="logoTilePopup" role="presentation">
-              <img class="logoTilePopupCover" src="./si-assets/snapshot-popup-cover.png" alt="" loading="lazy" decoding="async" />
-              <span class="logoTilePopupMeta">
-                <strong>Speaker Name</strong>
-                <span>Speaker title here</span>
-              </span>
-            </span>
-          </button>
-          <button class="logoTile" type="button" aria-label="Uniswap Foundation">
-            <span class="cornerTopLeft"></span><span class="cornerTopRight"></span><span class="cornerBottomLeft"></span><span class="cornerBottomRight"></span>
-            <img class="logoImage logoUniswap" src="./si-assets/logo-uniswap.png" alt="Uniswap Foundation" loading="lazy" decoding="async" />
-            <span class="logoTilePopup" role="presentation">
-              <img class="logoTilePopupCover" src="./si-assets/snapshot-popup-cover.png" alt="" loading="lazy" decoding="async" />
-              <span class="logoTilePopupMeta">
-                <strong>Speaker Name</strong>
-                <span>Speaker title here</span>
-              </span>
-            </span>
-          </button>
-          <button class="logoTile" type="button" aria-label="Hacken">
-            <span class="cornerTopLeft"></span><span class="cornerTopRight"></span><span class="cornerBottomLeft"></span><span class="cornerBottomRight"></span>
-            <img class="logoImage logoHacken" src="./si-assets/logo-hacken.png" alt="Hacken" loading="lazy" decoding="async" />
-            <span class="logoTilePopup" role="presentation">
-              <img class="logoTilePopupCover" src="./si-assets/snapshot-popup-cover.png" alt="" loading="lazy" decoding="async" />
-              <span class="logoTilePopupMeta">
-                <strong>Speaker Name</strong>
-                <span>Speaker title here</span>
-              </span>
-            </span>
-          </button>
+          <div class="grow3dge-strategists-board">
+            <div class="grow3dge-strategists-main">
+              <article class="grow3dge-featured-session">
+                <img src="./si-assets/strategists-feature.png" alt="Lara Khan speaking at a livestream session" loading="lazy" decoding="async" />
+                <div class="grow3dge-featured-meta">
+                  <span class="grow3dge-featured-tag">Featured Session</span>
+                  <h3>Lara Khan</h3>
+                  <p>Founder &amp; CEO</p>
+                  <img class="grow3dge-featured-logo" src="./si-assets/strategists-logo-stellar-feature.svg" alt="Stellar" loading="lazy" decoding="async" />
+                </div>
+              </article>
 
-          <!-- Row 2: Zerion, Sara Khan, MoonDAO, STARKNET, Stellar (featured), Lara Khan, Dune -->
-          <button class="logoTile" type="button" aria-label="Zerion">
-            <span class="cornerTopLeft"></span><span class="cornerTopRight"></span><span class="cornerBottomLeft"></span><span class="cornerBottomRight"></span>
-            <img class="logoImage logoZerion" src="./si-assets/logo-zerion.svg" alt="Zerion" loading="lazy" decoding="async" />
-            <span class="logoTilePopup" role="presentation">
-              <img class="logoTilePopupCover" src="./si-assets/snapshot-popup-cover.png" alt="" loading="lazy" decoding="async" />
-              <span class="logoTilePopupMeta">
-                <strong>Speaker Name</strong>
-                <span>Speaker title here</span>
-              </span>
-            </span>
-          </button>
-          <button class="logoTile logoTilePerson" type="button" aria-label="Sara Khan, Founder">
-            <span class="cornerTopLeft"></span><span class="cornerTopRight"></span><span class="cornerBottomLeft"></span><span class="cornerBottomRight"></span>
-            <img class="logoTilePersonAvatar" src="./si-assets/snapshot-sara.jpg" alt="" loading="lazy" decoding="async" />
-            <span class="logoTilePersonMeta">
-              <strong>Sara Khan</strong>
-              <span>Founder</span>
-            </span>
-            <span class="logoTilePopup" role="presentation">
-              <img class="logoTilePopupCover" src="./si-assets/snapshot-popup-cover.png" alt="" loading="lazy" decoding="async" />
-              <span class="logoTilePopupMeta">
-                <strong>Sara Khan</strong>
-                <span>Founder</span>
-              </span>
-            </span>
-          </button>
-          <button class="logoTile" type="button" aria-label="MoonDAO">
-            <span class="cornerTopLeft"></span><span class="cornerTopRight"></span><span class="cornerBottomLeft"></span><span class="cornerBottomRight"></span>
-            <span class="logoMoonDao">
-              <img class="logoMoonDaoMark" src="./si-assets/logo-moondao-mark.png" alt="" loading="lazy" decoding="async" />
-              <img class="logoMoonDaoWordmark" src="./si-assets/logo-moondao-wordmark.png" alt="MoonDAO" loading="lazy" decoding="async" />
-            </span>
-            <span class="logoTilePopup" role="presentation">
-              <img class="logoTilePopupCover" src="./si-assets/snapshot-popup-cover.png" alt="" loading="lazy" decoding="async" />
-              <span class="logoTilePopupMeta">
-                <strong>Speaker Name</strong>
-                <span>Speaker title here</span>
-              </span>
-            </span>
-          </button>
-          <button class="logoTile" type="button" aria-label="Starknet">
-            <span class="cornerTopLeft"></span><span class="cornerTopRight"></span><span class="cornerBottomLeft"></span><span class="cornerBottomRight"></span>
-            <img class="logoImage logoStarknet" src="./si-assets/logo-starknet.png" alt="Starknet" loading="lazy" decoding="async" />
-            <span class="logoTilePopup" role="presentation">
-              <img class="logoTilePopupCover" src="./si-assets/snapshot-popup-cover.png" alt="" loading="lazy" decoding="async" />
-              <span class="logoTilePopupMeta">
-                <strong>Speaker Name</strong>
-                <span>Speaker title here</span>
-              </span>
-            </span>
-          </button>
-          <button class="logoTile logoTileFeatured" type="button" aria-label="Stellar">
-            <span class="cornerTopLeft"></span><span class="cornerTopRight"></span><span class="cornerBottomLeft"></span><span class="cornerBottomRight"></span>
-            <img class="logoImage logoStellar" src="./si-assets/logo-stellar-repeat.svg" alt="Stellar" loading="lazy" decoding="async" />
-            <span class="logoTilePopup" role="presentation">
-              <img class="logoTilePopupCover" src="./si-assets/snapshot-popup-cover.png" alt="" loading="lazy" decoding="async" />
-              <span class="logoTilePopupMeta">
-                <strong>Speaker Name</strong>
-                <span>Speaker title here</span>
-              </span>
-            </span>
-          </button>
-          <button class="logoTile logoTilePerson" type="button" aria-label="Lara Khan, Founder">
-            <span class="cornerTopLeft"></span><span class="cornerTopRight"></span><span class="cornerBottomLeft"></span><span class="cornerBottomRight"></span>
-            <img class="logoTilePersonAvatar" src="./si-assets/snapshot-lara.jpg" alt="" loading="lazy" decoding="async" />
-            <span class="logoTilePersonMeta">
-              <strong>Lara Khan</strong>
-              <span>Founder</span>
-            </span>
-            <span class="logoTilePopup" role="presentation">
-              <img class="logoTilePopupCover" src="./si-assets/snapshot-popup-cover.png" alt="" loading="lazy" decoding="async" />
-              <span class="logoTilePopupMeta">
-                <strong>Lara Khan</strong>
-                <span>Founder</span>
-              </span>
-            </span>
-          </button>
-          <button class="logoTile" type="button" aria-label="Dune">
-            <span class="cornerTopLeft"></span><span class="cornerTopRight"></span><span class="cornerBottomLeft"></span><span class="cornerBottomRight"></span>
-            <img class="logoImage logoDune" src="./si-assets/logo-dune.svg" alt="Dune" loading="lazy" decoding="async" />
-            <span class="logoTilePopup" role="presentation">
-              <img class="logoTilePopupCover" src="./si-assets/snapshot-popup-cover.png" alt="" loading="lazy" decoding="async" />
-              <span class="logoTilePopupMeta">
-                <strong>Speaker Name</strong>
-                <span>Speaker title here</span>
-              </span>
-            </span>
-          </button>
+              <div class="grow3dge-strategists-list" aria-label="Featured strategists">
+                <article class="grow3dge-strategist-row">
+                  <span class="grow3dge-strategist-avatar">
+                    <img src="./si-assets/strategists-avatar-sara.jpg" alt="" loading="lazy" decoding="async" />
+                  </span>
+                  <div class="grow3dge-strategist-info">
+                    <h3>Sara Khan</h3>
+                    <p>Founder</p>
+                  </div>
+                  <img class="grow3dge-strategist-logo is-stellar" src="./si-assets/strategists-logo-stellar-row.svg" alt="Stellar" loading="lazy" decoding="async" />
+                </article>
+
+                <article class="grow3dge-strategist-row">
+                  <span class="grow3dge-strategist-avatar">
+                    <img src="./si-assets/strategists-avatar-growth.jpg" alt="" loading="lazy" decoding="async" />
+                  </span>
+                  <div class="grow3dge-strategist-info">
+                    <h3>Speaker Name</h3>
+                    <p>Head of Growth</p>
+                  </div>
+                  <img class="grow3dge-strategist-logo is-unlock" src="./si-assets/strategists-logo-unlock.svg" alt="Unlock" loading="lazy" decoding="async" />
+                </article>
+
+                <article class="grow3dge-strategist-row is-compact">
+                  <span class="grow3dge-strategist-avatar">
+                    <img src="./si-assets/strategists-avatar-protocol.jpg" alt="" loading="lazy" decoding="async" />
+                  </span>
+                  <div class="grow3dge-strategist-info">
+                    <h3>Speaker Name</h3>
+                    <p>Protocol Lead</p>
+                  </div>
+                  <img class="grow3dge-strategist-logo is-rari" src="./si-assets/strategists-logo-rari.svg" alt="RARI" loading="lazy" decoding="async" />
+                </article>
+
+                <article class="grow3dge-strategist-row">
+                  <span class="grow3dge-strategist-avatar">
+                    <img src="./si-assets/strategists-avatar-ecosystem.jpg" alt="" loading="lazy" decoding="async" />
+                  </span>
+                  <div class="grow3dge-strategist-info">
+                    <h3>Speaker Name</h3>
+                    <p>Ecosystem Partnerships</p>
+                  </div>
+                  <img class="grow3dge-strategist-logo is-dune" src="./si-assets/strategists-logo-dune.svg" alt="Dune" loading="lazy" decoding="async" />
+                </article>
+
+                <article class="grow3dge-strategist-row">
+                  <span class="grow3dge-strategist-avatar">
+                    <img src="./si-assets/strategists-avatar-founder.jpg" alt="" loading="lazy" decoding="async" />
+                  </span>
+                  <div class="grow3dge-strategist-info">
+                    <h3>Speaker Name</h3>
+                    <p>Founder</p>
+                  </div>
+                  <img class="grow3dge-strategist-logo is-zerion" src="./si-assets/strategists-logo-zerion.svg" alt="Zerion" loading="lazy" decoding="async" />
+                </article>
+              </div>
+            </div>
+
+            <a class="grow3dge-strategists-view-all" href="#">+ View all 14 sessions &rarr;</a>
+          </div>
         </div>
       </section>
 
