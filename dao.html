@@ -118,6 +118,7 @@
       }
 
       /* Wrapped sections render transparent so the crystal shows through. */
+      .dao-content-stage .dao-mini-ticker,
       .dao-content-stage .dao-snapshots,
       .dao-content-stage .dao-lead,
       .dao-content-stage .dao-collab,
@@ -373,6 +374,55 @@
         .dao-title-orb { width: 70px; height: 32px; }
         .dao-title-orb img { left: 10px; width: 54px; }
       }
+
+      /* ============================================================
+         Mini "SI MORE" ticker — mirrors Grow3dge hero strip.
+         Continuous horizontal marquee placed right under the hero. */
+      .dao-mini-ticker {
+        position: relative;
+        width: 100%;
+        overflow: hidden;
+        padding: 28px 0;
+        background: transparent;
+      }
+
+      .dao-mini-ticker-track {
+        display: flex;
+        align-items: center;
+        gap: 32px;
+        width: max-content;
+        color: rgba(255, 255, 255, 0.5);
+        font-family: var(--font-geist-mono), monospace;
+        font-size: 13px;
+        font-weight: 400;
+        letter-spacing: 2.6px;
+        text-transform: uppercase;
+        white-space: nowrap;
+        animation: dao-mini-ticker-scroll 36s linear infinite;
+        will-change: transform;
+      }
+
+      .dao-mini-ticker-track span {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .dao-mini-ticker-track img {
+        flex: 0 0 auto;
+        width: 8px;
+        height: 10px;
+      }
+
+      @keyframes dao-mini-ticker-scroll {
+        from { transform: translate3d(0, 0, 0); }
+        to   { transform: translate3d(-50%, 0, 0); }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        .dao-mini-ticker-track { animation: none; }
+      }
+      body.motion-off .dao-mini-ticker-track { animation: none; }
 
       /* ============================================================
          Shared kicker / inline link patterns. */
@@ -2355,6 +2405,37 @@
               loading="lazy"
               decoding="async"
             />
+          </div>
+        </div>
+
+        <!-- Mini "SI MORE" ticker — Figma 114:759 -->
+        <div class="dao-mini-ticker" aria-hidden="true">
+          <div class="dao-mini-ticker-track">
+            <!-- Track is rendered twice; animation translates by -50% for
+                 a seamless loop. -->
+            <span><img src="./si-assets/ticker-play.svg" alt="" />SI MORE</span>
+            <span><img src="./si-assets/ticker-play.svg" alt="" />SI MORE</span>
+            <span><img src="./si-assets/ticker-play.svg" alt="" />SI MORE</span>
+            <span><img src="./si-assets/ticker-play.svg" alt="" />SI MORE</span>
+            <span><img src="./si-assets/ticker-play.svg" alt="" />SI MORE</span>
+            <span><img src="./si-assets/ticker-play.svg" alt="" />SI MORE</span>
+            <span><img src="./si-assets/ticker-play.svg" alt="" />SI MORE</span>
+            <span><img src="./si-assets/ticker-play.svg" alt="" />SI MORE</span>
+            <span><img src="./si-assets/ticker-play.svg" alt="" />SI MORE</span>
+            <span><img src="./si-assets/ticker-play.svg" alt="" />SI MORE</span>
+            <span><img src="./si-assets/ticker-play.svg" alt="" />SI MORE</span>
+            <!-- duplicate set for seamless loop -->
+            <span><img src="./si-assets/ticker-play.svg" alt="" />SI MORE</span>
+            <span><img src="./si-assets/ticker-play.svg" alt="" />SI MORE</span>
+            <span><img src="./si-assets/ticker-play.svg" alt="" />SI MORE</span>
+            <span><img src="./si-assets/ticker-play.svg" alt="" />SI MORE</span>
+            <span><img src="./si-assets/ticker-play.svg" alt="" />SI MORE</span>
+            <span><img src="./si-assets/ticker-play.svg" alt="" />SI MORE</span>
+            <span><img src="./si-assets/ticker-play.svg" alt="" />SI MORE</span>
+            <span><img src="./si-assets/ticker-play.svg" alt="" />SI MORE</span>
+            <span><img src="./si-assets/ticker-play.svg" alt="" />SI MORE</span>
+            <span><img src="./si-assets/ticker-play.svg" alt="" />SI MORE</span>
+            <span><img src="./si-assets/ticker-play.svg" alt="" />SI MORE</span>
           </div>
         </div>
 
