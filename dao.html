@@ -938,7 +938,8 @@
         border: 1px solid rgba(255, 255, 255, 0.1);
         border-radius: 6px;
         background: rgba(6, 6, 6, 0.2);
-        backdrop-filter: blur(10px);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
       }
 
       .dao-map-pin-name {
@@ -958,64 +959,10 @@
         color: rgba(255, 255, 255, 0.66);
       }
 
-      /* Active pin (AFRICA in Figma) gets a halo, anchor dot,
-         tether line and end marker connecting the bubble to its
-         location on the map. */
+      /* Active pin gets a soft lavender outline + glow. */
       .dao-map-pin.is-active .dao-map-pin-bubble {
         border-color: rgba(188, 169, 255, 0.55);
         box-shadow: 0 0 28px rgba(188, 169, 255, 0.18);
-      }
-
-      .dao-map-pin-halo,
-      .dao-map-pin-anchor,
-      .dao-map-pin-tether,
-      .dao-map-pin-tether-end {
-        position: absolute;
-        pointer-events: none;
-      }
-
-      .dao-map-pin-halo {
-        top: -110px;
-        left: 86px;
-        width: 36px;
-        height: 36px;
-        border-radius: 999px;
-        background: radial-gradient(circle, rgba(188, 169, 255, 0.4) 0%, rgba(188, 169, 255, 0) 70%);
-        animation: dao-map-halo 2.6s ease-in-out infinite;
-      }
-
-      .dao-map-pin-anchor {
-        top: -98px;
-        left: 98px;
-        width: 12px;
-        height: 12px;
-        border: 1px solid rgba(188, 169, 255, 0.8);
-        border-radius: 999px;
-        background: #bca9ff;
-        box-shadow: 0 0 12px rgba(188, 169, 255, 0.7);
-      }
-
-      .dao-map-pin-tether {
-        top: -76px;
-        left: 103px;
-        width: 1px;
-        height: 76px;
-        background: linear-gradient(180deg, rgba(188, 169, 255, 0.7) 0%, rgba(188, 169, 255, 0.15) 100%);
-      }
-
-      .dao-map-pin-tether-end {
-        top: -4px;
-        left: 100px;
-        width: 7px;
-        height: 7px;
-        border-radius: 999px;
-        background: #bca9ff;
-        box-shadow: 0 0 8px rgba(188, 169, 255, 0.6);
-      }
-
-      @keyframes dao-map-halo {
-        0%, 100% { transform: scale(1); opacity: 0.7; }
-        50%      { transform: scale(1.18); opacity: 1; }
       }
 
       /* ----- Region drawer ----- */
@@ -1400,7 +1347,6 @@
 
       @media (prefers-reduced-motion: reduce) {
         .dao-map-marquee-track { animation: none; }
-        .dao-map-pin-halo { animation: none; }
       }
       /* ============================================================
          Sub-section 2: WE BRAND — personal brand tools. */
@@ -2947,19 +2893,15 @@
                   </div>
 
                   <!-- Middle East -->
-                  <div class="dao-map-pin" style="--x: 56.3%; --y: 57.5%;">
+                  <div class="dao-map-pin" style="--x: 56.3%; --y: 48%;">
                     <div class="dao-map-pin-bubble">
                       <div class="dao-map-pin-name">Middle East</div>
                       <div class="dao-map-pin-count">4 communities</div>
                     </div>
                   </div>
 
-                  <!-- Africa — ACTIVE pin (halo + tether + anchor) -->
+                  <!-- Africa — ACTIVE pin -->
                   <div class="dao-map-pin is-active" style="--x: 42.2%; --y: 74%;">
-                    <span class="dao-map-pin-halo" aria-hidden="true"></span>
-                    <span class="dao-map-pin-anchor" aria-hidden="true"></span>
-                    <span class="dao-map-pin-tether" aria-hidden="true"></span>
-                    <span class="dao-map-pin-tether-end" aria-hidden="true"></span>
                     <div class="dao-map-pin-bubble">
                       <div class="dao-map-pin-name">Africa</div>
                       <div class="dao-map-pin-count">5 communities</div>
