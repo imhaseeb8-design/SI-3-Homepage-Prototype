@@ -821,12 +821,10 @@
       .dao-map {
         position: relative;
         overflow: hidden;
-        border: 1px solid rgba(255, 255, 255, 0.18);
-        border-radius: 12px;
-        background:
-          radial-gradient(120% 60% at 50% 0%, rgba(76, 42, 156, 0.18) 0%, rgba(8, 7, 18, 0) 70%),
-          rgba(8, 7, 18, 0.7);
-        backdrop-filter: blur(8px);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 6px;
+        background: rgba(6, 6, 6, 0.2);
+        backdrop-filter: blur(10px);
       }
 
       /* ----- Head strip ----- */
@@ -937,9 +935,9 @@
         gap: 8px;
         min-height: 76px;
         padding: 16px 18px;
-        border: 1px solid rgba(255, 255, 255, 0.22);
-        border-radius: 8px;
-        background: rgba(49, 49, 81, 0.5);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 6px;
+        background: rgba(6, 6, 6, 0.2);
         backdrop-filter: blur(10px);
       }
 
@@ -965,7 +963,7 @@
          location on the map. */
       .dao-map-pin.is-active .dao-map-pin-bubble {
         border-color: rgba(188, 169, 255, 0.55);
-        background: rgba(76, 42, 156, 0.32);
+        box-shadow: 0 0 28px rgba(188, 169, 255, 0.18);
       }
 
       .dao-map-pin-halo,
@@ -1073,28 +1071,12 @@
         color: rgba(255, 255, 255, 0.7);
       }
 
+      /* Per Figma 273:172 — reserved 180px area inside the region brief,
+         visually empty in the static design. Kept for layout parity so
+         future content (image carousel, etc.) drops in cleanly. */
       .dao-map-brief-image {
-        position: relative;
         height: 180px;
         margin: 22px 0 0;
-        overflow: hidden;
-        border-radius: 6px;
-        background:
-          radial-gradient(circle at 30% 30%, rgba(188, 169, 255, 0.22) 0%, rgba(188, 169, 255, 0) 60%),
-          linear-gradient(140deg, rgba(28, 29, 61, 0.6) 0%, rgba(8, 7, 18, 0.6) 100%);
-        border: 1px solid rgba(255, 255, 255, 0.1);
-      }
-
-      .dao-map-brief-image::after {
-        content: "EUROPE COMMUNITY GRID";
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        font-family: var(--font-geist-mono), monospace;
-        font-size: 10px;
-        letter-spacing: 1.6px;
-        color: rgba(255, 255, 255, 0.35);
       }
 
       .dao-map-meta {
