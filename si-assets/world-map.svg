@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Simplified world map for the WE LEAD section's global communities block.
+  viewBox: 1000x500 (equirectangular). All continents render in
+  currentColor so the host page can recolor via CSS (we use a faint
+  white-purple in dao.html). Optional ocean is transparent so the
+  underlying page background shows through.
+
+  TODO: swap with the brand-specified world map PNG when available —
+  replace the <img src> in dao.html's .dao-map-canvas block.
+-->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 500" fill="none" stroke="currentColor" stroke-width="0.7" stroke-linejoin="round" stroke-linecap="round" preserveAspectRatio="xMidYMid slice">
+  <!-- North America (mainland) -->
+  <path d="M70 110 L110 95 L160 92 L210 88 L260 95 L300 110 L330 130 L325 165 L295 195 L260 215 L235 245 L210 265 L180 275 L150 268 L120 250 L90 220 L70 185 L60 150 Z"/>
+  <!-- Greenland -->
+  <path d="M310 70 L335 65 L355 75 L360 95 L350 115 L325 118 L310 100 Z"/>
+  <!-- Canada Arctic islands -->
+  <path d="M165 78 L195 75 L220 80 L215 95 L185 92 L160 88 Z"/>
+  <!-- Central America -->
+  <path d="M200 270 L225 270 L245 280 L260 295 L255 310 L235 308 L215 295 L205 282 Z"/>
+  <!-- Caribbean -->
+  <ellipse cx="265" cy="280" rx="14" ry="5"/>
+  <ellipse cx="285" cy="285" rx="6" ry="3"/>
+
+  <!-- South America -->
+  <path d="M255 310 L290 305 L315 320 L325 350 L320 390 L305 420 L290 445 L275 445 L260 420 L250 385 L245 350 Z"/>
+
+  <!-- Europe (continental) -->
+  <path d="M460 110 L490 100 L520 102 L548 110 L562 125 L555 145 L530 155 L500 158 L475 152 L455 138 Z"/>
+  <!-- Scandinavia -->
+  <path d="M495 75 L520 70 L540 75 L545 100 L520 105 L500 100 Z"/>
+  <!-- UK + Ireland -->
+  <ellipse cx="445" cy="110" rx="9" ry="14"/>
+  <ellipse cx="427" cy="113" rx="5" ry="7"/>
+  <!-- Iceland -->
+  <ellipse cx="410" cy="85" rx="9" ry="5"/>
+
+  <!-- Africa -->
+  <path d="M480 175 L530 170 L565 178 L585 200 L595 235 L590 275 L575 320 L555 360 L530 395 L510 410 L490 400 L475 380 L465 350 L460 310 L465 270 L470 230 L475 200 Z"/>
+  <!-- Madagascar -->
+  <path d="M608 340 L618 345 L620 365 L612 380 L605 370 L605 355 Z"/>
+
+  <!-- Middle East -->
+  <path d="M560 165 L600 160 L630 175 L640 200 L625 220 L600 225 L580 215 L568 195 Z"/>
+
+  <!-- Asia (mainland) -->
+  <path d="M555 105 L620 92 L685 88 L750 90 L800 100 L835 115 L850 140 L845 170 L820 195 L780 215 L735 225 L685 220 L640 210 L605 195 L575 175 L562 150 L555 130 Z"/>
+  <!-- India + South Asia -->
+  <path d="M645 215 L685 215 L705 235 L702 265 L688 280 L670 278 L655 260 L645 235 Z"/>
+  <!-- South-East Asia / Indochina -->
+  <path d="M735 225 L770 230 L780 250 L770 270 L755 275 L740 260 L735 245 Z"/>
+  <!-- Indonesia / Philippines (islands) -->
+  <ellipse cx="775" cy="288" rx="22" ry="8"/>
+  <ellipse cx="810" cy="295" rx="14" ry="5"/>
+  <ellipse cx="828" cy="282" rx="7" ry="4"/>
+  <ellipse cx="800" cy="270" rx="9" ry="4"/>
+  <!-- Japan -->
+  <path d="M840 152 L855 148 L862 165 L855 188 L842 192 L838 175 Z"/>
+  <!-- Korea -->
+  <path d="M815 165 L828 162 L830 180 L820 188 L815 178 Z"/>
+
+  <!-- Australia -->
+  <path d="M775 335 L810 330 L850 332 L880 345 L885 372 L870 395 L835 402 L800 398 L780 388 L770 365 Z"/>
+  <!-- Tasmania -->
+  <ellipse cx="852" cy="412" rx="8" ry="4"/>
+  <!-- New Zealand -->
+  <path d="M912 388 L920 385 L922 398 L915 408 L910 402 Z"/>
+  <path d="M922 410 L928 408 L928 422 L920 425 L920 415 Z"/>
+
+  <!-- Antarctica (top crescent) -->
+  <path d="M40 470 L200 462 L380 458 L560 458 L730 462 L880 470 L960 480 L960 495 L40 495 Z"/>
+</svg>

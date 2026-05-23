@@ -1,0 +1,3184 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Si Her DAO Page Preview</title>
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Geist:wght@100..900&family=Geist+Mono:wght@100..900&display=swap");
+
+      @font-face {
+        font-family: "Clesmont";
+        src: url("./si-assets/clesmont.ttf") format("truetype");
+        font-weight: 100 900;
+        font-style: normal;
+        font-display: swap;
+      }
+
+      @font-face {
+        font-family: "Geist";
+        src: url("./si-assets/fonts/Geist-VariableFont_wght.ttf") format("truetype");
+        font-weight: 100 900;
+        font-style: normal;
+        font-display: swap;
+      }
+
+      @font-face {
+        font-family: "Geist";
+        src: url("./si-assets/fonts/Geist-Italic-VariableFont_wght.ttf") format("truetype");
+        font-weight: 100 900;
+        font-style: italic;
+        font-display: swap;
+      }
+
+      @font-face {
+        font-family: "Geist Mono";
+        src: url("./si-assets/fonts/GeistMono-VariableFont_wght.ttf") format("truetype");
+        font-weight: 100 900;
+        font-style: normal;
+        font-display: swap;
+      }
+
+      @font-face {
+        font-family: "Geist Mono";
+        src: url("./si-assets/fonts/GeistMono-Italic-VariableFont_wght.ttf") format("truetype");
+        font-weight: 100 900;
+        font-style: italic;
+        font-display: swap;
+      }
+
+      :root {
+        --font-clesmont: "Clesmont";
+        --font-geist: "Geist";
+        --font-geist-mono: "Geist Mono";
+        --page-bg: #0c0a18;
+        --ease-out-cubic: cubic-bezier(0.215, 0.61, 0.355, 1);
+      }
+
+      * { box-sizing: border-box; }
+
+      html, body {
+        min-height: 100%;
+        margin: 0;
+        background: var(--page-bg);
+        font-family: var(--font-geist), system-ui, -apple-system, "Helvetica Neue", Arial, sans-serif;
+        color: #fff;
+      }
+
+      body { display: block; }
+
+      .dao-page {
+        min-height: 100vh;
+        background: var(--page-bg);
+      }
+
+      /* ============================================================
+         Sticky crystal backdrop — mirrors the Grow3dge / homepage
+         sticky-crystal treatment. A 100vh sticky frame holds the
+         purple-crystal asset; post-hero sections scroll over it. */
+      .dao-content-stage {
+        position: relative;
+        isolation: isolate;
+        background: var(--page-bg);
+      }
+
+      .dao-crystal-frame {
+        position: sticky;
+        top: 0;
+        z-index: 0;
+        display: grid;
+        height: 100vh;
+        min-height: 760px;
+        margin-bottom: -100vh;
+        place-items: center;
+        overflow: hidden;
+        pointer-events: none;
+      }
+
+      .dao-crystal-asset {
+        width: min(82vw, 860px);
+        height: min(82vw, 860px);
+        opacity: var(--sticky-crystal-opacity, 0.22);
+        transform: translateY(var(--sticky-crystal-y, 190px))
+          scale(var(--sticky-crystal-scale, 0.42));
+        transition: transform 200ms ease-out, opacity 200ms ease-out;
+        will-change: transform, opacity;
+      }
+
+      .dao-crystal-asset img {
+        display: block;
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+      }
+
+      .dao-content-stage > :not(.dao-crystal-frame) {
+        position: relative;
+        z-index: 1;
+      }
+
+      /* Wrapped sections render transparent so the crystal shows through. */
+      .dao-content-stage .dao-snapshots,
+      .dao-content-stage .dao-lead,
+      .dao-content-stage .dao-collab,
+      .dao-content-stage .dao-govern {
+        background: transparent;
+      }
+
+      /* ============================================================
+         Hero band — Figma 196:2. Same scaffolding as Grow3dge: full-
+         bleed background, primary nav, eyebrow pill, Clesmont title,
+         inline-arrow CTA, rotating scroll badge bottom-right. */
+      .dao-preview-band {
+        position: relative;
+        width: 100%;
+        min-height: 927px;
+        overflow: hidden;
+        background: var(--page-bg);
+        color: #fff;
+        isolation: isolate;
+      }
+
+      .dao-preview-bg {
+        position: absolute;
+        inset: 0;
+        z-index: -2;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: center;
+      }
+
+      /* Soft tint over the hero photo so the wordmark stays legible
+         without flattening the underlying imagery. */
+      .dao-preview-band::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        z-index: -1;
+        background: linear-gradient(180deg, rgba(12, 10, 24, 0.35) 0%, rgba(12, 10, 24, 0.55) 100%);
+      }
+
+      .dao-preview-band::after {
+        content: "";
+        position: absolute;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        z-index: -1;
+        height: 87px;
+        background: linear-gradient(180deg, rgba(12, 10, 24, 0) 0%, var(--page-bg) 100%);
+      }
+
+      .dao-nav {
+        position: relative;
+        z-index: 2;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        width: min(1255px, calc(100% - 32px));
+        height: 65px;
+        margin: 0 auto;
+      }
+
+      .dao-logo {
+        display: inline-flex;
+        width: 90px;
+        height: 22px;
+      }
+
+      .dao-logo img {
+        display: block;
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+      }
+
+      .dao-nav-right {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+      }
+
+      .dao-nav-links {
+        display: flex;
+        align-items: center;
+        gap: 22px;
+        font-family: var(--font-geist), Arial, sans-serif;
+        font-size: 14px;
+        font-weight: 500;
+        line-height: 1;
+        color: rgba(255, 255, 255, 0.8);
+      }
+
+      .dao-nav-links a,
+      .dao-onboard,
+      .dao-cta { color: inherit; text-decoration: none; }
+
+      .dao-onboard {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        height: 34px;
+        padding: 0 18px;
+        border-radius: 4px;
+        background: #fff;
+        font-family: var(--font-geist), Arial, sans-serif;
+        font-size: 14px;
+        font-weight: 500;
+        line-height: 1;
+        color: #000;
+      }
+
+      .dao-copy {
+        position: relative;
+        z-index: 1;
+        display: flex;
+        width: min(1255px, calc(100% - 32px));
+        margin: 0 auto;
+        padding-top: 574px;
+        padding-bottom: 86px;
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .dao-pill {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        height: 30px;
+        padding: 0 18px;
+        border: 1px solid #5e5e5e;
+        border-radius: 999px;
+        background: rgba(0, 0, 0, 0.2);
+        font-family: var(--font-geist-mono), monospace;
+        font-size: 12px;
+        line-height: 1;
+        letter-spacing: 0.72px;
+        text-transform: uppercase;
+        color: #fff;
+      }
+
+      .dao-title {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 4px 14px;
+        margin: 22px 0 0;
+        font-family: var(--font-clesmont), "Clesmont Demo", var(--font-geist), Arial, sans-serif;
+        font-size: 62px;
+        font-weight: 700;
+        line-height: 0.9;
+        text-transform: uppercase;
+        max-width: 880px;
+      }
+
+      .dao-title-orb {
+        position: relative;
+        display: inline-flex;
+        width: 110px;
+        height: 52px;
+        overflow: hidden;
+        border-radius: 999px;
+        background: linear-gradient(140deg, #1c1d3d 7%, #4b2d8f 135%);
+        vertical-align: middle;
+        box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.12);
+      }
+
+      .dao-title-orb img {
+        position: absolute;
+        top: 0;
+        left: 14px;
+        display: block;
+        width: 82px;
+        max-width: none;
+        height: 100%;
+        object-fit: cover;
+      }
+
+      .dao-copy p {
+        max-width: 612px;
+        margin: 20px 0 0;
+        font-family: var(--font-geist), Arial, sans-serif;
+        font-size: 18px;
+        line-height: 1.5;
+      }
+
+      .dao-cta {
+        display: inline-flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8.5px;
+        margin-top: 22px;
+        font-family: var(--font-geist), system-ui, -apple-system, Arial, sans-serif;
+        font-size: 16px;
+        font-weight: 400;
+        line-height: 1;
+      }
+
+      .dao-cta span:first-child { display: inline-flex; align-items: center; gap: 8px; }
+      .dao-cta img { width: 9px; height: 9px; transform: rotate(45deg); }
+      .dao-cta-line { width: 44px; height: 1px; background: #fff; }
+
+      .dao-scroll {
+        position: absolute;
+        right: max(16px, calc((100vw - 1255px) / 2));
+        bottom: 86px;
+        display: grid;
+        width: 163px;
+        height: 163px;
+        place-items: center;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 999px;
+        background: rgba(0, 0, 0, 0.1);
+        backdrop-filter: blur(10px);
+      }
+
+      .dao-scroll svg {
+        position: absolute;
+        inset: 17px;
+        width: 129px;
+        height: 129px;
+        overflow: visible;
+        animation: dao-spin 18s linear infinite;
+        color: rgba(255, 255, 255, 0.85);
+        font-family: var(--font-geist-mono), monospace;
+        font-size: 12px;
+        letter-spacing: 3.6px;
+        text-transform: uppercase;
+      }
+
+      .dao-scroll img {
+        position: relative;
+        z-index: 1;
+        width: 49px;
+        height: 68px;
+        object-fit: cover;
+      }
+
+      @keyframes dao-spin { to { transform: rotate(360deg); } }
+
+      @media (max-width: 1100px) {
+        .dao-preview-band { min-height: 820px; }
+        .dao-copy { padding-top: 500px; }
+        .dao-title { font-size: 62px; }
+        .dao-scroll { display: none; }
+      }
+
+      @media (max-width: 640px) {
+        .dao-preview-band { min-height: 760px; }
+        .dao-nav-right { display: none; }
+        .dao-copy { padding-top: 420px; padding-bottom: 70px; }
+        .dao-title { font-size: 48px; gap: 4px 10px; }
+        .dao-title-orb { width: 70px; height: 32px; }
+        .dao-title-orb img { left: 10px; width: 54px; }
+      }
+
+      /* ============================================================
+         Shared kicker / inline link patterns. */
+      .dao-kicker {
+        display: inline-flex;
+        align-items: center;
+        gap: 12px;
+        font-family: var(--font-geist-mono), monospace;
+        font-size: 14px;
+        font-weight: 400;
+        line-height: 1;
+        color: rgba(255, 255, 255, 0.7);
+        text-transform: uppercase;
+        letter-spacing: 0.04em;
+      }
+
+      .dao-kicker img { display: block; width: 13px; height: 15px; object-fit: contain; }
+
+      .dao-link {
+        display: inline-flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8.5px;
+        margin-top: 18px;
+        font-family: var(--font-geist), system-ui, -apple-system, Arial, sans-serif;
+        font-size: 16px;
+        font-weight: 400;
+        line-height: 1;
+        color: #fff;
+        text-decoration: none;
+      }
+
+      .dao-link span:first-child { display: inline-flex; align-items: center; gap: 8px; }
+      .dao-link img { width: 9px; height: 9px; transform: rotate(45deg); }
+      .dao-link::after {
+        content: "";
+        display: block;
+        width: 44px;
+        height: 1px;
+        background: currentColor;
+      }
+
+      /* ============================================================
+         WE LEARN — Events & Sessions.
+         Featured event card. */
+      .dao-learn {
+        position: relative;
+        width: 100%;
+        padding: 64px 0 96px;
+        overflow: hidden;
+        isolation: isolate;
+        background: var(--page-bg);
+      }
+
+      .dao-learn-inner {
+        position: relative;
+        z-index: 1;
+        width: min(1253px, calc(100% - 64px));
+        margin: 0 auto;
+      }
+
+      .dao-learn-header {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) minmax(0, 540px);
+        align-items: end;
+        gap: 48px;
+        margin-bottom: 56px;
+      }
+
+      .dao-learn-header-left {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+        align-items: flex-start;
+      }
+
+      .dao-learn-title {
+        margin: 0;
+        font-family: var(--font-clesmont), "Clesmont Demo", var(--font-geist), Arial, sans-serif;
+        font-size: 32px;
+        font-weight: 400;
+        line-height: 1.05;
+        color: #fff;
+        text-transform: uppercase;
+      }
+
+      .dao-learn-title span { color: #bca9ff; }
+
+      .dao-learn-header-right p {
+        max-width: 540px;
+        margin: 0;
+        font-family: var(--font-geist), system-ui, -apple-system, Arial, sans-serif;
+        font-size: 18px;
+        font-weight: 400;
+        line-height: 1.4;
+        color: #cbcbcb;
+        text-align: right;
+      }
+
+      .dao-event-card {
+        position: relative;
+        display: grid;
+        grid-template-columns: minmax(280px, 405px) minmax(0, 1fr);
+        gap: 0;
+        align-items: stretch;
+        height: 390px;
+        padding: 39px 37px 41px 51px;
+        margin: 0;
+        overflow: hidden;
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        border-radius: 6px;
+        background: rgba(0, 0, 0, 0.2);
+        backdrop-filter: blur(10px);
+      }
+
+      .dao-event-card::before,
+      .dao-event-card::after {
+        content: "";
+        position: absolute;
+        right: 0;
+        left: 0;
+        height: 1px;
+        background: rgba(255, 255, 255, 0.12);
+        pointer-events: none;
+      }
+
+      .dao-event-card::before { top: 38px; }
+      .dao-event-card::after { bottom: 41px; }
+
+      .dao-event-image {
+        position: relative;
+        z-index: 1;
+        min-height: 309px;
+      }
+
+      .dao-event-image img {
+        display: block;
+        width: 100%;
+        height: 100%;
+        min-height: 309px;
+        object-fit: cover;
+      }
+
+      .dao-event-content {
+        position: relative;
+        z-index: 1;
+        display: flex;
+        min-width: 0;
+        flex-direction: column;
+        justify-content: flex-start;
+        padding: 31px 28px 0 31px;
+        border-left: 1px solid rgba(255, 255, 255, 0.12);
+      }
+
+      .dao-event-meta-row {
+        display: grid;
+        grid-template-columns: minmax(120px, 132px) minmax(110px, 118px) minmax(180px, 1fr);
+        gap: 50px;
+      }
+
+      .dao-event-meta {
+        margin: 0;
+      }
+
+      .dao-event-meta dt {
+        margin: 0;
+        font-family: var(--font-geist-mono), monospace;
+        font-size: 14px;
+        line-height: 1;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+        color: #9a9a9b;
+      }
+
+      .dao-event-meta dd {
+        margin: 16px 0 0;
+        font-family: var(--font-geist), system-ui, -apple-system, Arial, sans-serif;
+        font-size: 16px;
+        line-height: 1;
+        color: #fff;
+      }
+
+      .dao-event-rule {
+        width: 100%;
+        height: 1px;
+        margin: 26px 0 0;
+        border: 0;
+        background: rgba(255, 255, 255, 0.12);
+      }
+
+      .dao-event-title {
+        margin: 24px 0 0;
+        font-family: var(--font-geist), system-ui, -apple-system, Arial, sans-serif;
+        font-size: 36px;
+        font-weight: 500;
+        line-height: 1;
+        color: #fff;
+      }
+
+      .dao-event-description {
+        max-width: 565px;
+        margin: 20px 0 0;
+        font-family: var(--font-geist), system-ui, -apple-system, Arial, sans-serif;
+        font-size: 16px;
+        line-height: 1.3;
+        color: #a7a7a7;
+      }
+
+      .dao-event-bottom {
+        display: flex;
+        align-items: center;
+        gap: 24px;
+        margin-top: auto;
+        padding-top: 28px;
+      }
+
+      .dao-event-tags {
+        display: flex;
+        min-width: 0;
+        flex-wrap: wrap;
+        gap: 10px;
+      }
+
+      .dao-event-tag {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 30px;
+        padding: 0 18px;
+        border: 1px solid #5e5e5e;
+        border-radius: 999px;
+        background: rgba(0, 0, 0, 0.2);
+        font-family: var(--font-geist-mono), monospace;
+        font-size: 12px;
+        line-height: 1;
+        letter-spacing: 0.06em;
+        color: #fff;
+        white-space: nowrap;
+      }
+
+      .dao-event-coming {
+        margin-left: auto;
+        font-family: var(--font-geist-mono), monospace;
+        font-size: 16px;
+        line-height: 1;
+        letter-spacing: 0.06em;
+        color: #fff;
+        white-space: nowrap;
+      }
+
+      @media (max-width: 980px) {
+        .dao-learn-header { grid-template-columns: 1fr; align-items: start; gap: 18px; }
+        .dao-learn-header-right p { text-align: left; }
+        .dao-event-card { grid-template-columns: 1fr; height: auto; padding: 32px; }
+        .dao-event-card::before,
+        .dao-event-card::after { display: none; }
+        .dao-event-content { padding: 28px 0 0; border-left: 0; }
+        .dao-event-meta-row { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 22px; }
+      }
+
+      @media (max-width: 640px) {
+        .dao-learn { padding: 48px 0 72px; }
+        .dao-learn-inner { width: min(100% - 32px, 1253px); }
+        .dao-learn-title { font-size: 32px; }
+        .dao-event-card { padding: 24px; }
+        .dao-event-image,
+        .dao-event-image img { min-height: 220px; }
+        .dao-event-meta-row { grid-template-columns: 1fr; gap: 18px; }
+        .dao-event-meta dd { margin-top: 8px; }
+        .dao-event-title { font-size: 28px; line-height: 1.1; }
+        .dao-event-bottom { align-items: flex-start; flex-direction: column; gap: 18px; }
+        .dao-event-coming { margin-left: 0; }
+      }
+
+      /* ============================================================
+         WE LEAD — Two sub-sections:
+           1. Global communities map block (stat + region tags +
+              continent pins over a world map + ticker strip)
+           2. WE BRAND — two cards w/ placeholder media slots ready
+              for the user's siher.eth and livestream mockups
+         Closes with a bottom CTA bar that bridges into SI U / DAO. */
+      .dao-lead {
+        position: relative;
+        width: 100%;
+        padding: 32px 0 96px;
+      }
+
+      .dao-lead-inner {
+        width: min(1253px, calc(100% - 64px));
+        margin: 0 auto;
+        display: flex;
+        flex-direction: column;
+        gap: 56px;
+      }
+
+      .dao-lead-header {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) minmax(0, 540px);
+        align-items: end;
+        gap: 48px;
+      }
+
+      .dao-lead-title {
+        margin: 18px 0 0;
+        font-family: var(--font-clesmont), "Clesmont Demo", var(--font-geist), Arial, sans-serif;
+        font-size: 40px;
+        font-weight: 400;
+        line-height: 1.05;
+        color: #fff;
+        text-transform: uppercase;
+      }
+
+      .dao-lead-title span { color: #bca9ff; }
+
+      .dao-lead-header-right p {
+        max-width: 540px;
+        margin: 0;
+        font-family: var(--font-geist), system-ui, -apple-system, Arial, sans-serif;
+        font-size: 18px;
+        font-weight: 400;
+        line-height: 1.4;
+        color: #cbcbcb;
+        text-align: right;
+      }
+
+      /* ============================================================
+         Sub-section 1: Global communities map block. */
+      .dao-globe {
+        position: relative;
+        overflow: hidden;
+        border: 1px solid rgba(255, 255, 255, 0.18);
+        border-radius: 12px;
+        background:
+          radial-gradient(120% 60% at 50% 0%, rgba(76, 42, 156, 0.18) 0%, rgba(8, 7, 18, 0) 70%),
+          rgba(8, 7, 18, 0.7);
+        backdrop-filter: blur(8px);
+        -webkit-backdrop-filter: blur(8px);
+      }
+
+      .dao-globe-head {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 32px;
+        padding: 26px 32px 22px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        flex-wrap: wrap;
+      }
+
+      .dao-globe-label {
+        display: block;
+        font-family: var(--font-geist-mono), monospace;
+        font-size: 12px;
+        line-height: 1;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        color: rgba(255, 255, 255, 0.55);
+      }
+
+      .dao-globe-stat {
+        display: flex;
+        align-items: baseline;
+        gap: 12px;
+        margin-top: 10px;
+      }
+
+      .dao-globe-num {
+        font-family: var(--font-clesmont), "Clesmont Demo", var(--font-geist), Arial, sans-serif;
+        font-size: 44px;
+        font-weight: 700;
+        line-height: 1;
+        color: #fff;
+        text-transform: uppercase;
+      }
+
+      .dao-globe-num-label {
+        font-family: var(--font-geist), system-ui, -apple-system, Arial, sans-serif;
+        font-size: 13px;
+        line-height: 1.4;
+        color: rgba(255, 255, 255, 0.7);
+        max-width: 240px;
+      }
+
+      .dao-globe-tags {
+        display: flex;
+        gap: 8px;
+        flex-wrap: wrap;
+        justify-content: flex-end;
+      }
+
+      .dao-globe-tag {
+        display: inline-flex;
+        align-items: center;
+        height: 30px;
+        padding: 0 14px;
+        border: 1px solid rgba(255, 255, 255, 0.18);
+        border-radius: 999px;
+        background: rgba(255, 255, 255, 0.04);
+        font-family: var(--font-geist-mono), monospace;
+        font-size: 11px;
+        line-height: 1;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: rgba(255, 255, 255, 0.85);
+        cursor: pointer;
+        transition: background 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+      }
+
+      .dao-globe-tag.is-active {
+        background: rgba(76, 42, 156, 0.55);
+        border-color: #bca9ff;
+        color: #fff;
+      }
+
+      .dao-globe-tag:hover {
+        border-color: rgba(188, 169, 255, 0.6);
+        color: #fff;
+      }
+
+      /* Map canvas — equirectangular world map at 2:1 with continent
+         pin overlays positioned by percentage. */
+      .dao-globe-canvas {
+        position: relative;
+        width: 100%;
+        aspect-ratio: 2 / 1;
+        overflow: hidden;
+        background:
+          radial-gradient(80% 60% at 50% 50%, rgba(76, 42, 156, 0.08) 0%, rgba(0, 0, 0, 0) 75%);
+      }
+
+      .dao-globe-map {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        opacity: 0.22;
+        color: #bca9ff;
+      }
+
+      .dao-globe-pins {
+        position: absolute;
+        inset: 0;
+        pointer-events: none;
+      }
+
+      .dao-globe-pin {
+        position: absolute;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        transform: translate(-50%, -100%);
+        pointer-events: auto;
+        transition: transform 0.2s ease;
+      }
+
+      .dao-globe-pin:hover {
+        transform: translate(-50%, -100%) scale(1.06);
+        z-index: 5;
+      }
+
+      .dao-globe-bubble {
+        padding: 10px 14px;
+        border: 1px solid #bca9ff;
+        border-radius: 10px;
+        background: rgba(18, 12, 32, 0.92);
+        backdrop-filter: blur(4px);
+        -webkit-backdrop-filter: blur(4px);
+        box-shadow: 0 0 22px rgba(188, 169, 255, 0.22);
+        white-space: nowrap;
+      }
+
+      .dao-globe-bubble-name {
+        font-family: var(--font-clesmont), "Clesmont Demo", var(--font-geist), Arial, sans-serif;
+        font-size: 12px;
+        font-weight: 700;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: #bca9ff;
+        margin-bottom: 6px;
+      }
+
+      .dao-globe-bubble-dots {
+        display: flex;
+        align-items: center;
+        margin-bottom: 4px;
+      }
+
+      .dao-globe-logo {
+        width: 24px;
+        height: 24px;
+        flex-shrink: 0;
+        display: grid;
+        place-items: center;
+        border: 1.5px solid #bca9ff;
+        border-radius: 999px;
+        background: rgba(76, 42, 156, 0.85);
+        font-family: var(--font-geist-mono), monospace;
+        font-size: 8px;
+        line-height: 1;
+        color: #fff;
+        overflow: hidden;
+      }
+
+      .dao-globe-logo + .dao-globe-logo { margin-left: -6px; }
+
+      .dao-globe-logo.is-more {
+        background: rgba(255, 255, 255, 0.06);
+        border-color: rgba(255, 255, 255, 0.18);
+        color: rgba(255, 255, 255, 0.55);
+      }
+
+      .dao-globe-count {
+        font-family: var(--font-geist-mono), monospace;
+        font-size: 11px;
+        line-height: 1.2;
+        color: rgba(255, 255, 255, 0.6);
+      }
+
+      .dao-globe-stem {
+        width: 1.5px;
+        height: 16px;
+        background: #bca9ff;
+        opacity: 0.55;
+      }
+
+      .dao-globe-dot {
+        width: 8px;
+        height: 8px;
+        border-radius: 999px;
+        background: #bca9ff;
+        box-shadow: 0 0 12px rgba(188, 169, 255, 0.7);
+      }
+
+      /* Ticker strip running along the bottom of the globe block. */
+      .dao-globe-ticker {
+        position: relative;
+        border-top: 1px solid rgba(255, 255, 255, 0.08);
+        background: rgba(0, 0, 0, 0.32);
+        overflow: hidden;
+        padding: 18px 0;
+      }
+
+      .dao-globe-ticker::before,
+      .dao-globe-ticker::after {
+        content: "";
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        width: 80px;
+        z-index: 2;
+        pointer-events: none;
+      }
+
+      .dao-globe-ticker::before {
+        left: 0;
+        background: linear-gradient(90deg, rgba(8, 7, 18, 0.95) 0%, rgba(8, 7, 18, 0) 100%);
+      }
+
+      .dao-globe-ticker::after {
+        right: 0;
+        background: linear-gradient(270deg, rgba(8, 7, 18, 0.95) 0%, rgba(8, 7, 18, 0) 100%);
+      }
+
+      .dao-globe-ticker-track {
+        display: flex;
+        align-items: center;
+        gap: 36px;
+        width: max-content;
+        white-space: nowrap;
+        animation: dao-globe-ticker 38s linear infinite;
+        will-change: transform;
+      }
+
+      @keyframes dao-globe-ticker {
+        from { transform: translate3d(0, 0, 0); }
+        to   { transform: translate3d(-50%, 0, 0); }
+      }
+
+      .dao-globe-ticker-item {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        flex-shrink: 0;
+      }
+
+      .dao-globe-ticker-logo {
+        width: 28px;
+        height: 28px;
+        flex-shrink: 0;
+        display: grid;
+        place-items: center;
+        border: 1px solid rgba(188, 169, 255, 0.6);
+        border-radius: 999px;
+        background: rgba(76, 42, 156, 0.55);
+        font-family: var(--font-geist-mono), monospace;
+        font-size: 9px;
+        line-height: 1;
+        color: #fff;
+      }
+
+      .dao-globe-ticker-name {
+        font-family: var(--font-geist), system-ui, -apple-system, Arial, sans-serif;
+        font-size: 13px;
+        line-height: 1;
+        color: #e8e6f0;
+      }
+
+      .dao-globe-ticker-sep {
+        width: 4px;
+        height: 4px;
+        flex-shrink: 0;
+        border-radius: 999px;
+        background: rgba(255, 255, 255, 0.18);
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        .dao-globe-ticker-track { animation: none; }
+      }
+
+      /* ============================================================
+         Sub-section 2: WE BRAND — personal brand tools. */
+      .dao-brand {
+        display: flex;
+        flex-direction: column;
+        gap: 28px;
+      }
+
+      .dao-brand-head {
+        display: flex;
+        align-items: flex-end;
+        justify-content: space-between;
+        gap: 48px;
+      }
+
+      .dao-brand-head-left {
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+      }
+
+      .dao-brand-title {
+        margin: 0;
+        font-family: var(--font-clesmont), "Clesmont Demo", var(--font-geist), Arial, sans-serif;
+        font-size: 40px;
+        font-weight: 400;
+        line-height: 1.05;
+        color: #fff;
+        text-transform: uppercase;
+      }
+
+      .dao-brand-title span { color: #bca9ff; }
+
+      .dao-brand-head p {
+        max-width: 380px;
+        margin: 0;
+        font-family: var(--font-geist), system-ui, -apple-system, Arial, sans-serif;
+        font-size: 16px;
+        line-height: 1.6;
+        color: rgba(255, 255, 255, 0.7);
+        text-align: right;
+      }
+
+      .dao-brand-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 16px;
+      }
+
+      .dao-brand-card {
+        display: flex;
+        flex-direction: column;
+        overflow: hidden;
+        border: 1px solid rgba(255, 255, 255, 0.22);
+        border-radius: 12px;
+        background: rgba(8, 7, 18, 0.6);
+        transition: border-color 0.25s ease, transform 0.25s ease;
+      }
+
+      .dao-brand-card:hover {
+        border-color: rgba(188, 169, 255, 0.5);
+        transform: translateY(-2px);
+      }
+
+      /* Media slot — placeholder until a real mockup is dropped in.
+         Replace the empty <div class="dao-brand-card-media"> contents
+         with an <img> or interactive mockup to fill the space. */
+      .dao-brand-card-media {
+        position: relative;
+        width: 100%;
+        aspect-ratio: 16 / 9;
+        display: grid;
+        place-items: center;
+        overflow: hidden;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        background:
+          linear-gradient(180deg, rgba(76, 42, 156, 0.22) 0%, rgba(8, 7, 18, 0.65) 100%),
+          repeating-linear-gradient(
+            45deg,
+            rgba(255, 255, 255, 0.02) 0,
+            rgba(255, 255, 255, 0.02) 12px,
+            rgba(255, 255, 255, 0.05) 12px,
+            rgba(255, 255, 255, 0.05) 24px
+          );
+      }
+
+      .dao-brand-card.is-media .dao-brand-card-media {
+        background:
+          linear-gradient(180deg, rgba(42, 86, 156, 0.22) 0%, rgba(8, 7, 18, 0.65) 100%),
+          repeating-linear-gradient(
+            -45deg,
+            rgba(255, 255, 255, 0.02) 0,
+            rgba(255, 255, 255, 0.02) 12px,
+            rgba(255, 255, 255, 0.05) 12px,
+            rgba(255, 255, 255, 0.05) 24px
+          );
+      }
+
+      .dao-brand-card-placeholder {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        padding: 8px 14px;
+        border: 1px dashed rgba(255, 255, 255, 0.22);
+        border-radius: 999px;
+        font-family: var(--font-geist-mono), monospace;
+        font-size: 11px;
+        line-height: 1;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: rgba(255, 255, 255, 0.45);
+      }
+
+      .dao-brand-card-placeholder::before {
+        content: "";
+        width: 6px;
+        height: 6px;
+        border-radius: 999px;
+        background: rgba(188, 169, 255, 0.7);
+      }
+
+      .dao-brand-card-body {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        padding: 28px 30px 30px;
+      }
+
+      .dao-brand-card-eyebrow {
+        font-family: var(--font-geist-mono), monospace;
+        font-size: 11px;
+        line-height: 1;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        color: #bca9ff;
+      }
+
+      .dao-brand-card-title {
+        margin: 0;
+        font-family: var(--font-clesmont), "Clesmont Demo", var(--font-geist), Arial, sans-serif;
+        font-size: 30px;
+        font-weight: 400;
+        line-height: 1.05;
+        color: #fff;
+        text-transform: uppercase;
+      }
+
+      .dao-brand-card p {
+        margin: 0;
+        max-width: 420px;
+        font-family: var(--font-geist), system-ui, -apple-system, Arial, sans-serif;
+        font-size: 15px;
+        line-height: 1.55;
+        color: #cbcbcb;
+      }
+
+      .dao-brand-card-cta {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        align-self: flex-start;
+        margin-top: 8px;
+        height: 38px;
+        padding: 0 18px;
+        border: 1px solid rgba(255, 255, 255, 0.22);
+        border-radius: 999px;
+        background: transparent;
+        font-family: var(--font-geist-mono), monospace;
+        font-size: 11px;
+        line-height: 1;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: #fff;
+        text-decoration: none;
+        transition: background 0.2s ease, border-color 0.2s ease;
+      }
+
+      .dao-brand-card-cta::after {
+        content: "→";
+        font-family: var(--font-geist), system-ui, -apple-system, Arial, sans-serif;
+        font-size: 14px;
+        line-height: 1;
+      }
+
+      .dao-brand-card-cta:hover {
+        background: rgba(188, 169, 255, 0.12);
+        border-color: #bca9ff;
+      }
+
+      /* ============================================================
+         Bottom CTA bar — closes WE LEAD and bridges to the DAO. */
+      .dao-lead-cta-bar {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 24px;
+        padding: 26px 32px;
+        border: 1px solid rgba(255, 255, 255, 0.18);
+        border-radius: 12px;
+        background:
+          linear-gradient(120deg, rgba(76, 42, 156, 0.22) 0%, rgba(8, 7, 18, 0) 60%),
+          rgba(8, 7, 18, 0.6);
+      }
+
+      .dao-lead-cta-text {
+        font-family: var(--font-clesmont), "Clesmont Demo", var(--font-geist), Arial, sans-serif;
+        font-size: 22px;
+        font-weight: 700;
+        line-height: 1.1;
+        color: #fff;
+        text-transform: uppercase;
+      }
+
+      .dao-lead-cta-text span { color: #bca9ff; }
+
+      .dao-lead-cta-sub {
+        margin-top: 6px;
+        font-family: var(--font-geist), system-ui, -apple-system, Arial, sans-serif;
+        font-size: 14px;
+        line-height: 1.4;
+        color: rgba(255, 255, 255, 0.7);
+      }
+
+      .dao-lead-cta-btns {
+        display: flex;
+        gap: 12px;
+        flex-shrink: 0;
+      }
+
+      .dao-lead-cta-outline,
+      .dao-lead-cta-primary {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        height: 44px;
+        padding: 0 22px;
+        border-radius: 999px;
+        font-family: var(--font-geist-mono), monospace;
+        font-size: 12px;
+        line-height: 1;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        text-decoration: none;
+        transition: background 0.2s ease, border-color 0.2s ease, transform 0.15s ease;
+      }
+
+      .dao-lead-cta-outline {
+        border: 1px solid rgba(255, 255, 255, 0.22);
+        color: #fff;
+      }
+
+      .dao-lead-cta-outline:hover {
+        background: rgba(188, 169, 255, 0.1);
+        border-color: #bca9ff;
+      }
+
+      .dao-lead-cta-primary {
+        background: #fff;
+        color: #000;
+      }
+
+      .dao-lead-cta-primary:hover {
+        background: #ece4ff;
+        transform: translateY(-1px);
+      }
+
+      /* Responsive collapse for WE LEAD. */
+      @media (max-width: 1100px) {
+        .dao-lead-header { grid-template-columns: 1fr; align-items: start; gap: 18px; }
+        .dao-lead-header-right p { text-align: left; }
+        .dao-globe-head { flex-direction: column; align-items: flex-start; }
+        .dao-globe-tags { justify-content: flex-start; }
+        .dao-brand-head { flex-direction: column; align-items: flex-start; gap: 16px; }
+        .dao-brand-head p { text-align: left; }
+        .dao-brand-grid { grid-template-columns: 1fr; }
+        .dao-lead-cta-bar { flex-direction: column; align-items: flex-start; padding: 24px 22px; }
+      }
+
+      @media (max-width: 720px) {
+        .dao-globe-num { font-size: 36px; }
+        .dao-globe-canvas { aspect-ratio: 4 / 3; }
+        .dao-globe-pin .dao-globe-bubble { padding: 8px 10px; }
+        .dao-globe-bubble-name { font-size: 10px; }
+        .dao-globe-count { font-size: 10px; }
+        .dao-globe-logo { width: 20px; height: 20px; font-size: 7px; }
+        .dao-globe-ticker-name { font-size: 12px; }
+        .dao-brand-title { font-size: 32px; }
+        .dao-brand-card-title { font-size: 24px; }
+        .dao-lead-cta-text { font-size: 18px; }
+      }
+
+      /* ============================================================
+         WE COLLAB — Kaia AI agent block. Two-column layout: copy on
+         the left, three feature cards stacked on the right. */
+      .dao-collab {
+        position: relative;
+        width: 100%;
+        padding: 32px 0 96px;
+      }
+
+      .dao-collab-inner {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+        align-items: start;
+        gap: 64px;
+        width: min(1253px, calc(100% - 64px));
+        margin: 0 auto;
+      }
+
+      .dao-collab-copy {
+        display: flex;
+        flex-direction: column;
+        gap: 22px;
+        padding-top: 8px;
+      }
+
+      .dao-collab-title {
+        margin: 0;
+        font-family: var(--font-clesmont), "Clesmont Demo", var(--font-geist), Arial, sans-serif;
+        font-size: 44px;
+        font-weight: 400;
+        line-height: 1.05;
+        color: #fff;
+        text-transform: uppercase;
+      }
+
+      .dao-collab-title span { color: #bca9ff; }
+
+      .dao-collab-copy p {
+        max-width: 480px;
+        margin: 0;
+        font-family: var(--font-geist), system-ui, -apple-system, Arial, sans-serif;
+        font-size: 18px;
+        line-height: 1.45;
+        color: #cbcbcb;
+      }
+
+      .dao-collab-cta {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        align-self: flex-start;
+        height: 44px;
+        margin-top: 8px;
+        padding: 0 22px;
+        border: 0;
+        border-radius: 999px;
+        background: #fff;
+        font-family: var(--font-geist), Arial, sans-serif;
+        font-size: 15px;
+        font-weight: 500;
+        color: #000;
+        text-decoration: none;
+        cursor: pointer;
+        transition: transform 0.2s ease, background 0.2s ease;
+      }
+
+      .dao-collab-cta:hover { background: #ece4ff; transform: translateY(-1px); }
+
+      .dao-kaia-card {
+        position: relative;
+        padding: 28px 30px 30px;
+        overflow: hidden;
+        border: 1px solid rgba(255, 255, 255, 0.18);
+        border-radius: 10px;
+        background:
+          radial-gradient(120% 120% at 90% 10%, rgba(105, 70, 240, 0.32) 0%, rgba(12, 10, 24, 0) 60%),
+          rgba(8, 7, 18, 0.6);
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+      }
+
+      .dao-kaia-card::after {
+        content: "";
+        position: absolute;
+        top: -80px;
+        right: -80px;
+        width: 220px;
+        height: 220px;
+        border-radius: 999px;
+        background: radial-gradient(circle, rgba(140, 100, 255, 0.32) 0%, rgba(12, 10, 24, 0) 70%);
+        pointer-events: none;
+      }
+
+      .dao-kaia-head {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        margin-bottom: 6px;
+      }
+
+      .dao-kaia-portrait {
+        width: 64px;
+        height: 64px;
+        border-radius: 999px;
+        background:
+          conic-gradient(from 200deg at 50% 50%, #ff7ad9 0%, #b46bff 30%, #5db7ff 60%, #a7ffea 90%, #ff7ad9 100%);
+        box-shadow: 0 0 24px rgba(180, 107, 255, 0.45), inset 0 0 0 1px rgba(255, 255, 255, 0.2);
+      }
+
+      .dao-kaia-name {
+        font-family: var(--font-clesmont), "Clesmont Demo", var(--font-geist), Arial, sans-serif;
+        font-size: 28px;
+        font-weight: 400;
+        line-height: 1;
+        text-transform: uppercase;
+        color: #fff;
+      }
+
+      .dao-kaia-name + span {
+        display: block;
+        margin-top: 6px;
+        font-family: var(--font-geist-mono), monospace;
+        font-size: 12px;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: rgba(255, 255, 255, 0.55);
+      }
+
+      .dao-kaia-list {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        margin: 24px 0 0;
+        padding: 0;
+        list-style: none;
+        position: relative;
+      }
+
+      .dao-kaia-list li {
+        display: grid;
+        grid-template-columns: 36px minmax(0, 1fr);
+        gap: 14px;
+        align-items: start;
+        padding: 14px 16px;
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        border-radius: 8px;
+        background: rgba(255, 255, 255, 0.04);
+      }
+
+      .dao-kaia-list li strong {
+        display: grid;
+        place-items: center;
+        width: 36px;
+        height: 36px;
+        border-radius: 999px;
+        background: rgba(188, 169, 255, 0.18);
+        font-family: var(--font-geist-mono), monospace;
+        font-size: 13px;
+        font-weight: 500;
+        color: #bca9ff;
+      }
+
+      .dao-kaia-list li span {
+        font-family: var(--font-geist), system-ui, -apple-system, Arial, sans-serif;
+        font-size: 15px;
+        line-height: 1.45;
+        color: #ececec;
+      }
+
+      @media (max-width: 980px) {
+        .dao-collab-inner { grid-template-columns: 1fr; gap: 32px; }
+        .dao-collab-title { font-size: 34px; }
+      }
+
+      /* ============================================================
+         WE GOVERN — DAO Governance working groups. Header + 4-card
+         grid (2x2 on tablet, 1x4 on desktop, 1 col on phone). */
+      .dao-govern {
+        position: relative;
+        width: 100%;
+        padding: 32px 0 112px;
+      }
+
+      .dao-govern-inner {
+        width: min(1253px, calc(100% - 64px));
+        margin: 0 auto;
+      }
+
+      .dao-govern-header {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) minmax(0, 540px);
+        align-items: end;
+        gap: 48px;
+        margin-bottom: 40px;
+      }
+
+      .dao-govern-title {
+        margin: 18px 0 0;
+        font-family: var(--font-clesmont), "Clesmont Demo", var(--font-geist), Arial, sans-serif;
+        font-size: 40px;
+        font-weight: 400;
+        line-height: 1.05;
+        color: #fff;
+        text-transform: uppercase;
+      }
+
+      .dao-govern-title span { color: #bca9ff; }
+
+      .dao-govern-header-right p {
+        max-width: 540px;
+        margin: 0;
+        font-family: var(--font-geist), system-ui, -apple-system, Arial, sans-serif;
+        font-size: 18px;
+        font-weight: 400;
+        line-height: 1.4;
+        color: #cbcbcb;
+        text-align: right;
+      }
+
+      .dao-govern-header-right .dao-collab-cta { margin-top: 18px; align-self: flex-end; }
+
+      .dao-govern-grid {
+        display: grid;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: 16px;
+      }
+
+      .dao-govern-card {
+        display: flex;
+        min-height: 240px;
+        flex-direction: column;
+        gap: 16px;
+        padding: 20px 20px 24px;
+        overflow: hidden;
+        border: 1px solid rgba(255, 255, 255, 0.22);
+        border-radius: 8px;
+        background: rgba(0, 0, 0, 0.2);
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+      }
+
+      .dao-govern-card-head {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+      }
+
+      .dao-govern-card-number {
+        font-family: var(--font-geist-mono), monospace;
+        font-size: 12px;
+        font-weight: 500;
+        color: #bca9ff;
+        letter-spacing: 0.16em;
+      }
+
+      .dao-govern-card-tag {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        height: 26px;
+        padding: 0 12px;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        border-radius: 999px;
+        background: rgba(255, 255, 255, 0.04);
+        font-family: var(--font-geist-mono), monospace;
+        font-size: 10px;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: rgba(255, 255, 255, 0.7);
+      }
+
+      .dao-govern-card hr {
+        margin: 0;
+        border: 0;
+        height: 1px;
+        background: rgba(255, 255, 255, 0.12);
+      }
+
+      .dao-govern-card h3 {
+        margin: 0;
+        font-family: var(--font-clesmont), "Clesmont Demo", var(--font-geist), Arial, sans-serif;
+        font-size: 22px;
+        font-weight: 400;
+        line-height: 1.1;
+        text-transform: uppercase;
+        color: #fff;
+      }
+
+      .dao-govern-card p {
+        margin: 0;
+        font-family: var(--font-geist), system-ui, -apple-system, Arial, sans-serif;
+        font-size: 14px;
+        line-height: 1.45;
+        color: #cbcbcb;
+      }
+
+      @media (max-width: 1100px) {
+        .dao-govern-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      }
+
+      @media (max-width: 640px) {
+        .dao-govern-header { grid-template-columns: 1fr; gap: 18px; align-items: flex-start; }
+        .dao-govern-header-right p { text-align: left; }
+        .dao-govern-header-right .dao-collab-cta { align-self: flex-start; }
+        .dao-govern-grid { grid-template-columns: 1fr; }
+        .dao-govern-title { font-size: 32px; }
+      }
+
+      /* ============================================================
+         Testimonial carousel — same component as Grow3dge (with new
+         class prefix), 6 testimonials, click anywhere to advance. */
+      .dao-testimonial {
+        position: relative;
+        width: 100%;
+        padding: 95px 0 96px;
+        color: #fff;
+        cursor: pointer;
+        user-select: none;
+      }
+
+      .dao-testimonial-inner {
+        display: flex;
+        flex-direction: column;
+        gap: 44px;
+        width: min(1253px, calc(100% - 64px));
+        margin: 0 auto;
+      }
+
+      .dao-testimonial-head {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 24px;
+      }
+
+      .dao-testimonial-title {
+        margin: 0;
+        font-family: var(--font-clesmont), "Clesmont Demo", var(--font-geist), Arial, sans-serif;
+        font-size: 32px;
+        font-weight: 400;
+        line-height: 1.1;
+        color: #fff;
+        text-transform: uppercase;
+      }
+
+      .dao-testimonial-title em {
+        color: #bca9ff;
+        font-style: normal;
+      }
+
+      .dao-testimonial-tag {
+        font-family: var(--font-geist-mono), monospace;
+        font-size: 14px;
+        font-weight: 400;
+        line-height: 1.4;
+        color: rgba(255, 255, 255, 0.7);
+        text-align: right;
+        text-transform: uppercase;
+        white-space: nowrap;
+      }
+
+      .dao-testimonial-avatars {
+        display: flex;
+        align-items: center;
+      }
+
+      .dao-testimonial-avatar {
+        position: relative;
+        flex: 0 0 auto;
+        width: 52px;
+        height: 52px;
+        margin: 0;
+        margin-right: -22px;
+        padding: 0;
+        border: 0;
+        border-radius: 50%;
+        background: transparent;
+        cursor: pointer;
+        transition: transform 200ms ease, z-index 0s 200ms;
+      }
+
+      .dao-testimonial-avatar:last-child { margin-right: 0; }
+
+      .dao-testimonial-avatar > span {
+        display: grid;
+        place-items: center;
+        width: 100%;
+        height: 100%;
+        border-radius: 50%;
+        font-family: var(--font-geist-mono), monospace;
+        font-size: 14px;
+        font-weight: 500;
+        color: #fff;
+        filter: grayscale(1);
+        transition: filter 250ms ease;
+        box-shadow: inset 0 0 0 2px var(--page-bg);
+      }
+
+      .dao-testimonial-avatar:hover > span,
+      .dao-testimonial-avatar:focus-visible > span,
+      .dao-testimonial-avatar.is-active > span {
+        filter: grayscale(0);
+      }
+
+      .dao-testimonial-avatar.is-active { z-index: 2; }
+      .dao-testimonial-avatar:hover,
+      .dao-testimonial-avatar:focus-visible {
+        z-index: 3;
+        transform: translateY(-3px) scale(1.06);
+        transition: transform 200ms ease, z-index 0s;
+      }
+
+      .dao-testimonial-quote {
+        display: flex;
+        flex-direction: column;
+        gap: 28px;
+        width: min(992px, 100%);
+        margin: 0;
+        padding: 0;
+      }
+
+      .dao-testimonial-quote-mark {
+        display: block;
+        width: 32px;
+        height: 26px;
+        opacity: 0.9;
+      }
+
+      .dao-testimonial-quote p {
+        margin: 0;
+        font-family: var(--font-geist), system-ui, -apple-system, Arial, sans-serif;
+        font-size: 24px;
+        font-weight: 400;
+        line-height: 1.4;
+        color: #fff;
+        transition: opacity 220ms ease;
+      }
+
+      .dao-testimonial.is-changing .dao-testimonial-quote p,
+      .dao-testimonial.is-changing .dao-testimonial-attribution {
+        opacity: 0.25;
+      }
+
+      .dao-testimonial-attribution {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        transition: opacity 220ms ease;
+      }
+
+      .dao-testimonial-attribution-avatar {
+        display: grid;
+        place-items: center;
+        width: 52px;
+        height: 52px;
+        border-radius: 50%;
+        font-family: var(--font-geist-mono), monospace;
+        font-size: 14px;
+        font-weight: 500;
+        color: #fff;
+      }
+
+      .dao-testimonial-attribution-text {
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+        min-width: 0;
+      }
+
+      .dao-testimonial-attribution-text strong {
+        font-family: var(--font-geist), system-ui, -apple-system, Arial, sans-serif;
+        font-size: 18px;
+        font-style: italic;
+        font-weight: 400;
+        line-height: 1;
+        color: #fff;
+      }
+
+      .dao-testimonial-attribution-text span {
+        font-family: var(--font-geist), system-ui, -apple-system, Arial, sans-serif;
+        font-size: 14px;
+        font-style: italic;
+        font-weight: 400;
+        line-height: 1.1;
+        color: rgba(255, 255, 255, 0.55);
+      }
+
+      .dao-testimonial-foot {
+        display: flex;
+        flex-direction: column;
+        gap: 19px;
+        width: 100%;
+      }
+
+      .dao-testimonial-progress {
+        position: relative;
+        width: 100%;
+        height: 2px;
+        background: rgba(255, 255, 255, 0.12);
+      }
+
+      .dao-testimonial-progress-fill {
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 100%;
+        background: rgba(255, 255, 255, 0.7);
+        transition: width 320ms ease;
+      }
+
+      .dao-testimonial-foot-row {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        font-family: var(--font-geist-mono), monospace;
+        font-size: 14px;
+        font-weight: 400;
+        line-height: 1.4;
+        color: rgba(255, 255, 255, 0.6);
+        text-transform: uppercase;
+      }
+
+      .dao-testimonial-foot-row .dao-testimonial-hint::after { content: " ›"; }
+
+      @media (max-width: 1100px) {
+        .dao-testimonial { padding: 64px 0 72px; }
+        .dao-testimonial-head { flex-direction: column; align-items: flex-start; gap: 16px; }
+        .dao-testimonial-tag { text-align: left; }
+        .dao-testimonial-quote p { font-size: 20px; }
+      }
+
+      @media (max-width: 720px) {
+        .dao-testimonial-inner { width: min(100% - 32px, 1253px); gap: 32px; }
+        .dao-testimonial-title { font-size: 26px; }
+        .dao-testimonial-quote p { font-size: 17px; }
+        .dao-testimonial-attribution { flex-wrap: wrap; }
+      }
+
+      /* ============================================================
+         FAQ section — copied from homepage chrome with `dao-` prefix
+         override so it stays self-contained on this page. */
+      .dao-faq-band {
+        width: 100%;
+        padding: 48px 60px;
+      }
+
+      .dao-faq {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 48px;
+        max-width: 1269px;
+        margin: 0 auto;
+        color: #fff;
+      }
+
+      @media (min-width: 981px) {
+        .dao-faq { grid-template-columns: 430px 1fr; gap: 206px; }
+      }
+
+      .dao-faq-intro {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 14px;
+        width: 100%;
+        max-width: 430px;
+      }
+
+      .dao-faq-intro-title {
+        display: flex;
+        align-items: center;
+        gap: 13px;
+      }
+
+      .dao-faq-intro-title img {
+        display: block;
+        width: 13px;
+        height: 15px;
+        flex-shrink: 0;
+      }
+
+      .dao-faq-intro-title h2 {
+        margin: 0;
+        font-family: var(--font-clesmont), "Clesmont Demo", "Geist", Arial, sans-serif;
+        font-size: 32px;
+        font-weight: 700;
+        line-height: 1;
+        text-transform: uppercase;
+        color: #fff;
+      }
+
+      .dao-faq-intro p {
+        margin: 0;
+        font-family: var(--font-geist), system-ui, -apple-system, "Helvetica Neue", Arial, sans-serif;
+        font-size: 18px;
+        font-weight: 400;
+        line-height: 1.4;
+        color: #fff;
+      }
+
+      .dao-faq-list {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        width: 100%;
+      }
+
+      .dao-faq-item {
+        position: relative;
+        width: 100%;
+        margin: 0;
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        border-radius: 6px;
+        background: rgba(0, 0, 0, 0.2);
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+        padding: 0;
+        overflow: hidden;
+      }
+
+      .dao-faq-item > summary {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 16px;
+        padding: 20px 26px 19px;
+        cursor: pointer;
+        list-style: none;
+        outline: none;
+      }
+
+      .dao-faq-item > summary::-webkit-details-marker { display: none; }
+      .dao-faq-item > summary::marker { content: ""; }
+
+      .dao-faq-question {
+        margin: 0;
+        font-family: var(--font-geist), system-ui, -apple-system, Arial, sans-serif;
+        font-size: 20px;
+        font-weight: 500;
+        line-height: 1.4;
+        color: #fff;
+        flex: 1 1 auto;
+      }
+
+      .dao-faq-toggle {
+        position: relative;
+        width: 28px;
+        height: 28px;
+        flex-shrink: 0;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        border-radius: 4px;
+        background: rgba(255, 255, 255, 0.05);
+        backdrop-filter: blur(10px);
+      }
+
+      .dao-faq-toggle::before,
+      .dao-faq-toggle::after {
+        content: "";
+        position: absolute;
+        background: #fff;
+        border-radius: 10px;
+        top: 50%;
+        left: 50%;
+      }
+
+      .dao-faq-toggle::before { width: 14px; height: 2px; transform: translate(-50%, -50%); }
+      .dao-faq-toggle::after  { width: 2px; height: 14px; transform: translate(-50%, -50%); transition: opacity 0.15s ease; }
+      .dao-faq-item[open] .dao-faq-toggle::after { opacity: 0; }
+
+      .dao-faq-answer-wrap { padding: 0 26px 27px; }
+      .dao-faq-answer-wrap hr {
+        margin: 0 0 16px;
+        border: 0;
+        border-top: 1px solid rgba(255, 255, 255, 0.15);
+      }
+
+      .dao-faq-answer {
+        margin: 0;
+        font-family: var(--font-geist), system-ui, -apple-system, Arial, sans-serif;
+        font-size: 16px;
+        font-weight: 400;
+        line-height: 1.5;
+        color: rgba(255, 255, 255, 0.88);
+      }
+
+      @media (max-width: 720px) {
+        .dao-faq-band { padding: 32px 24px; }
+        .dao-faq-intro-title h2 { font-size: 26px; }
+        .dao-faq-question { font-size: 17px; }
+        .dao-faq-item > summary { padding: 16px 20px 15px; }
+        .dao-faq-answer-wrap { padding: 0 20px 20px; }
+      }
+
+      /* ============================================================
+         Final CTA band — Ready to Lead in the New Economy.
+         Mirrors the homepage cta-preview pattern with floating
+         decorative images and a centered call-to-action. */
+      .dao-cta-band {
+        position: relative;
+        width: 100%;
+        padding: 96px 60px 120px;
+        overflow: hidden;
+      }
+
+      .dao-cta-preview {
+        position: relative;
+        max-width: 1440px;
+        margin: 0 auto;
+        min-height: 540px;
+      }
+
+      .dao-cta-text {
+        position: relative;
+        z-index: 2;
+        width: 100%;
+        max-width: 830px;
+        margin: 100px auto 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 28px;
+        text-align: center;
+        color: #fff;
+      }
+
+      .dao-cta-title {
+        margin: 0;
+        font-family: var(--font-clesmont), "Clesmont Demo", "Geist", Arial, sans-serif;
+        font-size: 84px;
+        font-weight: 700;
+        line-height: 1;
+        text-transform: uppercase;
+        color: #fff;
+        word-break: break-word;
+      }
+
+      .dao-cta-title .dao-cta-accent { color: #bca9ff; }
+
+      .dao-cta-subtitle {
+        margin: 0;
+        font-family: var(--font-geist), system-ui, -apple-system, Arial, sans-serif;
+        font-size: 17px;
+        font-weight: 400;
+        line-height: 1.4;
+        color: #fff;
+      }
+
+      .dao-cta-pill {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        height: 48px;
+        padding: 0 28px;
+        border-radius: 999px;
+        background: #fff;
+        font-family: var(--font-geist), Arial, sans-serif;
+        font-size: 15px;
+        font-weight: 500;
+        color: #000;
+        text-decoration: none;
+        cursor: pointer;
+        transition: transform 0.2s ease, background 0.2s ease;
+      }
+
+      .dao-cta-pill:hover {
+        background: #ece4ff;
+        transform: translateY(-1px);
+      }
+
+      .dao-cta-floating {
+        position: absolute;
+        z-index: 1;
+        pointer-events: none;
+        display: block;
+        object-fit: cover;
+        will-change: transform;
+        filter: drop-shadow(0 30px 60px rgba(0, 0, 0, 0.45));
+      }
+
+      .dao-cta-img-1 { left: 8%;  top: 0;    width: 150px; height: 200px; }
+      .dao-cta-img-2 { right: 8%; top: 30px; width: 220px; height: 220px; }
+      .dao-cta-img-3 { left: 12%; top: 320px; width: 180px; height: 240px; }
+      .dao-cta-img-4 { right: 14%; top: 340px; width: 92px; height: 115px; }
+
+      @media (max-width: 1100px) {
+        .dao-cta-title { font-size: 64px; }
+        .dao-cta-text  { margin-top: 80px; }
+        .dao-cta-img-1 { width: 110px; height: 146px; left: 4%; }
+        .dao-cta-img-2 { width: 170px; height: 170px; right: 4%; }
+        .dao-cta-img-3 { width: 140px; height: 186px; left: 5%; }
+        .dao-cta-img-4 { width: 76px; height: 95px; right: 6%; }
+      }
+
+      @media (max-width: 720px) {
+        .dao-cta-band { padding: 64px 24px 80px; }
+        .dao-cta-title { font-size: 44px; }
+        .dao-cta-text  { margin-top: 80px; max-width: none; gap: 22px; }
+        .dao-cta-preview { min-height: 520px; }
+        .dao-cta-img-1 { width: 80px;  height: 108px; left: 4%; top: 0; }
+        .dao-cta-img-2 { width: 110px; height: 110px; right: 4%; top: 30px; }
+        .dao-cta-img-3 { width: 100px; height: 130px; left: 6%; top: 330px; }
+        .dao-cta-img-4 { width: 60px;  height: 75px;  right: 8%; top: 340px; }
+      }
+
+      /* ============================================================
+         Footer — copied from homepage with `dao-` prefix overrides
+         so this page is self-contained. */
+      .dao-footer {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-top: -96px;
+        padding: 96px 0 0;
+        background: linear-gradient(
+          180deg,
+          rgba(51, 17, 113, 0) 0%,
+          rgba(51, 17, 113, 0.45) 30%,
+          rgba(51, 17, 113, 0.8) 70.68%,
+          rgba(51, 17, 113, 0) 100%
+        );
+        color: #fff;
+        overflow: hidden;
+      }
+
+      .dao-footer-inner {
+        width: min(1264px, calc(100% - 64px));
+        display: flex;
+        align-items: flex-end;
+        justify-content: space-between;
+        gap: 48px;
+      }
+
+      .dao-footer-brand {
+        display: flex;
+        flex-direction: column;
+        gap: 81px;
+        max-width: 359px;
+      }
+
+      .dao-footer-brand-top {
+        display: flex;
+        flex-direction: column;
+        gap: 14px;
+        width: 295px;
+        max-width: 100%;
+      }
+
+      .dao-footer-logo {
+        width: 110px;
+        height: 26px;
+        display: inline-flex;
+      }
+
+      .dao-footer-logo img { display: block; width: 100%; height: 100%; object-fit: contain; }
+
+      .dao-footer-tagline {
+        margin: 0;
+        font-family: Geist, Arial, sans-serif;
+        font-size: 14px;
+        font-weight: 500;
+        line-height: 1.6;
+        color: #fff;
+      }
+
+      .dao-footer-newsletter {
+        position: relative;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        width: 359px;
+        max-width: 100%;
+      }
+
+      .dao-footer-newsletter-input {
+        flex: 1 1 auto;
+        height: 40px;
+        padding: 0 14px;
+        border: 1px solid rgba(255, 255, 255, 0.5);
+        border-radius: 4px;
+        background: rgba(255, 255, 255, 0.4);
+        backdrop-filter: blur(3px);
+        font-family: Geist, Arial, sans-serif;
+        font-size: 14px;
+        line-height: 1.25;
+        color: #fff;
+        outline: none;
+      }
+
+      .dao-footer-newsletter-input::placeholder { color: rgba(255, 255, 255, 0.6); }
+
+      .dao-footer-newsletter-submit {
+        flex: 0 0 auto;
+        width: 119px;
+        height: 40px;
+        border: 1px solid rgba(255, 255, 255, 0.5);
+        border-radius: 4px;
+        background: #fff;
+        font-family: Geist, Arial, sans-serif;
+        font-size: 14px;
+        font-weight: 500;
+        color: #000;
+        cursor: pointer;
+        transition: transform 0.2s ease, background 0.2s ease;
+      }
+
+      .dao-footer-newsletter-submit:hover { background: rgba(255, 255, 255, 0.92); transform: translateY(-1px); }
+
+      .dao-footer-links {
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+        gap: 60px;
+        width: 346px;
+      }
+
+      .dao-footer-links-col { display: flex; flex-direction: column; gap: 18px; }
+
+      .dao-footer-links-col-title {
+        margin: 0;
+        font-family: Clesmont, "Bebas Neue", Geist, Arial, sans-serif;
+        font-size: 16px;
+        font-weight: 400;
+        line-height: 1.1;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+        color: #fff;
+      }
+
+      .dao-footer-links-col ul {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        margin: 0;
+        padding: 0;
+        list-style: none;
+      }
+
+      .dao-footer-links-col a {
+        font-family: Geist, Arial, sans-serif;
+        font-size: 14px;
+        font-weight: 500;
+        line-height: 1.6;
+        color: #fff;
+        text-decoration: none;
+        transition: opacity 0.2s ease;
+      }
+
+      .dao-footer-links-col a:hover { opacity: 0.7; }
+
+      .dao-footer-watermark {
+        position: relative;
+        display: block;
+        width: 100%;
+        margin-top: 44px;
+        line-height: 0;
+        pointer-events: none;
+        user-select: none;
+      }
+
+      .dao-footer-watermark img {
+        display: block;
+        width: 100%;
+        height: auto;
+        aspect-ratio: 1439 / 346;
+      }
+
+      .dao-footer-copyright {
+        margin: 0 0 32px;
+        font-family: Geist, Arial, sans-serif;
+        font-size: 14px;
+        font-weight: 400;
+        line-height: 1.1;
+        color: rgba(255, 255, 255, 0.7);
+        text-align: center;
+      }
+
+      @media (max-width: 900px) {
+        .dao-footer { padding-top: 64px; }
+        .dao-footer-inner { flex-direction: column; align-items: stretch; gap: 56px; }
+        .dao-footer-brand { gap: 36px; max-width: none; }
+        .dao-footer-brand-top { width: 100%; }
+        .dao-footer-newsletter { width: 100%; }
+        .dao-footer-links { width: 100%; }
+      }
+
+      @media (max-width: 480px) {
+        .dao-footer { padding-top: 48px; }
+        .dao-footer-newsletter { flex-direction: column; align-items: stretch; gap: 10px; }
+        .dao-footer-newsletter-submit { width: 100%; }
+        .dao-footer-links { gap: 32px; }
+      }
+
+      /* ============================================================
+         Speaker-avatar palettes — six rotating gradients used as
+         placeholder backgrounds until real photos are dropped in. */
+      .pal-1 { background: linear-gradient(140deg, #6a4cff 0%, #b46bff 100%); }
+      .pal-2 { background: linear-gradient(140deg, #2a6886 0%, #5db7ff 100%); }
+      .pal-3 { background: linear-gradient(140deg, #b85c8e 0%, #ff9bd1 100%); }
+      .pal-4 { background: linear-gradient(140deg, #4d3aa9 0%, #8c6bff 100%); }
+      .pal-5 { background: linear-gradient(140deg, #2f5d4a 0%, #6cd8a0 100%); }
+      .pal-6 { background: linear-gradient(140deg, #883319 0%, #ff9b6a 100%); }
+    </style>
+  </head>
+  <body>
+    <main class="dao-page">
+      <!-- ============================================================
+           Hero — Figma 196:2.
+           "SI HER DAO" wordmark over the existing site hero plate.
+           Underwater Si Her DAO hero plate. -->
+      <section class="dao-preview-band" aria-labelledby="dao-preview-title">
+        <img class="dao-preview-bg" src="./si-assets/dao-hero-bg.png" alt="" />
+        <nav class="dao-nav" aria-label="Si Her DAO primary">
+          <a class="dao-logo" href="./index.html" aria-label="SI home">
+            <img src="./si-assets/hero-logo.png" alt="SI<3>" />
+          </a>
+          <div class="dao-nav-right">
+            <div class="dao-nav-links">
+              <a href="./grow3dge.html">Grow3dge</a>
+              <a href="./index.html#after-hero">Well-Being</a>
+              <a href="./dao.html" aria-current="page">Si Her DAO</a>
+              <a href="./index.html#after-hero">Inters3ction</a>
+            </div>
+            <a class="dao-onboard" href="https://siu.si3.space/login">Onboard</a>
+          </div>
+        </nav>
+
+        <div class="dao-copy">
+          <span class="dao-pill">A Decentralizing Collaborative</span>
+          <h1 class="dao-title" id="dao-preview-title">
+            <span>Si Her</span>
+            <span class="dao-title-orb" aria-hidden="true">
+              <img src="./si-assets/grow3dge-title-orb.png" alt="" />
+            </span>
+            <span>DAO</span>
+          </h1>
+          <p>A decentralizing collaborative of womxn-led communities and industry leaders.</p>
+          <a class="dao-cta" href="#dao-learn">
+            <span>
+              Explore our DAO
+              <img src="./si-assets/si-inline-arrow.svg" alt="" />
+            </span>
+            <span class="dao-cta-line" aria-hidden="true"></span>
+          </a>
+        </div>
+
+        <div class="dao-scroll" aria-hidden="true">
+          <svg viewBox="0 0 129 129">
+            <defs>
+              <path id="dao-preview-scroll-path" d="M64.5,64.5 m-50,0 a50,50 0 1,1 100,0 a50,50 0 1,1 -100,0" />
+            </defs>
+            <text fill="currentColor">
+              <textPath href="#dao-preview-scroll-path" startOffset="0%">
+                SCROLL DOWN - SCROLL DOWN - SCROLL DOWN -
+              </textPath>
+            </text>
+          </svg>
+          <img src="./si-assets/grow3dge-scroll-crystal.png" alt="" />
+        </div>
+      </section>
+
+      <div class="dao-content-stage">
+        <div class="dao-crystal-frame" aria-hidden="true">
+          <div class="dao-crystal-asset" data-dao-crystal>
+            <img
+              src="./si-assets/grow3dge-sticky-crystal.png"
+              alt=""
+              loading="lazy"
+              decoding="async"
+            />
+          </div>
+        </div>
+
+        <!-- ============================================================
+             WE LEARN — Events & Sessions.
+             Featured Inters3ction event spotlight. -->
+        <section class="dao-learn" id="dao-learn" aria-labelledby="dao-learn-title">
+          <div class="dao-learn-inner">
+            <header class="dao-learn-header">
+              <div class="dao-learn-header-left">
+                <span class="dao-kicker">
+                  <img src="./si-assets/snapshot-mark.svg" alt="" />
+                  We Learn
+                </span>
+                <h2 class="dao-learn-title" id="dao-learn-title">
+                  Events &amp; <span>Sessions</span>
+                </h2>
+              </div>
+              <div class="dao-learn-header-right">
+                <p>Weekly peer-to-peer learning sessions led by Si Her DAO members &mdash; covering Web3, AI, governance, finance, and the leadership practices that sit underneath them.</p>
+              </div>
+            </header>
+
+            <article class="dao-event-card" aria-labelledby="dao-event-title">
+              <div class="dao-event-image">
+                <img src="./si-assets/inters3ction-event.jpg" alt="" loading="lazy" decoding="async" />
+              </div>
+              <div class="dao-event-content">
+                <dl class="dao-event-meta-row">
+                  <div class="dao-event-meta">
+                    <dt>Focus</dt>
+                    <dd>Mobile meets Web3</dd>
+                  </div>
+                  <div class="dao-event-meta">
+                    <dt>Format</dt>
+                    <dd>4-hour side events</dd>
+                  </div>
+                  <div class="dao-event-meta">
+                    <dt>For Whom</dt>
+                    <dd>Mobile adoption leaders</dd>
+                  </div>
+                </dl>
+                <hr class="dao-event-rule" />
+                <h3 class="dao-event-title" id="dao-event-title">Inters3ction Series</h3>
+                <p class="dao-event-description">A global side event series for the builders and marketers driving real-world mobile Web3 adoption.</p>
+                <div class="dao-event-bottom">
+                  <div class="dao-event-tags" aria-label="Event locations">
+                    <span class="dao-event-tag">NFT NYC</span>
+                    <span class="dao-event-tag">AI SUMMIT SF</span>
+                    <span class="dao-event-tag">SOLANA BREAKPOINT LONDON</span>
+                  </div>
+                  <span class="dao-event-coming">*coming soon</span>
+                </div>
+              </div>
+            </article>
+          </div>
+        </section>
+
+        <!-- ============================================================
+             WE LEAD — Two sub-sections:
+             1. Global communities map block (with continent pins + ticker)
+             2. WE BRAND — siher.eth + livestream channel cards
+             Bottom CTA bar closes the section and bridges to the DAO. -->
+        <section class="dao-lead" aria-labelledby="dao-lead-title">
+          <div class="dao-lead-inner">
+
+            <header class="dao-lead-header">
+              <div>
+                <span class="dao-kicker">
+                  <img src="./si-assets/snapshot-mark.svg" alt="" />
+                  We Lead
+                </span>
+                <h2 class="dao-lead-title" id="dao-lead-title">
+                  Womxn <span>Leading</span><br />Web3
+                </h2>
+              </div>
+              <div class="dao-lead-header-right">
+                <p>Every continent. 50+ womxn-led communities. One decentralizing collaborative reshaping what leadership looks like in Web3 &mdash; and who gets to be in the room.</p>
+              </div>
+            </header>
+
+            <!-- ========== Subsection 1: Global communities map ========== -->
+            <div class="dao-globe">
+              <header class="dao-globe-head">
+                <div>
+                  <span class="dao-globe-label">Global Communities Network</span>
+                  <div class="dao-globe-stat">
+                    <span class="dao-globe-num">50+</span>
+                    <span class="dao-globe-num-label">Womxn-led communities across 7 continents</span>
+                  </div>
+                </div>
+                <div class="dao-globe-tags" role="tablist" aria-label="Filter by region">
+                  <span class="dao-globe-tag is-active" role="tab" aria-selected="true">All Regions</span>
+                  <span class="dao-globe-tag" role="tab">Americas</span>
+                  <span class="dao-globe-tag" role="tab">Europe</span>
+                  <span class="dao-globe-tag" role="tab">Africa</span>
+                  <span class="dao-globe-tag" role="tab">Asia&#8209;Pacific</span>
+                </div>
+              </header>
+
+              <!-- World map + continent pin overlays.
+                   TODO: drop the brand-specified world map PNG into
+                   ./si-assets/world-map.png and update the src below. -->
+              <div class="dao-globe-canvas">
+                <img class="dao-globe-map" src="./si-assets/world-map.svg" alt="" aria-hidden="true" />
+
+                <div class="dao-globe-pins">
+                  <!-- North America -->
+                  <div class="dao-globe-pin" style="left: 19%; top: 42%;">
+                    <div class="dao-globe-bubble">
+                      <div class="dao-globe-bubble-name">North America</div>
+                      <div class="dao-globe-bubble-dots">
+                        <span class="dao-globe-logo" title="Solana Hot Girl Club">SHG</span>
+                        <span class="dao-globe-logo" title="ETHWomen">ETH</span>
+                        <span class="dao-globe-logo" title="Herstory">HST</span>
+                        <span class="dao-globe-logo is-more">+6</span>
+                      </div>
+                      <div class="dao-globe-count">9 communities</div>
+                    </div>
+                    <span class="dao-globe-stem"></span>
+                    <span class="dao-globe-dot"></span>
+                  </div>
+
+                  <!-- Latin America -->
+                  <div class="dao-globe-pin" style="left: 29%; top: 80%;">
+                    <div class="dao-globe-bubble">
+                      <div class="dao-globe-bubble-name">Latin America</div>
+                      <div class="dao-globe-bubble-dots">
+                        <span class="dao-globe-logo" title="ES Blockchain">ESB</span>
+                        <span class="dao-globe-logo" title="Eve Wealth">EVW</span>
+                        <span class="dao-globe-logo is-more">+3</span>
+                      </div>
+                      <div class="dao-globe-count">5 communities</div>
+                    </div>
+                    <span class="dao-globe-stem"></span>
+                    <span class="dao-globe-dot"></span>
+                  </div>
+
+                  <!-- Europe -->
+                  <div class="dao-globe-pin" style="left: 50%; top: 32%;">
+                    <div class="dao-globe-bubble">
+                      <div class="dao-globe-bubble-name">Europe</div>
+                      <div class="dao-globe-bubble-dots">
+                        <span class="dao-globe-logo" title="DLT Talents">DLT</span>
+                        <span class="dao-globe-logo" title="Suisterhood">SUI</span>
+                        <span class="dao-globe-logo" title="EvolveH3r">EVH</span>
+                        <span class="dao-globe-logo is-more">+4</span>
+                      </div>
+                      <div class="dao-globe-count">7 communities</div>
+                    </div>
+                    <span class="dao-globe-stem"></span>
+                    <span class="dao-globe-dot"></span>
+                  </div>
+
+                  <!-- Africa -->
+                  <div class="dao-globe-pin" style="left: 53%; top: 62%;">
+                    <div class="dao-globe-bubble">
+                      <div class="dao-globe-bubble-name">Africa</div>
+                      <div class="dao-globe-bubble-dots">
+                        <span class="dao-globe-logo" title="Women in Blockchain Africa">WBA</span>
+                        <span class="dao-globe-logo" title="EcstaSHE">ECT</span>
+                        <span class="dao-globe-logo is-more">+2</span>
+                      </div>
+                      <div class="dao-globe-count">4 communities</div>
+                    </div>
+                    <span class="dao-globe-stem"></span>
+                    <span class="dao-globe-dot"></span>
+                  </div>
+
+                  <!-- Middle East -->
+                  <div class="dao-globe-pin" style="left: 61%; top: 44%;">
+                    <div class="dao-globe-bubble">
+                      <div class="dao-globe-bubble-name">Middle East</div>
+                      <div class="dao-globe-bubble-dots">
+                        <span class="dao-globe-logo" title="Fem T3ch">FMT</span>
+                        <span class="dao-globe-logo is-more">+1</span>
+                      </div>
+                      <div class="dao-globe-count">2 communities</div>
+                    </div>
+                    <span class="dao-globe-stem"></span>
+                    <span class="dao-globe-dot"></span>
+                  </div>
+
+                  <!-- Asia-Pacific -->
+                  <div class="dao-globe-pin" style="left: 76%; top: 38%;">
+                    <div class="dao-globe-bubble">
+                      <div class="dao-globe-bubble-name">Asia-Pacific</div>
+                      <div class="dao-globe-bubble-dots">
+                        <span class="dao-globe-logo" title="Women in Web3 Hong Kong">HKW</span>
+                        <span class="dao-globe-logo" title="SystAIn3r">SYS</span>
+                        <span class="dao-globe-logo" title="Happ3n">H3N</span>
+                        <span class="dao-globe-logo is-more">+3</span>
+                      </div>
+                      <div class="dao-globe-count">6 communities</div>
+                    </div>
+                    <span class="dao-globe-stem"></span>
+                    <span class="dao-globe-dot"></span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Community ticker strip running across the bottom. -->
+              <div class="dao-globe-ticker" aria-hidden="true">
+                <div class="dao-globe-ticker-track">
+                  <span class="dao-globe-ticker-item"><span class="dao-globe-ticker-logo">DLT</span><span class="dao-globe-ticker-name">DLT Talents</span></span>
+                  <span class="dao-globe-ticker-sep"></span>
+                  <span class="dao-globe-ticker-item"><span class="dao-globe-ticker-logo">ECT</span><span class="dao-globe-ticker-name">EcstaSHE</span></span>
+                  <span class="dao-globe-ticker-sep"></span>
+                  <span class="dao-globe-ticker-item"><span class="dao-globe-ticker-logo">ESB</span><span class="dao-globe-ticker-name">ES Blockchain</span></span>
+                  <span class="dao-globe-ticker-sep"></span>
+                  <span class="dao-globe-ticker-item"><span class="dao-globe-ticker-logo">ETH</span><span class="dao-globe-ticker-name">ETHWomen</span></span>
+                  <span class="dao-globe-ticker-sep"></span>
+                  <span class="dao-globe-ticker-item"><span class="dao-globe-ticker-logo">EVW</span><span class="dao-globe-ticker-name">Eve Wealth</span></span>
+                  <span class="dao-globe-ticker-sep"></span>
+                  <span class="dao-globe-ticker-item"><span class="dao-globe-ticker-logo">EVH</span><span class="dao-globe-ticker-name">EvolveH3r</span></span>
+                  <span class="dao-globe-ticker-sep"></span>
+                  <span class="dao-globe-ticker-item"><span class="dao-globe-ticker-logo">FMT</span><span class="dao-globe-ticker-name">Fem T3ch</span></span>
+                  <span class="dao-globe-ticker-sep"></span>
+                  <span class="dao-globe-ticker-item"><span class="dao-globe-ticker-logo">FHR</span><span class="dao-globe-ticker-name">Furt&rsquo;Her</span></span>
+                  <span class="dao-globe-ticker-sep"></span>
+                  <span class="dao-globe-ticker-item"><span class="dao-globe-ticker-logo">H3N</span><span class="dao-globe-ticker-name">Happ3n</span></span>
+                  <span class="dao-globe-ticker-sep"></span>
+                  <span class="dao-globe-ticker-item"><span class="dao-globe-ticker-logo">HST</span><span class="dao-globe-ticker-name">Herstory</span></span>
+                  <span class="dao-globe-ticker-sep"></span>
+                  <span class="dao-globe-ticker-item"><span class="dao-globe-ticker-logo">SHR</span><span class="dao-globe-ticker-name">Si Her</span></span>
+                  <span class="dao-globe-ticker-sep"></span>
+                  <span class="dao-globe-ticker-item"><span class="dao-globe-ticker-logo">SHG</span><span class="dao-globe-ticker-name">Solana Hot Girl Club</span></span>
+                  <span class="dao-globe-ticker-sep"></span>
+                  <span class="dao-globe-ticker-item"><span class="dao-globe-ticker-logo">SUI</span><span class="dao-globe-ticker-name">Suisterhood</span></span>
+                  <span class="dao-globe-ticker-sep"></span>
+                  <span class="dao-globe-ticker-item"><span class="dao-globe-ticker-logo">SYS</span><span class="dao-globe-ticker-name">SystAIn3r</span></span>
+                  <span class="dao-globe-ticker-sep"></span>
+                  <span class="dao-globe-ticker-item"><span class="dao-globe-ticker-logo">WBA</span><span class="dao-globe-ticker-name">Women in Blockchain Africa</span></span>
+                  <span class="dao-globe-ticker-sep"></span>
+                  <span class="dao-globe-ticker-item"><span class="dao-globe-ticker-logo">WBT</span><span class="dao-globe-ticker-name">Women in Blockchain Talks</span></span>
+                  <span class="dao-globe-ticker-sep"></span>
+                  <span class="dao-globe-ticker-item"><span class="dao-globe-ticker-logo">HKW</span><span class="dao-globe-ticker-name">Women in Web3 HK</span></span>
+                  <span class="dao-globe-ticker-sep"></span>
+                  <!-- duplicate set for a seamless -50% loop -->
+                  <span class="dao-globe-ticker-item"><span class="dao-globe-ticker-logo">DLT</span><span class="dao-globe-ticker-name">DLT Talents</span></span>
+                  <span class="dao-globe-ticker-sep"></span>
+                  <span class="dao-globe-ticker-item"><span class="dao-globe-ticker-logo">ECT</span><span class="dao-globe-ticker-name">EcstaSHE</span></span>
+                  <span class="dao-globe-ticker-sep"></span>
+                  <span class="dao-globe-ticker-item"><span class="dao-globe-ticker-logo">ESB</span><span class="dao-globe-ticker-name">ES Blockchain</span></span>
+                  <span class="dao-globe-ticker-sep"></span>
+                  <span class="dao-globe-ticker-item"><span class="dao-globe-ticker-logo">ETH</span><span class="dao-globe-ticker-name">ETHWomen</span></span>
+                  <span class="dao-globe-ticker-sep"></span>
+                  <span class="dao-globe-ticker-item"><span class="dao-globe-ticker-logo">EVW</span><span class="dao-globe-ticker-name">Eve Wealth</span></span>
+                  <span class="dao-globe-ticker-sep"></span>
+                  <span class="dao-globe-ticker-item"><span class="dao-globe-ticker-logo">EVH</span><span class="dao-globe-ticker-name">EvolveH3r</span></span>
+                  <span class="dao-globe-ticker-sep"></span>
+                  <span class="dao-globe-ticker-item"><span class="dao-globe-ticker-logo">FMT</span><span class="dao-globe-ticker-name">Fem T3ch</span></span>
+                  <span class="dao-globe-ticker-sep"></span>
+                  <span class="dao-globe-ticker-item"><span class="dao-globe-ticker-logo">FHR</span><span class="dao-globe-ticker-name">Furt&rsquo;Her</span></span>
+                  <span class="dao-globe-ticker-sep"></span>
+                  <span class="dao-globe-ticker-item"><span class="dao-globe-ticker-logo">H3N</span><span class="dao-globe-ticker-name">Happ3n</span></span>
+                  <span class="dao-globe-ticker-sep"></span>
+                  <span class="dao-globe-ticker-item"><span class="dao-globe-ticker-logo">HST</span><span class="dao-globe-ticker-name">Herstory</span></span>
+                  <span class="dao-globe-ticker-sep"></span>
+                  <span class="dao-globe-ticker-item"><span class="dao-globe-ticker-logo">SHR</span><span class="dao-globe-ticker-name">Si Her</span></span>
+                  <span class="dao-globe-ticker-sep"></span>
+                  <span class="dao-globe-ticker-item"><span class="dao-globe-ticker-logo">SHG</span><span class="dao-globe-ticker-name">Solana Hot Girl Club</span></span>
+                  <span class="dao-globe-ticker-sep"></span>
+                  <span class="dao-globe-ticker-item"><span class="dao-globe-ticker-logo">SUI</span><span class="dao-globe-ticker-name">Suisterhood</span></span>
+                  <span class="dao-globe-ticker-sep"></span>
+                  <span class="dao-globe-ticker-item"><span class="dao-globe-ticker-logo">SYS</span><span class="dao-globe-ticker-name">SystAIn3r</span></span>
+                  <span class="dao-globe-ticker-sep"></span>
+                  <span class="dao-globe-ticker-item"><span class="dao-globe-ticker-logo">WBA</span><span class="dao-globe-ticker-name">Women in Blockchain Africa</span></span>
+                  <span class="dao-globe-ticker-sep"></span>
+                  <span class="dao-globe-ticker-item"><span class="dao-globe-ticker-logo">WBT</span><span class="dao-globe-ticker-name">Women in Blockchain Talks</span></span>
+                  <span class="dao-globe-ticker-sep"></span>
+                  <span class="dao-globe-ticker-item"><span class="dao-globe-ticker-logo">HKW</span><span class="dao-globe-ticker-name">Women in Web3 HK</span></span>
+                </div>
+              </div>
+            </div>
+
+            <!-- ========== Subsection 2: WE BRAND ========== -->
+            <div class="dao-brand">
+              <header class="dao-brand-head">
+                <div class="dao-brand-head-left">
+                  <span class="dao-kicker">
+                    <img src="./si-assets/snapshot-mark.svg" alt="" />
+                    We Brand
+                  </span>
+                  <h3 class="dao-brand-title">
+                    Amplify Your<br /><span>Voice</span>
+                  </h3>
+                </div>
+                <p>Receive Web3-enabled tools to amplify your personal brand and voice. Build your presence. Own your story on-chain.</p>
+              </header>
+
+              <div class="dao-brand-grid">
+                <!-- Card 1 — Personal Brand / siher.eth.
+                     TODO: replace .dao-brand-card-media contents with the
+                     personal brand mockup once available. -->
+                <article class="dao-brand-card is-brand">
+                  <div class="dao-brand-card-media">
+                    <span class="dao-brand-card-placeholder">Drop siher.eth mockup here</span>
+                  </div>
+                  <div class="dao-brand-card-body">
+                    <span class="dao-brand-card-eyebrow">Personal Brand</span>
+                    <h4 class="dao-brand-card-title">Create Your<br />Web3 Identity</h4>
+                    <p>Utilize your custom siher.eth template to showcase your personal brand in Web3.</p>
+                    <a class="dao-brand-card-cta" href="#">Claim Your Space</a>
+                  </div>
+                </article>
+
+                <!-- Card 2 — Voice & Network / livestream.
+                     TODO: replace .dao-brand-card-media contents with the
+                     Si Her TV / Streamr mockup once available. -->
+                <article class="dao-brand-card is-media">
+                  <div class="dao-brand-card-media">
+                    <span class="dao-brand-card-placeholder">Drop livestream mockup here</span>
+                  </div>
+                  <div class="dao-brand-card-body">
+                    <span class="dao-brand-card-eyebrow">Media &amp; Network</span>
+                    <h4 class="dao-brand-card-title">Amplify Your<br />Voice &amp; Network</h4>
+                    <p>Develop your own livestream channel with our decentralized media platform, powered by Streamr.</p>
+                    <a class="dao-brand-card-cta" href="#">Launch Channel</a>
+                  </div>
+                </article>
+              </div>
+            </div>
+
+            <!-- ========== Bottom CTA bar ========== -->
+            <div class="dao-lead-cta-bar">
+              <div>
+                <div class="dao-lead-cta-text">Ready to join the <span>global network?</span></div>
+                <div class="dao-lead-cta-sub">Connect with 50+ womxn-led communities across every continent &mdash; inside Si Her DAO.</div>
+              </div>
+              <div class="dao-lead-cta-btns">
+                <a class="dao-lead-cta-outline" href="#">Explore Communities</a>
+                <a class="dao-lead-cta-primary" href="#">Join Si Her DAO &rarr;</a>
+              </div>
+            </div>
+
+          </div>
+        </section>
+
+        <!-- ============================================================
+             WE COLLAB — Kaia AI agent block. -->
+        <section class="dao-collab" aria-labelledby="dao-collab-title">
+          <div class="dao-collab-inner">
+            <div class="dao-collab-copy">
+              <span class="dao-kicker">
+                <img src="./si-assets/snapshot-mark.svg" alt="" />
+                We Collab
+              </span>
+              <h2 class="dao-collab-title" id="dao-collab-title">
+                Meet Kaia &mdash;<br />Our <span>AI Agent</span>
+              </h2>
+              <p>Kaia is your intelligent companion for navigating Si Her DAO &mdash; matching members to buddies, partners, and the right rooms across the network.</p>
+              <a class="dao-collab-cta" href="#">Join our DAO</a>
+            </div>
+
+            <article class="dao-kaia-card">
+              <div class="dao-kaia-head">
+                <div class="dao-kaia-portrait" aria-hidden="true"></div>
+                <div>
+                  <div class="dao-kaia-name">Kaia</div>
+                  <span>Si Her DAO &middot; AI Agent</span>
+                </div>
+              </div>
+              <ul class="dao-kaia-list">
+                <li>
+                  <strong>01</strong>
+                  <span>Find buddies for the upcoming conferences you're attending.</span>
+                </li>
+                <li>
+                  <strong>02</strong>
+                  <span>Match with DAO members for new business and partnership opportunities.</span>
+                </li>
+                <li>
+                  <strong>03</strong>
+                  <span>Connect with like-minded peers and grow your support and learning network.</span>
+                </li>
+              </ul>
+            </article>
+          </div>
+        </section>
+
+        <!-- ============================================================
+             WE GOVERN — DAO Governance working groups. -->
+        <section class="dao-govern" aria-labelledby="dao-govern-title">
+          <div class="dao-govern-inner">
+            <header class="dao-govern-header">
+              <div>
+                <span class="dao-kicker">
+                  <img src="./si-assets/snapshot-mark.svg" alt="" />
+                  We Govern
+                </span>
+                <h2 class="dao-govern-title" id="dao-govern-title">
+                  DAO <span>Governance</span>
+                </h2>
+              </div>
+              <div class="dao-govern-header-right">
+                <p>Working groups inside the DAO align partners, members, and contributors toward shared growth &mdash; each one open to apply, contribute, and earn.</p>
+                <a class="dao-collab-cta" href="#">Join our DAO</a>
+              </div>
+            </header>
+
+            <div class="dao-govern-grid">
+              <article class="dao-govern-card">
+                <div class="dao-govern-card-head">
+                  <span class="dao-govern-card-number">01</span>
+                  <span class="dao-govern-card-tag">Working Group</span>
+                </div>
+                <hr />
+                <h3>DAO Growth</h3>
+                <p>Bring new members, partners, and communities into Si Her DAO &mdash; expanding the network's surface area season over season.</p>
+              </article>
+
+              <article class="dao-govern-card">
+                <div class="dao-govern-card-head">
+                  <span class="dao-govern-card-number">02</span>
+                  <span class="dao-govern-card-tag">Working Group</span>
+                </div>
+                <hr />
+                <h3>DeFi &amp; Governance</h3>
+                <p>Treasury, voting, and capital allocation. Steward the DAO's on-chain operations and the policies that shape them.</p>
+              </article>
+
+              <article class="dao-govern-card">
+                <div class="dao-govern-card-head">
+                  <span class="dao-govern-card-number">03</span>
+                  <span class="dao-govern-card-tag">Working Group</span>
+                </div>
+                <hr />
+                <h3>Tech &amp; Innovation</h3>
+                <p>Ship the tools the DAO runs on &mdash; from Kaia to siher.eth to the livestream platform &mdash; and shape what we build next.</p>
+              </article>
+
+              <article class="dao-govern-card">
+                <div class="dao-govern-card-head">
+                  <span class="dao-govern-card-number">04</span>
+                  <span class="dao-govern-card-tag">Working Group</span>
+                </div>
+                <hr />
+                <h3>Education &amp; Partnerships</h3>
+                <p>Curate the curriculum, the sessions, and the partner programs that move members from explorer to contributor to leader.</p>
+              </article>
+            </div>
+          </div>
+        </section>
+      </div><!-- /.dao-content-stage -->
+
+      <!-- ============================================================
+           Testimonials — Leaders Co-Creating the New Economy.
+           Same carousel mechanic as Grow3dge: click an avatar to jump,
+           click anywhere else to advance. -->
+      <section
+        class="dao-testimonial"
+        aria-labelledby="dao-testimonial-title"
+        data-dao-testimonial
+      >
+        <div class="dao-testimonial-inner">
+          <div class="dao-testimonial-head">
+            <span class="dao-kicker">
+              <img src="./si-assets/snapshot-mark.svg" alt="" />
+              <span class="dao-testimonial-title" id="dao-testimonial-title">
+                Leaders Co-Creating <em>the New Economy</em>
+              </span>
+            </span>
+            <span class="dao-testimonial-tag">Si Her DAO &middot; Real Voices</span>
+          </div>
+
+          <div class="dao-testimonial-avatars" role="tablist" aria-label="Choose a voice">
+            <button type="button" class="dao-testimonial-avatar is-active" data-testimonial-avatar="0" role="tab" aria-selected="true" aria-label="Anna Riabokon, RARI Foundation">
+              <span class="pal-4" aria-hidden="true">AR</span>
+            </button>
+            <button type="button" class="dao-testimonial-avatar" data-testimonial-avatar="1" role="tab" aria-selected="false" aria-label="Sarah Sawyer, TreasureCorp">
+              <span class="pal-2" aria-hidden="true">SS</span>
+            </button>
+            <button type="button" class="dao-testimonial-avatar" data-testimonial-avatar="2" role="tab" aria-selected="false" aria-label="Alexandra Overgaag, Thrilld Labs">
+              <span class="pal-3" aria-hidden="true">AO</span>
+            </button>
+            <button type="button" class="dao-testimonial-avatar" data-testimonial-avatar="3" role="tab" aria-selected="false" aria-label="Granting Access Event, Arbitrum DAO">
+              <span class="pal-1" aria-hidden="true">AD</span>
+            </button>
+            <button type="button" class="dao-testimonial-avatar" data-testimonial-avatar="4" role="tab" aria-selected="false" aria-label="Push DAO">
+              <span class="pal-5" aria-hidden="true">PD</span>
+            </button>
+            <button type="button" class="dao-testimonial-avatar" data-testimonial-avatar="5" role="tab" aria-selected="false" aria-label="Unlock Protocol DAO">
+              <span class="pal-6" aria-hidden="true">UP</span>
+            </button>
+          </div>
+
+          <blockquote class="dao-testimonial-quote" aria-live="polite">
+            <img class="dao-testimonial-quote-mark" src="./si-assets/testimonial-quote.svg" alt="" aria-hidden="true" />
+            <p data-testimonial-quote>
+              &ldquo;Being part of Si Her DAO has been such an inspiring experience. It's one of the few communities that truly lives by the values of collaboration, creativity, and real-world impact. I've met incredible founders, artists, and operators who genuinely care about shaping the future of decentralized innovation and social good.&rdquo;
+            </p>
+          </blockquote>
+
+          <figcaption class="dao-testimonial-attribution">
+            <span class="dao-testimonial-attribution-avatar pal-4" data-testimonial-avatar-img aria-hidden="true">AR</span>
+            <div class="dao-testimonial-attribution-text">
+              <strong data-testimonial-name>Anna Riabokon</strong>
+              <span data-testimonial-role>Operations &amp; Governance Lead at RARI Foundation</span>
+            </div>
+          </figcaption>
+
+          <div class="dao-testimonial-foot">
+            <div class="dao-testimonial-progress" aria-hidden="true">
+              <span class="dao-testimonial-progress-fill" data-testimonial-progress></span>
+            </div>
+            <div class="dao-testimonial-foot-row">
+              <span>Testimonials / Real Voices</span>
+              <span class="dao-testimonial-hint">Click anywhere for next</span>
+            </div>
+          </div>
+        </div>
+
+        <script type="application/json" data-testimonial-data>
+        [
+          {
+            "quote": "“Being part of Si Her DAO has been such an inspiring experience. It's one of the few communities that truly lives by the values of collaboration, creativity, and real-world impact. I've met incredible founders, artists, and operators who genuinely care about shaping the future of decentralized innovation and social good.”",
+            "name": "Anna Riabokon",
+            "role": "Operations & Governance Lead at RARI Foundation",
+            "initials": "AR",
+            "palette": "pal-4"
+          },
+          {
+            "quote": "“Si Her DAO is incredibly welcoming, and Kara's leadership style really empowers community leads. Sessions provide an excellent platform for thought leadership. Presenting TreasureCorp confirmed our solutions address DAO pain points, and I walked away with concrete leads for real-world use cases.”",
+            "name": "Sarah Sawyer",
+            "role": "Founder of TreasureCorp",
+            "initials": "SS",
+            "palette": "pal-2"
+          },
+          {
+            "quote": "“I absolutely love my personal decentralised website (and so do event organizers!) and I wholeheartedly recommend all other womxn in the space to explore creating their own.”",
+            "name": "Alexandra Overgaag",
+            "role": "Founder of Thrilld Labs",
+            "initials": "AO",
+            "palette": "pal-3"
+          },
+          {
+            "quote": "“The Granting Access event was well-attended and successfully executed, with clear evidence of deliverables. The focus on onboarding under-represented groups is seen as positive for Arbitrum.”",
+            "name": "Granting Access Event",
+            "role": "Arbitrum DAO",
+            "initials": "AD",
+            "palette": "pal-1"
+          },
+          {
+            "quote": "“Push x Si Her DAO's partnership has been impressive, driving awareness and hundreds of new adopters to the protocol.”",
+            "name": "Si Her Push Web3",
+            "role": "Push DAO",
+            "initials": "PD",
+            "palette": "pal-5"
+          },
+          {
+            "quote": "“Unlock Protocol DAO and Si Her DAO have transformed workshops into a joyful celebration of kindness and enthusiasm, fostering a vibrant community embracing blockchain-based events and memberships.”",
+            "name": "Si Her Unlock Value",
+            "role": "Unlock Protocol DAO",
+            "initials": "UP",
+            "palette": "pal-6"
+          }
+        ]
+        </script>
+      </section>
+
+      <!-- ============================================================
+           FAQ — 4 items. The original DAO page only ships answer copy
+           for the first item; the remaining three answers are drafted
+           here as plausible defaults and marked TODO so Kara can
+           confirm or replace them. -->
+      <div class="dao-faq-band">
+        <section class="dao-faq" aria-labelledby="dao-faq-title">
+          <header class="dao-faq-intro">
+            <div class="dao-faq-intro-title">
+              <img src="./si-assets/faq-mark.svg" alt="" />
+              <h2 id="dao-faq-title">Si Her FAQ</h2>
+            </div>
+            <p>Quick answers about Si Her DAO &mdash; who we are, how we govern, and how to join.</p>
+          </header>
+
+          <div class="dao-faq-list">
+            <details class="dao-faq-item" open>
+              <summary>
+                <span class="dao-faq-question">What is Si Her DAO?</span>
+                <span class="dao-faq-toggle" aria-hidden="true"></span>
+              </summary>
+              <div class="dao-faq-answer-wrap">
+                <hr />
+                <p class="dao-faq-answer">Si Her is a leadership collaborative of womxn in emerging tech governed by its DAO (Decentralized Autonomous Organization).</p>
+              </div>
+            </details>
+
+            <details class="dao-faq-item">
+              <summary>
+                <span class="dao-faq-question">Who is in Si Her DAO?</span>
+                <span class="dao-faq-toggle" aria-hidden="true"></span>
+              </summary>
+              <div class="dao-faq-answer-wrap">
+                <hr />
+                <!-- TODO: confirm copy with Kara -->
+                <p class="dao-faq-answer">Founders, operators, researchers, and contributors from 50+ womxn-led communities across Web3, AI, and emerging tech &mdash; plus partner ecosystems and aligned industry leaders.</p>
+              </div>
+            </details>
+
+            <details class="dao-faq-item">
+              <summary>
+                <span class="dao-faq-question">Does the DAO have a token?</span>
+                <span class="dao-faq-toggle" aria-hidden="true"></span>
+              </summary>
+              <div class="dao-faq-answer-wrap">
+                <hr />
+                <!-- TODO: confirm copy with Kara -->
+                <p class="dao-faq-answer">Membership and contribution are signaled on-chain via NFTs and reputation credentials issued through Unlock Protocol. A fungible governance token is not part of the current design.</p>
+              </div>
+            </details>
+
+            <details class="dao-faq-item">
+              <summary>
+                <span class="dao-faq-question">How do I join the DAO, and is there a fee?</span>
+                <span class="dao-faq-toggle" aria-hidden="true"></span>
+              </summary>
+              <div class="dao-faq-answer-wrap">
+                <hr />
+                <!-- TODO: confirm copy with Kara -->
+                <p class="dao-faq-answer">Apply via the &ldquo;Join our DAO&rdquo; flow above. New members are onboarded through an aligned community lead and a Si Her DAO orientation; there is no membership fee for individuals.</p>
+              </div>
+            </details>
+          </div>
+        </section>
+      </div>
+
+      <!-- ============================================================
+           Final CTA — Ready to Lead in the New Economy. -->
+      <div class="dao-cta-band">
+        <section class="dao-cta-preview" aria-labelledby="dao-cta-final-title">
+          <img class="dao-cta-floating dao-cta-img-1" src="./si-assets/cta-vr-portrait.png" alt="" aria-hidden="true" loading="lazy" />
+          <img class="dao-cta-floating dao-cta-img-2" src="./si-assets/cta-saturn-alien.png" alt="" aria-hidden="true" loading="lazy" />
+          <img class="dao-cta-floating dao-cta-img-3" src="./si-assets/cta-sunflowers-portal.png" alt="" aria-hidden="true" loading="lazy" />
+          <img class="dao-cta-floating dao-cta-img-4" src="./si-assets/cta-sunset-profile.png" alt="" aria-hidden="true" loading="lazy" />
+
+          <div class="dao-cta-text">
+            <h2 class="dao-cta-title" id="dao-cta-final-title">
+              READY TO LEAD<br /><span class="dao-cta-accent">IN THE NEW ECONOMY?</span>
+            </h2>
+            <p class="dao-cta-subtitle">Join our decentralizing collaborative and enter the forefront of Web3.</p>
+            <a class="dao-cta-pill" href="#">Apply to Join</a>
+          </div>
+        </section>
+      </div>
+    </main>
+
+    <footer class="dao-footer" aria-labelledby="dao-footer-newsletter-title">
+      <div class="dao-footer-inner">
+        <div class="dao-footer-brand">
+          <div class="dao-footer-brand-top">
+            <span class="dao-footer-logo" aria-label="SI<3>">
+              <img src="./si-assets/hero-logo.png" alt="SI<3>" />
+            </span>
+            <p class="dao-footer-tagline" id="dao-footer-newsletter-title">
+              Stay up-to-date with our CurrentSi newsletter.
+            </p>
+          </div>
+          <form class="dao-footer-newsletter" novalidate>
+            <label class="sr-only" for="dao-footer-email" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);">Email</label>
+            <input id="dao-footer-email" class="dao-footer-newsletter-input" type="email" placeholder="Type your email here" autocomplete="email" />
+            <button class="dao-footer-newsletter-submit" type="submit">Subscribe</button>
+          </form>
+        </div>
+        <nav class="dao-footer-links" aria-label="Footer">
+          <div class="dao-footer-links-col">
+            <h3 class="dao-footer-links-col-title">SI Things</h3>
+            <ul>
+              <li><a href="https://www.linkedin.com/company/si3-ecosystem/">Linkedin</a></li>
+              <li><a href="http://x.com/si3_ecosystem">X</a></li>
+              <li><a href="#">Brand Kit</a></li>
+              <li><a href="/policy/privacy">Policies</a></li>
+            </ul>
+          </div>
+          <div class="dao-footer-links-col">
+            <h3 class="dao-footer-links-col-title">Ecosystem</h3>
+            <ul>
+              <li><a href="./index.html#after-hero">Inters3ction</a></li>
+              <li><a href="./grow3dge.html">Grow3dge</a></li>
+              <li><a href="./dao.html">Si Her DAO</a></li>
+              <li><a href="./index.html#after-hero">Well-Being</a></li>
+            </ul>
+          </div>
+        </nav>
+      </div>
+      <div class="dao-footer-watermark" aria-hidden="true">
+        <img src="./si-assets/footer-si3-wordmark.svg" alt="" loading="lazy" />
+      </div>
+      <p class="dao-footer-copyright">Copyright &copy; 2026 SI&lt;3&gt;, Inc. All rights reserved.</p>
+    </footer>
+
+    <script>
+      /* Sticky crystal backdrop — mirrors the Grow3dge curve so the
+         crystal scale/opacity/y settle as the content-stage scrolls
+         into view. */
+      (() => {
+        const stage = document.querySelector(".dao-content-stage");
+        const crystal = document.querySelector("[data-dao-crystal]");
+        if (!stage || !crystal) return;
+
+        const easeOutCubic = (t) => 1 - Math.pow(1 - t, 3);
+        const clamp01 = (v) => (v < 0 ? 0 : v > 1 ? 1 : v);
+
+        let ticking = false;
+        const update = () => {
+          const rect = stage.getBoundingClientRect();
+          const vh = window.innerHeight || document.documentElement.clientHeight;
+          const raw = (vh * 0.84 - rect.top) / (vh * 0.34);
+          const eased = easeOutCubic(clamp01(raw));
+          crystal.style.setProperty("--sticky-crystal-scale", String(0.42 + eased * 0.58));
+          crystal.style.setProperty("--sticky-crystal-y", `${(1 - eased) * 190}px`);
+          crystal.style.setProperty("--sticky-crystal-opacity", String(0.18 + eased * 0.82));
+          ticking = false;
+        };
+
+        const onScroll = () => {
+          if (ticking) return;
+          ticking = true;
+          requestAnimationFrame(update);
+        };
+
+        window.addEventListener("scroll", onScroll, { passive: true });
+        window.addEventListener("resize", onScroll, { passive: true });
+        update();
+      })();
+
+      /* Testimonial carousel — click an avatar to jump to that voice,
+         click anywhere else in the section to advance to the next. */
+      (() => {
+        const section = document.querySelector("[data-dao-testimonial]");
+        if (!section) return;
+
+        const dataEl = section.querySelector("[data-testimonial-data]");
+        let testimonials;
+        try {
+          testimonials = JSON.parse(dataEl.textContent);
+        } catch (err) {
+          return;
+        }
+        if (!Array.isArray(testimonials) || testimonials.length === 0) return;
+
+        const avatars = Array.from(section.querySelectorAll("[data-testimonial-avatar]"));
+        const quoteEl = section.querySelector("[data-testimonial-quote]");
+        const nameEl = section.querySelector("[data-testimonial-name]");
+        const roleEl = section.querySelector("[data-testimonial-role]");
+        const attrAvatarEl = section.querySelector("[data-testimonial-avatar-img]");
+        const progressEl = section.querySelector("[data-testimonial-progress]");
+
+        const initial = avatars.findIndex((a) => a.classList.contains("is-active"));
+        let active = initial >= 0 ? initial : 0;
+
+        const setProgress = (i) => {
+          if (!progressEl) return;
+          progressEl.style.width = `${((i + 1) / testimonials.length) * 100}%`;
+        };
+
+        const palettes = ["pal-1","pal-2","pal-3","pal-4","pal-5","pal-6"];
+        const swapPalette = (el, next) => {
+          if (!el) return;
+          palettes.forEach((p) => el.classList.remove(p));
+          if (next) el.classList.add(next);
+        };
+
+        const render = (animate) => {
+          const t = testimonials[active];
+          if (!t) return;
+
+          const commit = () => {
+            if (quoteEl) quoteEl.textContent = t.quote;
+            if (nameEl) nameEl.textContent = t.name;
+            if (roleEl) roleEl.textContent = t.role;
+            if (attrAvatarEl) {
+              attrAvatarEl.textContent = t.initials || "";
+              swapPalette(attrAvatarEl, t.palette);
+            }
+            avatars.forEach((a, i) => {
+              const on = i === active;
+              a.classList.toggle("is-active", on);
+              a.setAttribute("aria-selected", on ? "true" : "false");
+            });
+            setProgress(active);
+            section.classList.remove("is-changing");
+          };
+
+          if (!animate) {
+            commit();
+            return;
+          }
+          section.classList.add("is-changing");
+          window.setTimeout(commit, 180);
+        };
+
+        const setActive = (i) => {
+          const next = ((i % testimonials.length) + testimonials.length) % testimonials.length;
+          if (next === active) return;
+          active = next;
+          render(true);
+        };
+
+        avatars.forEach((avatar, i) => {
+          avatar.addEventListener("click", (e) => {
+            e.stopPropagation();
+            setActive(i);
+          });
+          avatar.addEventListener("keydown", (e) => {
+            if (e.key === "ArrowRight") {
+              e.preventDefault();
+              setActive(active + 1);
+              avatars[active].focus();
+            } else if (e.key === "ArrowLeft") {
+              e.preventDefault();
+              setActive(active - 1);
+              avatars[active].focus();
+            }
+          });
+        });
+
+        section.addEventListener("click", (e) => {
+          if (e.target.closest("[data-testimonial-avatar], a, button")) return;
+          setActive(active + 1);
+        });
+
+        setProgress(active);
+      })();
+    </script>
+  </body>
+</html>
