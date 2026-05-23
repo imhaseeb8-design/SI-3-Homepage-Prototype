@@ -739,37 +739,86 @@
 
       .dao-lead-header {
         display: grid;
-        grid-template-columns: minmax(0, 1fr) minmax(0, 540px);
-        align-items: end;
+        grid-template-columns: minmax(0, 429px) minmax(0, 1fr);
+        align-items: start;
         gap: 48px;
+        padding-bottom: 30px;
+      }
+
+      .dao-lead-header-left {
+        display: flex;
+        flex-direction: column;
+        gap: 22px;
+        align-items: flex-start;
       }
 
       .dao-lead-title {
-        margin: 18px 0 0;
+        margin: 0;
         font-family: var(--font-clesmont), "Clesmont Demo", var(--font-geist), Arial, sans-serif;
-        font-size: 40px;
+        font-size: 32px;
         font-weight: 400;
         line-height: 1.05;
         color: #fff;
         text-transform: uppercase;
+        letter-spacing: -0.32px;
       }
 
-      .dao-lead-title span { color: #bca9ff; }
-
-      .dao-lead-header-right p {
-        max-width: 540px;
+      .dao-lead-subtitle {
         margin: 0;
         font-family: var(--font-geist), system-ui, -apple-system, Arial, sans-serif;
-        font-size: 18px;
+        font-size: 14px;
         font-weight: 400;
-        line-height: 1.4;
+        line-height: 1.55;
+        color: #cbcbcb;
+      }
+
+      .dao-lead-header-right {
+        display: flex;
+        flex-direction: column;
+        gap: 28px;
+        align-items: flex-end;
+        padding-top: 28px;
+      }
+
+      .dao-lead-header-right p {
+        max-width: 483px;
+        margin: 0;
+        font-family: var(--font-geist), system-ui, -apple-system, Arial, sans-serif;
+        font-size: 14px;
+        font-weight: 400;
+        line-height: 1.55;
         color: #cbcbcb;
         text-align: right;
       }
 
+      .dao-lead-stamp {
+        display: inline-flex;
+        align-items: center;
+        gap: 14px;
+        font-family: var(--font-geist-mono), monospace;
+        font-size: 11px;
+        line-height: 1;
+        letter-spacing: 1.33px;
+        text-transform: uppercase;
+        color: rgba(255, 255, 255, 0.42);
+      }
+
+      .dao-lead-stamp-dot {
+        display: inline-block;
+        width: 6px;
+        height: 6px;
+        margin-left: 4px;
+        border-radius: 999px;
+        background: #bca9ff;
+        box-shadow: 0 0 12px rgba(188, 169, 255, 0.6);
+      }
+
       /* ============================================================
-         Sub-section 1: Global communities map block. */
-      .dao-globe {
+         Sub-section 1: Global communities map block.
+         Layout follows Figma node 371:5: head (80) → stage (553) →
+         drawer (493) → rail (110). Implemented as 4 stacked rows
+         inside a single rounded card. */
+      .dao-map {
         position: relative;
         overflow: hidden;
         border: 1px solid rgba(255, 255, 255, 0.18);
@@ -778,290 +827,599 @@
           radial-gradient(120% 60% at 50% 0%, rgba(76, 42, 156, 0.18) 0%, rgba(8, 7, 18, 0) 70%),
           rgba(8, 7, 18, 0.7);
         backdrop-filter: blur(8px);
-        -webkit-backdrop-filter: blur(8px);
       }
 
-      .dao-globe-head {
+      /* ----- Head strip ----- */
+      .dao-map-head {
         display: flex;
         align-items: center;
         justify-content: space-between;
         gap: 32px;
-        padding: 26px 32px 22px;
-        border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-        flex-wrap: wrap;
+        min-height: 80px;
+        padding: 22px 26px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
       }
 
-      .dao-globe-label {
-        display: block;
-        font-family: var(--font-geist-mono), monospace;
-        font-size: 12px;
-        line-height: 1;
-        letter-spacing: 0.18em;
-        text-transform: uppercase;
-        color: rgba(255, 255, 255, 0.55);
-      }
-
-      .dao-globe-stat {
+      .dao-map-stat {
         display: flex;
-        align-items: baseline;
-        gap: 12px;
-        margin-top: 10px;
+        align-items: center;
+        gap: 18px;
+        min-width: 0;
       }
 
-      .dao-globe-num {
+      .dao-map-stat-num {
         font-family: var(--font-clesmont), "Clesmont Demo", var(--font-geist), Arial, sans-serif;
-        font-size: 44px;
-        font-weight: 700;
+        font-size: 24px;
+        font-weight: 400;
         line-height: 1;
         color: #fff;
-        text-transform: uppercase;
+        letter-spacing: -0.32px;
       }
 
-      .dao-globe-num-label {
+      .dao-map-stat-label {
+        max-width: 240px;
         font-family: var(--font-geist), system-ui, -apple-system, Arial, sans-serif;
         font-size: 13px;
         line-height: 1.4;
         color: rgba(255, 255, 255, 0.7);
-        max-width: 240px;
       }
 
-      .dao-globe-tags {
+      .dao-map-filters {
         display: flex;
+        align-items: center;
         gap: 8px;
         flex-wrap: wrap;
         justify-content: flex-end;
       }
 
-      .dao-globe-tag {
+      .dao-map-chip {
         display: inline-flex;
         align-items: center;
-        height: 30px;
+        justify-content: center;
+        height: 34px;
         padding: 0 14px;
-        border: 1px solid rgba(255, 255, 255, 0.18);
+        border: 1px solid rgba(255, 255, 255, 0.2);
         border-radius: 999px;
-        background: rgba(255, 255, 255, 0.04);
+        background: rgba(0, 0, 0, 0.2);
         font-family: var(--font-geist-mono), monospace;
-        font-size: 11px;
+        font-size: 12px;
+        font-weight: 500;
         line-height: 1;
-        letter-spacing: 0.08em;
+        letter-spacing: 1.6px;
         text-transform: uppercase;
-        color: rgba(255, 255, 255, 0.85);
+        color: rgba(255, 255, 255, 0.7);
         cursor: pointer;
-        transition: background 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+        transition: color 0.18s ease, border-color 0.18s ease, background 0.18s ease;
       }
 
-      .dao-globe-tag.is-active {
-        background: rgba(76, 42, 156, 0.55);
-        border-color: #bca9ff;
+      .dao-map-chip:hover {
         color: #fff;
+        border-color: rgba(255, 255, 255, 0.4);
       }
 
-      .dao-globe-tag:hover {
-        border-color: rgba(188, 169, 255, 0.6);
+      .dao-map-chip.is-active {
         color: #fff;
+        border-color: rgba(188, 169, 255, 0.5);
+        background: rgba(188, 169, 255, 0.12);
       }
 
-      /* Map canvas — equirectangular world map at 2:1 with continent
-         pin overlays positioned by percentage. */
-      .dao-globe-canvas {
+      /* ----- Map stage ----- */
+      .dao-map-stage {
         position: relative;
         width: 100%;
-        aspect-ratio: 2 / 1;
-        overflow: hidden;
-        background:
-          radial-gradient(80% 60% at 50% 50%, rgba(76, 42, 156, 0.08) 0%, rgba(0, 0, 0, 0) 75%);
+        aspect-ratio: 1251 / 553;
+        padding: 30px 135px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
       }
 
-      .dao-globe-map {
-        position: absolute;
-        inset: 0;
+      .dao-map-canvas {
+        position: relative;
         width: 100%;
         height: 100%;
-        object-fit: cover;
-        opacity: 0.22;
-        color: #bca9ff;
+        background-image: url("./si-assets/dao-world-dots.png");
+        background-repeat: no-repeat;
+        background-size: contain;
+        background-position: center;
       }
 
-      .dao-globe-pins {
+      .dao-map-pin {
         position: absolute;
-        inset: 0;
+        left: var(--x);
+        top: var(--y);
+        width: 153px;
+        z-index: 1;
+      }
+
+      .dao-map-pin-bubble {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        min-height: 76px;
+        padding: 16px 18px;
+        border: 1px solid rgba(255, 255, 255, 0.22);
+        border-radius: 8px;
+        background: rgba(49, 49, 81, 0.5);
+        backdrop-filter: blur(10px);
+      }
+
+      .dao-map-pin-name {
+        font-family: var(--font-geist), system-ui, -apple-system, Arial, sans-serif;
+        font-size: 15px;
+        font-weight: 500;
+        line-height: 1;
+        color: #fff;
+        text-transform: uppercase;
+        letter-spacing: 0.24px;
+      }
+
+      .dao-map-pin-count {
+        font-family: var(--font-geist), system-ui, -apple-system, Arial, sans-serif;
+        font-size: 12px;
+        line-height: 1;
+        color: rgba(255, 255, 255, 0.66);
+      }
+
+      /* Active pin (AFRICA in Figma) gets a halo, anchor dot,
+         tether line and end marker connecting the bubble to its
+         location on the map. */
+      .dao-map-pin.is-active .dao-map-pin-bubble {
+        border-color: rgba(188, 169, 255, 0.55);
+        background: rgba(76, 42, 156, 0.32);
+      }
+
+      .dao-map-pin-halo,
+      .dao-map-pin-anchor,
+      .dao-map-pin-tether,
+      .dao-map-pin-tether-end {
+        position: absolute;
         pointer-events: none;
       }
 
-      .dao-globe-pin {
-        position: absolute;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        transform: translate(-50%, -100%);
-        pointer-events: auto;
-        transition: transform 0.2s ease;
-      }
-
-      .dao-globe-pin:hover {
-        transform: translate(-50%, -100%) scale(1.06);
-        z-index: 5;
-      }
-
-      .dao-globe-bubble {
-        padding: 10px 14px;
-        border: 1px solid #bca9ff;
-        border-radius: 10px;
-        background: rgba(18, 12, 32, 0.92);
-        backdrop-filter: blur(4px);
-        -webkit-backdrop-filter: blur(4px);
-        box-shadow: 0 0 22px rgba(188, 169, 255, 0.22);
-        white-space: nowrap;
-      }
-
-      .dao-globe-bubble-name {
-        font-family: var(--font-clesmont), "Clesmont Demo", var(--font-geist), Arial, sans-serif;
-        font-size: 12px;
-        font-weight: 700;
-        letter-spacing: 0.08em;
-        text-transform: uppercase;
-        color: #bca9ff;
-        margin-bottom: 6px;
-      }
-
-      .dao-globe-bubble-dots {
-        display: flex;
-        align-items: center;
-        margin-bottom: 4px;
-      }
-
-      .dao-globe-logo {
-        width: 24px;
-        height: 24px;
-        flex-shrink: 0;
-        display: grid;
-        place-items: center;
-        border: 1.5px solid #bca9ff;
+      .dao-map-pin-halo {
+        top: -110px;
+        left: 86px;
+        width: 36px;
+        height: 36px;
         border-radius: 999px;
-        background: rgba(76, 42, 156, 0.85);
-        font-family: var(--font-geist-mono), monospace;
-        font-size: 8px;
-        line-height: 1;
-        color: #fff;
-        overflow: hidden;
+        background: radial-gradient(circle, rgba(188, 169, 255, 0.4) 0%, rgba(188, 169, 255, 0) 70%);
+        animation: dao-map-halo 2.6s ease-in-out infinite;
       }
 
-      .dao-globe-logo + .dao-globe-logo { margin-left: -6px; }
-
-      .dao-globe-logo.is-more {
-        background: rgba(255, 255, 255, 0.06);
-        border-color: rgba(255, 255, 255, 0.18);
-        color: rgba(255, 255, 255, 0.55);
-      }
-
-      .dao-globe-count {
-        font-family: var(--font-geist-mono), monospace;
-        font-size: 11px;
-        line-height: 1.2;
-        color: rgba(255, 255, 255, 0.6);
-      }
-
-      .dao-globe-stem {
-        width: 1.5px;
-        height: 16px;
-        background: #bca9ff;
-        opacity: 0.55;
-      }
-
-      .dao-globe-dot {
-        width: 8px;
-        height: 8px;
+      .dao-map-pin-anchor {
+        top: -98px;
+        left: 98px;
+        width: 12px;
+        height: 12px;
+        border: 1px solid rgba(188, 169, 255, 0.8);
         border-radius: 999px;
         background: #bca9ff;
         box-shadow: 0 0 12px rgba(188, 169, 255, 0.7);
       }
 
-      /* Ticker strip running along the bottom of the globe block. */
-      .dao-globe-ticker {
-        position: relative;
-        border-top: 1px solid rgba(255, 255, 255, 0.08);
-        background: rgba(0, 0, 0, 0.32);
-        overflow: hidden;
-        padding: 18px 0;
+      .dao-map-pin-tether {
+        top: -76px;
+        left: 103px;
+        width: 1px;
+        height: 76px;
+        background: linear-gradient(180deg, rgba(188, 169, 255, 0.7) 0%, rgba(188, 169, 255, 0.15) 100%);
       }
 
-      .dao-globe-ticker::before,
-      .dao-globe-ticker::after {
-        content: "";
-        position: absolute;
-        top: 0;
-        bottom: 0;
-        width: 80px;
-        z-index: 2;
-        pointer-events: none;
-      }
-
-      .dao-globe-ticker::before {
-        left: 0;
-        background: linear-gradient(90deg, rgba(8, 7, 18, 0.95) 0%, rgba(8, 7, 18, 0) 100%);
-      }
-
-      .dao-globe-ticker::after {
-        right: 0;
-        background: linear-gradient(270deg, rgba(8, 7, 18, 0.95) 0%, rgba(8, 7, 18, 0) 100%);
-      }
-
-      .dao-globe-ticker-track {
-        display: flex;
-        align-items: center;
-        gap: 36px;
-        width: max-content;
-        white-space: nowrap;
-        animation: dao-globe-ticker 38s linear infinite;
-        will-change: transform;
-      }
-
-      @keyframes dao-globe-ticker {
-        from { transform: translate3d(0, 0, 0); }
-        to   { transform: translate3d(-50%, 0, 0); }
-      }
-
-      .dao-globe-ticker-item {
-        display: inline-flex;
-        align-items: center;
-        gap: 10px;
-        flex-shrink: 0;
-      }
-
-      .dao-globe-ticker-logo {
-        width: 28px;
-        height: 28px;
-        flex-shrink: 0;
-        display: grid;
-        place-items: center;
-        border: 1px solid rgba(188, 169, 255, 0.6);
+      .dao-map-pin-tether-end {
+        top: -4px;
+        left: 100px;
+        width: 7px;
+        height: 7px;
         border-radius: 999px;
-        background: rgba(76, 42, 156, 0.55);
+        background: #bca9ff;
+        box-shadow: 0 0 8px rgba(188, 169, 255, 0.6);
+      }
+
+      @keyframes dao-map-halo {
+        0%, 100% { transform: scale(1); opacity: 0.7; }
+        50%      { transform: scale(1.18); opacity: 1; }
+      }
+
+      /* ----- Region drawer ----- */
+      .dao-map-drawer {
+        display: grid;
+        grid-template-columns: 320px minmax(0, 1fr) 300px;
+        align-items: stretch;
+        min-height: 493px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      }
+
+      .dao-map-drawer-l,
+      .dao-map-drawer-r {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        padding: 28px;
+      }
+
+      .dao-map-drawer-l {
+        border-right: 1px solid rgba(255, 255, 255, 0.1);
+      }
+
+      .dao-map-drawer-r {
+        border-left: 1px solid rgba(255, 255, 255, 0.1);
+      }
+
+      .dao-map-brief-eyebrow {
         font-family: var(--font-geist-mono), monospace;
-        font-size: 9px;
+        font-size: 11px;
+        line-height: 1;
+        letter-spacing: 1.33px;
+        text-transform: uppercase;
+        color: rgba(255, 255, 255, 0.42);
+      }
+
+      .dao-map-brief-title {
+        margin: 14px 0 0;
+        font-family: var(--font-clesmont), "Clesmont Demo", var(--font-geist), Arial, sans-serif;
+        font-size: 30px;
+        font-weight: 400;
+        line-height: 1;
+        color: #fff;
+        text-transform: uppercase;
+        letter-spacing: -0.32px;
+      }
+
+      .dao-map-brief-desc {
+        margin: 16px 0 0;
+        font-family: var(--font-geist), system-ui, -apple-system, Arial, sans-serif;
+        font-size: 13px;
+        line-height: 1.55;
+        color: rgba(255, 255, 255, 0.7);
+      }
+
+      .dao-map-brief-image {
+        position: relative;
+        height: 180px;
+        margin: 22px 0 0;
+        overflow: hidden;
+        border-radius: 6px;
+        background:
+          radial-gradient(circle at 30% 30%, rgba(188, 169, 255, 0.22) 0%, rgba(188, 169, 255, 0) 60%),
+          linear-gradient(140deg, rgba(28, 29, 61, 0.6) 0%, rgba(8, 7, 18, 0.6) 100%);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+      }
+
+      .dao-map-brief-image::after {
+        content: "EUROPE COMMUNITY GRID";
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        font-family: var(--font-geist-mono), monospace;
+        font-size: 10px;
+        letter-spacing: 1.6px;
+        color: rgba(255, 255, 255, 0.35);
+      }
+
+      .dao-map-meta {
+        display: flex;
+        gap: 24px;
+        margin: auto 0 0;
+        padding-top: 22px;
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+      }
+
+      .dao-map-meta-item {
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+      }
+
+      .dao-map-meta-item dt {
+        margin: 0;
+        font-family: var(--font-geist-mono), monospace;
+        font-size: 10px;
+        line-height: 1;
+        letter-spacing: 1.26px;
+        text-transform: uppercase;
+        color: rgba(255, 255, 255, 0.42);
+      }
+
+      .dao-map-meta-item dd {
+        margin: 0;
+        font-family: var(--font-clesmont), "Clesmont Demo", var(--font-geist), Arial, sans-serif;
+        font-size: 24px;
+        font-weight: 400;
         line-height: 1;
         color: #fff;
       }
 
-      .dao-globe-ticker-name {
+      /* Centre column — 6 community cards in 2-col grid */
+      .dao-map-drawer-list {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        grid-auto-rows: minmax(0, 1fr);
+      }
+
+      .dao-map-comm {
+        display: flex;
+        flex-direction: column;
+        padding: 26px 22px;
+        border-right: 1px solid rgba(255, 255, 255, 0.1);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        transition: background 0.18s ease;
+      }
+
+      .dao-map-comm:nth-child(2n) {
+        border-right: 0;
+      }
+
+      .dao-map-comm:nth-last-child(-n+2) {
+        border-bottom: 0;
+      }
+
+      .dao-map-comm:hover {
+        background: rgba(255, 255, 255, 0.04);
+      }
+
+      .dao-map-comm > header {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+      }
+
+      .dao-map-comm-logo {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+        width: 36px;
+        height: 36px;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        border-radius: 6px;
+        background: linear-gradient(140deg, #1c1d3d 0%, #4b2d8f 100%);
+        font-family: var(--font-geist-mono), monospace;
+        font-size: 10px;
+        font-weight: 500;
+        letter-spacing: 0.48px;
+        color: #fff;
+      }
+
+      .dao-map-comm-name {
+        font-family: var(--font-geist), system-ui, -apple-system, Arial, sans-serif;
+        font-size: 16px;
+        font-weight: 500;
+        line-height: 1.1;
+        color: #fff;
+        text-transform: uppercase;
+        letter-spacing: 0.16px;
+      }
+
+      .dao-map-comm-divider {
+        flex: 1;
+        height: 1px;
+        background: rgba(255, 255, 255, 0.1);
+      }
+
+      .dao-map-comm-city {
+        font-family: var(--font-geist-mono), monospace;
+        font-size: 11px;
+        line-height: 1;
+        letter-spacing: 1.26px;
+        text-transform: uppercase;
+        color: rgba(255, 255, 255, 0.66);
+      }
+
+      .dao-map-comm p {
+        margin: 14px 0 0;
+        font-family: var(--font-geist), system-ui, -apple-system, Arial, sans-serif;
+        font-size: 13px;
+        line-height: 1.5;
+        color: rgba(255, 255, 255, 0.7);
+      }
+
+      .dao-map-comm-tags {
+        display: flex;
+        gap: 6px;
+        margin-top: auto;
+        padding-top: 14px;
+      }
+
+      .dao-map-comm-tags span {
+        display: inline-flex;
+        align-items: center;
+        height: 18px;
+        padding: 0 7px;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        border-radius: 4px;
+        font-family: var(--font-geist-mono), monospace;
+        font-size: 9.5px;
+        line-height: 1;
+        letter-spacing: 1.26px;
+        text-transform: uppercase;
+        color: rgba(255, 255, 255, 0.7);
+      }
+
+      /* Right column — Connect with EUROPE */
+      .dao-map-connect-image {
+        position: relative;
+        height: 195px;
+        overflow: hidden;
+        border-radius: 6px;
+        background: rgba(0, 0, 0, 0.2);
+      }
+
+      .dao-map-connect-image img {
+        display: block;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+
+      .dao-map-connect-eyebrow {
+        margin: 18px 0 0;
+        font-family: var(--font-geist-mono), monospace;
+        font-size: 11px;
+        line-height: 1;
+        letter-spacing: 1.33px;
+        text-transform: uppercase;
+        color: rgba(255, 255, 255, 0.42);
+      }
+
+      .dao-map-connect-title {
+        margin: 12px 0 0;
+        font-family: var(--font-clesmont), "Clesmont Demo", var(--font-geist), Arial, sans-serif;
+        font-size: 22px;
+        font-weight: 400;
+        line-height: 1.1;
+        color: #fff;
+        text-transform: uppercase;
+        letter-spacing: -0.32px;
+      }
+
+      .dao-map-connect-desc {
+        margin: 14px 0 0;
+        font-family: var(--font-geist), system-ui, -apple-system, Arial, sans-serif;
+        font-size: 13px;
+        line-height: 1.55;
+        color: rgba(255, 255, 255, 0.7);
+      }
+
+      .dao-map-connect-browse {
+        margin: 22px 0 0;
+        font-family: var(--font-geist-mono), monospace;
+        font-size: 11px;
+        line-height: 1;
+        letter-spacing: 1.33px;
+        text-transform: uppercase;
+        color: rgba(255, 255, 255, 0.7);
+        text-decoration: none;
+        transition: color 0.18s ease;
+      }
+
+      .dao-map-connect-browse:hover { color: #fff; }
+
+      .dao-map-connect-cta {
+        display: inline-flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 6px;
+        margin-top: 14px;
+        font-family: var(--font-geist), system-ui, -apple-system, Arial, sans-serif;
+        font-size: 16px;
+        font-weight: 500;
+        line-height: 1;
+        color: #fff;
+        text-decoration: none;
+      }
+
+      .dao-map-connect-cta-line {
+        display: block;
+        width: 44px;
+        height: 1px;
+        background: #fff;
+        transition: width 0.2s ease;
+      }
+
+      .dao-map-connect-cta:hover .dao-map-connect-cta-line {
+        width: 64px;
+      }
+
+      /* ----- Logos rail ----- */
+      .dao-map-rail {
+        display: flex;
+        flex-direction: column;
+        min-height: 110px;
+      }
+
+      .dao-map-rail-head {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 24px;
+        padding: 12px 26px;
+        font-family: var(--font-geist-mono), monospace;
+        font-size: 11px;
+        line-height: 1;
+        letter-spacing: 1.33px;
+        text-transform: uppercase;
+        color: rgba(255, 255, 255, 0.42);
+      }
+
+      .dao-map-marquee {
+        position: relative;
+        width: 100%;
+        overflow: hidden;
+        padding: 16px 0;
+      }
+
+      .dao-map-marquee::before,
+      .dao-map-marquee::after {
+        content: "";
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        z-index: 1;
+        width: 80px;
+        pointer-events: none;
+      }
+
+      .dao-map-marquee::before {
+        left: 0;
+        background: linear-gradient(90deg, #08070d 0%, rgba(8, 7, 18, 0) 100%);
+      }
+
+      .dao-map-marquee::after {
+        right: 0;
+        background: linear-gradient(270deg, #08070d 0%, rgba(8, 7, 18, 0) 100%);
+      }
+
+      .dao-map-marquee-track {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        width: max-content;
+        animation: dao-map-marquee 60s linear infinite;
+        will-change: transform;
+      }
+
+      .dao-map-pill {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        height: 42px;
+        padding: 0 16px 0 6px;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 999px;
+        background: rgba(255, 255, 255, 0.04);
         font-family: var(--font-geist), system-ui, -apple-system, Arial, sans-serif;
         font-size: 13px;
         line-height: 1;
-        color: #e8e6f0;
+        color: rgba(255, 255, 255, 0.85);
+        white-space: nowrap;
+        flex: 0 0 auto;
       }
 
-      .dao-globe-ticker-sep {
-        width: 4px;
-        height: 4px;
-        flex-shrink: 0;
+      .dao-map-pill-logo {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 30px;
+        height: 30px;
         border-radius: 999px;
-        background: rgba(255, 255, 255, 0.18);
+        background: linear-gradient(140deg, #1c1d3d 0%, #4b2d8f 100%);
+        font-family: var(--font-geist-mono), monospace;
+        font-size: 9.5px;
+        letter-spacing: 0.48px;
+        color: #fff;
+        flex-shrink: 0;
+      }
+
+      @keyframes dao-map-marquee {
+        from { transform: translate3d(0, 0, 0); }
+        to   { transform: translate3d(-50%, 0, 0); }
       }
 
       @media (prefers-reduced-motion: reduce) {
-        .dao-globe-ticker-track { animation: none; }
+        .dao-map-marquee-track { animation: none; }
+        .dao-map-pin-halo { animation: none; }
       }
-
       /* ============================================================
          Sub-section 2: WE BRAND — personal brand tools. */
       .dao-brand {
@@ -1331,9 +1689,16 @@
       /* Responsive collapse for WE LEAD. */
       @media (max-width: 1100px) {
         .dao-lead-header { grid-template-columns: 1fr; align-items: start; gap: 18px; }
+        .dao-lead-header-right { align-items: flex-start; padding-top: 0; }
         .dao-lead-header-right p { text-align: left; }
-        .dao-globe-head { flex-direction: column; align-items: flex-start; }
-        .dao-globe-tags { justify-content: flex-start; }
+        .dao-map-head { flex-direction: column; align-items: flex-start; gap: 18px; }
+        .dao-map-filters { justify-content: flex-start; }
+        .dao-map-stage { padding: 24px 24px; }
+        .dao-map-drawer { grid-template-columns: 1fr; }
+        .dao-map-drawer-l,
+        .dao-map-drawer-r { border-left: 0; border-right: 0; border-bottom: 1px solid rgba(255, 255, 255, 0.1); }
+        .dao-map-drawer-list { grid-template-columns: 1fr; }
+        .dao-map-comm { border-right: 0; }
         .dao-brand-head { flex-direction: column; align-items: flex-start; gap: 16px; }
         .dao-brand-head p { text-align: left; }
         .dao-brand-grid { grid-template-columns: 1fr; }
@@ -1341,13 +1706,16 @@
       }
 
       @media (max-width: 720px) {
-        .dao-globe-num { font-size: 36px; }
-        .dao-globe-canvas { aspect-ratio: 4 / 3; }
-        .dao-globe-pin .dao-globe-bubble { padding: 8px 10px; }
-        .dao-globe-bubble-name { font-size: 10px; }
-        .dao-globe-count { font-size: 10px; }
-        .dao-globe-logo { width: 20px; height: 20px; font-size: 7px; }
-        .dao-globe-ticker-name { font-size: 12px; }
+        .dao-map-stat-num { font-size: 20px; }
+        .dao-map-stage { aspect-ratio: 4 / 3; padding: 16px; }
+        .dao-map-pin { width: 124px; }
+        .dao-map-pin-bubble { padding: 12px 14px; }
+        .dao-map-pin-name { font-size: 13px; }
+        .dao-map-pin-count { font-size: 11px; }
+        .dao-map-brief-title { font-size: 24px; }
+        .dao-map-meta { gap: 18px; flex-wrap: wrap; }
+        .dao-map-meta-item dd { font-size: 20px; }
+        .dao-map-rail-head { flex-direction: column; align-items: flex-start; gap: 8px; }
         .dao-brand-title { font-size: 32px; }
         .dao-brand-card-title { font-size: 24px; }
         .dao-lead-cta-text { font-size: 18px; }
@@ -2530,211 +2898,316 @@
           <div class="dao-lead-inner">
 
             <header class="dao-lead-header">
-              <div>
+              <div class="dao-lead-header-left">
                 <span class="dao-kicker">
                   <img src="./si-assets/snapshot-mark.svg" alt="" />
                   We Lead
                 </span>
-                <h2 class="dao-lead-title" id="dao-lead-title">
-                  Womxn <span>Leading</span><br />Web3
-                </h2>
+                <h2 class="dao-lead-title" id="dao-lead-title">WOMXN Leading Web3</h2>
+                <p class="dao-lead-subtitle">Featured voices from Season 2 livestreams.</p>
               </div>
               <div class="dao-lead-header-right">
-                <p>Every continent. 50+ womxn-led communities. One decentralizing collaborative reshaping what leadership looks like in Web3 &mdash; and who gets to be in the room.</p>
+                <p>Every continent. 50+ womxn-led communities. One decentralising collaborative reshaping what leadership looks like in Web3 &mdash; and who gets to be in the room.</p>
+                <div class="dao-lead-stamp" aria-hidden="true">
+                  <span>SI HER DAO · SEC 04 / 12</span>
+                  <span>UPDATED 05.26</span>
+                  <span class="dao-lead-stamp-dot"></span>
+                </div>
               </div>
             </header>
 
-            <!-- ========== Subsection 1: Global communities map ========== -->
-            <div class="dao-globe">
-              <header class="dao-globe-head">
-                <div>
-                  <span class="dao-globe-label">Global Communities Network</span>
-                  <div class="dao-globe-stat">
-                    <span class="dao-globe-num">50+</span>
-                    <span class="dao-globe-num-label">Womxn-led communities across 7 continents</span>
-                  </div>
+            <!-- ========== Subsection 1: Global communities map ==========
+                 Layout mirrors Figma node 371:5 (Si<3> Website Upgrade):
+                 header strip → map stage → region drawer → logos rail. -->
+            <div class="dao-map">
+              <header class="dao-map-head">
+                <div class="dao-map-stat">
+                  <span class="dao-map-stat-num">50+</span>
+                  <span class="dao-map-stat-label">Womxn-led communities across 7 continents, connected through SI U.</span>
                 </div>
-                <div class="dao-globe-tags" role="tablist" aria-label="Filter by region">
-                  <span class="dao-globe-tag is-active" role="tab" aria-selected="true">All Regions</span>
-                  <span class="dao-globe-tag" role="tab">Americas</span>
-                  <span class="dao-globe-tag" role="tab">Europe</span>
-                  <span class="dao-globe-tag" role="tab">Africa</span>
-                  <span class="dao-globe-tag" role="tab">Asia&#8209;Pacific</span>
+                <div class="dao-map-filters" role="tablist" aria-label="Filter by region">
+                  <button class="dao-map-chip is-active" type="button" role="tab" aria-selected="true">All Regions</button>
+                  <button class="dao-map-chip" type="button" role="tab">Americas</button>
+                  <button class="dao-map-chip" type="button" role="tab">Europe</button>
+                  <button class="dao-map-chip" type="button" role="tab">Africa &amp; M&#8209;East</button>
+                  <button class="dao-map-chip" type="button" role="tab">Asia&#8209;Pacific</button>
                 </div>
               </header>
 
-              <!-- World map + continent pin overlays.
-                   TODO: drop the brand-specified world map PNG into
-                   ./si-assets/world-map.png and update the src below. -->
-              <div class="dao-globe-canvas">
-                <img class="dao-globe-map" src="./si-assets/world-map.svg" alt="" aria-hidden="true" />
-
-                <div class="dao-globe-pins">
-                  <!-- North America -->
-                  <div class="dao-globe-pin" style="left: 19%; top: 42%;">
-                    <div class="dao-globe-bubble">
-                      <div class="dao-globe-bubble-name">North America</div>
-                      <div class="dao-globe-bubble-dots">
-                        <span class="dao-globe-logo" title="Solana Hot Girl Club">SHG</span>
-                        <span class="dao-globe-logo" title="ETHWomen">ETH</span>
-                        <span class="dao-globe-logo" title="Herstory">HST</span>
-                        <span class="dao-globe-logo is-more">+6</span>
-                      </div>
-                      <div class="dao-globe-count">9 communities</div>
+              <!-- Map stage — dotted world background + 6 region pins.
+                   Pin positions are absolute % of the canvas, derived
+                   from the Figma frame (1251×553). Africa is the
+                   currently-active pin and shows a halo + tether visual. -->
+              <div class="dao-map-stage">
+                <div class="dao-map-canvas" aria-hidden="true">
+                  <!-- North America — pin only -->
+                  <div class="dao-map-pin" style="--x: 11.4%; --y: 34%;">
+                    <div class="dao-map-pin-bubble">
+                      <div class="dao-map-pin-name">North America</div>
+                      <div class="dao-map-pin-count">9 communities</div>
                     </div>
-                    <span class="dao-globe-stem"></span>
-                    <span class="dao-globe-dot"></span>
                   </div>
 
                   <!-- Latin America -->
-                  <div class="dao-globe-pin" style="left: 29%; top: 80%;">
-                    <div class="dao-globe-bubble">
-                      <div class="dao-globe-bubble-name">Latin America</div>
-                      <div class="dao-globe-bubble-dots">
-                        <span class="dao-globe-logo" title="ES Blockchain">ESB</span>
-                        <span class="dao-globe-logo" title="Eve Wealth">EVW</span>
-                        <span class="dao-globe-logo is-more">+3</span>
-                      </div>
-                      <div class="dao-globe-count">5 communities</div>
+                  <div class="dao-map-pin" style="--x: 21.2%; --y: 67.3%;">
+                    <div class="dao-map-pin-bubble">
+                      <div class="dao-map-pin-name">Latin America</div>
+                      <div class="dao-map-pin-count">6 communities</div>
                     </div>
-                    <span class="dao-globe-stem"></span>
-                    <span class="dao-globe-dot"></span>
                   </div>
 
                   <!-- Europe -->
-                  <div class="dao-globe-pin" style="left: 50%; top: 32%;">
-                    <div class="dao-globe-bubble">
-                      <div class="dao-globe-bubble-name">Europe</div>
-                      <div class="dao-globe-bubble-dots">
-                        <span class="dao-globe-logo" title="DLT Talents">DLT</span>
-                        <span class="dao-globe-logo" title="Suisterhood">SUI</span>
-                        <span class="dao-globe-logo" title="EvolveH3r">EVH</span>
-                        <span class="dao-globe-logo is-more">+4</span>
-                      </div>
-                      <div class="dao-globe-count">7 communities</div>
+                  <div class="dao-map-pin" style="--x: 44.6%; --y: 6.5%;">
+                    <div class="dao-map-pin-bubble">
+                      <div class="dao-map-pin-name">Europe</div>
+                      <div class="dao-map-pin-count">7 communities</div>
                     </div>
-                    <span class="dao-globe-stem"></span>
-                    <span class="dao-globe-dot"></span>
-                  </div>
-
-                  <!-- Africa -->
-                  <div class="dao-globe-pin" style="left: 53%; top: 62%;">
-                    <div class="dao-globe-bubble">
-                      <div class="dao-globe-bubble-name">Africa</div>
-                      <div class="dao-globe-bubble-dots">
-                        <span class="dao-globe-logo" title="Women in Blockchain Africa">WBA</span>
-                        <span class="dao-globe-logo" title="EcstaSHE">ECT</span>
-                        <span class="dao-globe-logo is-more">+2</span>
-                      </div>
-                      <div class="dao-globe-count">4 communities</div>
-                    </div>
-                    <span class="dao-globe-stem"></span>
-                    <span class="dao-globe-dot"></span>
                   </div>
 
                   <!-- Middle East -->
-                  <div class="dao-globe-pin" style="left: 61%; top: 44%;">
-                    <div class="dao-globe-bubble">
-                      <div class="dao-globe-bubble-name">Middle East</div>
-                      <div class="dao-globe-bubble-dots">
-                        <span class="dao-globe-logo" title="Fem T3ch">FMT</span>
-                        <span class="dao-globe-logo is-more">+1</span>
-                      </div>
-                      <div class="dao-globe-count">2 communities</div>
+                  <div class="dao-map-pin" style="--x: 56.3%; --y: 57.5%;">
+                    <div class="dao-map-pin-bubble">
+                      <div class="dao-map-pin-name">Middle East</div>
+                      <div class="dao-map-pin-count">4 communities</div>
                     </div>
-                    <span class="dao-globe-stem"></span>
-                    <span class="dao-globe-dot"></span>
+                  </div>
+
+                  <!-- Africa — ACTIVE pin (halo + tether + anchor) -->
+                  <div class="dao-map-pin is-active" style="--x: 42.2%; --y: 74%;">
+                    <span class="dao-map-pin-halo" aria-hidden="true"></span>
+                    <span class="dao-map-pin-anchor" aria-hidden="true"></span>
+                    <span class="dao-map-pin-tether" aria-hidden="true"></span>
+                    <span class="dao-map-pin-tether-end" aria-hidden="true"></span>
+                    <div class="dao-map-pin-bubble">
+                      <div class="dao-map-pin-name">Africa</div>
+                      <div class="dao-map-pin-count">5 communities</div>
+                    </div>
                   </div>
 
                   <!-- Asia-Pacific -->
-                  <div class="dao-globe-pin" style="left: 76%; top: 38%;">
-                    <div class="dao-globe-bubble">
-                      <div class="dao-globe-bubble-name">Asia-Pacific</div>
-                      <div class="dao-globe-bubble-dots">
-                        <span class="dao-globe-logo" title="Women in Web3 Hong Kong">HKW</span>
-                        <span class="dao-globe-logo" title="SystAIn3r">SYS</span>
-                        <span class="dao-globe-logo" title="Happ3n">H3N</span>
-                        <span class="dao-globe-logo is-more">+3</span>
-                      </div>
-                      <div class="dao-globe-count">6 communities</div>
+                  <div class="dao-map-pin" style="--x: 77.8%; --y: 37.1%;">
+                    <div class="dao-map-pin-bubble">
+                      <div class="dao-map-pin-name">Asia-Pacific</div>
+                      <div class="dao-map-pin-count">8 communities</div>
                     </div>
-                    <span class="dao-globe-stem"></span>
-                    <span class="dao-globe-dot"></span>
                   </div>
                 </div>
               </div>
 
-              <!-- Community ticker strip running across the bottom. -->
-              <div class="dao-globe-ticker" aria-hidden="true">
-                <div class="dao-globe-ticker-track">
-                  <span class="dao-globe-ticker-item"><span class="dao-globe-ticker-logo">DLT</span><span class="dao-globe-ticker-name">DLT Talents</span></span>
-                  <span class="dao-globe-ticker-sep"></span>
-                  <span class="dao-globe-ticker-item"><span class="dao-globe-ticker-logo">ECT</span><span class="dao-globe-ticker-name">EcstaSHE</span></span>
-                  <span class="dao-globe-ticker-sep"></span>
-                  <span class="dao-globe-ticker-item"><span class="dao-globe-ticker-logo">ESB</span><span class="dao-globe-ticker-name">ES Blockchain</span></span>
-                  <span class="dao-globe-ticker-sep"></span>
-                  <span class="dao-globe-ticker-item"><span class="dao-globe-ticker-logo">ETH</span><span class="dao-globe-ticker-name">ETHWomen</span></span>
-                  <span class="dao-globe-ticker-sep"></span>
-                  <span class="dao-globe-ticker-item"><span class="dao-globe-ticker-logo">EVW</span><span class="dao-globe-ticker-name">Eve Wealth</span></span>
-                  <span class="dao-globe-ticker-sep"></span>
-                  <span class="dao-globe-ticker-item"><span class="dao-globe-ticker-logo">EVH</span><span class="dao-globe-ticker-name">EvolveH3r</span></span>
-                  <span class="dao-globe-ticker-sep"></span>
-                  <span class="dao-globe-ticker-item"><span class="dao-globe-ticker-logo">FMT</span><span class="dao-globe-ticker-name">Fem T3ch</span></span>
-                  <span class="dao-globe-ticker-sep"></span>
-                  <span class="dao-globe-ticker-item"><span class="dao-globe-ticker-logo">FHR</span><span class="dao-globe-ticker-name">Furt&rsquo;Her</span></span>
-                  <span class="dao-globe-ticker-sep"></span>
-                  <span class="dao-globe-ticker-item"><span class="dao-globe-ticker-logo">H3N</span><span class="dao-globe-ticker-name">Happ3n</span></span>
-                  <span class="dao-globe-ticker-sep"></span>
-                  <span class="dao-globe-ticker-item"><span class="dao-globe-ticker-logo">HST</span><span class="dao-globe-ticker-name">Herstory</span></span>
-                  <span class="dao-globe-ticker-sep"></span>
-                  <span class="dao-globe-ticker-item"><span class="dao-globe-ticker-logo">SHR</span><span class="dao-globe-ticker-name">Si Her</span></span>
-                  <span class="dao-globe-ticker-sep"></span>
-                  <span class="dao-globe-ticker-item"><span class="dao-globe-ticker-logo">SHG</span><span class="dao-globe-ticker-name">Solana Hot Girl Club</span></span>
-                  <span class="dao-globe-ticker-sep"></span>
-                  <span class="dao-globe-ticker-item"><span class="dao-globe-ticker-logo">SUI</span><span class="dao-globe-ticker-name">Suisterhood</span></span>
-                  <span class="dao-globe-ticker-sep"></span>
-                  <span class="dao-globe-ticker-item"><span class="dao-globe-ticker-logo">SYS</span><span class="dao-globe-ticker-name">SystAIn3r</span></span>
-                  <span class="dao-globe-ticker-sep"></span>
-                  <span class="dao-globe-ticker-item"><span class="dao-globe-ticker-logo">WBA</span><span class="dao-globe-ticker-name">Women in Blockchain Africa</span></span>
-                  <span class="dao-globe-ticker-sep"></span>
-                  <span class="dao-globe-ticker-item"><span class="dao-globe-ticker-logo">WBT</span><span class="dao-globe-ticker-name">Women in Blockchain Talks</span></span>
-                  <span class="dao-globe-ticker-sep"></span>
-                  <span class="dao-globe-ticker-item"><span class="dao-globe-ticker-logo">HKW</span><span class="dao-globe-ticker-name">Women in Web3 HK</span></span>
-                  <span class="dao-globe-ticker-sep"></span>
-                  <!-- duplicate set for a seamless -50% loop -->
-                  <span class="dao-globe-ticker-item"><span class="dao-globe-ticker-logo">DLT</span><span class="dao-globe-ticker-name">DLT Talents</span></span>
-                  <span class="dao-globe-ticker-sep"></span>
-                  <span class="dao-globe-ticker-item"><span class="dao-globe-ticker-logo">ECT</span><span class="dao-globe-ticker-name">EcstaSHE</span></span>
-                  <span class="dao-globe-ticker-sep"></span>
-                  <span class="dao-globe-ticker-item"><span class="dao-globe-ticker-logo">ESB</span><span class="dao-globe-ticker-name">ES Blockchain</span></span>
-                  <span class="dao-globe-ticker-sep"></span>
-                  <span class="dao-globe-ticker-item"><span class="dao-globe-ticker-logo">ETH</span><span class="dao-globe-ticker-name">ETHWomen</span></span>
-                  <span class="dao-globe-ticker-sep"></span>
-                  <span class="dao-globe-ticker-item"><span class="dao-globe-ticker-logo">EVW</span><span class="dao-globe-ticker-name">Eve Wealth</span></span>
-                  <span class="dao-globe-ticker-sep"></span>
-                  <span class="dao-globe-ticker-item"><span class="dao-globe-ticker-logo">EVH</span><span class="dao-globe-ticker-name">EvolveH3r</span></span>
-                  <span class="dao-globe-ticker-sep"></span>
-                  <span class="dao-globe-ticker-item"><span class="dao-globe-ticker-logo">FMT</span><span class="dao-globe-ticker-name">Fem T3ch</span></span>
-                  <span class="dao-globe-ticker-sep"></span>
-                  <span class="dao-globe-ticker-item"><span class="dao-globe-ticker-logo">FHR</span><span class="dao-globe-ticker-name">Furt&rsquo;Her</span></span>
-                  <span class="dao-globe-ticker-sep"></span>
-                  <span class="dao-globe-ticker-item"><span class="dao-globe-ticker-logo">H3N</span><span class="dao-globe-ticker-name">Happ3n</span></span>
-                  <span class="dao-globe-ticker-sep"></span>
-                  <span class="dao-globe-ticker-item"><span class="dao-globe-ticker-logo">HST</span><span class="dao-globe-ticker-name">Herstory</span></span>
-                  <span class="dao-globe-ticker-sep"></span>
-                  <span class="dao-globe-ticker-item"><span class="dao-globe-ticker-logo">SHR</span><span class="dao-globe-ticker-name">Si Her</span></span>
-                  <span class="dao-globe-ticker-sep"></span>
-                  <span class="dao-globe-ticker-item"><span class="dao-globe-ticker-logo">SHG</span><span class="dao-globe-ticker-name">Solana Hot Girl Club</span></span>
-                  <span class="dao-globe-ticker-sep"></span>
-                  <span class="dao-globe-ticker-item"><span class="dao-globe-ticker-logo">SUI</span><span class="dao-globe-ticker-name">Suisterhood</span></span>
-                  <span class="dao-globe-ticker-sep"></span>
-                  <span class="dao-globe-ticker-item"><span class="dao-globe-ticker-logo">SYS</span><span class="dao-globe-ticker-name">SystAIn3r</span></span>
-                  <span class="dao-globe-ticker-sep"></span>
-                  <span class="dao-globe-ticker-item"><span class="dao-globe-ticker-logo">WBA</span><span class="dao-globe-ticker-name">Women in Blockchain Africa</span></span>
-                  <span class="dao-globe-ticker-sep"></span>
-                  <span class="dao-globe-ticker-item"><span class="dao-globe-ticker-logo">WBT</span><span class="dao-globe-ticker-name">Women in Blockchain Talks</span></span>
-                  <span class="dao-globe-ticker-sep"></span>
-                  <span class="dao-globe-ticker-item"><span class="dao-globe-ticker-logo">HKW</span><span class="dao-globe-ticker-name">Women in Web3 HK</span></span>
+              <!-- Region drawer — 3 columns:
+                   left  = EUROPE brief (eyebrow, title, copy, image, meta)
+                   centr = 6 community cards (3 rows × 2 cols)
+                   right = CONNECT WITH EUROPE CTA panel -->
+              <div class="dao-map-drawer">
+                <aside class="dao-map-drawer-l" aria-label="Europe region brief">
+                  <span class="dao-map-brief-eyebrow">Europe · Region Brief</span>
+                  <h3 class="dao-map-brief-title">Europe</h3>
+                  <p class="dao-map-brief-desc">Berlin, Lisbon, Paris, Zürich. Policy, protocols and on-chain art — Europe&rsquo;s loudest womxn-led collectives.</p>
+                  <div class="dao-map-brief-image" aria-hidden="true"></div>
+                  <dl class="dao-map-meta">
+                    <div class="dao-map-meta-item">
+                      <dt>Members</dt>
+                      <dd>9.1k</dd>
+                    </div>
+                    <div class="dao-map-meta-item">
+                      <dt>Cities</dt>
+                      <dd>10</dd>
+                    </div>
+                    <div class="dao-map-meta-item">
+                      <dt>Communities</dt>
+                      <dd>7</dd>
+                    </div>
+                  </dl>
+                </aside>
+
+                <div class="dao-map-drawer-list">
+                  <article class="dao-map-comm">
+                    <header>
+                      <span class="dao-map-comm-logo">DLT</span>
+                      <span class="dao-map-comm-name">DLT Talents</span>
+                      <span class="dao-map-comm-divider" aria-hidden="true"></span>
+                      <span class="dao-map-comm-city">Frankfurt</span>
+                    </header>
+                    <p>A 12-week distributed-ledger mentorship sending womxn into protocol research and CeFi leadership.</p>
+                    <div class="dao-map-comm-tags">
+                      <span>Career</span>
+                      <span>Mentorship</span>
+                    </div>
+                  </article>
+
+                  <article class="dao-map-comm">
+                    <header>
+                      <span class="dao-map-comm-logo">SUI</span>
+                      <span class="dao-map-comm-name">Suisterhood</span>
+                      <span class="dao-map-comm-divider" aria-hidden="true"></span>
+                      <span class="dao-map-comm-city">Zürich</span>
+                    </header>
+                    <p>Sui-native community of validators, devs and DeFi product builders across DACH.</p>
+                    <div class="dao-map-comm-tags">
+                      <span>Sui</span>
+                      <span>DeFi</span>
+                    </div>
+                  </article>
+
+                  <article class="dao-map-comm">
+                    <header>
+                      <span class="dao-map-comm-logo">EVH</span>
+                      <span class="dao-map-comm-name">EthVoice Hub</span>
+                      <span class="dao-map-comm-divider" aria-hidden="true"></span>
+                      <span class="dao-map-comm-city">Berlin</span>
+                    </header>
+                    <p>Policy roundtables connecting Ethereum researchers with EU regulators ahead of MiCA II.</p>
+                    <div class="dao-map-comm-tags">
+                      <span>Ethereum</span>
+                      <span>Policy</span>
+                    </div>
+                  </article>
+
+                  <article class="dao-map-comm">
+                    <header>
+                      <span class="dao-map-comm-logo">CCL</span>
+                      <span class="dao-map-comm-name">Crypto Cleo</span>
+                      <span class="dao-map-comm-divider" aria-hidden="true"></span>
+                      <span class="dao-map-comm-city">Lisbon</span>
+                    </header>
+                    <p>Founder community for Lisbon-based startups, hosting Web Summit fringe and weekly co-works.</p>
+                    <div class="dao-map-comm-tags">
+                      <span>Founders</span>
+                    </div>
+                  </article>
+
+                  <article class="dao-map-comm">
+                    <header>
+                      <span class="dao-map-comm-logo">LWF</span>
+                      <span class="dao-map-comm-name">Lisbon Web3 Femmes</span>
+                      <span class="dao-map-comm-divider" aria-hidden="true"></span>
+                      <span class="dao-map-comm-city">Lisbon</span>
+                    </header>
+                    <p>Hands-on builder cohorts focused on shipping consumer apps and on-chain reputation systems.</p>
+                    <div class="dao-map-comm-tags">
+                      <span>Builders</span>
+                    </div>
+                  </article>
+
+                  <article class="dao-map-comm">
+                    <header>
+                      <span class="dao-map-comm-logo">BLR</span>
+                      <span class="dao-map-comm-name">Block &amp; Roses</span>
+                      <span class="dao-map-comm-divider" aria-hidden="true"></span>
+                      <span class="dao-map-comm-city">Paris</span>
+                    </header>
+                    <p>Paris-based collective at the intersection of luxury, fashion and on-chain provenance.</p>
+                    <div class="dao-map-comm-tags">
+                      <span>Art</span>
+                      <span>NFTs</span>
+                    </div>
+                  </article>
+                </div>
+
+                <aside class="dao-map-drawer-r" aria-label="Connect with Europe">
+                  <div class="dao-map-connect-image">
+                    <img src="./si-assets/dao-europe-connect.png" alt="" loading="lazy" decoding="async" />
+                  </div>
+                  <span class="dao-map-connect-eyebrow">Join</span>
+                  <h3 class="dao-map-connect-title">Connect with Europe</h3>
+                  <p class="dao-map-connect-desc">Discover their drops, salons and hackerhouses inside Si U &mdash; the membership layer for the collective.</p>
+                  <a class="dao-map-connect-browse" href="#">Browse all 7 communities &rarr;</a>
+                  <a class="dao-map-connect-cta" href="#">
+                    <span>Join SI U</span>
+                    <span class="dao-map-connect-cta-line" aria-hidden="true"></span>
+                  </a>
+                </aside>
+              </div>
+
+              <!-- Logos rail — head strip + horizontal marquee of every
+                   active community in the SI U network (A → Z). -->
+              <div class="dao-map-rail">
+                <header class="dao-map-rail-head">
+                  <span>All Communities · A → Z</span>
+                  <span>39 Active · 53 Total in Pipeline</span>
+                </header>
+                <div class="dao-map-marquee" aria-hidden="true">
+                  <div class="dao-map-marquee-track">
+                    <span class="dao-map-pill"><span class="dao-map-pill-logo">ACC</span>Accra Coin Sisters</span>
+                    <span class="dao-map-pill"><span class="dao-map-pill-logo">AMS</span>Amsterdam DAO Mothers</span>
+                    <span class="dao-map-pill"><span class="dao-map-pill-logo">BLR</span>Block &amp; Roses</span>
+                    <span class="dao-map-pill"><span class="dao-map-pill-logo">BGO</span>Bogotá Block Hermanas</span>
+                    <span class="dao-map-pill"><span class="dao-map-pill-logo">BLD</span>BuildHer DAO</span>
+                    <span class="dao-map-pill"><span class="dao-map-pill-logo">CDS</span>Cape DAO Sisters</span>
+                    <span class="dao-map-pill"><span class="dao-map-pill-logo">CBA</span>ChicasBlock AR</span>
+                    <span class="dao-map-pill"><span class="dao-map-pill-logo">CCL</span>Crypto Cleo</span>
+                    <span class="dao-map-pill"><span class="dao-map-pill-logo">CMX</span>Crypto Mujeres MX</span>
+                    <span class="dao-map-pill"><span class="dao-map-pill-logo">CSN</span>Crypto Sisters NYC</span>
+                    <span class="dao-map-pill"><span class="dao-map-pill-logo">DLT</span>DLT Talents</span>
+                    <span class="dao-map-pill"><span class="dao-map-pill-logo">DFH</span>DefiantHer</span>
+                    <span class="dao-map-pill"><span class="dao-map-pill-logo">DDO</span>Diamond DAO</span>
+                    <span class="dao-map-pill"><span class="dao-map-pill-logo">DWS</span>Doha Web3 Sisterhood</span>
+                    <span class="dao-map-pill"><span class="dao-map-pill-logo">DUF</span>Dubai Femme Chain</span>
+                    <span class="dao-map-pill"><span class="dao-map-pill-logo">ECT</span>Ecstacy Lagos</span>
+                    <span class="dao-map-pill"><span class="dao-map-pill-logo">ETH</span>ETHGirls Collective</span>
+                    <span class="dao-map-pill"><span class="dao-map-pill-logo">EVW</span>EthVitória Women</span>
+                    <span class="dao-map-pill"><span class="dao-map-pill-logo">EVH</span>EthVoice Hub</span>
+                    <span class="dao-map-pill"><span class="dao-map-pill-logo">ESB</span>Ethereum Sisters Brasil</span>
+                    <span class="dao-map-pill"><span class="dao-map-pill-logo">FM3</span>Femme3</span>
+                    <span class="dao-map-pill"><span class="dao-map-pill-logo">FMT</span>Femmes MENA Talks</span>
+                    <span class="dao-map-pill"><span class="dao-map-pill-logo">H3N</span>H3 Network</span>
+                    <span class="dao-map-pill"><span class="dao-map-pill-logo">HST</span>Heart Studios</span>
+                    <span class="dao-map-pill"><span class="dao-map-pill-logo">LTW</span>LATAM Womxn Web3</span>
+                    <span class="dao-map-pill"><span class="dao-map-pill-logo">LWF</span>Lisbon Web3 Femmes</span>
+                    <span class="dao-map-pill"><span class="dao-map-pill-logo">MWG</span>Manila Web3 Girls</span>
+                    <span class="dao-map-pill"><span class="dao-map-pill-logo">NFO</span>Nairobi Femmes Onchain</span>
+                    <span class="dao-map-pill"><span class="dao-map-pill-logo">SSD</span>Seoul Sisters DAO</span>
+                    <span class="dao-map-pill"><span class="dao-map-pill-logo">SW3</span>Singapore Web3 Wives</span>
+                    <span class="dao-map-pill"><span class="dao-map-pill-logo">SHG</span>Solana Hot Girl Club</span>
+                    <span class="dao-map-pill"><span class="dao-map-pill-logo">SUI</span>Suisterhood</span>
+                    <span class="dao-map-pill"><span class="dao-map-pill-logo">SYD</span>Sydney Crypto Co-op</span>
+                    <span class="dao-map-pill"><span class="dao-map-pill-logo">SYS</span>SystAIn3r</span>
+                    <span class="dao-map-pill"><span class="dao-map-pill-logo">TAV</span>Tel Aviv WoW</span>
+                    <span class="dao-map-pill"><span class="dao-map-pill-logo">TOW</span>Tokyo Onchain Women</span>
+                    <span class="dao-map-pill"><span class="dao-map-pill-logo">W3M</span>Web3 Mamas</span>
+                    <span class="dao-map-pill"><span class="dao-map-pill-logo">WBA</span>Women in Blockchain Africa</span>
+                    <span class="dao-map-pill"><span class="dao-map-pill-logo">HKW</span>Women in Web3 HK</span>
+                    <!-- duplicate set for seamless -50% loop -->
+                    <span class="dao-map-pill" aria-hidden="true"><span class="dao-map-pill-logo">ACC</span>Accra Coin Sisters</span>
+                    <span class="dao-map-pill" aria-hidden="true"><span class="dao-map-pill-logo">AMS</span>Amsterdam DAO Mothers</span>
+                    <span class="dao-map-pill" aria-hidden="true"><span class="dao-map-pill-logo">BLR</span>Block &amp; Roses</span>
+                    <span class="dao-map-pill" aria-hidden="true"><span class="dao-map-pill-logo">BGO</span>Bogotá Block Hermanas</span>
+                    <span class="dao-map-pill" aria-hidden="true"><span class="dao-map-pill-logo">BLD</span>BuildHer DAO</span>
+                    <span class="dao-map-pill" aria-hidden="true"><span class="dao-map-pill-logo">CDS</span>Cape DAO Sisters</span>
+                    <span class="dao-map-pill" aria-hidden="true"><span class="dao-map-pill-logo">CBA</span>ChicasBlock AR</span>
+                    <span class="dao-map-pill" aria-hidden="true"><span class="dao-map-pill-logo">CCL</span>Crypto Cleo</span>
+                    <span class="dao-map-pill" aria-hidden="true"><span class="dao-map-pill-logo">CMX</span>Crypto Mujeres MX</span>
+                    <span class="dao-map-pill" aria-hidden="true"><span class="dao-map-pill-logo">CSN</span>Crypto Sisters NYC</span>
+                    <span class="dao-map-pill" aria-hidden="true"><span class="dao-map-pill-logo">DLT</span>DLT Talents</span>
+                    <span class="dao-map-pill" aria-hidden="true"><span class="dao-map-pill-logo">DFH</span>DefiantHer</span>
+                    <span class="dao-map-pill" aria-hidden="true"><span class="dao-map-pill-logo">DDO</span>Diamond DAO</span>
+                    <span class="dao-map-pill" aria-hidden="true"><span class="dao-map-pill-logo">DWS</span>Doha Web3 Sisterhood</span>
+                    <span class="dao-map-pill" aria-hidden="true"><span class="dao-map-pill-logo">DUF</span>Dubai Femme Chain</span>
+                    <span class="dao-map-pill" aria-hidden="true"><span class="dao-map-pill-logo">ECT</span>Ecstacy Lagos</span>
+                    <span class="dao-map-pill" aria-hidden="true"><span class="dao-map-pill-logo">ETH</span>ETHGirls Collective</span>
+                    <span class="dao-map-pill" aria-hidden="true"><span class="dao-map-pill-logo">EVW</span>EthVitória Women</span>
+                    <span class="dao-map-pill" aria-hidden="true"><span class="dao-map-pill-logo">EVH</span>EthVoice Hub</span>
+                    <span class="dao-map-pill" aria-hidden="true"><span class="dao-map-pill-logo">ESB</span>Ethereum Sisters Brasil</span>
+                    <span class="dao-map-pill" aria-hidden="true"><span class="dao-map-pill-logo">FM3</span>Femme3</span>
+                    <span class="dao-map-pill" aria-hidden="true"><span class="dao-map-pill-logo">FMT</span>Femmes MENA Talks</span>
+                    <span class="dao-map-pill" aria-hidden="true"><span class="dao-map-pill-logo">H3N</span>H3 Network</span>
+                    <span class="dao-map-pill" aria-hidden="true"><span class="dao-map-pill-logo">HST</span>Heart Studios</span>
+                    <span class="dao-map-pill" aria-hidden="true"><span class="dao-map-pill-logo">LTW</span>LATAM Womxn Web3</span>
+                    <span class="dao-map-pill" aria-hidden="true"><span class="dao-map-pill-logo">LWF</span>Lisbon Web3 Femmes</span>
+                    <span class="dao-map-pill" aria-hidden="true"><span class="dao-map-pill-logo">MWG</span>Manila Web3 Girls</span>
+                    <span class="dao-map-pill" aria-hidden="true"><span class="dao-map-pill-logo">NFO</span>Nairobi Femmes Onchain</span>
+                    <span class="dao-map-pill" aria-hidden="true"><span class="dao-map-pill-logo">SSD</span>Seoul Sisters DAO</span>
+                    <span class="dao-map-pill" aria-hidden="true"><span class="dao-map-pill-logo">SW3</span>Singapore Web3 Wives</span>
+                    <span class="dao-map-pill" aria-hidden="true"><span class="dao-map-pill-logo">SHG</span>Solana Hot Girl Club</span>
+                    <span class="dao-map-pill" aria-hidden="true"><span class="dao-map-pill-logo">SUI</span>Suisterhood</span>
+                    <span class="dao-map-pill" aria-hidden="true"><span class="dao-map-pill-logo">SYD</span>Sydney Crypto Co-op</span>
+                    <span class="dao-map-pill" aria-hidden="true"><span class="dao-map-pill-logo">SYS</span>SystAIn3r</span>
+                    <span class="dao-map-pill" aria-hidden="true"><span class="dao-map-pill-logo">TAV</span>Tel Aviv WoW</span>
+                    <span class="dao-map-pill" aria-hidden="true"><span class="dao-map-pill-logo">TOW</span>Tokyo Onchain Women</span>
+                    <span class="dao-map-pill" aria-hidden="true"><span class="dao-map-pill-logo">W3M</span>Web3 Mamas</span>
+                    <span class="dao-map-pill" aria-hidden="true"><span class="dao-map-pill-logo">WBA</span>Women in Blockchain Africa</span>
+                    <span class="dao-map-pill" aria-hidden="true"><span class="dao-map-pill-logo">HKW</span>Women in Web3 HK</span>
+                  </div>
                 </div>
               </div>
             </div>
