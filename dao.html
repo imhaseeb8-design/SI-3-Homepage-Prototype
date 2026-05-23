@@ -119,6 +119,7 @@
 
       /* Wrapped sections render transparent so the crystal shows through. */
       .dao-content-stage .dao-mini-ticker,
+      .dao-content-stage .dao-ticker,
       .dao-content-stage .dao-snapshots,
       .dao-content-stage .dao-lead,
       .dao-content-stage .dao-collab,
@@ -1643,51 +1644,123 @@
       }
 
       /* ============================================================
-         WE COLLAB — Kaia AI agent block. Two-column layout: copy on
-         the left, three feature cards stacked on the right. */
+         Ticker — full-bleed marquee of big-type words + portrait
+         images. Used as a bridge between sections (mirrors Figma
+         330:369 / 332:446). */
+      .dao-ticker {
+        position: relative;
+        width: 100%;
+        overflow: hidden;
+        padding: 36px 0;
+        background: transparent;
+      }
+
+      .dao-ticker-track {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+        width: max-content;
+        animation: dao-ticker-scroll 48s linear infinite;
+        will-change: transform;
+      }
+
+      .dao-ticker-word {
+        font-family: var(--font-clesmont), "Clesmont Demo", "Bebas Neue", var(--font-geist), Arial, sans-serif;
+        font-size: 84px;
+        font-weight: 400;
+        line-height: 1;
+        color: #fff;
+        text-transform: uppercase;
+        white-space: nowrap;
+        letter-spacing: -1px;
+      }
+
+      .dao-ticker-image {
+        flex-shrink: 0;
+        width: 88px;
+        height: 116px;
+        overflow: hidden;
+        border-radius: 4px;
+      }
+
+      .dao-ticker-image img {
+        display: block;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+
+      @keyframes dao-ticker-scroll {
+        from { transform: translate3d(0, 0, 0); }
+        to   { transform: translate3d(-50%, 0, 0); }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        .dao-ticker-track { animation: none; }
+      }
+
+      /* ============================================================
+         WE COLLAB — KAIA matchmaking AI block (Figma 332:431).
+         Header (kicker + title left, intro right) → main chat card
+         (KAIA identity panel left, chat thread right) → 3 numbered
+         feature cards. */
       .dao-collab {
         position: relative;
         width: 100%;
-        padding: 32px 0 96px;
+        padding: 8px 0 32px;
       }
 
       .dao-collab-inner {
-        display: grid;
-        grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-        align-items: start;
-        gap: 64px;
+        display: flex;
+        flex-direction: column;
+        gap: 24px;
         width: min(1253px, calc(100% - 64px));
         margin: 0 auto;
       }
 
-      .dao-collab-copy {
+      .dao-collab-header {
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+        gap: 48px;
+      }
+
+      .dao-collab-header-left {
         display: flex;
         flex-direction: column;
         gap: 22px;
-        padding-top: 8px;
+        align-items: flex-start;
       }
 
       .dao-collab-title {
         margin: 0;
         font-family: var(--font-clesmont), "Clesmont Demo", var(--font-geist), Arial, sans-serif;
-        font-size: 44px;
+        font-size: 32px;
         font-weight: 400;
-        line-height: 1.05;
+        line-height: 1.2;
         color: #fff;
         text-transform: uppercase;
+        letter-spacing: -0.32px;
       }
 
-      .dao-collab-title span { color: #bca9ff; }
+      .dao-collab-header-right {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+        padding-top: 28px;
+      }
 
-      .dao-collab-copy p {
-        max-width: 480px;
+      .dao-collab-header-right p {
+        max-width: 483px;
         margin: 0;
         font-family: var(--font-geist), system-ui, -apple-system, Arial, sans-serif;
-        font-size: 18px;
-        line-height: 1.45;
-        color: #cbcbcb;
+        font-size: 16px;
+        line-height: 1.55;
+        color: rgba(255, 255, 255, 0.66);
+        text-align: right;
       }
 
+      /* Kept for WE GOVERN re-use of the pill CTA pattern. */
       .dao-collab-cta {
         display: inline-flex;
         align-items: center;
@@ -1710,110 +1783,452 @@
 
       .dao-collab-cta:hover { background: #ece4ff; transform: translateY(-1px); }
 
+      /* ----- KAIA card (identity panel + chat panel) ----- */
       .dao-kaia-card {
-        position: relative;
-        padding: 28px 30px 30px;
+        display: grid;
+        grid-template-columns: 360px minmax(0, 1fr);
+        min-height: 620px;
         overflow: hidden;
-        border: 1px solid rgba(255, 255, 255, 0.18);
-        border-radius: 10px;
-        background:
-          radial-gradient(120% 120% at 90% 10%, rgba(105, 70, 240, 0.32) 0%, rgba(12, 10, 24, 0) 60%),
-          rgba(8, 7, 18, 0.6);
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        border-radius: 6px;
+        background: rgba(0, 0, 0, 0.2);
         backdrop-filter: blur(10px);
         -webkit-backdrop-filter: blur(10px);
       }
 
-      .dao-kaia-card::after {
-        content: "";
-        position: absolute;
-        top: -80px;
-        right: -80px;
-        width: 220px;
-        height: 220px;
-        border-radius: 999px;
-        background: radial-gradient(circle, rgba(140, 100, 255, 0.32) 0%, rgba(12, 10, 24, 0) 70%);
-        pointer-events: none;
-      }
-
-      .dao-kaia-head {
+      .dao-kaia-identity {
+        position: relative;
         display: flex;
-        align-items: center;
-        gap: 14px;
-        margin-bottom: 6px;
+        flex-direction: column;
+        border-right: 1px solid rgba(255, 255, 255, 0.08);
+        background: linear-gradient(180deg, rgba(167, 139, 250, 0.1) 0%, rgba(167, 139, 250, 0) 60%);
       }
 
       .dao-kaia-portrait {
-        width: 64px;
-        height: 64px;
+        position: relative;
+        width: 100%;
+        height: 340px;
+        overflow: hidden;
+        background: rgba(167, 139, 250, 0.05);
+      }
+
+      .dao-kaia-portrait img {
+        display: block;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+
+      .dao-kaia-portrait::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(180deg, rgba(13, 12, 36, 0) 45%, rgba(13, 12, 36, 0.55) 75%, #110f28 100%);
+        pointer-events: none;
+      }
+
+      .dao-kaia-online {
+        position: absolute;
+        top: 14px;
+        left: 14px;
+        z-index: 2;
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        height: 22px;
+        padding: 0 11px 0 9px;
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        border-radius: 99px;
+        background: rgba(7, 7, 26, 0.55);
+        font-family: var(--font-geist-mono), monospace;
+        font-size: 10px;
+        font-weight: 500;
+        letter-spacing: 1.4px;
+        color: #eceaf7;
+        text-transform: uppercase;
+      }
+
+      .dao-kaia-online-dot {
+        width: 6px;
+        height: 6px;
         border-radius: 999px;
-        background:
-          conic-gradient(from 200deg at 50% 50%, #ff7ad9 0%, #b46bff 30%, #5db7ff 60%, #a7ffea 90%, #ff7ad9 100%);
-        box-shadow: 0 0 24px rgba(180, 107, 255, 0.45), inset 0 0 0 1px rgba(255, 255, 255, 0.2);
+        background: #4ade80;
+        box-shadow: 0 0 6px rgba(74, 222, 128, 0.7);
+      }
+
+      .dao-kaia-info {
+        display: flex;
+        flex-direction: column;
+        padding: 10px 28px 32px;
+        margin-top: auto;
       }
 
       .dao-kaia-name {
-        font-family: var(--font-clesmont), "Clesmont Demo", var(--font-geist), Arial, sans-serif;
-        font-size: 28px;
-        font-weight: 400;
+        margin: 0;
+        font-family: var(--font-geist-mono), monospace;
+        font-size: 32px;
+        font-weight: 500;
         line-height: 1;
-        text-transform: uppercase;
-        color: #fff;
+        color: #eceaf7;
       }
 
-      .dao-kaia-name + span {
+      .dao-kaia-role {
         display: block;
         margin-top: 6px;
         font-family: var(--font-geist-mono), monospace;
-        font-size: 12px;
-        letter-spacing: 0.14em;
+        font-size: 11px;
+        font-weight: 400;
+        letter-spacing: 1.54px;
         text-transform: uppercase;
-        color: rgba(255, 255, 255, 0.55);
+        color: #f0abfc;
       }
 
-      .dao-kaia-list {
+      .dao-kaia-info p {
+        margin: 16px 0 0;
+        font-family: var(--font-geist), system-ui, -apple-system, Arial, sans-serif;
+        font-size: 14px;
+        line-height: 1.3;
+        color: #9b97b8;
+      }
+
+      .dao-kaia-stats {
         display: flex;
         flex-direction: column;
-        gap: 12px;
-        margin: 24px 0 0;
-        padding: 0;
-        list-style: none;
-        position: relative;
+        margin: 16px 0 0;
       }
 
-      .dao-kaia-list li {
-        display: grid;
-        grid-template-columns: 36px minmax(0, 1fr);
-        gap: 14px;
-        align-items: start;
-        padding: 14px 16px;
-        border: 1px solid rgba(255, 255, 255, 0.12);
-        border-radius: 8px;
-        background: rgba(255, 255, 255, 0.04);
+      .dao-kaia-stats > div {
+        display: flex;
+        align-items: baseline;
+        justify-content: space-between;
+        padding: 8px 0;
+        border-top: 1px solid rgba(255, 255, 255, 0.08);
+        font-size: 12px;
       }
 
-      .dao-kaia-list li strong {
-        display: grid;
-        place-items: center;
-        width: 36px;
-        height: 36px;
-        border-radius: 999px;
-        background: rgba(188, 169, 255, 0.18);
+      .dao-kaia-stats dt {
+        margin: 0;
         font-family: var(--font-geist-mono), monospace;
-        font-size: 13px;
-        font-weight: 500;
-        color: #bca9ff;
+        letter-spacing: 0.6px;
+        text-transform: uppercase;
+        color: #6b6885;
       }
 
-      .dao-kaia-list li span {
+      .dao-kaia-stats dd {
+        margin: 0;
+        font-family: var(--font-geist-mono), monospace;
+        font-weight: 500;
+        color: #eceaf7;
+      }
+
+      /* ----- Chat panel ----- */
+      .dao-kaia-chat {
+        display: flex;
+        flex-direction: column;
+        padding: 24px 28px;
+        min-width: 0;
+      }
+
+      .dao-kaia-chat-head {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding-bottom: 14px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        font-family: var(--font-geist-mono), monospace;
+        font-size: 11px;
+        letter-spacing: 1.54px;
+        text-transform: uppercase;
+        color: #6b6885;
+      }
+
+      .dao-kaia-replay {
+        display: inline-flex;
+        align-items: center;
+        height: 24px;
+        padding: 0 12px;
+        border: 1px solid rgba(255, 255, 255, 0.16);
+        border-radius: 99px;
+        background: transparent;
+        font-family: var(--font-geist-mono), monospace;
+        font-size: 11px;
+        letter-spacing: 0.55px;
+        color: #9b97b8;
+        cursor: pointer;
+        text-transform: none;
+      }
+
+      .dao-kaia-thread {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        margin-top: 14px;
+        flex: 1;
+        min-height: 0;
+      }
+
+      .dao-kaia-msg {
+        display: flex;
+      }
+
+      .dao-kaia-msg.is-user {
+        justify-content: flex-end;
+      }
+
+      .dao-kaia-bubble {
+        max-width: 540px;
+        padding: 10px 14px;
+        border-radius: 14px;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        background: #14182d;
         font-family: var(--font-geist), system-ui, -apple-system, Arial, sans-serif;
-        font-size: 15px;
-        line-height: 1.45;
-        color: #ececec;
+        font-size: 13.5px;
+        line-height: 1.5;
+        color: #eceaf7;
+      }
+
+      .dao-kaia-msg.is-user .dao-kaia-bubble {
+        border-bottom-right-radius: 4px;
+      }
+
+      .dao-kaia-msg.is-bot .dao-kaia-bubble {
+        border-bottom-left-radius: 4px;
+        border-color: rgba(167, 139, 250, 0.22);
+        background: #24194b;
+        color: #ede9ff;
+      }
+
+      .dao-kaia-msg.is-final .dao-kaia-bubble {
+        background: linear-gradient(180deg, rgba(167, 139, 250, 0.14) 0%, rgba(167, 139, 250, 0.06) 100%);
+      }
+
+      .dao-kaia-stamp {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        margin-bottom: 5px;
+        font-family: var(--font-geist-mono), monospace;
+        font-size: 10px;
+        font-weight: 500;
+        letter-spacing: 1.4px;
+        text-transform: uppercase;
+        opacity: 0.5;
+        color: #fff;
+      }
+
+      .dao-kaia-msg.is-final .dao-kaia-stamp {
+        opacity: 1;
+        color: #f0abfc;
+      }
+
+      .dao-kaia-stamp-orb {
+        width: 14px;
+        height: 14px;
+        border-radius: 999px;
+        background: linear-gradient(135deg, #f0abfc 0%, #a78bfa 100%);
+        box-shadow: 0 0 8px rgba(240, 171, 252, 0.6);
+      }
+
+      .dao-kaia-matches {
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+        margin-top: 8px;
+      }
+
+      .dao-kaia-match {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        padding: 8px 10px;
+        border: 1px solid rgba(167, 139, 250, 0.18);
+        border-radius: 10px;
+        background: rgba(167, 139, 250, 0.08);
+      }
+
+      .dao-kaia-match img {
+        width: 28px;
+        height: 28px;
+        border-radius: 14px;
+        object-fit: cover;
+        flex-shrink: 0;
+      }
+
+      .dao-kaia-match-info {
+        flex: 1;
+        min-width: 0;
+        display: flex;
+        flex-direction: column;
+      }
+
+      .dao-kaia-match-name {
+        font-family: var(--font-geist), system-ui, -apple-system, Arial, sans-serif;
+        font-size: 12px;
+        font-weight: 600;
+        color: #eceaf7;
+      }
+
+      .dao-kaia-match-meta {
+        font-family: var(--font-geist), system-ui, -apple-system, Arial, sans-serif;
+        font-size: 10.5px;
+        color: #9b97b8;
+      }
+
+      .dao-kaia-match-dot {
+        width: 8px;
+        height: 8px;
+        border-radius: 999px;
+        background: #4ade80;
+        box-shadow: 0 0 4px rgba(74, 222, 128, 0.6);
+        flex-shrink: 0;
+      }
+
+      .dao-kaia-input {
+        display: flex;
+        gap: 10px;
+        margin-top: 14px;
+        padding-top: 14px;
+        border-top: 1px solid rgba(255, 255, 255, 0.08);
+      }
+
+      .dao-kaia-input-field {
+        flex: 1;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 10px 14px;
+        border: 1px solid rgba(255, 255, 255, 0.06);
+        border-radius: 6px;
+        background: #0d1129;
+        font-family: var(--font-geist), system-ui, -apple-system, Arial, sans-serif;
+        font-size: 13.5px;
+        color: #9b97b8;
+      }
+
+      .dao-kaia-input-key {
+        font-family: var(--font-geist-mono), monospace;
+        font-size: 10px;
+        color: #6b6885;
+      }
+
+      .dao-kaia-send {
+        display: inline-flex;
+        align-items: center;
+        padding: 11px 18px;
+        border: 1px solid rgba(255, 255, 255, 0.06);
+        border-radius: 6px;
+        background: #0d1129;
+        font-family: var(--font-geist), system-ui, -apple-system, Arial, sans-serif;
+        font-size: 13px;
+        font-weight: 600;
+        color: #fff;
+        cursor: pointer;
+      }
+
+      /* ----- Feature cards (3-up) ----- */
+      .dao-kaia-features {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 16px;
+      }
+
+      .dao-kaia-feature {
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+        padding: 14px 14px 27px 18px;
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        border-radius: 6px;
+        background: rgba(0, 0, 0, 0.2);
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+      }
+
+      .dao-kaia-feature-head {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+
+      .dao-kaia-feature-num {
+        display: inline-flex;
+        align-items: center;
+        gap: 12px;
+        font-family: var(--font-geist-mono), monospace;
+        font-size: 14px;
+        line-height: 1;
+        color: rgba(255, 255, 255, 0.7);
+      }
+
+      .dao-kaia-feature-num::before {
+        content: "";
+        width: 13px;
+        height: 15px;
+        background-image: url("./si-assets/snapshot-mark.svg");
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: contain;
+      }
+
+      .dao-kaia-feature-toggle {
+        position: relative;
+        display: inline-block;
+        width: 28px;
+        height: 28px;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        border-radius: 4px;
+        background: rgba(255, 255, 255, 0.05);
+        cursor: pointer;
+      }
+
+      .dao-kaia-feature-toggle::before {
+        content: "";
+        position: absolute;
+        top: 13px;
+        left: 7px;
+        width: 14px;
+        height: 2px;
+        border-radius: 10px;
+        background: #fff;
+      }
+
+      .dao-kaia-feature hr {
+        width: 100%;
+        height: 1px;
+        margin: 0;
+        border: 0;
+        background: rgba(255, 255, 255, 0.08);
+      }
+
+      .dao-kaia-feature h3 {
+        margin: 0;
+        font-family: var(--font-clesmont), "Clesmont Demo", var(--font-geist), Arial, sans-serif;
+        font-size: 20px;
+        font-weight: 400;
+        line-height: 1.4;
+        color: #fff;
+        text-transform: uppercase;
+      }
+
+      .dao-kaia-feature p {
+        margin: 16px 0 0;
+        font-family: var(--font-geist), system-ui, -apple-system, Arial, sans-serif;
+        font-size: 17px;
+        line-height: 1.4;
+        color: rgba(255, 255, 255, 0.8);
       }
 
       @media (max-width: 980px) {
-        .dao-collab-inner { grid-template-columns: 1fr; gap: 32px; }
-        .dao-collab-title { font-size: 34px; }
+        .dao-collab-header { flex-direction: column; align-items: flex-start; gap: 18px; }
+        .dao-collab-header-right { align-items: flex-start; padding-top: 0; }
+        .dao-collab-header-right p { text-align: left; max-width: none; }
+        .dao-collab-title { font-size: 26px; }
+        .dao-kaia-card { grid-template-columns: 1fr; }
+        .dao-kaia-identity { border-right: 0; border-bottom: 1px solid rgba(255, 255, 255, 0.08); }
+        .dao-kaia-features { grid-template-columns: 1fr; }
+        .dao-ticker-word { font-size: 56px; }
+        .dao-ticker-image { width: 60px; height: 80px; }
+        .dao-kaia-bubble { max-width: 100%; }
       }
 
       /* ============================================================
@@ -3199,47 +3614,200 @@
           </div>
         </section>
 
+        <!-- Bridge ticker (Figma 330:369) — full-bleed big-type marquee
+             that separates WE LEAD from WE COLLAB. -->
+        <div class="dao-ticker" aria-hidden="true">
+          <div class="dao-ticker-track">
+            <span class="dao-ticker-word">Collaborative Growth</span>
+            <span class="dao-ticker-image"><img src="./si-assets/dao-ticker-portal.png" alt="" loading="lazy" decoding="async" /></span>
+            <span class="dao-ticker-word">On-Chain Learning</span>
+            <span class="dao-ticker-image"><img src="./si-assets/dao-ticker-hood.png" alt="" loading="lazy" decoding="async" /></span>
+            <span class="dao-ticker-word">Ecosystem Partnerships</span>
+            <span class="dao-ticker-image"><img src="./si-assets/dao-ticker-portal.png" alt="" loading="lazy" decoding="async" /></span>
+            <!-- duplicate set for seamless -50% loop -->
+            <span class="dao-ticker-word">Collaborative Growth</span>
+            <span class="dao-ticker-image"><img src="./si-assets/dao-ticker-portal.png" alt="" loading="lazy" decoding="async" /></span>
+            <span class="dao-ticker-word">On-Chain Learning</span>
+            <span class="dao-ticker-image"><img src="./si-assets/dao-ticker-hood.png" alt="" loading="lazy" decoding="async" /></span>
+            <span class="dao-ticker-word">Ecosystem Partnerships</span>
+            <span class="dao-ticker-image"><img src="./si-assets/dao-ticker-portal.png" alt="" loading="lazy" decoding="async" /></span>
+          </div>
+        </div>
+
         <!-- ============================================================
-             WE COLLAB — Kaia AI agent block. -->
+             WE COLLAB — Si Her DAO • KAIA matchmaking AI block.
+             Mirrors Figma 332:431: header → chat card (identity left,
+             thread right) → 3 numbered feature cards. -->
         <section class="dao-collab" aria-labelledby="dao-collab-title">
           <div class="dao-collab-inner">
-            <div class="dao-collab-copy">
-              <span class="dao-kicker">
-                <img src="./si-assets/snapshot-mark.svg" alt="" />
-                We Collab
-              </span>
-              <h2 class="dao-collab-title" id="dao-collab-title">
-                Meet Kaia &mdash;<br />Our <span>AI Agent</span>
-              </h2>
-              <p>Kaia is your intelligent companion for navigating Si Her DAO &mdash; matching members to buddies, partners, and the right rooms across the network.</p>
-              <a class="dao-collab-cta" href="#">Join our DAO</a>
-            </div>
+            <header class="dao-collab-header">
+              <div class="dao-collab-header-left">
+                <span class="dao-kicker">
+                  <img src="./si-assets/snapshot-mark.svg" alt="" />
+                  We Collab
+                </span>
+                <h2 class="dao-collab-title" id="dao-collab-title">Si Her DAO &mdash; KAIA</h2>
+              </div>
+              <div class="dao-collab-header-right">
+                <p>Where Si Her sisters find each other &mdash; guided by KAIA, our matchmaking AI.</p>
+              </div>
+            </header>
 
             <article class="dao-kaia-card">
-              <div class="dao-kaia-head">
-                <div class="dao-kaia-portrait" aria-hidden="true"></div>
-                <div>
-                  <div class="dao-kaia-name">Kaia</div>
-                  <span>Si Her DAO &middot; AI Agent</span>
+              <aside class="dao-kaia-identity" aria-label="KAIA AI agent identity">
+                <div class="dao-kaia-portrait">
+                  <img src="./si-assets/dao-kaia-portrait.png" alt="KAIA" loading="lazy" decoding="async" />
+                  <span class="dao-kaia-online">
+                    <span class="dao-kaia-online-dot" aria-hidden="true"></span>
+                    Online
+                  </span>
+                </div>
+                <div class="dao-kaia-info">
+                  <p class="dao-kaia-name">KAIA</p>
+                  <span class="dao-kaia-role">AI Agent &middot; Si Her DAO</span>
+                  <p>Your matchmaker inside Si Her DAO. KAIA reads your goals, your calendar, and the rooms you&rsquo;ll be in &mdash; then quietly introduces you to the sisters most worth your time.</p>
+                  <dl class="dao-kaia-stats">
+                    <div>
+                      <dt>Sisters Indexed</dt>
+                      <dd>1.2k+</dd>
+                    </div>
+                    <div>
+                      <dt>Intro Acceptance</dt>
+                      <dd>94%</dd>
+                    </div>
+                  </dl>
+                </div>
+              </aside>
+
+              <div class="dao-kaia-chat">
+                <header class="dao-kaia-chat-head">
+                  <span>Live Demo &middot; Session #4821</span>
+                  <button class="dao-kaia-replay" type="button">&#8635; replay</button>
+                </header>
+
+                <div class="dao-kaia-thread">
+                  <div class="dao-kaia-msg is-user">
+                    <div class="dao-kaia-bubble">I&rsquo;m prepping to launch a ZK-based identity protocol. Need a co-founder and feedback at ETHDenver.</div>
+                  </div>
+
+                  <div class="dao-kaia-msg is-bot">
+                    <div class="dao-kaia-bubble">
+                      <span class="dao-kaia-stamp">KAIA</span>
+                      Got it. Scanning 1,247 Si Her sisters across roles, time zones, and event RSVPs&hellip;
+                    </div>
+                  </div>
+
+                  <div class="dao-kaia-msg is-bot">
+                    <div class="dao-kaia-bubble">
+                      <span class="dao-kaia-stamp">KAIA</span>
+                      I found 3 strong leads &mdash; all going to ETHDenver. Priya&rsquo;s the strongest fit: ex-Aztec, shipped two ZK protocols, actively looking for a co-founder.
+                      <div class="dao-kaia-matches">
+                        <div class="dao-kaia-match">
+                          <img src="./si-assets/dao-kaia-priya.png" alt="" loading="lazy" decoding="async" />
+                          <div class="dao-kaia-match-info">
+                            <span class="dao-kaia-match-name">Priya Mehta</span>
+                            <span class="dao-kaia-match-meta">ZK &middot; ex-Aztec</span>
+                          </div>
+                          <span class="dao-kaia-match-dot" aria-hidden="true"></span>
+                        </div>
+                        <div class="dao-kaia-match">
+                          <img src="./si-assets/dao-kaia-zara.png" alt="" loading="lazy" decoding="async" />
+                          <div class="dao-kaia-match-info">
+                            <span class="dao-kaia-match-name">Zara Okonkwo</span>
+                            <span class="dao-kaia-match-meta">Solidity &middot; Lens</span>
+                          </div>
+                          <span class="dao-kaia-match-dot" aria-hidden="true"></span>
+                        </div>
+                        <div class="dao-kaia-match">
+                          <img src="./si-assets/dao-kaia-mei.png" alt="" loading="lazy" decoding="async" />
+                          <div class="dao-kaia-match-info">
+                            <span class="dao-kaia-match-name">Mei Tanaka</span>
+                            <span class="dao-kaia-match-meta">Product &middot; OP</span>
+                          </div>
+                          <span class="dao-kaia-match-dot" aria-hidden="true"></span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="dao-kaia-msg is-user">
+                    <div class="dao-kaia-bubble">Perfect &mdash; book Priya for Thu and share my one-pager in advance.</div>
+                  </div>
+
+                  <div class="dao-kaia-msg is-bot is-final">
+                    <div class="dao-kaia-bubble">
+                      <span class="dao-kaia-stamp">
+                        <span class="dao-kaia-stamp-orb" aria-hidden="true"></span>
+                        KAIA
+                      </span>
+                      Done. Calendar synced, deck shared. I&rsquo;ll prep talking points an hour before. &#10022;
+                    </div>
+                  </div>
+                </div>
+
+                <div class="dao-kaia-input">
+                  <label class="dao-kaia-input-field">
+                    <span>Ask KAIA anything&hellip;</span>
+                    <span class="dao-kaia-input-key" aria-hidden="true">&#8629;</span>
+                  </label>
+                  <button class="dao-kaia-send" type="button">Send</button>
                 </div>
               </div>
-              <ul class="dao-kaia-list">
-                <li>
-                  <strong>01</strong>
-                  <span>Find buddies for the upcoming conferences you're attending.</span>
-                </li>
-                <li>
-                  <strong>02</strong>
-                  <span>Match with DAO members for new business and partnership opportunities.</span>
-                </li>
-                <li>
-                  <strong>03</strong>
-                  <span>Connect with like-minded peers and grow your support and learning network.</span>
-                </li>
-              </ul>
             </article>
+
+            <div class="dao-kaia-features">
+              <article class="dao-kaia-feature">
+                <header class="dao-kaia-feature-head">
+                  <span class="dao-kaia-feature-num">/ 01</span>
+                  <span class="dao-kaia-feature-toggle" aria-hidden="true"></span>
+                </header>
+                <hr />
+                <h3>Conference Buddies</h3>
+                <p>Find your IRL crew</p>
+              </article>
+
+              <article class="dao-kaia-feature">
+                <header class="dao-kaia-feature-head">
+                  <span class="dao-kaia-feature-num">/ 02</span>
+                  <span class="dao-kaia-feature-toggle" aria-hidden="true"></span>
+                </header>
+                <hr />
+                <h3>Business Matches</h3>
+                <p>Co-founders, contracts, capital</p>
+              </article>
+
+              <article class="dao-kaia-feature">
+                <header class="dao-kaia-feature-head">
+                  <span class="dao-kaia-feature-num">/ 03</span>
+                  <span class="dao-kaia-feature-toggle" aria-hidden="true"></span>
+                </header>
+                <hr />
+                <h3>Peer &amp; Mentor Circles</h3>
+                <p>Your ongoing support network</p>
+              </article>
+            </div>
           </div>
         </section>
+
+        <!-- Bridge ticker (Figma 332:446) — same marquee, repeated as
+             a closing rhythm before WE GOVERN. -->
+        <div class="dao-ticker" aria-hidden="true">
+          <div class="dao-ticker-track">
+            <span class="dao-ticker-word">Collaborative Growth</span>
+            <span class="dao-ticker-image"><img src="./si-assets/dao-ticker-portal.png" alt="" loading="lazy" decoding="async" /></span>
+            <span class="dao-ticker-word">On-Chain Learning</span>
+            <span class="dao-ticker-image"><img src="./si-assets/dao-ticker-hood.png" alt="" loading="lazy" decoding="async" /></span>
+            <span class="dao-ticker-word">Ecosystem Partnerships</span>
+            <span class="dao-ticker-image"><img src="./si-assets/dao-ticker-portal.png" alt="" loading="lazy" decoding="async" /></span>
+            <!-- duplicate set for seamless -50% loop -->
+            <span class="dao-ticker-word">Collaborative Growth</span>
+            <span class="dao-ticker-image"><img src="./si-assets/dao-ticker-portal.png" alt="" loading="lazy" decoding="async" /></span>
+            <span class="dao-ticker-word">On-Chain Learning</span>
+            <span class="dao-ticker-image"><img src="./si-assets/dao-ticker-hood.png" alt="" loading="lazy" decoding="async" /></span>
+            <span class="dao-ticker-word">Ecosystem Partnerships</span>
+            <span class="dao-ticker-image"><img src="./si-assets/dao-ticker-portal.png" alt="" loading="lazy" decoding="async" /></span>
+          </div>
+        </div>
 
         <!-- ============================================================
              WE GOVERN — DAO Governance working groups. -->
