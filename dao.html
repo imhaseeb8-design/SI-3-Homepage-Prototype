@@ -474,7 +474,7 @@
         padding: 64px 0 96px;
         overflow: hidden;
         isolation: isolate;
-        background: var(--page-bg);
+        background: transparent;
       }
 
       .dao-learn-inner {
@@ -509,7 +509,7 @@
         text-transform: uppercase;
       }
 
-      .dao-learn-title span { color: #bca9ff; }
+      .dao-learn-title span { color: inherit; }
 
       .dao-learn-header-right p {
         max-width: 540px;
@@ -522,179 +522,198 @@
         text-align: right;
       }
 
-      .dao-event-card {
+      /* Inters3ction card — verbatim from index.html (Figma-perfect spec).
+         Uses inters3ction-* class names so updates can be cherry-picked
+         from the homepage without renaming. */
+      .inters3ction-card {
         position: relative;
         display: grid;
-        grid-template-columns: minmax(280px, 405px) minmax(0, 1fr);
-        gap: 0;
-        align-items: stretch;
+        grid-template-columns: 405px minmax(0, 1fr);
+        gap: 44px;
         height: 390px;
-        padding: 39px 37px 41px 51px;
-        margin: 0;
         overflow: hidden;
+        padding: 38px 39px 40px;
         border: 1px solid rgba(255, 255, 255, 0.3);
         border-radius: 6px;
         background: rgba(0, 0, 0, 0.2);
         backdrop-filter: blur(10px);
       }
 
-      .dao-event-card::before,
-      .dao-event-card::after {
+      .inters3ction-card::before,
+      .inters3ction-card::after {
         content: "";
         position: absolute;
         right: 0;
         left: 0;
         height: 1px;
-        background: rgba(255, 255, 255, 0.12);
-        pointer-events: none;
+        background: rgba(255, 255, 255, 0.15);
       }
 
-      .dao-event-card::before { top: 38px; }
-      .dao-event-card::after { bottom: 41px; }
+      .inters3ction-card::before { top: 38px; }
+      .inters3ction-card::after { bottom: 40px; }
 
-      .dao-event-image {
+      .inters3ction-vline {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        width: 1px;
+        background: rgba(255, 255, 255, 0.15);
+      }
+
+      .inters3ction-vline.left   { left: 38px; }
+      .inters3ction-vline.middle { left: 444px; }
+      .inters3ction-vline.right  { right: 39px; }
+
+      .inters3ction-corner {
+        position: absolute;
+        width: 4px;
+        height: 4px;
+        background: #d3d3d3;
+      }
+
+      .inters3ction-corner.one   { top: 37px;    left: 38px; }
+      .inters3ction-corner.two   { bottom: 41px; left: 38px; }
+      .inters3ction-corner.three { top: 37px;    left: 444px; }
+      .inters3ction-corner.four  { bottom: 41px; left: 444px; }
+      .inters3ction-corner.five  { top: 37px;    right: 38px; }
+      .inters3ction-corner.six   { bottom: 41px; right: 38px; }
+
+      .inters3ction-image,
+      .inters3ction-content {
         position: relative;
         z-index: 1;
-        min-height: 309px;
       }
 
-      .dao-event-image img {
+      .inters3ction-image img {
         display: block;
-        width: 100%;
-        height: 100%;
-        min-height: 309px;
+        width: 405px;
+        height: 309px;
         object-fit: cover;
       }
 
-      .dao-event-content {
-        position: relative;
-        z-index: 1;
+      .inters3ction-content {
         display: flex;
-        min-width: 0;
         flex-direction: column;
-        justify-content: flex-start;
-        padding: 31px 28px 0 31px;
-        border-left: 1px solid rgba(255, 255, 255, 0.12);
+        min-width: 0;
+        padding-top: 32px;
       }
 
-      .dao-event-meta-row {
+      .inters3ction-stats {
         display: grid;
-        grid-template-columns: minmax(120px, 132px) minmax(110px, 118px) minmax(180px, 1fr);
-        gap: 50px;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 34px;
+        max-width: 632px;
       }
 
-      .dao-event-meta {
-        margin: 0;
+      .inters3ction-stat {
+        display: flex;
+        flex-direction: column;
+        gap: 14px;
       }
 
-      .dao-event-meta dt {
-        margin: 0;
-        font-family: var(--font-geist-mono), monospace;
+      .inters3ction-stat span:first-child {
+        font-family: var(--font-geist-mono), "Geist Mono", monospace;
         font-size: 14px;
         line-height: 1;
-        letter-spacing: 0.06em;
-        text-transform: uppercase;
+        letter-spacing: 0.84px;
         color: #9a9a9b;
       }
 
-      .dao-event-meta dd {
-        margin: 16px 0 0;
-        font-family: var(--font-geist), system-ui, -apple-system, Arial, sans-serif;
+      .inters3ction-stat span:last-child {
+        font-family: var(--font-geist), Geist, Arial, sans-serif;
         font-size: 16px;
         line-height: 1;
         color: #fff;
+        white-space: nowrap;
       }
 
-      .dao-event-rule {
+      .inters3ction-divider {
         width: 100%;
+        max-width: 689px;
         height: 1px;
-        margin: 26px 0 0;
-        border: 0;
-        background: rgba(255, 255, 255, 0.12);
+        margin-top: 23px;
+        background: rgba(255, 255, 255, 0.15);
       }
 
-      .dao-event-title {
+      .inters3ction-content h3 {
         margin: 24px 0 0;
-        font-family: var(--font-geist), system-ui, -apple-system, Arial, sans-serif;
+        font-family: var(--font-geist-mono), "Geist Mono", monospace;
         font-size: 36px;
         font-weight: 500;
-        line-height: 1;
+        line-height: normal;
         color: #fff;
       }
 
-      .dao-event-description {
-        max-width: 565px;
-        margin: 20px 0 0;
-        font-family: var(--font-geist), system-ui, -apple-system, Arial, sans-serif;
+      .inters3ction-content p {
+        width: 565px;
+        max-width: 100%;
+        margin: 15px 0 0;
+        font-family: var(--font-geist), Geist, Arial, sans-serif;
         font-size: 16px;
         line-height: 1.3;
         color: #a7a7a7;
       }
 
-      .dao-event-bottom {
+      .inters3ction-tags {
         display: flex;
-        align-items: center;
-        gap: 24px;
-        margin-top: auto;
-        padding-top: 28px;
-      }
-
-      .dao-event-tags {
-        display: flex;
-        min-width: 0;
         flex-wrap: wrap;
         gap: 10px;
+        margin-top: 36px;
+        padding-right: 86px;
       }
 
-      .dao-event-tag {
+      .inters3ction-tags span {
         display: inline-flex;
         align-items: center;
         justify-content: center;
-        min-height: 30px;
+        height: 30px;
         padding: 0 18px;
         border: 1px solid #5e5e5e;
-        border-radius: 999px;
+        border-radius: 100px;
         background: rgba(0, 0, 0, 0.2);
-        font-family: var(--font-geist-mono), monospace;
+        font-family: var(--font-geist-mono), "Geist Mono", monospace;
         font-size: 12px;
         line-height: 1;
-        letter-spacing: 0.06em;
+        letter-spacing: 0.72px;
         color: #fff;
         white-space: nowrap;
       }
 
-      .dao-event-coming {
-        margin-left: auto;
-        font-family: var(--font-geist-mono), monospace;
-        font-size: 16px;
+      .inters3ction-coming-soon {
+        position: absolute;
+        right: 60px;
+        bottom: 60px;
+        z-index: 2;
+        font-family: var(--font-geist-mono), "Geist Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+        font-size: 14px;
+        font-weight: 400;
         line-height: 1;
-        letter-spacing: 0.06em;
-        color: #fff;
+        letter-spacing: 0.02em;
+        color: rgba(255, 255, 255, 0.85);
         white-space: nowrap;
       }
 
-      @media (max-width: 980px) {
+      @media (max-width: 1100px) {
         .dao-learn-header { grid-template-columns: 1fr; align-items: start; gap: 18px; }
         .dao-learn-header-right p { text-align: left; }
-        .dao-event-card { grid-template-columns: 1fr; height: auto; padding: 32px; }
-        .dao-event-card::before,
-        .dao-event-card::after { display: none; }
-        .dao-event-content { padding: 28px 0 0; border-left: 0; }
-        .dao-event-meta-row { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 22px; }
+        .inters3ction-card { display: flex; flex-direction: column; height: auto; gap: 0; padding: 0; }
+        .inters3ction-card::before,
+        .inters3ction-card::after,
+        .inters3ction-vline,
+        .inters3ction-corner { display: none; }
+        .inters3ction-image img { width: 100%; height: auto; aspect-ratio: 405 / 309; }
+        .inters3ction-content { padding: 24px; }
+        .inters3ction-stats { gap: 18px; }
+        .inters3ction-tags { margin-top: 28px; padding-right: 0; }
+        .inters3ction-coming-soon { position: static; margin: 20px 0 0; }
       }
 
       @media (max-width: 640px) {
         .dao-learn { padding: 48px 0 72px; }
         .dao-learn-inner { width: min(100% - 32px, 1253px); }
         .dao-learn-title { font-size: 32px; }
-        .dao-event-card { padding: 24px; }
-        .dao-event-image,
-        .dao-event-image img { min-height: 220px; }
-        .dao-event-meta-row { grid-template-columns: 1fr; gap: 18px; }
-        .dao-event-meta dd { margin-top: 8px; }
-        .dao-event-title { font-size: 28px; line-height: 1.1; }
-        .dao-event-bottom { align-items: flex-start; flex-direction: column; gap: 18px; }
-        .dao-event-coming { margin-left: 0; }
+        .inters3ction-stats { grid-template-columns: 1fr; }
+        .inters3ction-content h3 { font-size: 29px; }
       }
 
       /* ============================================================
@@ -2459,37 +2478,45 @@
               </div>
             </header>
 
-            <article class="dao-event-card" aria-labelledby="dao-event-title">
-              <div class="dao-event-image">
-                <img src="./si-assets/inters3ction-event.jpg" alt="" loading="lazy" decoding="async" />
+            <article class="inters3ction-card">
+              <span class="inters3ction-vline left" aria-hidden="true"></span>
+              <span class="inters3ction-vline middle" aria-hidden="true"></span>
+              <span class="inters3ction-vline right" aria-hidden="true"></span>
+              <span class="inters3ction-corner one" aria-hidden="true"></span>
+              <span class="inters3ction-corner two" aria-hidden="true"></span>
+              <span class="inters3ction-corner three" aria-hidden="true"></span>
+              <span class="inters3ction-corner four" aria-hidden="true"></span>
+              <span class="inters3ction-corner five" aria-hidden="true"></span>
+              <span class="inters3ction-corner six" aria-hidden="true"></span>
+
+              <div class="inters3ction-image">
+                <img src="./si-assets/inters3ction-event.jpg" alt="Inters3ction event gathering" loading="lazy" decoding="async" />
               </div>
-              <div class="dao-event-content">
-                <dl class="dao-event-meta-row">
-                  <div class="dao-event-meta">
-                    <dt>Focus</dt>
-                    <dd>Mobile meets Web3</dd>
+              <div class="inters3ction-content">
+                <div class="inters3ction-stats">
+                  <div class="inters3ction-stat">
+                    <span>FOCUS</span>
+                    <span>Mobile meets Web3</span>
                   </div>
-                  <div class="dao-event-meta">
-                    <dt>Format</dt>
-                    <dd>4-hour side events</dd>
+                  <div class="inters3ction-stat">
+                    <span>FORMAT</span>
+                    <span>4-hour side events</span>
                   </div>
-                  <div class="dao-event-meta">
-                    <dt>For Whom</dt>
-                    <dd>Mobile adoption leaders</dd>
+                  <div class="inters3ction-stat">
+                    <span>FOR WHOM</span>
+                    <span>Mobile adoption leaders</span>
                   </div>
-                </dl>
-                <hr class="dao-event-rule" />
-                <h3 class="dao-event-title" id="dao-event-title">Inters3ction Series</h3>
-                <p class="dao-event-description">A global side event series for the builders and marketers driving real-world mobile Web3 adoption.</p>
-                <div class="dao-event-bottom">
-                  <div class="dao-event-tags" aria-label="Event locations">
-                    <span class="dao-event-tag">NFT NYC</span>
-                    <span class="dao-event-tag">AI SUMMIT SF</span>
-                    <span class="dao-event-tag">SOLANA BREAKPOINT LONDON</span>
-                  </div>
-                  <span class="dao-event-coming">*coming soon</span>
+                </div>
+                <div class="inters3ction-divider" aria-hidden="true"></div>
+                <h3>Inters3ction Series</h3>
+                <p>A global side event series for the builders and marketers driving real-world mobile Web3 adoption.</p>
+                <div class="inters3ction-tags">
+                  <span>NFT NYC</span>
+                  <span>AI SUMMIT SF</span>
+                  <span>SOLANA BREAKPOINT LONDON</span>
                 </div>
               </div>
+              <span class="inters3ction-coming-soon" aria-label="Coming soon">*coming soon</span>
             </article>
           </div>
         </section>
