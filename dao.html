@@ -1349,16 +1349,19 @@
         .dao-map-marquee-track { animation: none; }
       }
       /* ============================================================
-         Sub-section 2: WE BRAND — personal brand tools. */
+         Sub-section 2: WE BRAND — personal brand tools.
+         Layout follows Figma 378:12: 32px Clesmont title on the left,
+         483px-wide intro on the right, then a 1:1 card grid with a
+         480px image-drop on top and a 36px-padded content block below. */
       .dao-brand {
         display: flex;
         flex-direction: column;
-        gap: 28px;
+        gap: 23px;
       }
 
       .dao-brand-head {
         display: flex;
-        align-items: flex-end;
+        align-items: flex-start;
         justify-content: space-between;
         gap: 48px;
       }
@@ -1366,175 +1369,162 @@
       .dao-brand-head-left {
         display: flex;
         flex-direction: column;
-        gap: 16px;
+        gap: 22px;
+        align-items: flex-start;
       }
 
       .dao-brand-title {
         margin: 0;
         font-family: var(--font-clesmont), "Clesmont Demo", var(--font-geist), Arial, sans-serif;
-        font-size: 40px;
+        font-size: 32px;
         font-weight: 400;
-        line-height: 1.05;
+        line-height: 1.2;
         color: #fff;
         text-transform: uppercase;
+        letter-spacing: -0.32px;
       }
 
-      .dao-brand-title span { color: #bca9ff; }
+      .dao-brand-head-right {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+        padding-top: 28px;
+      }
 
-      .dao-brand-head p {
-        max-width: 380px;
+      .dao-brand-head-right p {
+        max-width: 483px;
         margin: 0;
         font-family: var(--font-geist), system-ui, -apple-system, Arial, sans-serif;
         font-size: 16px;
-        line-height: 1.6;
-        color: rgba(255, 255, 255, 0.7);
+        line-height: 1.55;
+        color: rgba(255, 255, 255, 0.66);
         text-align: right;
       }
 
       .dao-brand-grid {
         display: grid;
         grid-template-columns: 1fr 1fr;
-        gap: 16px;
+        gap: 17px;
+        align-items: stretch;
       }
 
       .dao-brand-card {
         display: flex;
         flex-direction: column;
+        min-width: 0;
         overflow: hidden;
-        border: 1px solid rgba(255, 255, 255, 0.22);
-        border-radius: 12px;
-        background: rgba(8, 7, 18, 0.6);
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        border-radius: 6px;
+        background: rgba(0, 0, 0, 0.2);
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
         transition: border-color 0.25s ease, transform 0.25s ease;
       }
 
       .dao-brand-card:hover {
-        border-color: rgba(188, 169, 255, 0.5);
+        border-color: rgba(188, 169, 255, 0.45);
         transform: translateY(-2px);
       }
 
-      /* Media slot — placeholder until a real mockup is dropped in.
-         Replace the empty <div class="dao-brand-card-media"> contents
-         with an <img> or interactive mockup to fill the space. */
-      .dao-brand-card-media {
+      /* Image-drop — 480px frame holding the product shot. A 172px
+         linear gradient fades the bottom of the image into #070b2b so
+         the seam to the content block below reads smoothly. */
+      .dao-brand-card-image {
         position: relative;
         width: 100%;
-        aspect-ratio: 16 / 9;
-        display: grid;
-        place-items: center;
+        height: 480px;
         overflow: hidden;
+        background: rgba(255, 255, 255, 0.02);
         border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-        background:
-          linear-gradient(180deg, rgba(76, 42, 156, 0.22) 0%, rgba(8, 7, 18, 0.65) 100%),
-          repeating-linear-gradient(
-            45deg,
-            rgba(255, 255, 255, 0.02) 0,
-            rgba(255, 255, 255, 0.02) 12px,
-            rgba(255, 255, 255, 0.05) 12px,
-            rgba(255, 255, 255, 0.05) 24px
-          );
       }
 
-      .dao-brand-card.is-media .dao-brand-card-media {
-        background:
-          linear-gradient(180deg, rgba(42, 86, 156, 0.22) 0%, rgba(8, 7, 18, 0.65) 100%),
-          repeating-linear-gradient(
-            -45deg,
-            rgba(255, 255, 255, 0.02) 0,
-            rgba(255, 255, 255, 0.02) 12px,
-            rgba(255, 255, 255, 0.05) 12px,
-            rgba(255, 255, 255, 0.05) 24px
-          );
+      .dao-brand-card-image img {
+        display: block;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        pointer-events: none;
       }
 
-      .dao-brand-card-placeholder {
-        display: inline-flex;
-        align-items: center;
-        gap: 10px;
-        padding: 8px 14px;
-        border: 1px dashed rgba(255, 255, 255, 0.22);
-        border-radius: 999px;
-        font-family: var(--font-geist-mono), monospace;
-        font-size: 11px;
-        line-height: 1;
-        letter-spacing: 0.12em;
-        text-transform: uppercase;
-        color: rgba(255, 255, 255, 0.45);
+      .dao-brand-card-image-fade {
+        position: absolute;
+        right: 0;
+        bottom: -1px;
+        left: 0;
+        height: 172px;
+        background: linear-gradient(180deg, rgba(7, 11, 43, 0) 0%, #070b2b 100%);
+        pointer-events: none;
       }
 
-      .dao-brand-card-placeholder::before {
-        content: "";
-        width: 6px;
-        height: 6px;
-        border-radius: 999px;
-        background: rgba(188, 169, 255, 0.7);
-      }
-
-      .dao-brand-card-body {
+      .dao-brand-card-content {
         display: flex;
         flex-direction: column;
-        gap: 12px;
-        padding: 28px 30px 30px;
+        gap: 16px;
+        padding: 36px;
       }
 
-      .dao-brand-card-eyebrow {
+      .dao-brand-card-pill {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        align-self: flex-start;
+        height: 30px;
+        padding: 0 18px;
+        border: 1px solid #5e5e5e;
+        border-radius: 100px;
+        background: rgba(0, 0, 0, 0.2);
         font-family: var(--font-geist-mono), monospace;
-        font-size: 11px;
+        font-size: 12px;
         line-height: 1;
-        letter-spacing: 0.18em;
+        letter-spacing: 0.72px;
         text-transform: uppercase;
-        color: #bca9ff;
+        color: #fff;
       }
 
       .dao-brand-card-title {
         margin: 0;
         font-family: var(--font-clesmont), "Clesmont Demo", var(--font-geist), Arial, sans-serif;
-        font-size: 30px;
+        font-size: 28px;
         font-weight: 400;
-        line-height: 1.05;
+        line-height: 1;
         color: #fff;
         text-transform: uppercase;
+        letter-spacing: -0.14px;
       }
 
       .dao-brand-card p {
         margin: 0;
-        max-width: 420px;
         font-family: var(--font-geist), system-ui, -apple-system, Arial, sans-serif;
         font-size: 15px;
-        line-height: 1.55;
-        color: #cbcbcb;
+        line-height: 1.5;
+        color: rgba(255, 255, 255, 0.66);
       }
 
       .dao-brand-card-cta {
         display: inline-flex;
-        align-items: center;
-        gap: 10px;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8.5px;
         align-self: flex-start;
         margin-top: 8px;
-        height: 38px;
-        padding: 0 18px;
-        border: 1px solid rgba(255, 255, 255, 0.22);
-        border-radius: 999px;
-        background: transparent;
-        font-family: var(--font-geist-mono), monospace;
-        font-size: 11px;
+        font-family: var(--font-geist), system-ui, -apple-system, Arial, sans-serif;
+        font-size: 16px;
+        font-weight: 400;
         line-height: 1;
-        letter-spacing: 0.12em;
-        text-transform: uppercase;
         color: #fff;
         text-decoration: none;
-        transition: background 0.2s ease, border-color 0.2s ease;
       }
 
-      .dao-brand-card-cta::after {
-        content: "→";
-        font-family: var(--font-geist), system-ui, -apple-system, Arial, sans-serif;
-        font-size: 14px;
-        line-height: 1;
+      .dao-brand-card-cta-line {
+        display: block;
+        width: 44px;
+        height: 1px;
+        background: #fff;
+        transition: width 0.2s ease;
       }
 
-      .dao-brand-card-cta:hover {
-        background: rgba(188, 169, 255, 0.12);
-        border-color: #bca9ff;
+      .dao-brand-card-cta:hover .dao-brand-card-cta-line {
+        width: 64px;
       }
 
       /* ============================================================
@@ -1627,9 +1617,11 @@
         .dao-map-drawer-r { border-left: 0; border-right: 0; border-bottom: 1px solid rgba(255, 255, 255, 0.1); }
         .dao-map-drawer-list { grid-template-columns: 1fr; }
         .dao-map-comm { border-right: 0; }
-        .dao-brand-head { flex-direction: column; align-items: flex-start; gap: 16px; }
-        .dao-brand-head p { text-align: left; }
+        .dao-brand-head { flex-direction: column; align-items: flex-start; gap: 18px; }
+        .dao-brand-head-right { padding-top: 0; align-items: flex-start; }
+        .dao-brand-head-right p { text-align: left; max-width: none; }
         .dao-brand-grid { grid-template-columns: 1fr; }
+        .dao-brand-card-image { height: auto; aspect-ratio: 617 / 480; }
         .dao-lead-cta-bar { flex-direction: column; align-items: flex-start; padding: 24px 22px; }
       }
 
@@ -1644,7 +1636,8 @@
         .dao-map-meta { gap: 18px; flex-wrap: wrap; }
         .dao-map-meta-item dd { font-size: 20px; }
         .dao-map-rail-head { flex-direction: column; align-items: flex-start; gap: 8px; }
-        .dao-brand-title { font-size: 32px; }
+        .dao-brand-title { font-size: 26px; }
+        .dao-brand-card-content { padding: 24px; }
         .dao-brand-card-title { font-size: 24px; }
         .dao-lead-cta-text { font-size: 18px; }
       }
@@ -3136,7 +3129,10 @@
               </div>
             </div>
 
-            <!-- ========== Subsection 2: WE BRAND ========== -->
+            <!-- ========== Subsection 2: WE BRAND ==========
+                 Layout mirrors Figma node 378:12: header (kicker +
+                 title left, intro right) → two side-by-side cards,
+                 each with an image-drop (480) + content (260). -->
             <div class="dao-brand">
               <header class="dao-brand-head">
                 <div class="dao-brand-head-left">
@@ -3144,41 +3140,45 @@
                     <img src="./si-assets/snapshot-mark.svg" alt="" />
                     We Brand
                   </span>
-                  <h3 class="dao-brand-title">
-                    Amplify Your<br /><span>Voice</span>
-                  </h3>
+                  <h3 class="dao-brand-title">Amplify your voice</h3>
                 </div>
-                <p>Receive Web3-enabled tools to amplify your personal brand and voice. Build your presence. Own your story on-chain.</p>
+                <div class="dao-brand-head-right">
+                  <p>Receive Web3-enabled tools to amplify your personal brand and voice. Build your presence. Own your story on-chain.</p>
+                </div>
               </header>
 
               <div class="dao-brand-grid">
-                <!-- Card 1 — Personal Brand / siher.eth.
-                     TODO: replace .dao-brand-card-media contents with the
-                     personal brand mockup once available. -->
-                <article class="dao-brand-card is-brand">
-                  <div class="dao-brand-card-media">
-                    <span class="dao-brand-card-placeholder">Drop siher.eth mockup here</span>
+                <!-- Card 1 — Voice & Network / Si Her TV livestream. -->
+                <article class="dao-brand-card">
+                  <div class="dao-brand-card-image">
+                    <img src="./si-assets/dao-brand-siher-tv.png" alt="Si Her TV livestream preview" loading="lazy" decoding="async" />
+                    <span class="dao-brand-card-image-fade" aria-hidden="true"></span>
                   </div>
-                  <div class="dao-brand-card-body">
-                    <span class="dao-brand-card-eyebrow">Personal Brand</span>
-                    <h4 class="dao-brand-card-title">Create Your<br />Web3 Identity</h4>
-                    <p>Utilize your custom siher.eth template to showcase your personal brand in Web3.</p>
-                    <a class="dao-brand-card-cta" href="#">Claim Your Space</a>
+                  <div class="dao-brand-card-content">
+                    <span class="dao-brand-card-pill">Media &amp; Network</span>
+                    <h4 class="dao-brand-card-title">Amplify your voice &amp; Network</h4>
+                    <p>Develop your own livestream channel with our decentralized media platform, powered by Streamr.</p>
+                    <a class="dao-brand-card-cta" href="#">
+                      <span>Launch Channel</span>
+                      <span class="dao-brand-card-cta-line" aria-hidden="true"></span>
+                    </a>
                   </div>
                 </article>
 
-                <!-- Card 2 — Voice & Network / livestream.
-                     TODO: replace .dao-brand-card-media contents with the
-                     Si Her TV / Streamr mockup once available. -->
-                <article class="dao-brand-card is-media">
-                  <div class="dao-brand-card-media">
-                    <span class="dao-brand-card-placeholder">Drop livestream mockup here</span>
+                <!-- Card 2 — Personal Brand / siher.eth template. -->
+                <article class="dao-brand-card">
+                  <div class="dao-brand-card-image">
+                    <img src="./si-assets/dao-brand-siher-eth.png" alt="siher.eth personal brand template" loading="lazy" decoding="async" />
+                    <span class="dao-brand-card-image-fade" aria-hidden="true"></span>
                   </div>
-                  <div class="dao-brand-card-body">
-                    <span class="dao-brand-card-eyebrow">Media &amp; Network</span>
-                    <h4 class="dao-brand-card-title">Amplify Your<br />Voice &amp; Network</h4>
-                    <p>Develop your own livestream channel with our decentralized media platform, powered by Streamr.</p>
-                    <a class="dao-brand-card-cta" href="#">Launch Channel</a>
+                  <div class="dao-brand-card-content">
+                    <span class="dao-brand-card-pill">Personal Brand</span>
+                    <h4 class="dao-brand-card-title">Create your Web3 Identity</h4>
+                    <p>Utilize your custom siher.eth template to showcase your personal brand in Web3.</p>
+                    <a class="dao-brand-card-cta" href="#">
+                      <span>Claim Your Space</span>
+                      <span class="dao-brand-card-cta-line" aria-hidden="true"></span>
+                    </a>
                   </div>
                 </article>
               </div>
