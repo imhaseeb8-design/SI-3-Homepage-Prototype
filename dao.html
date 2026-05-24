@@ -1807,7 +1807,7 @@
       .dao-kaia-portrait {
         position: relative;
         width: 100%;
-        height: 340px;
+        height: 290px;
         overflow: hidden;
         background: rgba(167, 139, 250, 0.05);
       }
@@ -1935,7 +1935,7 @@
         justify-content: space-between;
         padding-bottom: 14px;
         border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-        font-family: var(--font-geist-mono), monospace;
+        font-family: var(--font-geist), system-ui, -apple-system, Arial, sans-serif;
         font-size: 11px;
         letter-spacing: 1.54px;
         text-transform: uppercase;
@@ -1950,7 +1950,7 @@
         border: 1px solid rgba(255, 255, 255, 0.16);
         border-radius: 99px;
         background: transparent;
-        font-family: var(--font-geist-mono), monospace;
+        font-family: var(--font-geist-mono), "JetBrains Mono", monospace;
         font-size: 11px;
         letter-spacing: 0.55px;
         color: #9b97b8;
@@ -1980,7 +1980,7 @@
         padding: 10px 14px;
         border-radius: 14px;
         border: 1px solid rgba(255, 255, 255, 0.1);
-        background: #14182d;
+        background: rgba(20, 24, 45, 0.4);
         font-family: var(--font-geist), system-ui, -apple-system, Arial, sans-serif;
         font-size: 13.5px;
         line-height: 1.5;
@@ -1991,15 +1991,18 @@
         border-bottom-right-radius: 4px;
       }
 
+      /* All KAIA bubbles share the same lavender gradient + border.
+         The match-list bubble (.has-matches) reverses the gradient
+         so the heavier tone sits at the bottom. */
       .dao-kaia-msg.is-bot .dao-kaia-bubble {
         border-bottom-left-radius: 4px;
         border-color: rgba(167, 139, 250, 0.22);
-        background: #24194b;
+        background: linear-gradient(180deg, rgba(167, 139, 250, 0.14) 0%, rgba(167, 139, 250, 0.06) 100%);
         color: #ede9ff;
       }
 
-      .dao-kaia-msg.is-final .dao-kaia-bubble {
-        background: linear-gradient(180deg, rgba(167, 139, 250, 0.14) 0%, rgba(167, 139, 250, 0.06) 100%);
+      .dao-kaia-msg.is-bot.has-matches .dao-kaia-bubble {
+        background: linear-gradient(0deg, rgba(167, 139, 250, 0.14) 0%, rgba(167, 139, 250, 0.06) 100%);
       }
 
       .dao-kaia-stamp {
@@ -2007,26 +2010,13 @@
         align-items: center;
         gap: 6px;
         margin-bottom: 5px;
-        font-family: var(--font-geist-mono), monospace;
+        font-family: var(--font-geist-mono), "JetBrains Mono", monospace;
         font-size: 10px;
         font-weight: 500;
         letter-spacing: 1.4px;
         text-transform: uppercase;
         opacity: 0.5;
         color: #fff;
-      }
-
-      .dao-kaia-msg.is-final .dao-kaia-stamp {
-        opacity: 1;
-        color: #f0abfc;
-      }
-
-      .dao-kaia-stamp-orb {
-        width: 14px;
-        height: 14px;
-        border-radius: 999px;
-        background: linear-gradient(135deg, #f0abfc 0%, #a78bfa 100%);
-        box-shadow: 0 0 8px rgba(240, 171, 252, 0.6);
       }
 
       .dao-kaia-matches {
@@ -2101,8 +2091,12 @@
         border-radius: 6px;
         background: #0d1129;
         font-family: var(--font-geist), system-ui, -apple-system, Arial, sans-serif;
-        font-size: 13.5px;
+        font-size: 13px;
         color: #9b97b8;
+      }
+
+      .dao-kaia-input-field > span:first-child {
+        opacity: 0.6;
       }
 
       .dao-kaia-input-key {
@@ -3704,10 +3698,10 @@
                 <div class="dao-kaia-info">
                   <p class="dao-kaia-name">KAIA</p>
                   <span class="dao-kaia-role">AI Agent &middot; Si Her DAO</span>
-                  <p>Your matchmaker inside Si Her DAO. KAIA reads your goals, your calendar, and the rooms you&rsquo;ll be in &mdash; then quietly introduces you to the sisters most worth your time.</p>
+                  <p>Your matchmaker inside Si Her DAO and the broader SI&lt;3&gt; Ecosystem. KAIA connects your interests and goals &mdash; then introduces you to aligned Si Her members and communities.</p>
                   <dl class="dao-kaia-stats">
                     <div>
-                      <dt>Sisters Indexed</dt>
+                      <dt>Members Indexed</dt>
                       <dd>1.2k+</dd>
                     </div>
                     <div>
@@ -3726,26 +3720,26 @@
 
                 <div class="dao-kaia-thread">
                   <div class="dao-kaia-msg is-user">
-                    <div class="dao-kaia-bubble">I&rsquo;m prepping to launch a ZK-based identity protocol. Need a co-founder and feedback at ETHDenver.</div>
+                    <div class="dao-kaia-bubble">I am going to DevConnect and would love to meet up with Si Her Circles members there. Can you match me?</div>
                   </div>
 
                   <div class="dao-kaia-msg is-bot">
                     <div class="dao-kaia-bubble">
                       <span class="dao-kaia-stamp">KAIA</span>
-                      Got it. Scanning 1,247 Si Her sisters across roles, time zones, and event RSVPs&hellip;
+                      Got it. Scanning 1,247 Si Her Circles members and who is going to be at DevConnect.
                     </div>
                   </div>
 
-                  <div class="dao-kaia-msg is-bot">
+                  <div class="dao-kaia-msg is-bot has-matches">
                     <div class="dao-kaia-bubble">
                       <span class="dao-kaia-stamp">KAIA</span>
-                      I found 3 strong leads &mdash; all going to ETHDenver. Priya&rsquo;s the strongest fit: ex-Aztec, shipped two ZK protocols, actively looking for a co-founder.
+                      I found 3 members going to DevConnect. Priya&rsquo;s the strongest fit: Is also in a leadership role and shares similar interests.
                       <div class="dao-kaia-matches">
                         <div class="dao-kaia-match">
                           <img src="./si-assets/dao-kaia-priya.png" alt="" loading="lazy" decoding="async" />
                           <div class="dao-kaia-match-info">
                             <span class="dao-kaia-match-name">Priya Mehta</span>
-                            <span class="dao-kaia-match-meta">ZK &middot; ex-Aztec</span>
+                            <span class="dao-kaia-match-meta">Europe &middot; Head of Partnerships</span>
                           </div>
                           <span class="dao-kaia-match-dot" aria-hidden="true"></span>
                         </div>
@@ -3753,7 +3747,7 @@
                           <img src="./si-assets/dao-kaia-zara.png" alt="" loading="lazy" decoding="async" />
                           <div class="dao-kaia-match-info">
                             <span class="dao-kaia-match-name">Zara Okonkwo</span>
-                            <span class="dao-kaia-match-meta">Solidity &middot; Lens</span>
+                            <span class="dao-kaia-match-meta">Africa &middot; Community Lead</span>
                           </div>
                           <span class="dao-kaia-match-dot" aria-hidden="true"></span>
                         </div>
@@ -3761,7 +3755,7 @@
                           <img src="./si-assets/dao-kaia-mei.png" alt="" loading="lazy" decoding="async" />
                           <div class="dao-kaia-match-info">
                             <span class="dao-kaia-match-name">Mei Tanaka</span>
-                            <span class="dao-kaia-match-meta">Product &middot; OP</span>
+                            <span class="dao-kaia-match-meta">U.S. &middot; Founder</span>
                           </div>
                           <span class="dao-kaia-match-dot" aria-hidden="true"></span>
                         </div>
@@ -3770,23 +3764,20 @@
                   </div>
 
                   <div class="dao-kaia-msg is-user">
-                    <div class="dao-kaia-bubble">Perfect &mdash; book Priya for Thu and share my one-pager in advance.</div>
+                    <div class="dao-kaia-bubble">Perfect &mdash; please send an introduction to all three.</div>
                   </div>
 
-                  <div class="dao-kaia-msg is-bot is-final">
+                  <div class="dao-kaia-msg is-bot">
                     <div class="dao-kaia-bubble">
-                      <span class="dao-kaia-stamp">
-                        <span class="dao-kaia-stamp-orb" aria-hidden="true"></span>
-                        KAIA
-                      </span>
-                      Done. Calendar synced, deck shared. I&rsquo;ll prep talking points an hour before. &#10022;
+                      <span class="dao-kaia-stamp">KAIA</span>
+                      Done. Now let&rsquo;s wait for their response and I will connect you. &#10022;
                     </div>
                   </div>
                 </div>
 
                 <div class="dao-kaia-input">
                   <label class="dao-kaia-input-field">
-                    <span>Ask KAIA anything&hellip;</span>
+                    <span>Ask KAIA to: Find you an event buddy, Guide you on Circles or Share learning on DAO&rsquo;s</span>
                     <span class="dao-kaia-input-key" aria-hidden="true">&#8629;</span>
                   </label>
                   <button class="dao-kaia-send" type="button">Send</button>
