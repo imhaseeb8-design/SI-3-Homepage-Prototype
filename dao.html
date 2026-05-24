@@ -2434,6 +2434,10 @@
         border-color: rgba(167, 139, 250, 0.22);
         background: linear-gradient(180deg, rgba(167, 139, 250, 0.14) 0%, rgba(167, 139, 250, 0.06) 100%);
         color: #ede9ff;
+        /* Figma 403:1802 — stamp on its own row, message text below */
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
       }
 
       .dao-kaia-msg.is-bot.has-matches .dao-kaia-bubble {
@@ -2441,10 +2445,9 @@
       }
 
       .dao-kaia-stamp {
-        display: inline-flex;
+        display: flex;
         align-items: center;
         gap: 6px;
-        margin-bottom: 5px;
         font-family: var(--font-geist-mono), "JetBrains Mono", monospace;
         font-size: 10px;
         font-weight: 500;
@@ -4292,14 +4295,14 @@
                   <div class="dao-kaia-msg is-bot">
                     <div class="dao-kaia-bubble">
                       <span class="dao-kaia-stamp">KAIA</span>
-                      Got it. Scanning 1,247 Si Her Circles members and who is going to be at DevConnect.
+                      <p style="margin:0;line-height:1.5;">Got it. Scanning 1,247 Si Her Circles members and who is going to be at DevConnect.</p>
                     </div>
                   </div>
 
                   <div class="dao-kaia-msg is-bot has-matches">
                     <div class="dao-kaia-bubble">
                       <span class="dao-kaia-stamp">KAIA</span>
-                      I found 3 members going to DevConnect. Priya&rsquo;s the strongest fit: Is also in a leadership role and shares similar interests.
+                      <p style="margin:0;line-height:1.5;">I found 3 members going to DevConnect. Priya&rsquo;s the strongest fit: Is also in a leadership role and shares similar interests.</p>
                       <div class="dao-kaia-matches">
                         <div class="dao-kaia-match">
                           <img src="./si-assets/dao-kaia-priya.png" alt="" loading="lazy" decoding="async" />
@@ -4336,7 +4339,7 @@
                   <div class="dao-kaia-msg is-bot">
                     <div class="dao-kaia-bubble">
                       <span class="dao-kaia-stamp">KAIA</span>
-                      Done. Now let&rsquo;s wait for their response and I will connect you. &#10022;
+                      <p style="margin:0;line-height:1.5;">Done. Now let&rsquo;s wait for their response and I will connect you. &#10022;</p>
                     </div>
                   </div>
                 </div>
@@ -4767,11 +4770,12 @@
           el.style.opacity   = "0";
           el.style.transform = "translateY(8px)";
           el.style.transition = "opacity 0.35s cubic-bezier(0.2,0.7,0.3,1), transform 0.35s cubic-bezier(0.2,0.7,0.3,1)";
-          /* Double rAF so the browser paints once before the transition starts */
-          requestAnimationFrame(() => requestAnimationFrame(() => {
+          /* setTimeout fires even in background tabs; gives browser one frame
+             to paint the initial state before the transition kicks in. */
+          setTimeout(() => {
             el.style.opacity   = "1";
             el.style.transform = "translateY(0)";
-          }));
+          }, 20);
         };
 
         const makeTyping = () => {
@@ -4803,7 +4807,8 @@
                   </div>`).join("")}</div>`
               : "";
             el.innerHTML = `<div class="dao-kaia-bubble">
-              <span class="dao-kaia-stamp">KAIA</span>${m.text}${matchesHTML}
+              <span class="dao-kaia-stamp">KAIA</span>
+              <p style="margin:0;line-height:1.5;">${m.text}</p>${matchesHTML}
             </div>`;
           }
           return el;
