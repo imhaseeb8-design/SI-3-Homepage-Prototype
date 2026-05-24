@@ -121,6 +121,7 @@
       .dao-content-stage .dao-mini-ticker,
       .dao-content-stage .dao-ticker,
       .dao-content-stage .dao-snapshots,
+      .dao-content-stage .dao-sessions,
       .dao-content-stage .dao-lead,
       .dao-content-stage .dao-collab,
       .dao-content-stage .dao-govern {
@@ -739,6 +740,357 @@
         .dao-learn-title { font-size: 32px; }
         .inters3ction-stats { grid-template-columns: 1fr; }
         .inters3ction-content h3 { font-size: 29px; }
+      }
+
+      /* ============================================================
+         SESSIONS — Sub-section within We Learn (Figma 414:192)
+         Sits between Inters3ction card and We Lead.
+         Header: We Learn kicker → title + subtitle
+         Body: Hero card (320px) + scrollable session rail
+         ============================================================ */
+      .dao-sessions {
+        padding: 56px 0;
+        width: 100%;
+      }
+
+      .dao-sessions-inner {
+        width: min(1253px, calc(100% - 64px));
+        margin: 0 auto;
+        display: flex;
+        flex-direction: column;
+        gap: 33px;
+      }
+
+      .dao-sessions-header {
+        display: flex;
+        flex-direction: column;
+        gap: 22px;
+      }
+
+      .dao-sessions-kicker {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font-family: 'GeistMono', monospace;
+        font-size: 14px;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        opacity: 0.7;
+        color: #fff;
+      }
+
+      .dao-sessions-kicker img {
+        width: 13px;
+        height: 15px;
+        display: block;
+      }
+
+      .dao-sessions-title-group {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+      }
+
+      .dao-sessions-title {
+        font-family: 'Clesmont', sans-serif;
+        font-size: 32px;
+        font-weight: 400;
+        line-height: 1.1;
+        color: #fff;
+        margin: 0;
+        text-transform: uppercase;
+      }
+
+      .dao-sessions-sub {
+        font-family: 'Geist', sans-serif;
+        font-size: 18px;
+        font-weight: 400;
+        color: #cbcbcb;
+        margin: 0;
+        line-height: 1.4;
+      }
+
+      .dao-sessions-body {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+      }
+
+      /* ── Hero Card ── */
+      .dao-session-hero {
+        position: relative;
+        height: 320px;
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        border-radius: 6px;
+        overflow: hidden;
+        background: rgba(0, 0, 0, 0.2);
+      }
+
+      .dao-session-hero-img {
+        position: absolute;
+        top: 0;
+        left: calc(50% + 379px);
+        width: 495px;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+        pointer-events: none;
+      }
+
+      .dao-session-hero-info {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 758px;
+        max-width: 100%;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+        padding: 40px 48px;
+        background: rgba(0, 0, 0, 0.2);
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+        box-sizing: border-box;
+      }
+
+      .dao-session-badge {
+        display: inline-block;
+        font-family: 'GeistMono', monospace;
+        font-size: 11px;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        color: rgba(255, 255, 255, 0.6);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        border-radius: 20px;
+        padding: 4px 12px;
+        margin-bottom: 16px;
+        width: fit-content;
+      }
+
+      .dao-session-hero-title {
+        font-family: 'Clesmont', sans-serif;
+        font-size: 28px;
+        font-weight: 400;
+        color: #fff;
+        line-height: 1.2;
+        margin: 0 0 12px;
+        text-transform: uppercase;
+      }
+
+      .dao-session-hero-speaker {
+        font-family: 'Geist', sans-serif;
+        font-size: 14px;
+        color: rgba(255, 255, 255, 0.7);
+        margin: 0 0 20px;
+      }
+
+      .dao-session-rsvp {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        font-family: 'Geist', sans-serif;
+        font-size: 13px;
+        font-weight: 500;
+        color: #fff;
+        background: rgba(255, 255, 255, 0.12);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        border-radius: 4px;
+        padding: 8px 18px;
+        cursor: pointer;
+        transition: background 0.2s;
+        text-decoration: none;
+        width: fit-content;
+      }
+
+      .dao-session-rsvp:hover { background: rgba(255, 255, 255, 0.2); }
+
+      /* 4 corner bracket marks */
+      .dao-session-corner {
+        position: absolute;
+        width: 16px;
+        height: 16px;
+        pointer-events: none;
+      }
+
+      .dao-session-corner.tl { top: 10px; left: 10px; border-top: 2px solid rgba(255,255,255,0.4); border-left: 2px solid rgba(255,255,255,0.4); }
+      .dao-session-corner.tr { top: 10px; right: 10px; border-top: 2px solid rgba(255,255,255,0.4); border-right: 2px solid rgba(255,255,255,0.4); }
+      .dao-session-corner.bl { bottom: 10px; left: 10px; border-bottom: 2px solid rgba(255,255,255,0.4); border-left: 2px solid rgba(255,255,255,0.4); }
+      .dao-session-corner.br { bottom: 10px; right: 10px; border-bottom: 2px solid rgba(255,255,255,0.4); border-right: 2px solid rgba(255,255,255,0.4); }
+
+      /* ── Session Rail ── */
+      .dao-session-rail {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        position: relative;
+      }
+
+      .dao-session-controls {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+
+      .dao-session-counter {
+        font-family: 'GeistMono', monospace;
+        font-size: 12px;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        color: rgba(255, 255, 255, 0.5);
+      }
+
+      .dao-session-arrows {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+
+      .dao-session-arrow {
+        width: 40px;
+        height: 40px;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        border-radius: 4px;
+        background: rgba(255, 255, 255, 0.05);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        color: rgba(255, 255, 255, 0.7);
+        transition: background 0.2s, border-color 0.2s;
+        font-size: 16px;
+        line-height: 1;
+      }
+
+      .dao-session-arrow:hover {
+        background: rgba(255, 255, 255, 0.12);
+        border-color: rgba(255, 255, 255, 0.4);
+      }
+
+      .dao-session-cards-wrap {
+        position: relative;
+        overflow: hidden;
+      }
+
+      .dao-session-cards {
+        display: flex;
+        gap: 12px;
+        overflow-x: auto;
+        scroll-behavior: smooth;
+        scrollbar-width: none;
+        -ms-overflow-style: none;
+        padding-bottom: 4px;
+      }
+
+      .dao-session-cards::-webkit-scrollbar { display: none; }
+
+      .dao-session-card {
+        flex: 0 0 290px;
+        height: 179px;
+        border: 1px solid rgba(255, 255, 255, 0.15);
+        border-radius: 6px;
+        background: rgba(0, 0, 0, 0.2);
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        padding: 18px;
+        box-sizing: border-box;
+        cursor: pointer;
+        transition: background 0.2s, border-color 0.2s;
+      }
+
+      .dao-session-card.is-active {
+        background: rgba(255, 255, 255, 0.1);
+        border-color: rgba(255, 255, 255, 0.3);
+      }
+
+      .dao-session-card-info {
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+      }
+
+      .dao-session-card-title {
+        font-family: 'Geist', sans-serif;
+        font-size: 14px;
+        font-weight: 500;
+        color: #fff;
+        line-height: 1.3;
+        margin: 0;
+      }
+
+      .dao-session-card-name {
+        font-family: 'Geist', sans-serif;
+        font-size: 14px;
+        font-weight: 400;
+        color: rgba(255, 255, 255, 0.8);
+        margin: 0;
+      }
+
+      .dao-session-card-role {
+        font-family: 'Geist', sans-serif;
+        font-size: 12px;
+        font-weight: 400;
+        color: rgba(255, 255, 255, 0.35);
+        margin: 0;
+      }
+
+      .dao-session-card-bottom {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+
+      .dao-session-card-avatar {
+        width: 36px;
+        height: 36px;
+        border-radius: 50%;
+        object-fit: cover;
+        display: block;
+      }
+
+      .dao-session-card-logo {
+        height: 18px;
+        width: auto;
+        display: block;
+        opacity: 0.8;
+      }
+
+      /* Right-side fade overlay on rail */
+      .dao-session-rail-fade {
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: 133px;
+        height: 100%;
+        background: linear-gradient(to left, #070d2f 0%, rgba(7, 13, 47, 0) 100%);
+        pointer-events: none;
+      }
+
+      /* ── Sessions responsive ── */
+      @media (max-width: 980px) {
+        .dao-session-hero { height: auto; min-height: 240px; }
+        .dao-session-hero-img { display: none; }
+        .dao-session-hero-info {
+          position: relative;
+          width: 100%;
+          height: auto;
+          backdrop-filter: none;
+          -webkit-backdrop-filter: none;
+          background: none;
+        }
+      }
+
+      @media (max-width: 640px) {
+        .dao-sessions { padding: 40px 0; }
+        .dao-sessions-inner { width: min(100% - 32px, 1253px); }
+        .dao-sessions-title { font-size: 26px; }
+        .dao-sessions-sub { font-size: 16px; }
+        .dao-session-hero-title { font-size: 22px; }
+        .dao-session-hero-info { padding: 24px; }
+        .dao-session-card { flex: 0 0 240px; }
       }
 
       /* ============================================================
@@ -3307,6 +3659,126 @@
               <span class="inters3ction-coming-soon" aria-label="Coming soon">*coming soon</span>
             </article>
           </div>
+        </section>
+
+        <!-- ============================================================
+             SESSIONS — Sub-section within We Learn (Figma 414:192)
+             Sits between Inters3ction card and We Lead section. -->
+        <section class="dao-sessions" aria-label="Sessions">
+          <div class="dao-sessions-inner">
+
+            <header class="dao-sessions-header">
+              <span class="dao-sessions-kicker">
+                <img src="./si-assets/welearn-icon.png" alt="" />
+                We Learn
+              </span>
+              <div class="dao-sessions-title-group">
+                <h2 class="dao-sessions-title">SI HER STRATEGISTS</h2>
+                <p class="dao-sessions-sub">Live conversations with the women building the next layer of Web3.</p>
+              </div>
+            </header>
+
+            <div class="dao-sessions-body">
+
+              <!-- Hero card -->
+              <article class="dao-session-hero" aria-label="Featured session">
+                <img class="dao-session-hero-img" src="./si-assets/session-hero-bg.png" alt="Featured session background" />
+                <div class="dao-session-hero-info">
+                  <span class="dao-session-badge">EP 01 &middot; LIVE SESSION</span>
+                  <h3 class="dao-session-hero-title">Navigating Web3 as a<br>Womxn of Color</h3>
+                  <p class="dao-session-hero-speaker">with Nadia Alvarez &middot; Co-Founder, Stellar Labs</p>
+                  <a href="#" class="dao-session-rsvp">RSVP &#8599;</a>
+                </div>
+                <span class="dao-session-corner tl" aria-hidden="true"></span>
+                <span class="dao-session-corner tr" aria-hidden="true"></span>
+                <span class="dao-session-corner bl" aria-hidden="true"></span>
+                <span class="dao-session-corner br" aria-hidden="true"></span>
+              </article>
+
+              <!-- Session rail -->
+              <div class="dao-session-rail">
+                <div class="dao-session-controls">
+                  <span class="dao-session-counter">ALL SESSIONS &middot; 01 OF 14</span>
+                  <div class="dao-session-arrows">
+                    <button class="dao-session-arrow" aria-label="Previous session">&#8592;</button>
+                    <button class="dao-session-arrow" aria-label="Next session">&#8594;</button>
+                  </div>
+                </div>
+                <div class="dao-session-cards-wrap">
+                  <div class="dao-session-cards" id="dao-session-cards">
+
+                    <!-- EP01 — active -->
+                    <article class="dao-session-card is-active">
+                      <div class="dao-session-card-info">
+                        <p class="dao-session-card-title">Navigating Web3 as a Womxn of Color</p>
+                        <p class="dao-session-card-name">Nadia Alvarez</p>
+                        <p class="dao-session-card-role">Co-Founder, Stellar Labs</p>
+                      </div>
+                      <div class="dao-session-card-bottom">
+                        <img class="dao-session-card-avatar" src="./si-assets/session-avatar.png" alt="Nadia Alvarez" />
+                        <img class="dao-session-card-logo" src="./si-assets/session-stellar.svg" alt="Stellar" />
+                      </div>
+                    </article>
+
+                    <!-- EP02 -->
+                    <article class="dao-session-card">
+                      <div class="dao-session-card-info">
+                        <p class="dao-session-card-title">Building DAOs That Center Equity</p>
+                        <p class="dao-session-card-name">Amara Osei</p>
+                        <p class="dao-session-card-role">DAO Architect, Umoja</p>
+                      </div>
+                      <div class="dao-session-card-bottom">
+                        <img class="dao-session-card-avatar" src="./si-assets/session-avatar.png" alt="Amara Osei" />
+                        <img class="dao-session-card-logo" src="./si-assets/session-stellar.svg" alt="Stellar" />
+                      </div>
+                    </article>
+
+                    <!-- EP03 -->
+                    <article class="dao-session-card">
+                      <div class="dao-session-card-info">
+                        <p class="dao-session-card-title">DeFi for the Global South</p>
+                        <p class="dao-session-card-name">Priya Menon</p>
+                        <p class="dao-session-card-role">Lead, Celo Foundation</p>
+                      </div>
+                      <div class="dao-session-card-bottom">
+                        <img class="dao-session-card-avatar" src="./si-assets/session-avatar.png" alt="Priya Menon" />
+                        <img class="dao-session-card-logo" src="./si-assets/session-stellar.svg" alt="Stellar" />
+                      </div>
+                    </article>
+
+                    <!-- EP04 -->
+                    <article class="dao-session-card">
+                      <div class="dao-session-card-info">
+                        <p class="dao-session-card-title">NFTs as Community Infrastructure</p>
+                        <p class="dao-session-card-name">Zara Kimani</p>
+                        <p class="dao-session-card-role">Creative Director, Akili</p>
+                      </div>
+                      <div class="dao-session-card-bottom">
+                        <img class="dao-session-card-avatar" src="./si-assets/session-avatar.png" alt="Zara Kimani" />
+                        <img class="dao-session-card-logo" src="./si-assets/session-stellar.svg" alt="Stellar" />
+                      </div>
+                    </article>
+
+                    <!-- EP05 -->
+                    <article class="dao-session-card">
+                      <div class="dao-session-card-info">
+                        <p class="dao-session-card-title">Scaling Impact Through Web3</p>
+                        <p class="dao-session-card-name">Fatima Al-Hassan</p>
+                        <p class="dao-session-card-role">Founder, Haqq</p>
+                      </div>
+                      <div class="dao-session-card-bottom">
+                        <img class="dao-session-card-avatar" src="./si-assets/session-avatar.png" alt="Fatima Al-Hassan" />
+                        <img class="dao-session-card-logo" src="./si-assets/session-stellar.svg" alt="Stellar" />
+                      </div>
+                    </article>
+
+                  </div><!-- /.dao-session-cards -->
+                  <div class="dao-session-rail-fade" aria-hidden="true"></div>
+                </div><!-- /.dao-session-cards-wrap -->
+              </div><!-- /.dao-session-rail -->
+
+            </div><!-- /.dao-sessions-body -->
+          </div><!-- /.dao-sessions-inner -->
         </section>
 
         <!-- ============================================================
