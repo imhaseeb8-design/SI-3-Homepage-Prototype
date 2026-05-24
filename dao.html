@@ -127,6 +127,25 @@
         background: transparent;
       }
 
+      /* Figma 384:189 — post-hero navy gradient wash. Absolutely
+         positioned so it overlays the first viewport of .dao-content-stage
+         without pushing any content down. */
+      .dao-hero-gradient {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100vh;
+        background: linear-gradient(
+          to bottom,
+          rgba(10, 41, 95, 0)    0%,
+          rgba(10, 41, 95, 0.4) 50%,
+          #0a295f               100%
+        );
+        pointer-events: none;
+        z-index: 1;
+      }
+
       /* ============================================================
          Hero band — Figma 196:2. Same scaffolding as Grow3dge: full-
          bleed background, primary nav, eyebrow pill, Clesmont title,
@@ -3163,6 +3182,9 @@
             />
           </div>
         </div>
+
+        <!-- Post-hero navy gradient wash — Figma 384:189 -->
+        <div class="dao-hero-gradient" aria-hidden="true"></div>
 
         <!-- Mini "SI MORE" ticker — Figma 114:759 -->
         <div class="dao-mini-ticker" aria-hidden="true">
