@@ -127,10 +127,12 @@
         background: transparent;
       }
 
-      /* Figma 384:189 — post-hero navy gradient wash. Absolutely
-         positioned so it overlays the first viewport of .dao-content-stage
-         without pushing any content down. */
-      .dao-hero-gradient {
+      /* Figma 384:189 — post-hero navy gradient wash rendered as a
+         ::before pseudo-element so it sits at z-index:-1 inside the
+         isolation context — behind the sticky crystal AND behind all
+         content, with zero layout impact. */
+      .dao-content-stage::before {
+        content: '';
         position: absolute;
         top: 0;
         left: 0;
@@ -143,7 +145,7 @@
           #0a295f               100%
         );
         pointer-events: none;
-        z-index: 1;
+        z-index: -1;
       }
 
       /* ============================================================
@@ -3182,9 +3184,6 @@
             />
           </div>
         </div>
-
-        <!-- Post-hero navy gradient wash — Figma 384:189 -->
-        <div class="dao-hero-gradient" aria-hidden="true"></div>
 
         <!-- Mini "SI MORE" ticker — Figma 114:759 -->
         <div class="dao-mini-ticker" aria-hidden="true">
