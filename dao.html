@@ -182,6 +182,9 @@
         background: linear-gradient(180deg, rgba(12, 10, 24, 0.35) 0%, rgba(12, 10, 24, 0.55) 100%);
       }
 
+      /* Figma 189:902 — bottom-of-hero gradient wash (1440×207px).
+         Fades from transparent into #0a295f navy so the hero bottom
+         blends seamlessly into .dao-content-stage::before. */
       .dao-preview-band::after {
         content: "";
         position: absolute;
@@ -189,8 +192,8 @@
         bottom: 0;
         left: 0;
         z-index: -1;
-        height: 87px;
-        background: linear-gradient(180deg, rgba(12, 10, 24, 0) 0%, var(--page-bg) 100%);
+        height: 207px;
+        background: linear-gradient(180deg, rgba(10, 41, 95, 0) 0%, #0a295f 100%);
       }
 
       .dao-nav {
