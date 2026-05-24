@@ -2388,6 +2388,20 @@
       .dao-kaia-thread::-webkit-scrollbar-track { background: transparent; }
       .dao-kaia-thread::-webkit-scrollbar-thumb { background: rgba(167, 139, 250, 0.2); border-radius: 2px; }
 
+      /* Typing indicator dots — used only by the chat animation */
+      @keyframes dao-kaia-blink {
+        0%, 80%, 100% { opacity: 0.25; transform: translateY(0); }
+        40%            { opacity: 1;    transform: translateY(-3px); }
+      }
+      .dao-kaia-typing { display: inline-flex; gap: 4px; padding: 2px 0; }
+      .dao-kaia-typing span {
+        display: inline-block; width: 6px; height: 6px; border-radius: 50%;
+        background: rgba(167, 139, 250, 0.8);
+        animation: dao-kaia-blink 1.2s ease-in-out infinite;
+      }
+      .dao-kaia-typing span:nth-child(2) { animation-delay: 0.15s; }
+      .dao-kaia-typing span:nth-child(3) { animation-delay: 0.30s; }
+
       .dao-kaia-msg {
         display: flex;
       }
@@ -4716,10 +4730,148 @@
     </footer>
 
     <script>
-      /* Scroll KAIA chat thread to bottom on load so latest msg shows. */
+      /* ── KAIA chat animation ──────────────────────────────────────────
+         Messages are built dynamically so the thread starts empty.
+         Playback begins when the card scrolls into view (IntersectionObserver)
+         and restarts whenever the "replay" button is clicked.
+         All existing CSS classes are reused — no visual changes.
+         ────────────────────────────────────────────────────────────── */
       (() => {
-        const thread = document.querySelector(".dao-kaia-thread");
-        if (thread) thread.scrollTop = thread.scrollHeight;
+        const thread  = document.querySelector(".dao-kaia-thread");
+        const replay  = document.querySelector(".dao-kaia-replay");
+        const card    = document.querySelector(".dao-kaia-card");
+        if (!thread || !replay || !card) return;
+
+        /* ── Conversation script ── */
+        const SCRIPT = [
+          { from: "user", text: "I am going to DevConnect and would love to meet up with Si Her Circles members there. Can you match me?" },
+          { from: "bot",  text: "Got it. Scanning 1,247 Si Her Circles members and who is going to be at DevConnect.", typing: 1100 },
+          { from: "bot",  text: "I found 3 members going to DevConnect. Priya’s the strongest fit: Is also in a leadership role and shares similar interests.", typing: 1300, hasMatches: true },
+          { from: "user", text: "Perfect — please send an introduction to all three." },
+          { from: "bot",  text: "Done. Now let’s wait for their response and I will connect you. ✦", typing: 950 },
+        ];
+
+        const MATCHES = [
+          { img: "./si-assets/dao-kaia-priya.png", name: "Priya Mehta",   meta: "Europe · Head of Partnerships" },
+          { img: "./si-assets/dao-kaia-zara.png",  name: "Zara Okonkwo",  meta: "Africa · Community Lead" },
+          { img: "./si-assets/dao-kaia-mei.png",   name: "Mei Tanaka",    meta: "U.S. · Founder" },
+        ];
+
+        /* Clear pre-rendered static HTML — animation owns the thread. */
+        thread.innerHTML = "";
+
+        /* ── Helpers ── */
+        const scrollBot = () => { thread.scrollTop = thread.scrollHeight; };
+
+        const reveal = (el) => {
+          el.style.opacity   = "0";
+          el.style.transform = "translateY(8px)";
+          el.style.transition = "opacity 0.35s cubic-bezier(0.2,0.7,0.3,1), transform 0.35s cubic-bezier(0.2,0.7,0.3,1)";
+          /* Double rAF so the browser paints once before the transition starts */
+          requestAnimationFrame(() => requestAnimationFrame(() => {
+            el.style.opacity   = "1";
+            el.style.transform = "translateY(0)";
+          }));
+        };
+
+        const makeTyping = () => {
+          const el = document.createElement("div");
+          el.className = "dao-kaia-msg is-bot";
+          el.innerHTML = `<div class="dao-kaia-bubble">
+            <span class="dao-kaia-stamp">KAIA</span>
+            <span class="dao-kaia-typing"><span></span><span></span><span></span></span>
+          </div>`;
+          return el;
+        };
+
+        const makeMsg = (m) => {
+          const el = document.createElement("div");
+          if (m.from === "user") {
+            el.className = "dao-kaia-msg is-user";
+            el.innerHTML = `<div class="dao-kaia-bubble">${m.text}</div>`;
+          } else {
+            el.className = "dao-kaia-msg is-bot" + (m.hasMatches ? " has-matches" : "");
+            const matchesHTML = m.hasMatches
+              ? `<div class="dao-kaia-matches">${MATCHES.map((x) =>
+                  `<div class="dao-kaia-match">
+                    <img src="${x.img}" alt="" loading="lazy" decoding="async" />
+                    <div class="dao-kaia-match-info">
+                      <span class="dao-kaia-match-name">${x.name}</span>
+                      <span class="dao-kaia-match-meta">${x.meta}</span>
+                    </div>
+                    <span class="dao-kaia-match-dot" aria-hidden="true"></span>
+                  </div>`).join("")}</div>`
+              : "";
+            el.innerHTML = `<div class="dao-kaia-bubble">
+              <span class="dao-kaia-stamp">KAIA</span>${m.text}${matchesHTML}
+            </div>`;
+          }
+          return el;
+        };
+
+        /* ── Animation engine ──
+           cancelToken: each new run gets a unique token; any pending
+           setTimeout from a previous run sees token mismatch and exits. */
+        let cancelToken = 0;
+
+        const run = (token) => {
+          thread.innerHTML = "";
+          let i = 0;
+
+          const step = () => {
+            if (token !== cancelToken || i >= SCRIPT.length) return;
+            const m = SCRIPT[i];
+
+            if (m.from === "user") {
+              /* User bubbles appear with a small pre-pause */
+              setTimeout(() => {
+                if (token !== cancelToken) return;
+                const el = makeMsg(m);
+                thread.appendChild(el);
+                reveal(el);
+                scrollBot();
+                i++;
+                setTimeout(step, 750);
+              }, i === 0 ? 300 : 650);
+
+            } else {
+              /* Bot: show typing dots → swap for actual message */
+              setTimeout(() => {
+                if (token !== cancelToken) return;
+                const dots = makeTyping();
+                thread.appendChild(dots);
+                reveal(dots);
+                scrollBot();
+
+                setTimeout(() => {
+                  if (token !== cancelToken) return;
+                  dots.remove();
+                  const el = makeMsg(m);
+                  thread.appendChild(el);
+                  reveal(el);
+                  scrollBot();
+                  i++;
+                  setTimeout(step, 850);
+                }, m.typing || 1000);
+              }, 400);
+            }
+          };
+
+          step();
+        };
+
+        /* ── Replay button ── */
+        replay.addEventListener("click", () => { cancelToken++; run(cancelToken); });
+
+        /* ── Auto-start on scroll into view ── */
+        let triggered = false;
+        const io = new IntersectionObserver((entries) => {
+          if (triggered || !entries[0].isIntersecting) return;
+          triggered = true;
+          cancelToken++;
+          run(cancelToken);
+        }, { threshold: 0.25 });
+        io.observe(card);
       })();
 
       /* Sticky crystal backdrop — mirrors the Grow3dge curve so the
