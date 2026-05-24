@@ -127,22 +127,22 @@
         background: transparent;
       }
 
-      /* Figma 384:189 — post-hero navy gradient wash rendered as a
-         ::before pseudo-element so it sits at z-index:-1 inside the
-         isolation context — behind the sticky crystal AND behind all
-         content, with zero layout impact. */
+      /* Figma 384:189 — post-hero navy gradient wash (1440×1490px).
+         Direction: solid #0a295f at top → semi at 50% → transparent at
+         bottom. Rendered as ::before at z-index:-1 so it sits behind the
+         sticky crystal and all content with zero layout impact. */
       .dao-content-stage::before {
         content: '';
         position: absolute;
         top: 0;
         left: 0;
         width: 100%;
-        height: 100vh;
+        height: 1490px;
         background: linear-gradient(
           to bottom,
-          rgba(10, 41, 95, 0)    0%,
+          #0a295f               0%,
           rgba(10, 41, 95, 0.4) 50%,
-          #0a295f               100%
+          rgba(10, 41, 95, 0)   100%
         );
         pointer-events: none;
         z-index: -1;
