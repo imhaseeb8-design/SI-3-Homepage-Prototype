@@ -828,10 +828,10 @@
 
       .dao-session-hero-img {
         position: absolute;
-        top: 0;
-        left: calc(50% + 379px);
+        bottom: -1px;
+        right: -1px;
         width: 495px;
-        height: 100%;
+        height: 320px;
         object-fit: cover;
         display: block;
         pointer-events: none;
@@ -956,10 +956,10 @@
 
       .dao-session-counter {
         font-family: 'GeistMono', monospace;
-        font-size: 12px;
-        letter-spacing: 0.1em;
+        font-size: 14px;
+        letter-spacing: 1.12px;
         text-transform: uppercase;
-        color: rgba(255, 255, 255, 0.5);
+        color: #fff;
       }
 
       .dao-session-arrows {
@@ -971,22 +971,22 @@
       .dao-session-arrow {
         width: 40px;
         height: 40px;
-        border: 1px solid rgba(255, 255, 255, 0.2);
-        border-radius: 4px;
-        background: rgba(255, 255, 255, 0.05);
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        border-radius: 20px;
+        background: rgba(255, 255, 255, 0.03);
         display: flex;
         align-items: center;
         justify-content: center;
         cursor: pointer;
-        color: rgba(255, 255, 255, 0.7);
+        color: #fff;
         transition: background 0.2s, border-color 0.2s;
         font-size: 16px;
         line-height: 1;
       }
 
       .dao-session-arrow:hover {
-        background: rgba(255, 255, 255, 0.12);
-        border-color: rgba(255, 255, 255, 0.4);
+        background: rgba(255, 255, 255, 0.1);
+        border-color: rgba(255, 255, 255, 0.3);
       }
 
       .dao-session-cards-wrap {
@@ -996,7 +996,7 @@
 
       .dao-session-cards {
         display: flex;
-        gap: 12px;
+        gap: 14px;
         overflow-x: auto;
         scroll-behavior: smooth;
         scrollbar-width: none;
@@ -1009,7 +1009,7 @@
       .dao-session-card {
         flex: 0 0 290px;
         height: 179px;
-        border: 1px solid rgba(255, 255, 255, 0.15);
+        border: 1px solid rgba(255, 255, 255, 0.4);
         border-radius: 6px;
         background: rgba(0, 0, 0, 0.2);
         backdrop-filter: blur(10px);
@@ -1020,27 +1020,32 @@
         padding: 18px;
         box-sizing: border-box;
         cursor: pointer;
-        transition: background 0.2s, border-color 0.2s;
+        transition: background 0.2s;
       }
 
       .dao-session-card.is-active {
         background: rgba(255, 255, 255, 0.1);
-        border-color: rgba(255, 255, 255, 0.3);
       }
 
       .dao-session-card-info {
         display: flex;
         flex-direction: column;
-        gap: 4px;
+        gap: 12px;
       }
 
       .dao-session-card-title {
         font-family: 'Geist', sans-serif;
         font-size: 14px;
         font-weight: 500;
-        color: #fff;
+        color: rgba(255, 255, 255, 0.9);
         line-height: 1.3;
         margin: 0;
+      }
+
+      .dao-session-card-names {
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
       }
 
       .dao-session-card-name {
@@ -1068,7 +1073,8 @@
       .dao-session-card-avatar {
         width: 36px;
         height: 36px;
-        border-radius: 50%;
+        border-radius: 9px;
+        border: 1px solid rgba(255, 255, 255, 0.06);
         object-fit: cover;
         display: block;
       }
@@ -3715,7 +3721,7 @@
               </span>
               <div class="dao-sessions-title-group">
                 <h2 class="dao-sessions-title">SI HER STRATEGISTS</h2>
-                <p class="dao-sessions-sub">Live conversations with the women building the next layer of Web3.</p>
+                <p class="dao-sessions-sub">Featured voices from Season 2 livestreams — 14 sessions, scroll to explore.</p>
               </div>
             </header>
 
@@ -3758,12 +3764,14 @@
                     <!-- EP01 — active -->
                     <article class="dao-session-card is-active">
                       <div class="dao-session-card-info">
-                        <p class="dao-session-card-title">Navigating Web3 as a Womxn of Color</p>
-                        <p class="dao-session-card-name">Nadia Alvarez</p>
-                        <p class="dao-session-card-role">Co-Founder, Stellar Labs</p>
+                        <p class="dao-session-card-title">The Algorithm of Care 2.0: Maternal Intelligence in a Digital Age</p>
+                        <div class="dao-session-card-names">
+                          <p class="dao-session-card-name">Lara Khan</p>
+                          <p class="dao-session-card-role">Founder &amp; CEO</p>
+                        </div>
                       </div>
                       <div class="dao-session-card-bottom">
-                        <img class="dao-session-card-avatar" src="./si-assets/session-avatar.png" alt="Nadia Alvarez" />
+                        <img class="dao-session-card-avatar" src="./si-assets/session-avatar.png" alt="Lara Khan" />
                         <img class="dao-session-card-logo" src="./si-assets/session-stellar.svg" alt="Stellar" />
                       </div>
                     </article>
@@ -3771,12 +3779,14 @@
                     <!-- EP02 -->
                     <article class="dao-session-card">
                       <div class="dao-session-card-info">
-                        <p class="dao-session-card-title">Building DAOs That Center Equity</p>
-                        <p class="dao-session-card-name">Amara Osei</p>
-                        <p class="dao-session-card-role">DAO Architect, Umoja</p>
+                        <p class="dao-session-card-title">Leading Without Losing Yourself</p>
+                        <div class="dao-session-card-names">
+                          <p class="dao-session-card-name">Lara Khan</p>
+                          <p class="dao-session-card-role">Founder &amp; CEO</p>
+                        </div>
                       </div>
                       <div class="dao-session-card-bottom">
-                        <img class="dao-session-card-avatar" src="./si-assets/session-avatar.png" alt="Amara Osei" />
+                        <img class="dao-session-card-avatar" src="./si-assets/session-avatar.png" alt="Lara Khan" />
                         <img class="dao-session-card-logo" src="./si-assets/session-stellar.svg" alt="Stellar" />
                       </div>
                     </article>
@@ -3784,12 +3794,14 @@
                     <!-- EP03 -->
                     <article class="dao-session-card">
                       <div class="dao-session-card-info">
-                        <p class="dao-session-card-title">DeFi for the Global South</p>
-                        <p class="dao-session-card-name">Priya Menon</p>
-                        <p class="dao-session-card-role">Lead, Celo Foundation</p>
+                        <p class="dao-session-card-title">Si Her Cybersecurity</p>
+                        <div class="dao-session-card-names">
+                          <p class="dao-session-card-name">Lara Khan</p>
+                          <p class="dao-session-card-role">Founder &amp; CEO</p>
+                        </div>
                       </div>
                       <div class="dao-session-card-bottom">
-                        <img class="dao-session-card-avatar" src="./si-assets/session-avatar.png" alt="Priya Menon" />
+                        <img class="dao-session-card-avatar" src="./si-assets/session-avatar.png" alt="Lara Khan" />
                         <img class="dao-session-card-logo" src="./si-assets/session-stellar.svg" alt="Stellar" />
                       </div>
                     </article>
@@ -3797,12 +3809,14 @@
                     <!-- EP04 -->
                     <article class="dao-session-card">
                       <div class="dao-session-card-info">
-                        <p class="dao-session-card-title">NFTs as Community Infrastructure</p>
-                        <p class="dao-session-card-name">Zara Kimani</p>
-                        <p class="dao-session-card-role">Creative Director, Akili</p>
+                        <p class="dao-session-card-title">DAO Fundamentals</p>
+                        <div class="dao-session-card-names">
+                          <p class="dao-session-card-name">Lara Khan</p>
+                          <p class="dao-session-card-role">Founder &amp; CEO</p>
+                        </div>
                       </div>
                       <div class="dao-session-card-bottom">
-                        <img class="dao-session-card-avatar" src="./si-assets/session-avatar.png" alt="Zara Kimani" />
+                        <img class="dao-session-card-avatar" src="./si-assets/session-avatar.png" alt="Lara Khan" />
                         <img class="dao-session-card-logo" src="./si-assets/session-stellar.svg" alt="Stellar" />
                       </div>
                     </article>
@@ -3810,12 +3824,14 @@
                     <!-- EP05 -->
                     <article class="dao-session-card">
                       <div class="dao-session-card-info">
-                        <p class="dao-session-card-title">Scaling Impact Through Web3</p>
-                        <p class="dao-session-card-name">Fatima Al-Hassan</p>
-                        <p class="dao-session-card-role">Founder, Haqq</p>
+                        <p class="dao-session-card-title">Scaling beyond the early adopter curve</p>
+                        <div class="dao-session-card-names">
+                          <p class="dao-session-card-name">Lara Khan</p>
+                          <p class="dao-session-card-role">Founder &amp; CEO</p>
+                        </div>
                       </div>
                       <div class="dao-session-card-bottom">
-                        <img class="dao-session-card-avatar" src="./si-assets/session-avatar.png" alt="Fatima Al-Hassan" />
+                        <img class="dao-session-card-avatar" src="./si-assets/session-avatar.png" alt="Lara Khan" />
                         <img class="dao-session-card-logo" src="./si-assets/session-stellar.svg" alt="Stellar" />
                       </div>
                     </article>
