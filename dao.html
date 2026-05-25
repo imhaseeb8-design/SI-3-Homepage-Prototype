@@ -3882,11 +3882,11 @@
                   <span class="dao-map-stat-label">Womxn-led communities across 7 continents, connected through SI U.</span>
                 </div>
                 <div class="dao-map-filters" role="tablist" aria-label="Filter by region">
-                  <button class="dao-map-chip is-active" type="button" role="tab" aria-selected="true">All Regions</button>
-                  <button class="dao-map-chip" type="button" role="tab">Americas</button>
-                  <button class="dao-map-chip" type="button" role="tab">Europe</button>
-                  <button class="dao-map-chip" type="button" role="tab">Africa &amp; M&#8209;East</button>
-                  <button class="dao-map-chip" type="button" role="tab">Asia&#8209;Pacific</button>
+                  <button class="dao-map-chip is-active" type="button" role="tab" aria-selected="true" data-filter="all">All Regions</button>
+                  <button class="dao-map-chip" type="button" role="tab" data-filter="americas">Americas</button>
+                  <button class="dao-map-chip" type="button" role="tab" data-filter="europe">Europe</button>
+                  <button class="dao-map-chip" type="button" role="tab" data-filter="africa">Africa &amp; M&#8209;East</button>
+                  <button class="dao-map-chip" type="button" role="tab" data-filter="apac">Asia&#8209;Pacific</button>
                 </div>
               </header>
 
@@ -3897,7 +3897,7 @@
               <div class="dao-map-stage">
                 <div class="dao-map-canvas" aria-hidden="true">
                   <!-- North America — pin only -->
-                  <div class="dao-map-pin" style="--x: 11.4%; --y: 34%;">
+                  <div class="dao-map-pin" data-region="na" style="--x: 11.4%; --y: 34%;">
                     <div class="dao-map-pin-bubble">
                       <div class="dao-map-pin-name">North America</div>
                       <div class="dao-map-pin-count">9 communities</div>
@@ -3905,7 +3905,7 @@
                   </div>
 
                   <!-- Latin America -->
-                  <div class="dao-map-pin" style="--x: 21.2%; --y: 67.3%;">
+                  <div class="dao-map-pin" data-region="la" style="--x: 21.2%; --y: 67.3%;">
                     <div class="dao-map-pin-bubble">
                       <div class="dao-map-pin-name">Latin America</div>
                       <div class="dao-map-pin-count">6 communities</div>
@@ -3913,7 +3913,7 @@
                   </div>
 
                   <!-- Europe -->
-                  <div class="dao-map-pin" style="--x: 44.6%; --y: 6.5%;">
+                  <div class="dao-map-pin" data-region="eu" style="--x: 44.6%; --y: 6.5%;">
                     <div class="dao-map-pin-bubble">
                       <div class="dao-map-pin-name">Europe</div>
                       <div class="dao-map-pin-count">7 communities</div>
@@ -3921,7 +3921,7 @@
                   </div>
 
                   <!-- Middle East -->
-                  <div class="dao-map-pin" style="--x: 56.3%; --y: 48%;">
+                  <div class="dao-map-pin" data-region="me" style="--x: 56.3%; --y: 48%;">
                     <div class="dao-map-pin-bubble">
                       <div class="dao-map-pin-name">Middle East</div>
                       <div class="dao-map-pin-count">4 communities</div>
@@ -3929,7 +3929,7 @@
                   </div>
 
                   <!-- Africa — ACTIVE pin -->
-                  <div class="dao-map-pin is-active" style="--x: 42.2%; --y: 74%;">
+                  <div class="dao-map-pin is-active" data-region="af" style="--x: 42.2%; --y: 74%;">
                     <div class="dao-map-pin-bubble">
                       <div class="dao-map-pin-name">Africa</div>
                       <div class="dao-map-pin-count">5 communities</div>
@@ -3937,7 +3937,7 @@
                   </div>
 
                   <!-- Asia-Pacific -->
-                  <div class="dao-map-pin" style="--x: 77.8%; --y: 37.1%;">
+                  <div class="dao-map-pin" data-region="ap" style="--x: 77.8%; --y: 37.1%;">
                     <div class="dao-map-pin-bubble">
                       <div class="dao-map-pin-name">Asia-Pacific</div>
                       <div class="dao-map-pin-count">8 communities</div>
@@ -5028,6 +5028,171 @@
         });
 
         setProgress(active);
+      })();
+
+      /* ── We Lead — interactive map ───────────────────────────────────
+         Filter chips toggle which region-pins are visible.
+         Clicking a pin populates the drawer with that region's data.
+         All existing CSS classes are reused — no visual changes.
+         ────────────────────────────────────────────────────────────── */
+      (() => {
+        const pins   = Array.from(document.querySelectorAll(".dao-map-pin[data-region]"));
+        const chips  = Array.from(document.querySelectorAll(".dao-map-chip[data-filter]"));
+        const drawer = document.querySelector(".dao-map-drawer");
+        if (!pins.length || !chips.length || !drawer) return;
+
+        /* ── Data — mirrors the communities-map reference ── */
+        const REGIONS = [
+          { id:"na", label:"North America", short:"Americas", filter:"americas", desc:"From SF to Toronto to Mexico City — builders, founders, and protocol leads shaping how Web3 lands in the Americas.", members:"12.4k", cities:"9" },
+          { id:"la", label:"Latin America", short:"LATAM", filter:"americas", desc:"Hubs across São Paulo, Bogotá and Buenos Aires building cypherpunk culture in Portuguese and Spanish.", members:"6.8k", cities:"6" },
+          { id:"eu", label:"Europe", short:"Europe", filter:"europe", desc:"Berlin, Lisbon, Paris, Zürich. Policy, protocols and on-chain art — Europe’s loudest womxn-led collectives.", members:"9.1k", cities:"10" },
+          { id:"me", label:"Middle East", short:"MENA", filter:"africa", desc:"Doha, Dubai and Tel Aviv. Sovereign-wealth-adjacent founders and protocol researchers operating across MENA.", members:"2.2k", cities:"4" },
+          { id:"af", label:"Africa", short:"Africa", filter:"africa", desc:"Lagos, Nairobi, Accra, Cape Town. The fastest-growing on-chain user base, led from the ground up.", members:"5.3k", cities:"7" },
+          { id:"ap", label:"Asia-Pacific", short:"APAC", filter:"apac", desc:"Hong Kong to Tokyo to Sydney. AI × crypto, restaking, and culture-first communities scaling across nine cities.", members:"11.7k", cities:"9" },
+        ];
+
+        const COMMUNITIES = [
+          { region:"na", code:"SHG", name:"Solana Hot Girl Club", loc:"SF / NYC", focus:["Solana","IRL"], desc:"An IRL-first collective hosting hackerhouses for womxn shipping consumer apps on Solana." },
+          { region:"na", code:"ETH", name:"ETHGirls Collective", loc:"New York", focus:["Ethereum","Devs"], desc:"Devs, researchers, and grant-writers contributing to the Ethereum stack from the East Coast." },
+          { region:"na", code:"HST", name:"Heart Studios", loc:"Los Angeles", focus:["Culture","NFTs"], desc:"On-chain art studio and residency for womxn artists working across NFTs and generative work." },
+          { region:"na", code:"DFH", name:"DefiantHer", loc:"Toronto", focus:["DeFi","Research"], desc:"DeFi research circle publishing weekly breakdowns on lending markets, RWAs, and stablecoins." },
+          { region:"na", code:"BLD", name:"BuildHer DAO", loc:"Denver", focus:["Builders","Grants"], desc:"A builder-grant program and pitch night that has funded 38 first-time founders since 2024." },
+          { region:"na", code:"FM3", name:"Femme3", loc:"Miami", focus:["Founders"], desc:"Founder dinners and capital access for early-stage womxn-led Web3 startups in Latin-adjacent markets." },
+          { region:"na", code:"W3M", name:"Web3 Mamas", loc:"Bay Area", focus:["Parents","Community"], desc:"A network of parent-builders sharing operating playbooks and on-ramps for the next generation." },
+          { region:"na", code:"DDO", name:"Diamond DAO", loc:"Toronto", focus:["Governance"], desc:"Governance and treasury operations cohort training stewards across protocol DAOs." },
+          { region:"na", code:"CSN", name:"Crypto Sisters NYC", loc:"New York", focus:["IRL","Edu"], desc:"Monthly fireside chats and intro-to-crypto workshops across all five boroughs." },
+          { region:"la", code:"ESB", name:"Ethereum Sisters Brasil", loc:"São Paulo", focus:["Ethereum","Edu"], desc:"Portuguese-language Ethereum curriculum and meet-ups — now in 12 Brazilian cities." },
+          { region:"la", code:"EVW", name:"EthVitória Women", loc:"Vitória", focus:["Regional","Devs"], desc:"Regional dev community connecting Northeast Brazil to ETH Global hackathons abroad." },
+          { region:"la", code:"CMX", name:"Crypto Mujeres MX", loc:"CDMX", focus:["Culture"], desc:"Mexico City’s flagship community for womxn in crypto policy, media and protocol governance." },
+          { region:"la", code:"CBA", name:"ChicasBlock AR", loc:"Buenos Aires", focus:["Builders"], desc:"Argentina’s largest builder group, with a strong stablecoin & ZK research focus." },
+          { region:"la", code:"LTW", name:"LATAM Womxn Web3", loc:"Regional", focus:["Cross-border"], desc:"Multi-country alliance bridging crypto policy work across the Pacific Alliance economies." },
+          { region:"la", code:"BGO", name:"Bogotá Block Hermanas", loc:"Bogotá", focus:["On-ramps"], desc:"On-chain financial literacy and remittance education for Colombian women and migrants." },
+          { region:"eu", code:"DLT", name:"DLT Talents", loc:"Frankfurt", focus:["Career","Mentorship"], desc:"A 12-week distributed-ledger mentorship sending womxn into protocol research and CeFi leadership." },
+          { region:"eu", code:"SUI", name:"Suisterhood", loc:"Zürich", focus:["Sui","DeFi"], desc:"Sui-native community of validators, devs and DeFi product builders across DACH." },
+          { region:"eu", code:"EVH", name:"EthVoice Hub", loc:"Berlin", focus:["Ethereum","Policy"], desc:"Policy roundtables connecting Ethereum researchers with EU regulators ahead of MiCA II." },
+          { region:"eu", code:"CCL", name:"Crypto Cleo", loc:"Lisbon", focus:["Founders"], desc:"Founder community for Lisbon-based startups, hosting Web Summit fringe and weekly co-works." },
+          { region:"eu", code:"LWF", name:"Lisbon Web3 Femmes", loc:"Lisbon", focus:["Builders"], desc:"Hands-on builder cohorts focused on shipping consumer apps and on-chain reputation systems." },
+          { region:"eu", code:"BLR", name:"Block & Roses", loc:"Paris", focus:["Art","NFTs"], desc:"Paris-based collective at the intersection of luxury, fashion and on-chain provenance." },
+          { region:"eu", code:"AMS", name:"Amsterdam DAO Mothers", loc:"Amsterdam", focus:["DAOs"], desc:"A working circle for DAO operators, treasurers and people-ops leads across the Benelux." },
+          { region:"me", code:"FMT", name:"Femmes MENA Talks", loc:"Doha", focus:["Policy"], desc:"Closed-door policy salons connecting MENA regulators to womxn-led protocol projects." },
+          { region:"me", code:"DWS", name:"Doha Web3 Sisterhood", loc:"Doha", focus:["IRL","Edu"], desc:"An education-first community partnering with universities across the Gulf." },
+          { region:"me", code:"TAV", name:"Tel Aviv WoW", loc:"Tel Aviv", focus:["ZK","Research"], desc:"Zero-knowledge research circle running monthly tech talks at the Tel Aviv crypto hub." },
+          { region:"me", code:"DUF", name:"Dubai Femme Chain", loc:"Dubai", focus:["Capital","Founders"], desc:"Capital-allocator network connecting MENA family offices with womxn-led on-chain founders." },
+          { region:"af", code:"WBA", name:"Women in Blockchain Africa", loc:"Continental", focus:["Pan-African"], desc:"The pan-African umbrella org running localised programs across nine countries." },
+          { region:"af", code:"ECT", name:"Ecstacy Lagos", loc:"Lagos", focus:["Culture","NFTs"], desc:"Nigeria’s most-watched cultural collective. Music, fashion and on-chain creator economy." },
+          { region:"af", code:"NFO", name:"Nairobi Femmes Onchain", loc:"Nairobi", focus:["Builders"], desc:"Kenyan builder community focused on payments, stablecoin remittance and identity." },
+          { region:"af", code:"CDS", name:"Cape DAO Sisters", loc:"Cape Town", focus:["DAOs","Policy"], desc:"South African DAO operators and policy advocates working with the Reserve Bank pilot." },
+          { region:"af", code:"ACC", name:"Accra Coin Sisters", loc:"Accra", focus:["On-ramps"], desc:"Ghanaian community focused on on-ramps, mobile-first wallets and merchant tooling." },
+          { region:"ap", code:"HKW", name:"Women in Web3 HK", loc:"Hong Kong", focus:["Cross-border"], desc:"Hong Kong’s anchor community, linking Mainland founders to international capital." },
+          { region:"ap", code:"SYS", name:"SystAIn3r", loc:"Singapore", focus:["AI × Crypto"], desc:"An AI-meets-crypto research circle publishing benchmarks on agent-to-agent payments." },
+          { region:"ap", code:"H3N", name:"H3 Network", loc:"Tokyo", focus:["Restaking"], desc:"Restaking and infrastructure community organising Tokyo’s largest womxn-only hackerhouse." },
+          { region:"ap", code:"TOW", name:"Tokyo Onchain Women", loc:"Tokyo", focus:["Culture"], desc:"Japanese-language cultural & art community shipping consumer-facing on-chain experiences." },
+          { region:"ap", code:"SW3", name:"Singapore Web3 Wives", loc:"Singapore", focus:["Founders"], desc:"Founder dinners and operating-partner introductions for the SEA founder bench." },
+          { region:"ap", code:"SSD", name:"Seoul Sisters DAO", loc:"Seoul", focus:["Gaming"], desc:"Web3 gaming guild for womxn product leads operating across the Korean games industry." },
+          { region:"ap", code:"MWG", name:"Manila Web3 Girls", loc:"Manila", focus:["On-ramps"], desc:"Manila’s largest Web3 community focused on play-to-earn aftercare and on-ramps." },
+          { region:"ap", code:"SYD", name:"Sydney Crypto Co-op", loc:"Sydney", focus:["DeFi"], desc:"Australia & NZ DeFi co-op organising regional protocol-research summits in Sydney." },
+        ];
+
+        /* ── Lookup helpers ── */
+        const regionById   = (id) => REGIONS.find((r) => r.id === id);
+        const commsForRegion = (id) => COMMUNITIES.filter((c) => c.region === id);
+
+        let activeFilter = "all";
+        let activeRegion = "eu"; // matches the static HTML default
+
+        /* ── Filter chips ── */
+        const applyFilter = (filterId) => {
+          activeFilter = filterId;
+          chips.forEach((c) => {
+            const on = c.dataset.filter === filterId;
+            c.classList.toggle("is-active", on);
+            c.setAttribute("aria-selected", on ? "true" : "false");
+          });
+          pins.forEach((p) => {
+            const r = regionById(p.dataset.region);
+            if (!r) return;
+            const visible = filterId === "all" || r.filter === filterId;
+            p.style.display = visible ? "" : "none";
+          });
+        };
+
+        chips.forEach((c) => {
+          c.addEventListener("click", () => applyFilter(c.dataset.filter));
+        });
+
+        /* ── Pin click → update active pin + rebuild drawer ── */
+        const setActivePin = (regionId) => {
+          activeRegion = regionId;
+          pins.forEach((p) => p.classList.toggle("is-active", p.dataset.region === regionId));
+          renderDrawer(regionId);
+        };
+
+        pins.forEach((p) => {
+          p.style.cursor = "pointer";
+          p.addEventListener("click", () => setActivePin(p.dataset.region));
+        });
+
+        /* ── Drawer rendering ── */
+        const renderDrawer = (regionId) => {
+          const r = regionById(regionId);
+          if (!r) return;
+          const comms = commsForRegion(regionId).slice(0, 6);
+
+          /* Left panel — region brief */
+          const drawerL = drawer.querySelector(".dao-map-drawer-l");
+          if (drawerL) {
+            drawerL.setAttribute("aria-label", r.label + " region brief");
+            const eyebrow = drawerL.querySelector(".dao-map-brief-eyebrow");
+            const title   = drawerL.querySelector(".dao-map-brief-title");
+            const desc    = drawerL.querySelector(".dao-map-brief-desc");
+            const metaDDs = drawerL.querySelectorAll(".dao-map-meta-item dd");
+            if (eyebrow) eyebrow.textContent = r.short + " · Region Brief";
+            if (title) title.textContent = r.label;
+            if (desc) desc.textContent = r.desc;
+            if (metaDDs[0]) metaDDs[0].textContent = r.members;
+            if (metaDDs[1]) metaDDs[1].textContent = r.cities;
+            if (metaDDs[2]) metaDDs[2].textContent = String(commsForRegion(regionId).length);
+          }
+
+          /* Centre — community cards */
+          const list = drawer.querySelector(".dao-map-drawer-list");
+          if (list) {
+            list.innerHTML = comms.map((c) => `
+              <article class="dao-map-comm">
+                <header>
+                  <span class="dao-map-comm-logo">${c.code}</span>
+                  <span class="dao-map-comm-name">${c.name}</span>
+                  <span class="dao-map-comm-divider" aria-hidden="true"></span>
+                  <span class="dao-map-comm-city">${c.loc}</span>
+                </header>
+                <p>${c.desc}</p>
+                <div class="dao-map-comm-tags">
+                  ${c.focus.map((f) => `<span>${f}</span>`).join("")}
+                </div>
+              </article>`).join("");
+          }
+
+          /* Right panel — connect CTA */
+          const drawerR = drawer.querySelector(".dao-map-drawer-r");
+          if (drawerR) {
+            drawerR.setAttribute("aria-label", "Connect with " + r.short);
+            const ctTitle = drawerR.querySelector(".dao-map-connect-title");
+            const ctBrowse = drawerR.querySelector(".dao-map-connect-browse");
+            if (ctTitle) ctTitle.textContent = "Connect with " + r.short;
+            if (ctBrowse) ctBrowse.innerHTML = "Browse all " + commsForRegion(regionId).length + " communities &rarr;";
+          }
+
+          /* Also update the pin bubble counts */
+          pins.forEach((p) => {
+            const pr = p.dataset.region;
+            const cnt = commsForRegion(pr).length;
+            const countEl = p.querySelector(".dao-map-pin-count");
+            if (countEl) countEl.textContent = cnt + " communit" + (cnt === 1 ? "y" : "ies");
+          });
+        };
+
+        /* ── Initialise: populate pin counts from data ── */
+        renderDrawer(activeRegion);
       })();
     </script>
   </body>
