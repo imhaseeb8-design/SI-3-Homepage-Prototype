@@ -1275,6 +1275,16 @@
         justify-content: flex-end;
       }
 
+      /* Vertical hairline separating the regional chips from the
+         standalone GLOBAL chip (Figma 1:3336). */
+      .dao-map-filters-divider {
+        width: 1px;
+        height: 20px;
+        margin: 0 6px;
+        background: rgba(255, 255, 255, 0.18);
+        flex-shrink: 0;
+      }
+
       .dao-map-chip {
         display: inline-flex;
         align-items: center;
@@ -1370,29 +1380,150 @@
         box-shadow: 0 0 28px rgba(188, 169, 255, 0.18);
       }
 
-      /* ----- Region drawer ----- */
+      /* ----- Global view (Figma 9:723) -----
+         When the GLOBAL chip is active the regional pins hide and a
+         borderless-collective hero takes over the stage: surreal image
+         on the left, copy + member/community stats on the right. */
+      .dao-map-global {
+        position: absolute;
+        inset: 0;
+        z-index: 3;
+        display: none;
+        align-items: center;
+        justify-content: center;
+        gap: 48px;
+        padding: 30px 135px;
+      }
+
+      .dao-map-stage.is-global .dao-map-global {
+        display: flex;
+      }
+
+      .dao-map-stage.is-global .dao-map-pin {
+        display: none !important;
+      }
+
+      .dao-map-global-img {
+        flex: 0 0 249px;
+        max-width: 38%;
+        aspect-ratio: 249 / 192;
+        overflow: hidden;
+        border-radius: 6px;
+        background: rgba(0, 0, 0, 0.3);
+      }
+
+      .dao-map-global-img img {
+        display: block;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+
+      .dao-map-global-text {
+        flex: 0 1 395px;
+      }
+
+      .dao-map-global-title {
+        margin: 0;
+        font-family: var(--font-clesmont), "Clesmont Demo", var(--font-geist), Arial, sans-serif;
+        font-size: 32px;
+        font-weight: 400;
+        line-height: 1;
+        color: #fff;
+        text-transform: uppercase;
+        letter-spacing: 0.32px;
+      }
+
+      .dao-map-global-desc {
+        margin: 18px 0 0;
+        font-family: var(--font-geist), system-ui, -apple-system, Arial, sans-serif;
+        font-size: 15px;
+        line-height: 1.3;
+        color: rgba(255, 255, 255, 0.8);
+      }
+
+      .dao-map-global-line {
+        height: 1px;
+        margin: 24px 0 0;
+        background: rgba(255, 255, 255, 0.12);
+      }
+
+      .dao-map-global-stats {
+        display: flex;
+        gap: 36px;
+        margin: 24px 0 0;
+      }
+
+      .dao-map-global-stat {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+      }
+
+      .dao-map-global-stat .v {
+        font-family: var(--font-clesmont), "Clesmont Demo", var(--font-geist), Arial, sans-serif;
+        font-size: 24px;
+        font-weight: 400;
+        line-height: 1;
+        color: #fff;
+        letter-spacing: -0.32px;
+      }
+
+      .dao-map-global-stat .k {
+        font-family: var(--font-geist-mono), monospace;
+        font-size: 12px;
+        line-height: 1;
+        letter-spacing: 0.12px;
+        text-transform: uppercase;
+        color: rgba(255, 255, 255, 0.6);
+      }
+
+      /* ----- Region drawer (Figma 1:3451) — brief + 3-col card grid ----- */
       .dao-map-drawer {
         display: grid;
-        grid-template-columns: 320px minmax(0, 1fr) 300px;
+        grid-template-columns: 278px minmax(0, 1fr);
         align-items: stretch;
         min-height: 493px;
         border-bottom: 1px solid rgba(255, 255, 255, 0.1);
       }
 
-      .dao-map-drawer-l,
-      .dao-map-drawer-r {
+      .dao-map-drawer-l {
         position: relative;
         display: flex;
         flex-direction: column;
         padding: 28px;
-      }
-
-      .dao-map-drawer-l {
         border-right: 1px solid rgba(255, 255, 255, 0.1);
       }
 
-      .dao-map-drawer-r {
-        border-left: 1px solid rgba(255, 255, 255, 0.1);
+      /* Prev / next region stepper (Figma 12:760). */
+      .dao-map-brief-nav {
+        display: flex;
+        gap: 8px;
+        margin: 22px 0 0;
+      }
+
+      .dao-map-brief-arrow {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 36px;
+        height: 32px;
+        padding: 0;
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        border-radius: 8px;
+        background: rgba(255, 255, 255, 0.03);
+        color: rgba(255, 255, 255, 0.8);
+        font-family: var(--font-geist-mono), monospace;
+        font-size: 15px;
+        line-height: 1;
+        cursor: pointer;
+        transition: color 0.18s ease, border-color 0.18s ease, background 0.18s ease;
+      }
+
+      .dao-map-brief-arrow:hover {
+        color: #fff;
+        border-color: rgba(255, 255, 255, 0.4);
+        background: rgba(255, 255, 255, 0.06);
       }
 
       .dao-map-brief-eyebrow {
@@ -1464,28 +1595,24 @@
         color: #fff;
       }
 
-      /* Centre column — 6 community cards in 2-col grid */
+      /* Centre column — community cards in a 3-col grid (Figma 1:3471) */
       .dao-map-drawer-list {
         display: grid;
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-        grid-auto-rows: minmax(0, 1fr);
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        grid-auto-rows: minmax(172px, auto);
       }
 
       .dao-map-comm {
         display: flex;
         flex-direction: column;
-        padding: 26px 22px;
+        padding: 20px 18px;
         border-right: 1px solid rgba(255, 255, 255, 0.1);
         border-bottom: 1px solid rgba(255, 255, 255, 0.1);
         transition: background 0.18s ease;
       }
 
-      .dao-map-comm:nth-child(2n) {
+      .dao-map-comm:nth-child(3n) {
         border-right: 0;
-      }
-
-      .dao-map-comm:nth-last-child(-n+2) {
-        border-bottom: 0;
       }
 
       .dao-map-comm:hover {
@@ -1498,31 +1625,15 @@
         gap: 12px;
       }
 
-      .dao-map-comm-logo {
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        flex-shrink: 0;
-        width: 36px;
-        height: 36px;
-        border: 1px solid rgba(255, 255, 255, 0.2);
-        border-radius: 6px;
-        background: linear-gradient(140deg, #1c1d3d 0%, #4b2d8f 100%);
-        font-family: var(--font-geist-mono), monospace;
-        font-size: 10px;
-        font-weight: 500;
-        letter-spacing: 0.48px;
-        color: #fff;
-      }
-
       .dao-map-comm-name {
-        font-family: var(--font-geist), system-ui, -apple-system, Arial, sans-serif;
-        font-size: 16px;
-        font-weight: 500;
+        font-family: var(--font-clesmont), "Clesmont Demo", var(--font-geist), Arial, sans-serif;
+        font-size: 14px;
+        font-weight: 400;
         line-height: 1.1;
         color: #fff;
         text-transform: uppercase;
-        letter-spacing: 0.16px;
+        letter-spacing: 0.14px;
+        white-space: nowrap;
       }
 
       .dao-map-comm-divider {
@@ -1533,26 +1644,37 @@
 
       .dao-map-comm-city {
         font-family: var(--font-geist-mono), monospace;
-        font-size: 11px;
+        font-size: 10.5px;
         line-height: 1;
         letter-spacing: 1.26px;
         text-transform: uppercase;
-        color: rgba(255, 255, 255, 0.66);
+        color: rgba(255, 255, 255, 0.42);
+        white-space: nowrap;
+        flex-shrink: 0;
       }
 
       .dao-map-comm p {
-        margin: 14px 0 0;
+        margin: 12px 0 0;
         font-family: var(--font-geist), system-ui, -apple-system, Arial, sans-serif;
-        font-size: 13px;
-        line-height: 1.5;
-        color: rgba(255, 255, 255, 0.7);
+        font-size: 12px;
+        line-height: 1.3;
+        color: rgba(255, 255, 255, 0.66);
+      }
+
+      /* Footer — tags on the left, partner badge on the right. */
+      .dao-map-comm-foot {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+        margin-top: auto;
+        padding-top: 18px;
       }
 
       .dao-map-comm-tags {
         display: flex;
         gap: 6px;
-        margin-top: auto;
-        padding-top: 14px;
+        flex-wrap: wrap;
       }
 
       .dao-map-comm-tags span {
@@ -1560,14 +1682,43 @@
         align-items: center;
         height: 18px;
         padding: 0 7px;
-        border: 1px solid rgba(255, 255, 255, 0.2);
+        border: 1px solid rgba(255, 255, 255, 0.1);
         border-radius: 4px;
         font-family: var(--font-geist-mono), monospace;
         font-size: 9.5px;
         line-height: 1;
-        letter-spacing: 1.26px;
+        letter-spacing: 1.33px;
         text-transform: uppercase;
-        color: rgba(255, 255, 255, 0.7);
+        color: rgba(255, 255, 255, 0.66);
+      }
+
+      /* Partner badge (Figma 12:790) — chain/partner logo + name. */
+      .dao-map-comm-partner {
+        display: inline-flex;
+        align-items: center;
+        gap: 7px;
+        height: 32px;
+        padding: 0 11px;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 8px;
+        background: rgba(255, 255, 255, 0.03);
+        flex-shrink: 0;
+      }
+
+      .dao-map-comm-partner svg {
+        width: 14px;
+        height: 14px;
+        color: #fff;
+        flex-shrink: 0;
+      }
+
+      .dao-map-comm-partner span {
+        font-family: var(--font-geist), system-ui, -apple-system, Arial, sans-serif;
+        font-size: 12px;
+        font-weight: 500;
+        line-height: 1;
+        color: #fff;
+        white-space: nowrap;
       }
 
       /* Right column — Connect with EUROPE */
@@ -2017,11 +2168,12 @@
         .dao-map-head { flex-direction: column; align-items: flex-start; gap: 18px; }
         .dao-map-filters { justify-content: flex-start; }
         .dao-map-stage { padding: 24px 24px; }
+        .dao-map-global { padding: 24px; gap: 28px; }
         .dao-map-drawer { grid-template-columns: 1fr; }
-        .dao-map-drawer-l,
-        .dao-map-drawer-r { border-left: 0; border-right: 0; border-bottom: 1px solid rgba(255, 255, 255, 0.1); }
-        .dao-map-drawer-list { grid-template-columns: 1fr; }
-        .dao-map-comm { border-right: 0; }
+        .dao-map-drawer-l { border-right: 0; border-bottom: 1px solid rgba(255, 255, 255, 0.1); }
+        .dao-map-drawer-list { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+        .dao-map-comm:nth-child(3n) { border-right: 1px solid rgba(255, 255, 255, 0.1); }
+        .dao-map-comm:nth-child(2n) { border-right: 0; }
         .dao-brand-head { flex-direction: column; align-items: flex-start; gap: 18px; }
         .dao-brand-head-right { padding-top: 0; align-items: flex-start; }
         .dao-brand-head-right p { text-align: left; max-width: none; }
@@ -2037,6 +2189,12 @@
         .dao-map-pin-bubble { padding: 12px 14px; }
         .dao-map-pin-name { font-size: 13px; }
         .dao-map-pin-count { font-size: 11px; }
+        .dao-map-global { flex-direction: column; align-items: flex-start; gap: 18px; padding: 16px; }
+        .dao-map-global-img { flex-basis: auto; width: 60%; max-width: 200px; }
+        .dao-map-global-title { font-size: 26px; }
+        .dao-map-global-desc { font-size: 13px; }
+        .dao-map-drawer-list { grid-template-columns: 1fr; }
+        .dao-map-comm:nth-child(2n) { border-right: 0; }
         .dao-map-brief-title { font-size: 24px; }
         .dao-map-meta { gap: 18px; flex-wrap: wrap; }
         .dao-map-meta-item dd { font-size: 20px; }
@@ -3863,7 +4021,7 @@
                 <p class="dao-lead-subtitle">Featured voices from Season 2 livestreams.</p>
               </div>
               <div class="dao-lead-header-right">
-                <p>Every continent. 50+ womxn-led communities. One decentralising collaborative reshaping what leadership looks like in Web3 &mdash; and who gets to be in the room.</p>
+                <p>Every continent. 45+ womxn-led communities. One decentralising collaborative reshaping what leadership looks like in Web3 &mdash; and who gets to be in the room.</p>
                 <div class="dao-lead-stamp" aria-hidden="true">
                   <span>SI HER DAO · SEC 04 / 12</span>
                   <span>UPDATED 05.26</span>
@@ -3878,8 +4036,8 @@
             <div class="dao-map">
               <header class="dao-map-head">
                 <div class="dao-map-stat">
-                  <span class="dao-map-stat-num">50+</span>
-                  <span class="dao-map-stat-label">Womxn-led communities across 7 continents, connected through SI U.</span>
+                  <span class="dao-map-stat-num">45+</span>
+                  <span class="dao-map-stat-label">Womxn-led Web3 communities across 7 continents, connected through a global mission.</span>
                 </div>
                 <div class="dao-map-filters" role="tablist" aria-label="Filter by region">
                   <button class="dao-map-chip is-active" type="button" role="tab" aria-selected="true" data-filter="all">All Regions</button>
@@ -3887,6 +4045,8 @@
                   <button class="dao-map-chip" type="button" role="tab" data-filter="europe">Europe</button>
                   <button class="dao-map-chip" type="button" role="tab" data-filter="africa">Africa &amp; M&#8209;East</button>
                   <button class="dao-map-chip" type="button" role="tab" data-filter="apac">Asia&#8209;Pacific</button>
+                  <span class="dao-map-filters-divider" aria-hidden="true"></span>
+                  <button class="dao-map-chip" type="button" role="tab" data-filter="global">Global</button>
                 </div>
               </header>
 
@@ -3912,8 +4072,8 @@
                     </div>
                   </div>
 
-                  <!-- Europe -->
-                  <div class="dao-map-pin" data-region="eu" style="--x: 44.6%; --y: 6.5%;">
+                  <!-- Europe — ACTIVE pin (default) -->
+                  <div class="dao-map-pin is-active" data-region="eu" style="--x: 44.6%; --y: 6.5%;">
                     <div class="dao-map-pin-bubble">
                       <div class="dao-map-pin-name">Europe</div>
                       <div class="dao-map-pin-count">7 communities</div>
@@ -3928,8 +4088,8 @@
                     </div>
                   </div>
 
-                  <!-- Africa — ACTIVE pin -->
-                  <div class="dao-map-pin is-active" data-region="af" style="--x: 42.2%; --y: 74%;">
+                  <!-- Africa -->
+                  <div class="dao-map-pin" data-region="af" style="--x: 42.2%; --y: 74%;">
                     <div class="dao-map-pin-bubble">
                       <div class="dao-map-pin-name">Africa</div>
                       <div class="dao-map-pin-count">5 communities</div>
@@ -3944,6 +4104,24 @@
                     </div>
                   </div>
                 </div>
+
+                <!-- Global view (Figma 9:723) — shown when the GLOBAL chip
+                     is active; pins hide and this borderless-collective
+                     hero takes over the stage. -->
+                <div class="dao-map-global" aria-hidden="true">
+                  <div class="dao-map-global-img">
+                    <img src="./si-assets/dao-global-hero.png" alt="" loading="lazy" decoding="async" />
+                  </div>
+                  <div class="dao-map-global-text">
+                    <h3 class="dao-map-global-title">Global</h3>
+                    <p class="dao-map-global-desc">Borderless womxn-led collectives co-creating a regenerative Web3 &mdash; communities that operate across continents and identify as global rather than regional.</p>
+                    <div class="dao-map-global-line" aria-hidden="true"></div>
+                    <div class="dao-map-global-stats">
+                      <div class="dao-map-global-stat"><span class="v">2.5k</span><span class="k">Members</span></div>
+                      <div class="dao-map-global-stat"><span class="v">12</span><span class="k">Communities</span></div>
+                    </div>
+                  </div>
+                </div>
               </div>
 
               <!-- Region drawer — 3 columns:
@@ -3955,7 +4133,10 @@
                   <span class="dao-map-brief-eyebrow">Europe · Region Brief</span>
                   <h3 class="dao-map-brief-title">Europe</h3>
                   <p class="dao-map-brief-desc">Berlin, Lisbon, Paris, Zürich. Policy, protocols and on-chain art — Europe&rsquo;s loudest womxn-led collectives.</p>
-                  <div class="dao-map-brief-image" aria-hidden="true"></div>
+                  <div class="dao-map-brief-nav">
+                    <button class="dao-map-brief-arrow" type="button" data-nav="prev" aria-label="Previous region">&#8592;</button>
+                    <button class="dao-map-brief-arrow" type="button" data-nav="next" aria-label="Next region">&#8594;</button>
+                  </div>
                   <dl class="dao-map-meta">
                     <div class="dao-map-meta-item">
                       <dt>Members</dt>
@@ -3972,104 +4153,21 @@
                   </dl>
                 </aside>
 
+                <!-- Community cards — rebuilt by JS per active region.
+                     This static Europe set is the first-paint fallback. -->
                 <div class="dao-map-drawer-list">
                   <article class="dao-map-comm">
                     <header>
-                      <span class="dao-map-comm-logo">DLT</span>
                       <span class="dao-map-comm-name">DLT Talents</span>
                       <span class="dao-map-comm-divider" aria-hidden="true"></span>
                       <span class="dao-map-comm-city">Frankfurt</span>
                     </header>
                     <p>A 12-week distributed-ledger mentorship sending womxn into protocol research and CeFi leadership.</p>
-                    <div class="dao-map-comm-tags">
-                      <span>Career</span>
-                      <span>Mentorship</span>
-                    </div>
-                  </article>
-
-                  <article class="dao-map-comm">
-                    <header>
-                      <span class="dao-map-comm-logo">SUI</span>
-                      <span class="dao-map-comm-name">Suisterhood</span>
-                      <span class="dao-map-comm-divider" aria-hidden="true"></span>
-                      <span class="dao-map-comm-city">Zürich</span>
-                    </header>
-                    <p>Sui-native community of validators, devs and DeFi product builders across DACH.</p>
-                    <div class="dao-map-comm-tags">
-                      <span>Sui</span>
-                      <span>DeFi</span>
-                    </div>
-                  </article>
-
-                  <article class="dao-map-comm">
-                    <header>
-                      <span class="dao-map-comm-logo">EVH</span>
-                      <span class="dao-map-comm-name">EthVoice Hub</span>
-                      <span class="dao-map-comm-divider" aria-hidden="true"></span>
-                      <span class="dao-map-comm-city">Berlin</span>
-                    </header>
-                    <p>Policy roundtables connecting Ethereum researchers with EU regulators ahead of MiCA II.</p>
-                    <div class="dao-map-comm-tags">
-                      <span>Ethereum</span>
-                      <span>Policy</span>
-                    </div>
-                  </article>
-
-                  <article class="dao-map-comm">
-                    <header>
-                      <span class="dao-map-comm-logo">CCL</span>
-                      <span class="dao-map-comm-name">Crypto Cleo</span>
-                      <span class="dao-map-comm-divider" aria-hidden="true"></span>
-                      <span class="dao-map-comm-city">Lisbon</span>
-                    </header>
-                    <p>Founder community for Lisbon-based startups, hosting Web Summit fringe and weekly co-works.</p>
-                    <div class="dao-map-comm-tags">
-                      <span>Founders</span>
-                    </div>
-                  </article>
-
-                  <article class="dao-map-comm">
-                    <header>
-                      <span class="dao-map-comm-logo">LWF</span>
-                      <span class="dao-map-comm-name">Lisbon Web3 Femmes</span>
-                      <span class="dao-map-comm-divider" aria-hidden="true"></span>
-                      <span class="dao-map-comm-city">Lisbon</span>
-                    </header>
-                    <p>Hands-on builder cohorts focused on shipping consumer apps and on-chain reputation systems.</p>
-                    <div class="dao-map-comm-tags">
-                      <span>Builders</span>
-                    </div>
-                  </article>
-
-                  <article class="dao-map-comm">
-                    <header>
-                      <span class="dao-map-comm-logo">BLR</span>
-                      <span class="dao-map-comm-name">Block &amp; Roses</span>
-                      <span class="dao-map-comm-divider" aria-hidden="true"></span>
-                      <span class="dao-map-comm-city">Paris</span>
-                    </header>
-                    <p>Paris-based collective at the intersection of luxury, fashion and on-chain provenance.</p>
-                    <div class="dao-map-comm-tags">
-                      <span>Art</span>
-                      <span>NFTs</span>
+                    <div class="dao-map-comm-foot">
+                      <div class="dao-map-comm-tags"><span>Career</span><span>Mentorship</span></div>
                     </div>
                   </article>
                 </div>
-
-                <aside class="dao-map-drawer-r" aria-label="Connect with Europe">
-                  <div class="dao-map-connect-image">
-                    <img src="./si-assets/dao-europe-connect.png" alt="" loading="lazy" decoding="async" />
-                  </div>
-                  <span class="dao-map-connect-eyebrow">Join</span>
-                  <h3 class="dao-map-connect-title">Connect with Europe</h3>
-                  <p class="dao-map-connect-desc">Discover their drops, salons and hackerhouses inside Si U &mdash; the membership layer for the collective.</p>
-                  <a class="dao-map-connect-browse" href="#">Browse all 7 communities &rarr;</a>
-                  <a class="dao-map-connect-cta" href="#">
-                    <span>Join SI U</span>
-                    <span class="dao-map-connect-cta-line" aria-hidden="true"></span>
-                  </a>
-                </aside>
-              </div>
 
               <!-- Logos rail — head strip + horizontal marquee of every
                    active community in the SI U network (A → Z). -->
@@ -4223,7 +4321,7 @@
             <div class="dao-lead-cta-bar">
               <div>
                 <div class="dao-lead-cta-text">Ready to join the <span>global network?</span></div>
-                <div class="dao-lead-cta-sub">Connect with 50+ womxn-led communities across every continent &mdash; inside Si Her DAO.</div>
+                <div class="dao-lead-cta-sub">Connect with 45+ womxn-led communities across every continent &mdash; inside Si Her DAO.</div>
               </div>
               <div class="dao-lead-cta-btns">
                 <a class="dao-lead-cta-outline" href="#">Explore Communities</a>
@@ -4655,7 +4753,7 @@
               <div class="dao-faq-answer-wrap">
                 <hr />
                 <!-- TODO: confirm copy with Kara -->
-                <p class="dao-faq-answer">Founders, operators, researchers, and contributors from 50+ womxn-led communities across Web3, AI, and emerging tech &mdash; plus partner ecosystems and aligned industry leaders.</p>
+                <p class="dao-faq-answer">Founders, operators, researchers, and contributors from 45+ womxn-led communities across Web3, AI, and emerging tech &mdash; plus partner ecosystems and aligned industry leaders.</p>
               </div>
             </details>
 
@@ -5036,10 +5134,11 @@
          All existing CSS classes are reused — no visual changes.
          ────────────────────────────────────────────────────────────── */
       (() => {
+        const stage  = document.querySelector(".dao-map-stage");
         const pins   = Array.from(document.querySelectorAll(".dao-map-pin[data-region]"));
         const chips  = Array.from(document.querySelectorAll(".dao-map-chip[data-filter]"));
         const drawer = document.querySelector(".dao-map-drawer");
-        if (!pins.length || !chips.length || !drawer) return;
+        if (!pins.length || !chips.length || !drawer || !stage) return;
 
         /* ── Data — mirrors the communities-map reference ── */
         const REGIONS = [
@@ -5049,6 +5148,7 @@
           { id:"me", label:"Middle East", short:"MENA", filter:"africa", desc:"Doha, Dubai and Tel Aviv. Sovereign-wealth-adjacent founders and protocol researchers operating across MENA.", members:"2.2k", cities:"4" },
           { id:"af", label:"Africa", short:"Africa", filter:"africa", desc:"Lagos, Nairobi, Accra, Cape Town. The fastest-growing on-chain user base, led from the ground up.", members:"5.3k", cities:"7" },
           { id:"ap", label:"Asia-Pacific", short:"APAC", filter:"apac", desc:"Hong Kong to Tokyo to Sydney. AI × crypto, restaking, and culture-first communities scaling across nine cities.", members:"11.7k", cities:"9" },
+          { id:"global", label:"Global", short:"Global", filter:"global", eyebrow:"Global · No Regional Anchor", desc:"Borderless womxn-led collectives co-creating a regenerative Web3 — operating across continents rather than anchored to one.", members:"2.5k", cities:"∞" },
         ];
 
         const COMMUNITIES = [
@@ -5091,54 +5191,79 @@
           { region:"ap", code:"SSD", name:"Seoul Sisters DAO", loc:"Seoul", focus:["Gaming"], desc:"Web3 gaming guild for womxn product leads operating across the Korean games industry." },
           { region:"ap", code:"MWG", name:"Manila Web3 Girls", loc:"Manila", focus:["On-ramps"], desc:"Manila’s largest Web3 community focused on play-to-earn aftercare and on-ramps." },
           { region:"ap", code:"SYD", name:"Sydney Crypto Co-op", loc:"Sydney", focus:["DeFi"], desc:"Australia & NZ DeFi co-op organising regional protocol-research summits in Sydney." },
+          { region:"global", code:"WIP", name:"Women in Privacy", loc:"Global", focus:["Privacy"], desc:"Privacy-focused collective spanning ZK researchers, cypherpunks and policy advocates worldwide." },
+          { region:"global", code:"BST", name:"Beast DAO", loc:"Global", focus:["DAO"], desc:"Borderless DAO of operators contributing to multi-chain treasuries and grants programs." },
+          { region:"global", code:"WS3", name:"WebSh3", loc:"Global", focus:["Network","Media"], desc:"Global media and networking layer for womxn shaping Web3 culture and IRL events." },
+          { region:"global", code:"ASW", name:"AllStars Women", loc:"Global", focus:["Network"], desc:"Curated global network connecting 2.6K+ womxn leaders across protocols, capital and policy." },
+          { region:"global", code:"D3P", name:"Dev3Pack", loc:"Global", focus:["Dev"], desc:"Engineering-first collective shipping open-source tooling for Web3 product teams worldwide." },
+          { region:"global", code:"WEP", name:"Women in Ethereum Protocol", loc:"Global", focus:["Protocol"], desc:"Core protocol contributors across Ethereum clients, EIPs and All Core Devs working groups." },
+          { region:"global", code:"ALN", name:"Alana Project", loc:"Global", focus:["Builders"], desc:"Builder accelerator for womxn founders launching consumer-facing on-chain products." },
+          { region:"global", code:"ECS", name:"EcstaSHE", loc:"Global", focus:["Culture"], desc:"Culture-led collective at the intersection of music, fashion and on-chain identity." },
+          { region:"global", code:"SUG", name:"Suisterhood Global", loc:"Global", focus:["Network"], desc:"Global chapter of Suisterhood organizing pan-continental hackathons and grants." },
+          { region:"global", code:"CSM", name:"Cosmos Cartel", loc:"Global", focus:["Cosmos"], desc:"Cosmos ecosystem-native collective active across appchains, IBC and shared security." },
+          { region:"global", code:"TST", name:"True Stars", loc:"Global", focus:["NFT"], desc:"NFT-native creator collective with 5.9K members across digital art and collectibles." },
+          { region:"global", code:"SHR", name:"Si Her", loc:"Global", focus:["DAO","Membership"], desc:"The membership layer of Si<3> — connecting all womxn-led Web3 communities under one DAO." },
         ];
 
+        /* ── Partner / chain badges (Figma 12:790) ── */
+        const PARTNER_LOGOS = {
+          stellar:  { name:"Stellar",  svg:`<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="1.2"/><path d="M19.5 4.5 4.5 12l3.2 1.6L19.5 7.7V4.5Zm-15 9 15 7.5v-3.2L7.7 11.4 4.5 13.5Z" fill="currentColor"/></svg>` },
+          sui:      { name:"Sui",      svg:`<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 2.5c2.5 3.5 7 7 7 11.5a7 7 0 1 1-14 0c0-4.5 4.5-8 7-11.5Z" fill="currentColor"/></svg>` },
+          ethereum: { name:"Ethereum", svg:`<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 2 5 12.5l7 4 7-4L12 2ZM5 14l7 8 7-8-7 4-7-4Z" fill="currentColor"/></svg>` },
+          polygon:  { name:"Polygon",  svg:`<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M16.5 8 12 5.5 7.5 8v4l-3 1.5v-4L7.5 7 12 9.5 16.5 7 21 9.5v4L16.5 11V8Z" fill="currentColor"/></svg>` },
+          cosmos:   { name:"Cosmos",   svg:`<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><ellipse cx="12" cy="12" rx="10" ry="4" stroke="currentColor" stroke-width="1.4"/><ellipse cx="12" cy="12" rx="10" ry="4" stroke="currentColor" stroke-width="1.4" transform="rotate(60 12 12)"/><ellipse cx="12" cy="12" rx="10" ry="4" stroke="currentColor" stroke-width="1.4" transform="rotate(120 12 12)"/><circle cx="12" cy="12" r="2" fill="currentColor"/></svg>` },
+          optimism: { name:"Optimism", svg:`<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="12" cy="12" r="10" fill="currentColor"/><text x="12" y="15.5" font-size="9" font-weight="700" text-anchor="middle" fill="#0b0b14" font-family="Arial">OP</text></svg>` },
+          base:     { name:"Base",     svg:`<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2"/></svg>` },
+          arbitrum: { name:"Arbitrum", svg:`<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 2 4 7v10l8 5 8-5V7l-8-5Zm0 3 5.5 3.5L12 12 6.5 8.5 12 5Z" fill="currentColor"/></svg>` },
+          solana:   { name:"Solana",   svg:`<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M6 8.5h11L15 6H4l2 2.5Zm0 7h11L15 18H4l2-2.5ZM6 12h11l-2-2.5H4L6 12Z" fill="currentColor"/></svg>` },
+        };
+
+        const PARTNER_BY_CODE = {
+          SHG:"solana", ETH:"ethereum", HST:"ethereum", DFH:"arbitrum", BLD:"optimism", FM3:"base", W3M:"base", DDO:"optimism", CSN:"ethereum",
+          ESB:"ethereum", EVW:"ethereum", CMX:"polygon", CBA:"arbitrum", LTW:"optimism", BGO:"stellar",
+          DLT:"stellar", SUI:"sui", EVH:"ethereum", CCL:"polygon", LWF:"base", BLR:"ethereum", AMS:"optimism",
+          FMT:"polygon", DWS:"stellar", TAV:"arbitrum", DUF:"sui",
+          WBA:"stellar", ECT:"polygon", NFO:"stellar", CDS:"stellar", ACC:"stellar",
+          HKW:"cosmos", SYS:"sui", H3N:"arbitrum", TOW:"ethereum", SW3:"sui", SSD:"optimism", MWG:"polygon", SYD:"base",
+          WIP:"ethereum", BST:"optimism", WS3:"ethereum", ASW:"base", D3P:"arbitrum", WEP:"ethereum", ALN:"sui", ECS:"polygon", SUG:"cosmos", CSM:"cosmos", TST:"ethereum", SHR:"stellar",
+        };
+        const partnerFor = (code) => PARTNER_LOGOS[PARTNER_BY_CODE[code] || "ethereum"];
+
         /* ── Lookup helpers ── */
-        const regionById   = (id) => REGIONS.find((r) => r.id === id);
+        const regionById     = (id) => REGIONS.find((r) => r.id === id);
         const commsForRegion = (id) => COMMUNITIES.filter((c) => c.region === id);
 
-        let activeFilter = "all";
-        let activeRegion = "eu"; // matches the static HTML default
+        /* Region cycle order for the prev / next stepper. */
+        const NAV_ORDER = ["na", "la", "eu", "me", "af", "ap", "global"];
 
-        /* ── Filter chips ── */
-        const applyFilter = (filterId) => {
+        let activeFilter = "all";
+        let activeRegion = "eu";
+
+        const stageIsGlobal = (on) => stage.classList.toggle("is-global", on);
+
+        const setFilterChip = (filterId) => {
           activeFilter = filterId;
           chips.forEach((c) => {
             const on = c.dataset.filter === filterId;
             c.classList.toggle("is-active", on);
             c.setAttribute("aria-selected", on ? "true" : "false");
           });
+        };
+
+        const applyPinVisibility = (filterId) => {
           pins.forEach((p) => {
             const r = regionById(p.dataset.region);
-            if (!r) return;
-            const visible = filterId === "all" || r.filter === filterId;
+            const visible = filterId === "all" || (r && r.filter === filterId);
             p.style.display = visible ? "" : "none";
           });
         };
-
-        chips.forEach((c) => {
-          c.addEventListener("click", () => applyFilter(c.dataset.filter));
-        });
-
-        /* ── Pin click → update active pin + rebuild drawer ── */
-        const setActivePin = (regionId) => {
-          activeRegion = regionId;
-          pins.forEach((p) => p.classList.toggle("is-active", p.dataset.region === regionId));
-          renderDrawer(regionId);
-        };
-
-        pins.forEach((p) => {
-          p.style.cursor = "pointer";
-          p.addEventListener("click", () => setActivePin(p.dataset.region));
-        });
 
         /* ── Drawer rendering ── */
         const renderDrawer = (regionId) => {
           const r = regionById(regionId);
           if (!r) return;
-          const comms = commsForRegion(regionId).slice(0, 6);
+          const comms = commsForRegion(regionId);
 
-          /* Left panel — region brief */
           const drawerL = drawer.querySelector(".dao-map-drawer-l");
           if (drawerL) {
             drawerL.setAttribute("aria-label", r.label + " region brief");
@@ -5146,52 +5271,99 @@
             const title   = drawerL.querySelector(".dao-map-brief-title");
             const desc    = drawerL.querySelector(".dao-map-brief-desc");
             const metaDDs = drawerL.querySelectorAll(".dao-map-meta-item dd");
-            if (eyebrow) eyebrow.textContent = r.short + " · Region Brief";
+            if (eyebrow) eyebrow.textContent = r.eyebrow || (r.short + " · Region Brief");
             if (title) title.textContent = r.label;
             if (desc) desc.textContent = r.desc;
             if (metaDDs[0]) metaDDs[0].textContent = r.members;
             if (metaDDs[1]) metaDDs[1].textContent = r.cities;
-            if (metaDDs[2]) metaDDs[2].textContent = String(commsForRegion(regionId).length);
+            if (metaDDs[2]) metaDDs[2].textContent = String(comms.length);
           }
 
-          /* Centre — community cards */
           const list = drawer.querySelector(".dao-map-drawer-list");
           if (list) {
-            list.innerHTML = comms.map((c) => `
+            list.innerHTML = comms.map((c) => {
+              const p = partnerFor(c.code);
+              return `
               <article class="dao-map-comm">
                 <header>
-                  <span class="dao-map-comm-logo">${c.code}</span>
                   <span class="dao-map-comm-name">${c.name}</span>
                   <span class="dao-map-comm-divider" aria-hidden="true"></span>
                   <span class="dao-map-comm-city">${c.loc}</span>
                 </header>
                 <p>${c.desc}</p>
-                <div class="dao-map-comm-tags">
-                  ${c.focus.map((f) => `<span>${f}</span>`).join("")}
+                <div class="dao-map-comm-foot">
+                  <div class="dao-map-comm-tags">${c.focus.map((f) => `<span>${f}</span>`).join("")}</div>
+                  <div class="dao-map-comm-partner" title="Partner: ${p.name}">${p.svg}<span>${p.name}</span></div>
                 </div>
-              </article>`).join("");
+              </article>`;
+            }).join("");
           }
-
-          /* Right panel — connect CTA */
-          const drawerR = drawer.querySelector(".dao-map-drawer-r");
-          if (drawerR) {
-            drawerR.setAttribute("aria-label", "Connect with " + r.short);
-            const ctTitle = drawerR.querySelector(".dao-map-connect-title");
-            const ctBrowse = drawerR.querySelector(".dao-map-connect-browse");
-            if (ctTitle) ctTitle.textContent = "Connect with " + r.short;
-            if (ctBrowse) ctBrowse.innerHTML = "Browse all " + commsForRegion(regionId).length + " communities &rarr;";
-          }
-
-          /* Also update the pin bubble counts */
-          pins.forEach((p) => {
-            const pr = p.dataset.region;
-            const cnt = commsForRegion(pr).length;
-            const countEl = p.querySelector(".dao-map-pin-count");
-            if (countEl) countEl.textContent = cnt + " communit" + (cnt === 1 ? "y" : "ies");
-          });
         };
 
-        /* ── Initialise: populate pin counts from data ── */
+        /* ── Navigate to a region (pin, chip, or arrow) ── */
+        const goToRegion = (regionId) => {
+          const r = regionById(regionId);
+          if (!r) return;
+          activeRegion = regionId;
+
+          if (regionId === "global") {
+            stageIsGlobal(true);
+            setFilterChip("global");
+            pins.forEach((p) => p.classList.remove("is-active"));
+          } else {
+            stageIsGlobal(false);
+            setFilterChip(r.filter);
+            applyPinVisibility(r.filter);
+            pins.forEach((p) => p.classList.toggle("is-active", p.dataset.region === regionId));
+          }
+          renderDrawer(regionId);
+        };
+
+        /* ── Filter chips ── */
+        chips.forEach((c) => {
+          c.addEventListener("click", () => {
+            const f = c.dataset.filter;
+            if (f === "global") { goToRegion("global"); return; }
+            if (f === "all") {
+              stageIsGlobal(false);
+              setFilterChip("all");
+              applyPinVisibility("all");
+              if (activeRegion === "global") activeRegion = "eu";
+              pins.forEach((p) => p.classList.toggle("is-active", p.dataset.region === activeRegion));
+              renderDrawer(activeRegion);
+              return;
+            }
+            /* Regional chip → jump the drawer to that group's lead region. */
+            const lead = REGIONS.find((r) => r.filter === f);
+            if (lead) goToRegion(lead.id);
+          });
+        });
+
+        /* ── Pin click → activate that region ── */
+        pins.forEach((p) => {
+          p.style.cursor = "pointer";
+          p.addEventListener("click", () => goToRegion(p.dataset.region));
+        });
+
+        /* ── Prev / next region stepper ── */
+        drawer.querySelectorAll(".dao-map-brief-arrow").forEach((btn) => {
+          btn.addEventListener("click", () => {
+            const dir = btn.dataset.nav === "prev" ? -1 : 1;
+            const i = NAV_ORDER.indexOf(activeRegion);
+            const next = NAV_ORDER[(i + dir + NAV_ORDER.length) % NAV_ORDER.length];
+            goToRegion(next);
+          });
+        });
+
+        /* ── Initialise: pin counts, All Regions active, Europe drawer ── */
+        pins.forEach((p) => {
+          const cnt = commsForRegion(p.dataset.region).length;
+          const countEl = p.querySelector(".dao-map-pin-count");
+          if (countEl) countEl.textContent = cnt + " communit" + (cnt === 1 ? "y" : "ies");
+        });
+        setFilterChip("all");
+        applyPinVisibility("all");
+        pins.forEach((p) => p.classList.toggle("is-active", p.dataset.region === activeRegion));
         renderDrawer(activeRegion);
       })();
     </script>
