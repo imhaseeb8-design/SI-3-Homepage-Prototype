@@ -172,17 +172,39 @@
         z-index: 3;
         display: flex;
         align-items: center;
-        justify-content: space-between;
+        justify-content: flex-end;
         width: min(1255px, calc(100% - 32px));
         height: 65px;
         margin: 0 auto;
         padding-top: 6px;
       }
 
+      /* Floating glass pills — brand+links pill is centered independently
+         of the onboard pill, matching the Figma navbar (two separate
+         capsules rather than one full-width bar). */
+      .hero-nav-pill {
+        display: flex;
+        align-items: center;
+        border-radius: 8px;
+        background: rgba(0, 0, 0, 0.2);
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+      }
+
+      .hero-nav-pill-brand {
+        position: absolute;
+        left: 50%;
+        top: 21px;
+        transform: translateX(-50%);
+        padding: 6px 12px;
+      }
+
       .hero-logo {
         display: inline-flex;
-        width: 90px;
-        height: 22px;
+        align-items: center;
+        width: 71px;
+        height: 17px;
+        padding: 0 10px;
       }
 
       .hero-logo img {
@@ -192,44 +214,59 @@
         object-fit: contain;
       }
 
-      .hero-nav-right {
+      .hero-nav-items {
         display: flex;
         align-items: center;
-        gap: 20px;
+        gap: 2px;
       }
 
-      .hero-nav-links {
-        display: flex;
+      .hero-nav-item {
+        display: inline-flex;
         align-items: center;
-        gap: 22px;
+        gap: 7px;
+        padding: 8px 12px;
+        border: 0;
+        border-radius: 11px;
+        background: transparent;
         font-family: Geist, Arial, sans-serif;
         font-size: 14px;
         font-weight: 500;
         line-height: 1;
-        color: rgba(255, 255, 255, 0.8);
+        color: #f4f7fb;
+        cursor: pointer;
+        transition: background var(--motion-fast) var(--ease-out-cubic);
       }
 
-      .hero-nav-links a,
-      .hero-onboard,
+      .hero-nav-item:hover,
+      .hero-nav-item:focus-visible {
+        background: rgba(255, 255, 255, 0.08);
+      }
+
+      .hero-nav-chev {
+        width: 8px;
+        height: 4px;
+      }
+
+      .hero-nav-pill-onboard,
       .hero-ecosystem-cta,
       .hero-card-cta {
         color: inherit;
         text-decoration: none;
       }
 
-      .hero-onboard {
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        height: 34px;
-        padding: 0 18px;
-        border-radius: 4px;
-        background: #fff;
+      .hero-nav-pill-onboard {
+        gap: 8px;
+        padding: 8px 12px;
         font-family: Geist, Arial, sans-serif;
         font-size: 14px;
         font-weight: 500;
         line-height: 1;
-        color: #000;
+        color: #f4f7fb;
+      }
+
+      .hero-nav-onboard-arrow {
+        width: 7px;
+        height: 7px;
       }
 
       .hero-content {
@@ -1642,7 +1679,8 @@
           min-height: 920px;
         }
 
-        .hero-nav-right {
+        .hero-nav-items,
+        .hero-nav-pill-onboard {
           display: none;
         }
 
@@ -2395,20 +2433,31 @@
     <main class="preview-stack has-footer">
       <section class="hero-preview-band" aria-labelledby="hero-preview-title">
         <div class="hero-sticky-frame">
-          <img class="hero-preview-bg" src="./si-assets/hero-bg.png" alt=""  fetchpriority="high" decoding="sync" data-anim="fade-in" data-anim-group="hero" style="--anim-duration:900ms"/>
+          <img class="hero-preview-bg" src="./si-assets/hero-bg-home.jpg" alt=""  fetchpriority="high" decoding="sync" data-anim="fade-in" data-anim-group="hero" style="--anim-duration:900ms"/>
           <nav class="hero-nav" aria-label="Primary" data-anim="fade-up" data-anim-group="hero" style="--anim-delay:600ms;--anim-duration:700ms">
-            <a class="hero-logo" href="#" aria-label="SI home">
-              <img src="./si-assets/hero-logo.png" alt="SI&lt;3"/>
-            </a>
-            <div class="hero-nav-right">
-              <div class="hero-nav-links">
-                <a href="./grow3dge.html">Grow3dge</a>
-                <a href="#">Well-Being</a>
-                <a href="./dao.html">Si Her DAO</a>
-                <a href="#">Inters3ction</a>
+            <div class="hero-nav-pill hero-nav-pill-brand">
+              <a class="hero-logo" href="#" aria-label="SI home">
+                <img src="./si-assets/nav-si3-logo.svg" alt="SI&lt;3"/>
+              </a>
+              <div class="hero-nav-items">
+                <button class="hero-nav-item" type="button" aria-haspopup="true" aria-expanded="false">
+                  <span>Programs</span>
+                  <img class="hero-nav-chev" src="./si-assets/nav-chev.svg" alt="" aria-hidden="true"/>
+                </button>
+                <button class="hero-nav-item" type="button" aria-haspopup="true" aria-expanded="false">
+                  <span>Products</span>
+                  <img class="hero-nav-chev" src="./si-assets/nav-chev.svg" alt="" aria-hidden="true"/>
+                </button>
+                <button class="hero-nav-item" type="button" aria-haspopup="true" aria-expanded="false">
+                  <span>Portals</span>
+                  <img class="hero-nav-chev" src="./si-assets/nav-chev.svg" alt="" aria-hidden="true"/>
+                </button>
               </div>
-              <a class="hero-onboard" href="#">Onboard</a>
             </div>
+            <a class="hero-nav-pill hero-nav-pill-onboard" href="#">
+              <span>Onboard</span>
+              <img class="hero-nav-onboard-arrow" src="./si-assets/nav-onboard-arrow.svg" alt="" aria-hidden="true"/>
+            </a>
           </nav>
 
           <div class="hero-content">
