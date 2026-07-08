@@ -6,6 +6,13 @@
     <title>SI Website Sections Preview</title>
     <link rel="stylesheet" href="./components/SiAudienceCards.module.css" />
     <link rel="stylesheet" href="./components/PartnerSection.module.css" />
+    <link rel="stylesheet" href="./components/LoadingScreen.css" />
+    <script>
+      // Skip the intro loader on repeat views within the same tab session.
+      if (sessionStorage.getItem("si3-loader-seen")) {
+        document.documentElement.classList.add("si3-loader-skip");
+      }
+    </script>
     <style>
       @import url("https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Geist:wght@100..900&family=Geist+Mono:wght@100..900&display=swap");
 
@@ -2269,6 +2276,103 @@
     </style>
   </head>
   <body>
+    <div id="si3-loading-screen" aria-hidden="true">
+      <div class="si3-loader-row" id="si3-loader-row">
+        <span>Driving Real-World Adoption</span>
+        <span id="si3-loader-count">0</span>
+      </div>
+      <div class="si3-loader-frame">
+        <img data-role="tekegram" src="./si-assets/loading-screen/tekegram-post.jpg" alt="" />
+        <img data-role="sunset-2" src="./si-assets/loading-screen/sunset-mirror-2.jpg" alt="" />
+        <img data-role="mirror" src="./si-assets/loading-screen/mirror-dreamy-landscape.jpg" alt="" />
+        <img data-role="sunset-3" src="./si-assets/loading-screen/sunset-mirror-3.jpg" alt="" />
+        <img data-role="sunset-4" src="./si-assets/loading-screen/sunset-mirror-4.jpg" alt="" />
+        <img data-role="hero" src="./si-assets/loading-screen/homepage-hero-2.jpg" alt="" />
+      </div>
+    </div>
+    <noscript>
+      <style>
+        #si3-loading-screen {
+          display: none !important;
+        }
+      </style>
+    </noscript>
+    <script>
+      (function () {
+        var root = document.getElementById("si3-loading-screen");
+        if (!root || sessionStorage.getItem("si3-loader-seen")) {
+          if (root) root.remove();
+          return;
+        }
+
+        document.body.classList.add("si3-loading");
+
+        var D = 3950; // total timeline duration, ms — matches Figma "SI<3> Animations" node 19:2
+        var EASE_A = "cubic-bezier(0.5,0,0.5,1)";
+        var EASE_B = "cubic-bezier(0.16,1,0.3,1)";
+        var EASE_C = "cubic-bezier(0.7,0,0.84,0)";
+
+        function img(role) {
+          return root.querySelector('[data-role="' + role + '"]');
+        }
+
+        function play(el, prop, offsets, values, easings) {
+          if (!el) return;
+          var frames = offsets.map(function (offset, i) {
+            var frame = { offset: offset };
+            frame[prop] = prop === "opacity" ? values[i] : "translateY(" + values[i] + "px)";
+            if (easings[i]) frame.easing = easings[i];
+            return frame;
+          });
+          el.animate(frames, { duration: D, fill: "forwards", easing: "linear" });
+        }
+
+        // Tekegram Post — first frame, rises into place while fading in/out.
+        play(img("tekegram"), "opacity", [0, 0.0094, 0.0997, 0.7149, 1], [0, 0.8, 1, 0, 0], [EASE_A, EASE_B, EASE_A, "linear"]);
+        play(img("tekegram"), "transform", [0, 0.0997, 1], [372, 0, 0], [EASE_B, "linear"]);
+
+        // Crossfade sequence — each successive image fades in over the last, then out together.
+        play(img("sunset-2"), "opacity", [0, 0.1777, 0.2825, 0.7149, 1], [0, 0, 1, 0, 0], ["linear", EASE_B, EASE_A, "linear"]);
+        play(img("mirror"), "opacity", [0, 0.2833, 0.399, 0.7149, 1], [0, 0, 1, 0, 0], ["linear", EASE_B, EASE_A, "linear"]);
+        play(img("sunset-3"), "opacity", [0, 0.3982, 0.5154, 0.7149, 1], [0, 0, 1, 0, 0], ["linear", EASE_B, EASE_A, "linear"]);
+        play(img("sunset-4"), "opacity", [0, 0.5159, 0.6319, 0.7149, 1], [0, 0, 1, 0, 0], ["linear", EASE_B, EASE_A, "linear"]);
+
+        // Final hero image — slides up into place, holds, then accelerates up and out.
+        play(img("hero"), "opacity", [0, 0.6324, 0.7142, 0.7595, 0.8608, 1], [0, 0, 1, 1, 0, 0], ["linear", EASE_B, "linear", EASE_C, "linear"]);
+        play(img("hero"), "transform", [0, 0.6309, 0.7595, 0.8608, 1], [60, 0, 0, -60, -60], ["linear", "linear", EASE_C, "linear"]);
+
+        // Label row: rises into place immediately, holds, exits with the counter at the end.
+        var row = document.getElementById("si3-loader-row");
+        requestAnimationFrame(function () {
+          row.classList.add("si3-loader-row-in");
+        });
+
+        // Counter ticks 0 -> 100 on the same cadence as the Figma tick marks (~134ms/step).
+        var counter = document.getElementById("si3-loader-count");
+        var ticks = [0, 311, 445, 580, 715, 849, 984, 1119, 1253, 1388, 1523, 1657, 1792, 1927, 2061, 2196, 2331, 2465, 2600, 2735, 2869];
+        var values = ["0", "5", "10", "15", "20", "25", "30", "35", "40", "45", "50", "55", "60", "65", "70", "75", "80", "85", "90", "95", "100"];
+        var timers = ticks.map(function (t, i) {
+          return setTimeout(function () {
+            counter.textContent = values[i];
+          }, t);
+        });
+
+        // Exit: label + counter fade/rise out together, then the whole overlay dissolves.
+        setTimeout(function () {
+          row.classList.remove("si3-loader-row-in");
+          row.classList.add("si3-loader-row-exit");
+        }, 0.9337 * D);
+
+        setTimeout(function () {
+          root.classList.add("si3-loader-exit");
+          document.body.classList.remove("si3-loading");
+          sessionStorage.setItem("si3-loader-seen", "1");
+          setTimeout(function () {
+            root.remove();
+          }, 400);
+        }, D);
+      })();
+    </script>
     <main class="preview-stack has-footer">
       <section class="hero-preview-band" aria-labelledby="hero-preview-title">
         <div class="hero-sticky-frame">
