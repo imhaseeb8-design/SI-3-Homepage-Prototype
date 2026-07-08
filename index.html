@@ -67,11 +67,13 @@
          via the tokens above without touching markup. */
       [data-anim] {
         opacity: 0;
+        filter: blur(var(--anim-blur, 6px));
         transition:
-          opacity var(--motion-md) var(--ease-out-cubic),
-          transform var(--motion-md) var(--ease-out-cubic);
+          opacity var(--anim-duration, var(--motion-md)) var(--ease-out-cubic),
+          transform var(--anim-duration, var(--motion-md)) var(--ease-out-cubic),
+          filter var(--anim-duration, var(--motion-md)) var(--ease-out-cubic);
         transition-delay: var(--anim-delay, 0ms);
-        will-change: opacity, transform;
+        will-change: opacity, transform, filter;
       }
       [data-anim="fade-up"] { transform: translate3d(0, var(--motion-rise-md), 0); }
       [data-anim="fade-in"] { transform: none; }
@@ -80,12 +82,14 @@
       [data-anim].is-revealed {
         opacity: 1;
         transform: none;
+        filter: blur(0px);
       }
 
       @media (prefers-reduced-motion: reduce) {
         [data-anim] {
           opacity: 1;
           transform: none;
+          filter: none;
           transition: none;
         }
       }
@@ -93,6 +97,7 @@
       body.motion-off [data-anim] {
         opacity: 1;
         transform: none;
+        filter: none;
         transition: none;
       }
 
@@ -2294,13 +2299,28 @@
         #si3-loading-screen {
           display: none !important;
         }
+        [data-anim] {
+          opacity: 1 !important;
+          transform: none !important;
+          filter: none !important;
+        }
       </style>
     </noscript>
     <script>
       (function () {
+        // Hero elements are tagged [data-anim-group="hero"] and stay hidden
+        // (see the [data-anim] CSS) until this fires — either right as the
+        // loader dissolves, or immediately if the loader is skipped.
+        function revealHero() {
+          document.querySelectorAll('[data-anim-group="hero"]').forEach(function (el) {
+            el.classList.add("is-revealed");
+          });
+        }
+
         var root = document.getElementById("si3-loading-screen");
         if (!root || sessionStorage.getItem("si3-loader-seen")) {
           if (root) root.remove();
+          revealHero();
           return;
         }
 
@@ -2365,6 +2385,7 @@
           root.classList.add("si3-loader-exit");
           document.body.classList.remove("si3-loading");
           sessionStorage.setItem("si3-loader-seen", "1");
+          revealHero();
           setTimeout(function () {
             root.remove();
           }, 400);
@@ -2374,8 +2395,8 @@
     <main class="preview-stack has-footer">
       <section class="hero-preview-band" aria-labelledby="hero-preview-title">
         <div class="hero-sticky-frame">
-          <img class="hero-preview-bg" src="./si-assets/hero-bg.png" alt=""  fetchpriority="high" decoding="sync"/>
-          <nav class="hero-nav" aria-label="Primary">
+          <img class="hero-preview-bg" src="./si-assets/hero-bg.png" alt=""  fetchpriority="high" decoding="sync" data-anim="fade-in" data-anim-group="hero" style="--anim-duration:900ms"/>
+          <nav class="hero-nav" aria-label="Primary" data-anim="fade-up" data-anim-group="hero" style="--anim-delay:600ms;--anim-duration:700ms">
             <a class="hero-logo" href="#" aria-label="SI home">
               <img src="./si-assets/hero-logo.png" alt="SI&lt;3"/>
             </a>
@@ -2391,7 +2412,7 @@
           </nav>
 
           <div class="hero-content">
-            <div class="hero-copy">
+            <div class="hero-copy" data-anim="fade-up" data-anim-group="hero" style="--anim-delay:260ms;--anim-duration:700ms">
               <h1 class="hero-title" id="hero-preview-title">
                 <span class="hero-title-line">
                   <span class="hero-title-image"><img src="./si-assets/hero-title-vr-1.png" alt=""/></span>
@@ -2418,7 +2439,7 @@
               </a>
             </div>
 
-            <div class="hero-accordion" data-hero-accordion>
+            <div class="hero-accordion" data-hero-accordion data-anim="fade-up" data-anim-group="hero" style="--anim-delay:440ms;--anim-duration:700ms">
               <article class="hero-card" data-hero-card="si-her">
                 <button class="hero-card-trigger" type="button" aria-expanded="false">
                   <img class="hero-card-mark" src="./si-assets/partner-mark.svg" alt=""/>
@@ -3331,7 +3352,9 @@
         }
         function refreshReveals(root) {
           const scope = root || document;
-          const els = scope.querySelectorAll("[data-anim]:not(.is-revealed)");
+          // Hero elements are revealed by the loading-screen script directly
+          // (they're above the fold and shouldn't wait on IntersectionObserver).
+          const els = scope.querySelectorAll('[data-anim]:not(.is-revealed):not([data-anim-group="hero"])');
           if (!els.length) return 0;
           if (prefersReduced || document.body.classList.contains("motion-off")) {
             els.forEach((el) => el.classList.add("is-revealed"));
@@ -3382,10 +3405,34 @@
           tick: requestFlush,
         };
 
-        if (document.readyState === "loading") {
-          document.addEventListener("DOMContentLoaded", () => refreshReveals());
-        } else {
+        // ----- Auto-tag card grids for reveal-on-scroll -----
+        // Below-the-fold repeating cards opt into [data-anim] automatically
+        // (with a small per-card stagger) instead of hand-tagging each one.
+        function autoTagCardReveals() {
+          const groups = [
+            { sel: '.root[aria-label="SI audience paths"] .card', stagger: 90 },
+            { sel: ".partnerSection .logoTile", stagger: 35 },
+            { sel: ".faq-item", stagger: 70 },
+            { sel: ".inters3ction-stat", stagger: 90 },
+          ];
+          groups.forEach(({ sel, stagger }) => {
+            document.querySelectorAll(sel).forEach((el, i) => {
+              if (el.hasAttribute("data-anim")) return;
+              el.setAttribute("data-anim", "fade-up");
+              el.style.setProperty("--anim-delay", `${i * stagger}ms`);
+            });
+          });
+        }
+
+        function init() {
+          autoTagCardReveals();
           refreshReveals();
+        }
+
+        if (document.readyState === "loading") {
+          document.addEventListener("DOMContentLoaded", init);
+        } else {
+          init();
         }
       })();
 
