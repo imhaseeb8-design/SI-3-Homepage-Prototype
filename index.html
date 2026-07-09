@@ -2593,6 +2593,7 @@
           document.querySelectorAll('[data-anim-group="hero"]').forEach(function (el) {
             el.classList.add("is-revealed");
           });
+          document.dispatchEvent(new CustomEvent("si:hero-revealed"));
         }
 
         var root = document.getElementById("si3-loading-screen");
@@ -2838,7 +2839,7 @@
                   <span class="hero-card-actions">
                     <span class="hero-card-pill si-her">
                       <img class="hero-card-icon-si-her" src="./si-assets/cta-guide.svg" alt=""/>
-                      <span>Si Her DAO</span>
+                      <span data-scramble-hero>Si Her DAO</span>
                     </span>
                     <span class="hero-card-toggle" aria-hidden="true"></span>
                   </span>
@@ -2862,7 +2863,7 @@
                   <span class="hero-card-actions">
                     <span class="hero-card-pill grow3dge">
                       <img class="hero-card-icon-grow3dge" src="./si-assets/cta-grow3dge.svg" alt=""/>
-                      <span>Grow3dge</span>
+                      <span data-scramble-hero>Grow3dge</span>
                     </span>
                     <span class="hero-card-toggle" aria-hidden="true"></span>
                   </span>
@@ -2886,7 +2887,7 @@
                   <span class="hero-card-actions">
                     <span class="hero-card-pill well-being">
                       <img class="hero-card-icon-well-being" src="./si-assets/cta-wellbeing.svg" alt=""/>
-                      <span>Well-Being</span>
+                      <span data-scramble-hero>Well-Being</span>
                     </span>
                     <span class="hero-card-toggle" aria-hidden="true"></span>
                   </span>
@@ -2937,7 +2938,7 @@
           </h2>
           <div class="pathwaysCopy">
             <div class="pathwaysEyebrow">
-              <span>SI U Pathways</span>
+              <span data-scramble>SI U Pathways</span>
               <img src="./si-assets/partner-mark.svg" alt=""  loading="lazy" decoding="async"/>
             </div>
             <p>Onboarding emerging tech professionals, communities and organizations.</p>
@@ -3181,7 +3182,7 @@
             </h2>
             <div class="inters3ction-copy">
               <div class="inters3ction-eyebrow">
-                <span>IRL Event Series</span>
+                <span data-scramble>IRL Event Series</span>
                 <img src="./si-assets/partner-mark.svg" alt=""  loading="lazy" decoding="async"/>
               </div>
               <p>A series of gatherings where Web3, AI &amp; Mobile converge.</p>
@@ -3900,6 +3901,70 @@
             ],
             { duration: 800, fill: "forwards" },
           );
+        });
+      })();
+
+      /* ---------- Section: scramble-reveal text (ports ScrambleHover) ----
+         Two triggers, one engine: the hero pill labels (Si Her DAO /
+         Grow3dge / Well-Being) fire once on the "si:hero-revealed" event
+         the loader dispatches when it hands off — delayed 500ms so they
+         start scrambling only once .hero-accordion has actually faded
+         into view, not while it's still hidden behind opacity/blur.
+         Everything else tagged [data-scramble] (the small eyebrow labels)
+         fires once on scroll via the same IntersectionObserver pattern
+         used elsewhere on the page. useOriginalCharsOnly-style: the
+         scramble pool is drawn from the string's own letters, not a
+         random symbol set. */
+      (() => {
+        const reduced = (window.SI && window.SI.prefersReducedMotion) || document.body.classList.contains("motion-off");
+
+        function scramble(el, speed, maxIterations) {
+          if (reduced) return;
+          const finalText = el.textContent;
+          const pool = finalText.replace(/\s/g, "").split("");
+          const length = finalText.length;
+          let iteration = 0;
+          (function frame() {
+            const revealCount = Math.floor((iteration / maxIterations) * length);
+            let out = "";
+            for (let i = 0; i < length; i++) {
+              if (finalText[i] === " ") {
+                out += " ";
+                continue;
+              }
+              out += i < revealCount ? finalText[i] : pool[Math.floor(Math.random() * pool.length)];
+            }
+            el.textContent = out;
+            iteration++;
+            if (iteration <= maxIterations) {
+              setTimeout(frame, speed);
+            } else {
+              el.textContent = finalText;
+            }
+          })();
+        }
+
+        if (!reduced) {
+          const scrollTargets = document.querySelectorAll("[data-scramble]");
+          if (scrollTargets.length && "IntersectionObserver" in window) {
+            const io = new IntersectionObserver(
+              (entries) => {
+                entries.forEach((entry) => {
+                  if (!entry.isIntersecting) return;
+                  scramble(entry.target, 50, 8);
+                  io.unobserve(entry.target);
+                });
+              },
+              { rootMargin: "0px 0px -8% 0px", threshold: 0.05 },
+            );
+            scrollTargets.forEach((el) => io.observe(el));
+          }
+        }
+
+        document.addEventListener("si:hero-revealed", () => {
+          setTimeout(() => {
+            document.querySelectorAll("[data-scramble-hero]").forEach((el) => scramble(el, 50, 8));
+          }, 500);
         });
       })();
 
