@@ -79,6 +79,22 @@
         filter: blur(0px);
       }
 
+      /* Headings — ported from the BlurFade component (magicui/21st.dev):
+         6px blur, 6px rise, 400ms ease-out, settling 6px ABOVE rest
+         (hidden at +6px, visible at -6px) rather than at 0 — that's a
+         quirk of the source component, kept intentionally since it's
+         the reference being matched. Same specificity as the generic
+         .is-revealed rule above, so source order (this comes after) is
+         what makes the override win. */
+      [data-anim="blur-fade"] {
+        --anim-duration: 400ms;
+        --anim-delay: 40ms;
+        transform: translate3d(0, 6px, 0);
+      }
+      [data-anim="blur-fade"].is-revealed {
+        transform: translate3d(0, -6px, 0);
+      }
+
       @media (prefers-reduced-motion: reduce) {
         [data-anim] {
           opacity: 1;
@@ -2914,7 +2930,7 @@
 
         <section class="root" aria-label="SI audience paths">
         <header class="pathwaysIntro">
-          <h2>
+          <h2 data-anim="blur-fade">
             OUR LEARNING
             <br />
             PATHWAYS
@@ -3083,7 +3099,7 @@
           <header class="partnerHeader">
             <div class="titleWrap">
               <img class="sectionMark" src="./si-assets/partner-mark.svg" alt=""  loading="lazy" decoding="async"/>
-              <h2 id="partners-title">PARTNERS</h2>
+              <h2 id="partners-title" data-anim="blur-fade">PARTNERS</h2>
             </div>
             <p>
               PROGRAM &amp; PRODUCT
@@ -3159,7 +3175,7 @@
       <div class="inters3ction-preview-band">
         <section class="inters3ction-preview" aria-labelledby="inters3ction-preview-title">
           <header class="inters3ction-header">
-            <h2 class="inters3ction-title" id="inters3ction-preview-title">
+            <h2 class="inters3ction-title" id="inters3ction-preview-title" data-anim="blur-fade">
               <span>INTERS3CTION SERIES</span>
               <span>Where Worlds Meet</span>
             </h2>
@@ -3202,7 +3218,7 @@
                 </div>
               </div>
               <div class="inters3ction-divider" aria-hidden="true"></div>
-              <h3>Inters3ction Series</h3>
+              <h3 data-anim="blur-fade">Inters3ction Series</h3>
               <p>A global side event series for the builders and marketers driving real-world mobile Web3 adoption.</p>
               <div class="inters3ction-tags">
                 <span>NFT NYC</span>
@@ -3221,7 +3237,7 @@
             <div class="si-u-text">
               <div class="si-u-title-wrap">
                 <img src="./si-assets/si-section-mark.svg" alt=""  loading="lazy" decoding="async"/>
-                <h2 class="si-u-title" id="si-u-social-learning-preview-title">
+                <h2 class="si-u-title" id="si-u-social-learning-preview-title" data-anim="blur-fade">
                   A Social <span>Learning Network</span> For The New Economy
                 </h2>
               </div>
@@ -3263,7 +3279,7 @@
           <header class="products-header">
             <div class="products-title-wrap">
               <img src="./si-assets/partner-mark.svg" alt=""  loading="lazy" decoding="async"/>
-              <h2 class="products-title" id="products-preview-title">
+              <h2 class="products-title" id="products-preview-title" data-anim="blur-fade">
                 <span>REAL-WORLD</span> AI &amp; WEB3
                 <br />
                 APPLICATIONS
@@ -3322,7 +3338,7 @@
                 <div class="product-info">
                   <div class="product-tags"><span class="product-tag">Si Her</span></div>
                   <div>
-                    <h3>SIHER.ETH</h3>
+                    <h3 data-anim="blur-fade">SIHER.ETH</h3>
                     <p>Personal brand publisher designed for our Si Her DAO members to showcase their Web3 identities.</p>
                   </div>
                   <a class="product-link" href="#">
@@ -3345,7 +3361,7 @@
                     <span class="product-tag">Grow3dge</span>
                   </div>
                   <div>
-                    <h3>KAIA AI AGENT</h3>
+                    <h3 data-anim="blur-fade">KAIA AI AGENT</h3>
                     <p>Match-making &amp; knowledge-sharing agent powering accelerated ecosystem connectivity and learning.</p>
                   </div>
                   <a class="product-link" href="#">
@@ -3385,7 +3401,7 @@
                     <span class="product-tag">Well-Being</span>
                   </div>
                   <div>
-                    <h3>SI U CERTIFICATIONS</h3>
+                    <h3 data-anim="blur-fade">SI U CERTIFICATIONS</h3>
                     <p>On-chain certifications for our incubator and cybersecurity programs</p>
                   </div>
                   <a class="product-link" href="#">
@@ -3426,7 +3442,7 @@
           <header class="faq-intro">
             <div class="faq-intro-title">
               <img src="./si-assets/faq-mark.svg" alt=""  loading="lazy" decoding="async"/>
-              <h2 id="faq-title">SI&lt;3&gt; FAQ</h2>
+              <h2 id="faq-title" data-anim="blur-fade">SI&lt;3&gt; FAQ</h2>
             </div>
             <p>Quick answers to common questions about SI&lt;3&gt;, our programs, and how to join our ecosystem.</p>
           </header>
@@ -3487,7 +3503,7 @@
           <img class="cta-floating cta-img-4" data-parallax-speed="-0.08" src="./si-assets/cta-sunset-profile.png" alt="" aria-hidden="true"  loading="lazy" decoding="async"/>
 
           <div class="cta-text">
-            <h2 class="cta-title" id="cta-final-title">
+            <h2 class="cta-title" id="cta-final-title" data-anim="blur-fade">
               REACH <span class="cta-accent">YOUR<br />POTENTIAL</span> WITH<br />SI&lt;3&gt;
             </h2>
             <p class="cta-subtitle">Powering the next wave of emerging tech adoption.</p>
