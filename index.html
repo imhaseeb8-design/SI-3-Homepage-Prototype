@@ -3847,6 +3847,7 @@
           clearTimeout(closeTimer);
           triggers.forEach((t) => t.setAttribute("aria-expanded", String(t.dataset.navTrigger === name)));
           panels.forEach((p) => p.classList.toggle("is-open", p.dataset.navPanel === name));
+          document.dispatchEvent(new CustomEvent("si:nav-panel-opened", { detail: { name } }));
         }
 
         function scheduleClose() {
@@ -3905,26 +3906,43 @@
       })();
 
       /* ---------- Section: scramble-reveal text (ports ScrambleHover) ----
-         Two triggers, one engine: the hero pill labels (Si Her DAO /
+         Three triggers, one engine: the hero pill labels (Si Her DAO /
          Grow3dge / Well-Being) fire once on the "si:hero-revealed" event
          the loader dispatches when it hands off — delayed 500ms so they
          start scrambling only once .hero-accordion has actually faded
          into view, not while it's still hidden behind opacity/blur.
-         Everything else tagged [data-scramble] (the small eyebrow labels)
-         fires once on scroll via the same IntersectionObserver pattern
-         used elsewhere on the page. useOriginalCharsOnly-style: the
-         scramble pool is drawn from the string's own letters, not a
-         random symbol set. */
+         [data-scramble] (the small eyebrow labels) fires once on scroll
+         via the same IntersectionObserver pattern used elsewhere on the
+         page. Nav dropdown row titles fire on "si:nav-panel-opened" —
+         unlike the other two, this one REPLAYS every time a panel opens
+         (hover in/out is repeatable), staggered to match the CSS
+         entrance delay already on those rows (120/180/240ms), so the
+         text is still resolving as the row fades into place rather than
+         popping in fully-formed and then scrambling.
+         useOriginalCharsOnly-style throughout: the scramble pool is
+         drawn from the string's own letters, not a random symbol set. */
       (() => {
         const reduced = (window.SI && window.SI.prefersReducedMotion) || document.body.classList.contains("motion-off");
 
         function scramble(el, speed, maxIterations) {
           if (reduced) return;
-          const finalText = el.textContent;
+          if (el._scrambleCancel) el._scrambleCancel();
+          // Cache the true final text on first run — if this element gets
+          // re-triggered while mid-scramble, el.textContent would otherwise
+          // read back a scrambled snapshot instead of the real word.
+          if (!el.dataset.scrambleText) el.dataset.scrambleText = el.textContent;
+          const finalText = el.dataset.scrambleText;
           const pool = finalText.replace(/\s/g, "").split("");
           const length = finalText.length;
           let iteration = 0;
+          let cancelled = false;
+          let timer = null;
+          el._scrambleCancel = () => {
+            cancelled = true;
+            clearTimeout(timer);
+          };
           (function frame() {
+            if (cancelled) return;
             const revealCount = Math.floor((iteration / maxIterations) * length);
             let out = "";
             for (let i = 0; i < length; i++) {
@@ -3937,7 +3955,7 @@
             el.textContent = out;
             iteration++;
             if (iteration <= maxIterations) {
-              setTimeout(frame, speed);
+              timer = setTimeout(frame, speed);
             } else {
               el.textContent = finalText;
             }
@@ -3965,6 +3983,17 @@
           setTimeout(() => {
             document.querySelectorAll("[data-scramble-hero]").forEach((el) => scramble(el, 50, 8));
           }, 500);
+        });
+
+        document.addEventListener("si:nav-panel-opened", (e) => {
+          if (reduced) return;
+          const panel = document.querySelector(`[data-nav-panel="${e.detail.name}"]`);
+          if (!panel) return;
+          const rowDelays = [120, 180, 240];
+          panel.querySelectorAll(".hero-nav-row-title").forEach((el, i) => {
+            if (el._scrambleStartTimer) clearTimeout(el._scrambleStartTimer);
+            el._scrambleStartTimer = setTimeout(() => scramble(el, 50, 8), rowDelays[i] || 240);
+          });
         });
       })();
 
