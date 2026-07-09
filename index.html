@@ -255,8 +255,8 @@
       }
 
       .hero-nav-pill-onboard {
-        gap: 8px;
-        padding: 8px 12px;
+        gap: 2px;
+        padding: 14px 20px;
         font-family: Geist, Arial, sans-serif;
         font-size: 14px;
         font-weight: 500;
@@ -264,9 +264,22 @@
         color: #f4f7fb;
       }
 
+      /* Fixed "stage" the arrow flies within — sized and clipped to match
+         Figma (18px box around a ~6.5px glyph) so the hover swoosh below
+         has the same runway and the same clip-at-the-edge look. */
+      .hero-nav-onboard-icon {
+        display: flex;
+        flex: 0 0 auto;
+        align-items: center;
+        justify-content: center;
+        width: 18px;
+        height: 18px;
+        overflow: hidden;
+      }
+
       .hero-nav-onboard-arrow {
-        width: 7px;
-        height: 7px;
+        width: 6.5px;
+        height: 6.5px;
       }
 
       /* ---------- Nav dropdown panel ----------
@@ -2768,7 +2781,9 @@
             </div>
             <a class="hero-nav-pill hero-nav-pill-onboard" href="#">
               <span>Onboard</span>
-              <img class="hero-nav-onboard-arrow" src="./si-assets/nav-onboard-arrow.svg" alt="" aria-hidden="true"/>
+              <span class="hero-nav-onboard-icon">
+                <img class="hero-nav-onboard-arrow" src="./si-assets/nav-onboard-arrow.svg" alt="" aria-hidden="true"/>
+              </span>
             </a>
           </nav>
 
@@ -3840,6 +3855,35 @@
         root.addEventListener("mouseleave", scheduleClose);
         root.addEventListener("focusout", (e) => {
           if (!root.contains(e.relatedTarget)) scheduleClose();
+        });
+      })();
+
+      /* ---------- Section: onboard CTA arrow swoosh (Figma 82:544) -----
+         On hover the arrow flies out along its own diagonal (0,0 -> 14,-14),
+         holds for an instant, teleports to the opposite corner (-14,14) —
+         no visible transition, matching the Figma keyframe's near-zero-
+         duration jump — then slides back to rest. The 18px icon box clips
+         it the same way Figma's does, so mid-flight it's mostly hidden and
+         only peeks in at the edges. One-shot per hover-enter, not a loop. */
+      (() => {
+        const pill = document.querySelector(".hero-nav-pill-onboard");
+        const arrow = document.querySelector(".hero-nav-onboard-arrow");
+        if (!pill || !arrow) return;
+
+        let anim = null;
+        pill.addEventListener("mouseenter", () => {
+          if (anim) anim.cancel();
+          anim = arrow.animate(
+            [
+              { offset: 0, transform: "translate(0px, 0px)", easing: "cubic-bezier(0.4,0,0.2,1)" },
+              { offset: 0.225, transform: "translate(14px, -14px)", easing: "linear" },
+              { offset: 0.2374, transform: "translate(14px, -14px)", easing: "linear" },
+              { offset: 0.2375, transform: "translate(-14px, 14px)", easing: "cubic-bezier(0.15,0.9,0.3,1)" },
+              { offset: 0.475, transform: "translate(0px, 0px)", easing: "linear" },
+              { offset: 1, transform: "translate(0px, 0px)" },
+            ],
+            { duration: 800, fill: "forwards" },
+          );
         });
       })();
 
