@@ -7,12 +7,6 @@
     <link rel="stylesheet" href="./components/SiAudienceCards.module.css" />
     <link rel="stylesheet" href="./components/PartnerSection.module.css" />
     <link rel="stylesheet" href="./components/LoadingScreen.css" />
-    <script>
-      // Skip the intro loader on repeat views within the same tab session.
-      if (sessionStorage.getItem("si3-loader-seen")) {
-        document.documentElement.classList.add("si3-loader-skip");
-      }
-    </script>
     <style>
       @import url("https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Geist:wght@100..900&family=Geist+Mono:wght@100..900&display=swap");
 
@@ -2347,8 +2341,8 @@
     <script>
       (function () {
         // Hero elements are tagged [data-anim-group="hero"] and stay hidden
-        // (see the [data-anim] CSS) until this fires — either right as the
-        // loader dissolves, or immediately if the loader is skipped.
+        // (see the [data-anim] CSS) until this fires, right as the loader
+        // dissolves. The loader plays on every load — no session skip.
         function revealHero() {
           document.querySelectorAll('[data-anim-group="hero"]').forEach(function (el) {
             el.classList.add("is-revealed");
@@ -2356,11 +2350,7 @@
         }
 
         var root = document.getElementById("si3-loading-screen");
-        if (!root || sessionStorage.getItem("si3-loader-seen")) {
-          if (root) root.remove();
-          revealHero();
-          return;
-        }
+        if (!root) return;
 
         document.body.classList.add("si3-loading");
 
@@ -2422,7 +2412,6 @@
         setTimeout(function () {
           root.classList.add("si3-loader-exit");
           document.body.classList.remove("si3-loading");
-          sessionStorage.setItem("si3-loader-seen", "1");
           revealHero();
           setTimeout(function () {
             root.remove();

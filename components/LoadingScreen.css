@@ -2,13 +2,6 @@
    Image crossfade timings/easings are driven from JS (Web Animations API)
    to match the exact Figma keyframes; this file only holds static layout. */
 
-html.si3-loader-skip #si3-loading-screen {
-  display: none !important;
-}
-html.si3-loader-skip body {
-  overflow: visible !important;
-}
-
 body.si3-loading {
   overflow: hidden;
 }
