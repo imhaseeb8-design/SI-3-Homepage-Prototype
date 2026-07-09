@@ -232,13 +232,19 @@
       }
 
       .hero-nav-item:hover,
-      .hero-nav-item:focus-visible {
+      .hero-nav-item:focus-visible,
+      .hero-nav-item[aria-expanded="true"] {
         background: rgba(255, 255, 255, 0.08);
       }
 
       .hero-nav-chev {
         width: 8px;
         height: 4px;
+        transition: transform var(--motion-fast) var(--ease-out-cubic);
+      }
+
+      .hero-nav-item[aria-expanded="true"] .hero-nav-chev {
+        transform: rotate(180deg);
       }
 
       .hero-nav-pill-onboard,
@@ -261,6 +267,183 @@
       .hero-nav-onboard-arrow {
         width: 7px;
         height: 7px;
+      }
+
+      /* ---------- Nav dropdown panel ----------
+         Hover/focus is driven by JS (see "Section: hero nav dropdown"),
+         which toggles .is-open and aria-expanded — no gap-flicker between
+         the trigger and panel since JS uses a grace-period timer rather
+         than relying on continuous CSS :hover coverage. */
+      .hero-nav-panel {
+        position: absolute;
+        z-index: 5;
+        top: calc(100% + 8px);
+        left: 50%;
+        display: flex;
+        align-items: stretch;
+        width: 746px;
+        max-width: calc(100vw - 32px);
+        height: 300px;
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        border-radius: 8px;
+        background: rgba(0, 0, 0, 0.4);
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+        overflow: hidden;
+        opacity: 0;
+        visibility: hidden;
+        pointer-events: none;
+        transform: translateX(-50%) translateY(-6px);
+        transition:
+          opacity var(--motion-fast) var(--ease-out-cubic),
+          transform var(--motion-fast) var(--ease-out-cubic),
+          visibility 0s linear var(--motion-fast);
+      }
+
+      .hero-nav-panel.is-open {
+        opacity: 1;
+        visibility: visible;
+        pointer-events: auto;
+        transform: translateX(-50%) translateY(0);
+        transition:
+          opacity var(--motion-fast) var(--ease-out-cubic),
+          transform var(--motion-fast) var(--ease-out-cubic),
+          visibility 0s;
+      }
+
+      .hero-nav-panel-list {
+        display: flex;
+        flex: 0 0 auto;
+        flex-direction: column;
+        gap: 2px;
+        width: 446px;
+        padding: 22px 14px 22px 22px;
+      }
+
+      .hero-nav-row {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        padding: 13px 14px;
+        border-radius: 6px;
+        color: inherit;
+        text-decoration: none;
+        opacity: 1;
+        transition: opacity 0.18s ease, background 0.18s ease;
+      }
+
+      /* Default: every row's title is pure white. Hovering the list dims
+         every row except the one under the pointer. */
+      .hero-nav-panel-list:hover .hero-nav-row:not(:hover) {
+        opacity: 0.6;
+      }
+
+      .hero-nav-row:hover {
+        background: rgba(255, 255, 255, 0.07);
+      }
+
+      .hero-nav-row-text {
+        display: flex;
+        flex-direction: column;
+        gap: 2px;
+        white-space: nowrap;
+      }
+
+      .hero-nav-row-title {
+        font-family: Geist, Arial, sans-serif;
+        font-size: 15px;
+        font-weight: 600;
+        letter-spacing: 0.1px;
+        color: #f4f7fb;
+      }
+
+      .hero-nav-row-desc {
+        font-family: Geist, Arial, sans-serif;
+        font-size: 12px;
+        line-height: 18px;
+        color: rgba(244, 247, 251, 0.62);
+      }
+
+      .hero-nav-row-rule {
+        flex: 1 0 0;
+        min-width: 12px;
+        height: 1px;
+        background: rgba(255, 255, 255, 0.12);
+      }
+
+      .hero-nav-row-arrow {
+        flex: 0 0 auto;
+        width: 14px;
+        height: 14px;
+        opacity: 0;
+        transform: rotate(45deg) translate(-2px, 2px);
+        transition: opacity 0.18s ease, transform 0.18s ease;
+      }
+
+      .hero-nav-row:hover .hero-nav-row-arrow {
+        opacity: 1;
+        transform: rotate(45deg) translate(0, 0);
+      }
+
+      .hero-nav-panel-preview {
+        display: flex;
+        flex: 1;
+        flex-direction: column;
+        gap: 14px;
+        padding: 18px;
+        border-left: 1px solid rgba(255, 255, 255, 0.08);
+      }
+
+      .hero-nav-preview-stage {
+        position: relative;
+        height: 200px;
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        border-radius: 6px;
+        overflow: hidden;
+        background: linear-gradient(180deg, #1a1030 0%, #0c0720 100%);
+      }
+
+      .hero-nav-preview-img {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+
+      .hero-nav-preview-tag {
+        position: absolute;
+        left: 13px;
+        bottom: 13px;
+        padding: 4px 9px;
+        border-radius: 6px;
+        background: rgba(0, 0, 0, 0.35);
+        font-family: Clesmont, "Clesmont Demo", Geist, Arial, sans-serif;
+        font-size: 20px;
+        color: rgba(255, 255, 255, 0.9);
+      }
+
+      .hero-nav-preview-copy {
+        width: 264px;
+        max-width: 100%;
+        margin: 0;
+        font-family: Geist, Arial, sans-serif;
+        font-size: 12.5px;
+        line-height: 19px;
+        color: rgba(255, 255, 255, 0.8);
+      }
+
+      @media (max-width: 900px) {
+        .hero-nav-panel-preview {
+          display: none;
+        }
+        .hero-nav-panel {
+          width: 380px;
+          height: auto;
+        }
+        .hero-nav-panel-list {
+          width: 100%;
+        }
       }
 
       .hero-content {
@@ -2424,12 +2607,12 @@
         <div class="hero-sticky-frame">
           <img class="hero-preview-bg" src="./si-assets/hero-bg-home.jpg" alt=""  fetchpriority="high" decoding="sync" data-anim="fade-in" data-anim-group="hero" style="--anim-duration:900ms"/>
           <nav class="hero-nav" aria-label="Primary" data-anim="fade-up" data-anim-group="hero" style="--anim-delay:600ms;--anim-duration:700ms">
-            <div class="hero-nav-pill hero-nav-pill-brand">
+            <div class="hero-nav-pill hero-nav-pill-brand" data-nav-root>
               <a class="hero-logo" href="#" aria-label="SI home">
                 <img src="./si-assets/nav-si3-logo.svg" alt="SI&lt;3"/>
               </a>
               <div class="hero-nav-items">
-                <button class="hero-nav-item" type="button" aria-haspopup="true" aria-expanded="false">
+                <button class="hero-nav-item" type="button" data-nav-trigger="programs" aria-haspopup="true" aria-expanded="false">
                   <span>Programs</span>
                   <img class="hero-nav-chev" src="./si-assets/nav-chev.svg" alt="" aria-hidden="true"/>
                 </button>
@@ -2441,6 +2624,42 @@
                   <span>Portals</span>
                   <img class="hero-nav-chev" src="./si-assets/nav-chev.svg" alt="" aria-hidden="true"/>
                 </button>
+              </div>
+
+              <div class="hero-nav-panel" data-nav-panel="programs" role="menu" aria-label="Programs">
+                <div class="hero-nav-panel-list">
+                  <a class="hero-nav-row" href="./grow3dge.html" role="menuitem">
+                    <span class="hero-nav-row-text">
+                      <span class="hero-nav-row-title">Grow3dge</span>
+                      <span class="hero-nav-row-desc">Web3 builder growth &amp; incubation</span>
+                    </span>
+                    <span class="hero-nav-row-rule" aria-hidden="true"></span>
+                    <img class="hero-nav-row-arrow" src="./si-assets/nav-panel-go-arrow.svg" alt="" aria-hidden="true"/>
+                  </a>
+                  <a class="hero-nav-row" href="#" role="menuitem">
+                    <span class="hero-nav-row-text">
+                      <span class="hero-nav-row-title">Well-Being</span>
+                      <span class="hero-nav-row-desc">Workplace resilience &amp; safety</span>
+                    </span>
+                    <span class="hero-nav-row-rule" aria-hidden="true"></span>
+                    <img class="hero-nav-row-arrow" src="./si-assets/nav-panel-go-arrow.svg" alt="" aria-hidden="true"/>
+                  </a>
+                  <a class="hero-nav-row" href="./dao.html" role="menuitem">
+                    <span class="hero-nav-row-text">
+                      <span class="hero-nav-row-title">Si Her DAO</span>
+                      <span class="hero-nav-row-desc">Global community circles</span>
+                    </span>
+                    <span class="hero-nav-row-rule" aria-hidden="true"></span>
+                    <img class="hero-nav-row-arrow" src="./si-assets/nav-panel-go-arrow.svg" alt="" aria-hidden="true"/>
+                  </a>
+                </div>
+                <div class="hero-nav-panel-preview">
+                  <div class="hero-nav-preview-stage">
+                    <img class="hero-nav-preview-img" src="./si-assets/nav-panel-grow3dge-preview.jpg" alt=""/>
+                    <span class="hero-nav-preview-tag">GROW3DGE</span>
+                  </div>
+                  <p class="hero-nav-preview-copy">A full-funnel growth engine for promising projects &amp; builders</p>
+                </div>
               </div>
             </div>
             <a class="hero-nav-pill hero-nav-pill-onboard" href="#">
@@ -3472,6 +3691,52 @@
         } else {
           init();
         }
+      })();
+
+      /* ---------- Section: hero nav dropdown ----------
+         Hover-driven (per spec) with a short close grace-period so moving
+         the pointer from the trigger down into the panel — across the
+         gap between them — doesn't flicker-close it. Keyboard focus opens
+         it too. Triggers without a matching [data-nav-panel] (Products,
+         Portals — no content yet) are left as inert buttons. */
+      (() => {
+        const root = document.querySelector("[data-nav-root]");
+        if (!root) return;
+
+        const triggers = Array.from(root.querySelectorAll("[data-nav-trigger]"));
+        const panels = Array.from(root.querySelectorAll("[data-nav-panel]"));
+        let closeTimer = null;
+
+        function openPanel(name) {
+          clearTimeout(closeTimer);
+          triggers.forEach((t) => t.setAttribute("aria-expanded", String(t.dataset.navTrigger === name)));
+          panels.forEach((p) => p.classList.toggle("is-open", p.dataset.navPanel === name));
+        }
+
+        function scheduleClose() {
+          clearTimeout(closeTimer);
+          closeTimer = setTimeout(() => {
+            triggers.forEach((t) => t.setAttribute("aria-expanded", "false"));
+            panels.forEach((p) => p.classList.remove("is-open"));
+          }, 150);
+        }
+
+        triggers.forEach((trigger) => {
+          const name = trigger.dataset.navTrigger;
+          if (!root.querySelector(`[data-nav-panel="${name}"]`)) return;
+          trigger.addEventListener("mouseenter", () => openPanel(name));
+          trigger.addEventListener("focus", () => openPanel(name));
+        });
+
+        panels.forEach((panel) => {
+          panel.addEventListener("mouseenter", () => clearTimeout(closeTimer));
+          panel.addEventListener("mouseleave", scheduleClose);
+        });
+
+        root.addEventListener("mouseleave", scheduleClose);
+        root.addEventListener("focusout", (e) => {
+          if (!root.contains(e.relatedTarget)) scheduleClose();
+        });
       })();
 
       /* ---------- Section: sticky crystal ---------- */
