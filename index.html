@@ -3979,10 +3979,19 @@
           }
         }
 
+        // Initial reveal — delayed 1200ms (was 500ms) so the pills have
+        // finished fading/blurring in from the hero cascade first; the
+        // scramble was previously firing while they were still invisible.
         document.addEventListener("si:hero-revealed", () => {
           setTimeout(() => {
             document.querySelectorAll("[data-scramble-hero]").forEach((el) => scramble(el, 50, 8));
-          }, 500);
+          }, 1200);
+        });
+
+        // Re-scramble a hero pill label whenever its pill is hovered.
+        document.querySelectorAll("[data-scramble-hero]").forEach((el) => {
+          const hoverTarget = el.closest(".hero-card-pill") || el;
+          hoverTarget.addEventListener("mouseenter", () => scramble(el, 50, 8));
         });
 
         document.addEventListener("si:nav-panel-opened", (e) => {
