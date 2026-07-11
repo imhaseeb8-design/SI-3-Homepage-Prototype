@@ -2237,10 +2237,13 @@
       /* ---------- CTA entrance cascade (Figma 131:188) ----------
          Scroll-triggered once, via .cta-text.is-revealed (see the
          "Section: CTA entrance cascade" script). Each heading word drops
-         in from -120px with its own delay/duration lifted straight from
-         the Figma keyframes (opacity is a fast 50ms linear snap; the
-         slide is a slower 300ms ease-out per word). The subtitle and
-         button only slide — Figma doesn't fade them, just repositions. */
+         in from -120px with its own delay/duration (opacity is a fast
+         linear snap; the slide is a slower ease-out per word). Timings
+         are Figma's own values scaled ~1.7x — the literal Figma numbers
+         (0/47/140/184/292ms delays, 300ms slide) read as too fast/subtle
+         to notice in practice, so stretched proportionally while keeping
+         the same relative stagger shape. The subtitle and button only
+         slide — Figma doesn't fade them, just repositions. */
       .cta-word {
         display: inline-block;
         opacity: 0;
@@ -2249,13 +2252,13 @@
       .cta-text.is-revealed .cta-word {
         opacity: 1;
         transform: translate3d(0, 0, 0);
-        transition: opacity 0.05s linear, transform 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+        transition: opacity 0.08s linear, transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
       }
       .cta-text.is-revealed .cta-word:nth-of-type(1) { transition-delay: 0ms, 0ms; }
-      .cta-text.is-revealed .cta-word:nth-of-type(2) { transition-delay: 47ms, 47ms; }
-      .cta-text.is-revealed .cta-word:nth-of-type(3) { transition-delay: 140ms, 140ms; }
-      .cta-text.is-revealed .cta-word:nth-of-type(4) { transition-delay: 184ms, 184ms; }
-      .cta-text.is-revealed .cta-word:nth-of-type(5) { transition-delay: 292ms, 292ms; }
+      .cta-text.is-revealed .cta-word:nth-of-type(2) { transition-delay: 80ms, 80ms; }
+      .cta-text.is-revealed .cta-word:nth-of-type(3) { transition-delay: 240ms, 240ms; }
+      .cta-text.is-revealed .cta-word:nth-of-type(4) { transition-delay: 315ms, 315ms; }
+      .cta-text.is-revealed .cta-word:nth-of-type(5) { transition-delay: 500ms, 500ms; }
 
       .cta-subtitle {
         margin: 0;
@@ -2268,7 +2271,7 @@
       }
       .cta-text.is-revealed .cta-subtitle {
         transform: translate3d(0, 0, 0);
-        transition: transform 0.235s linear 384ms;
+        transition: transform 0.4s linear 650ms;
       }
       .cta-action {
         display: inline-flex;
@@ -2281,7 +2284,7 @@
       }
       .cta-text.is-revealed .cta-action {
         transform: translate3d(0, 0, 0);
-        transition: transform 0.135s linear 523ms;
+        transition: transform 0.23s linear 890ms;
       }
       .cta-action-link {
         display: inline-flex;
@@ -2311,12 +2314,6 @@
         height: 6.5px;
         object-fit: contain;
         filter: brightness(0) invert(1);
-      }
-      .cta-action-line {
-        display: block;
-        width: 44px;
-        height: 1px;
-        background: rgba(255, 255, 255, 0.7);
       }
 
       .cta-floating {
@@ -3582,10 +3579,9 @@
               <span class="cta-action-link">
                 <span>Let&rsquo;s get started</span>
                 <span class="cta-action-icon">
-                  <img src="./si-assets/cta-arrow-up-right.svg" alt="" aria-hidden="true"  loading="lazy" decoding="async"/>
+                  <img src="./si-assets/nav-onboard-arrow.svg" alt="" aria-hidden="true"  loading="lazy" decoding="async"/>
                 </span>
               </span>
-              <span class="cta-action-line" aria-hidden="true"></span>
             </a>
           </div>
         </section>
