@@ -2233,6 +2233,30 @@
         word-break: break-word;
       }
       .cta-title .cta-accent { color: #bba9ff; }
+
+      /* ---------- CTA entrance cascade (Figma 131:188) ----------
+         Scroll-triggered once, via .cta-text.is-revealed (see the
+         "Section: CTA entrance cascade" script). Each heading word drops
+         in from -120px with its own delay/duration lifted straight from
+         the Figma keyframes (opacity is a fast 50ms linear snap; the
+         slide is a slower 300ms ease-out per word). The subtitle and
+         button only slide — Figma doesn't fade them, just repositions. */
+      .cta-word {
+        display: inline-block;
+        opacity: 0;
+        transform: translate3d(0, -120px, 0);
+      }
+      .cta-text.is-revealed .cta-word {
+        opacity: 1;
+        transform: translate3d(0, 0, 0);
+        transition: opacity 0.05s linear, transform 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+      }
+      .cta-text.is-revealed .cta-word:nth-of-type(1) { transition-delay: 0ms, 0ms; }
+      .cta-text.is-revealed .cta-word:nth-of-type(2) { transition-delay: 47ms, 47ms; }
+      .cta-text.is-revealed .cta-word:nth-of-type(3) { transition-delay: 140ms, 140ms; }
+      .cta-text.is-revealed .cta-word:nth-of-type(4) { transition-delay: 184ms, 184ms; }
+      .cta-text.is-revealed .cta-word:nth-of-type(5) { transition-delay: 292ms, 292ms; }
+
       .cta-subtitle {
         margin: 0;
         font-family: "Geist", system-ui, -apple-system, "Helvetica Neue", Arial, sans-serif;
@@ -2240,6 +2264,11 @@
         font-weight: 400;
         line-height: 1.4;
         color: #fff;
+        transform: translate3d(0, -25px, 0);
+      }
+      .cta-text.is-revealed .cta-subtitle {
+        transform: translate3d(0, 0, 0);
+        transition: transform 0.235s linear 384ms;
       }
       .cta-action {
         display: inline-flex;
@@ -2248,6 +2277,11 @@
         gap: 8px;
         text-decoration: none;
         color: #fff;
+        transform: translate3d(0, -17px, 0);
+      }
+      .cta-text.is-revealed .cta-action {
+        transform: translate3d(0, 0, 0);
+        transition: transform 0.135s linear 523ms;
       }
       .cta-action-link {
         display: inline-flex;
@@ -2259,10 +2293,22 @@
         line-height: 1;
         color: #fff;
       }
+      /* 18px clip "stage" for the arrow swoosh — same box/glyph size as
+         the navbar Onboard CTA and the hero card CTAs so all three read
+         as one consistent icon-motion language. */
+      .cta-action-icon {
+        display: inline-flex;
+        flex: 0 0 auto;
+        align-items: center;
+        justify-content: center;
+        width: 18px;
+        height: 18px;
+        overflow: hidden;
+      }
       .cta-action-link img {
         display: block;
-        width: 9px;
-        height: 9px;
+        width: 6.5px;
+        height: 6.5px;
         object-fit: contain;
         filter: brightness(0) invert(1);
       }
@@ -3526,14 +3572,18 @@
           <img class="cta-floating cta-img-4" data-parallax-speed="-0.08" src="./si-assets/cta-sunset-profile.png" alt="" aria-hidden="true"  loading="lazy" decoding="async"/>
 
           <div class="cta-text">
-            <h2 class="cta-title" id="cta-final-title" data-anim="blur-fade">
-              REACH <span class="cta-accent">YOUR<br />POTENTIAL</span> WITH<br />SI&lt;3&gt;
+            <h2 class="cta-title" id="cta-final-title">
+              <span class="cta-word">REACH</span> <span class="cta-word cta-accent">YOUR</span><br />
+              <span class="cta-word cta-accent">POTENTIAL</span> <span class="cta-word">WITH</span><br />
+              <span class="cta-word">SI&lt;3&gt;</span>
             </h2>
             <p class="cta-subtitle">Powering the next wave of emerging tech adoption.</p>
             <a class="cta-action" href="#">
               <span class="cta-action-link">
                 <span>Let&rsquo;s get started</span>
-                <img src="./si-assets/cta-arrow-up-right.svg" alt="" aria-hidden="true"  loading="lazy" decoding="async"/>
+                <span class="cta-action-icon">
+                  <img src="./si-assets/cta-arrow-up-right.svg" alt="" aria-hidden="true"  loading="lazy" decoding="async"/>
+                </span>
               </span>
               <span class="cta-action-line" aria-hidden="true"></span>
             </a>
@@ -3897,14 +3947,15 @@
         });
       })();
 
-      /* ---------- Section: CTA arrow swoosh (Figma 82:544 / 3:656) -----
+      /* ---------- Section: CTA arrow swoosh (Figma 82:544 / 3:656 / 131:188)
          On hover the arrow flies out along its own diagonal (0,0 -> 14,-14),
          holds for an instant, teleports to the opposite corner (-14,14) —
          no visible transition, matching the Figma keyframe's near-zero-
          duration jump — then slides back to rest. The 18px icon box clips
          it the same way Figma's does, so mid-flight it's mostly hidden and
          only peeks in at the edges. One-shot per hover-enter, not a loop.
-         Shared by the navbar Onboard pill and the three hero card CTAs. */
+         Shared by the navbar Onboard pill, the three hero card CTAs, and
+         the final "Let's get started" CTA. */
       (() => {
         function attachSwoosh(trigger, arrow) {
           if (!trigger || !arrow) return;
@@ -3931,6 +3982,40 @@
         document.querySelectorAll(".hero-card-cta").forEach((cta) => {
           attachSwoosh(cta, cta.querySelector(".hero-card-cta-arrow"));
         });
+
+        const finalCta = document.querySelector(".cta-action");
+        attachSwoosh(finalCta, finalCta && finalCta.querySelector(".cta-action-icon img"));
+      })();
+
+      /* ---------- Section: CTA entrance cascade (Figma 131:188) ----------
+         Scroll-triggered once via IntersectionObserver — adds .is-revealed
+         to .cta-text, which fires the per-word/subtitle/button transitions
+         defined in CSS (see ".cta-word" etc.). Skips entirely under
+         reduced-motion / ?motion=off, same policy as the rest of the page. */
+      (() => {
+        const reduced = (window.SI && window.SI.prefersReducedMotion) || document.body.classList.contains("motion-off");
+        const ctaText = document.querySelector(".cta-text");
+        if (!ctaText) return;
+
+        if (reduced) {
+          ctaText.classList.add("is-revealed");
+          return;
+        }
+        if (!("IntersectionObserver" in window)) {
+          ctaText.classList.add("is-revealed");
+          return;
+        }
+        const io = new IntersectionObserver(
+          (entries) => {
+            entries.forEach((entry) => {
+              if (!entry.isIntersecting) return;
+              ctaText.classList.add("is-revealed");
+              io.unobserve(entry.target);
+            });
+          },
+          { rootMargin: "0px 0px -8% 0px", threshold: 0.05 },
+        );
+        io.observe(ctaText);
       })();
 
       /* ---------- Section: scramble-reveal text (ports ScrambleHover) ----
