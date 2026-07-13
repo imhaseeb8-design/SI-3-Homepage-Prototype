@@ -45,6 +45,17 @@
   transform: translateY(0) scale(1);
 }
 
+/* The 30px rhythm between sections (header, name/email row, company,
+   programs, details, newsletter, submit) lives here — .pim-modal's own
+   gap only separates .pim-form from .pim-success, its two direct
+   children, which isn't the same thing. */
+.pim-form {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  width: 100%;
+}
+
 .pim-header {
   display: flex;
   align-items: flex-start;
