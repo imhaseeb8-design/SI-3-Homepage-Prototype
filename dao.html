@@ -4,6 +4,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Si Her DAO Page Preview</title>
+    <link rel="stylesheet" href="./components/ProgramInquiryModal.css" />
     <style>
       @import url("https://fonts.googleapis.com/css2?family=Geist:wght@100..900&family=Geist+Mono:wght@100..900&display=swap");
 
@@ -3704,6 +3705,132 @@
     </style>
   </head>
   <body>
+    <div class="pim-backdrop" id="shg-backdrop" aria-hidden="true">
+      <div class="pim-modal" role="dialog" aria-modal="true" aria-labelledby="shg-title" id="shg-modal">
+        <form class="pim-form" id="shg-form" novalidate>
+          <div class="pim-header">
+            <div class="pim-header-main">
+              <span class="pim-icon" aria-hidden="true">
+                <img src="./si-assets/siher-guides-icon.svg" alt="" />
+              </span>
+              <div class="pim-header-text">
+                <p class="pim-title" id="shg-title">Si Her Guides</p>
+                <p class="pim-desc">Complete our application to join as a Si Her Guide. The $300 USD one-time fee grants full access to our membership resources.</p>
+              </div>
+            </div>
+            <button type="button" class="pim-close" id="shg-close" aria-label="Close">
+              <img src="./si-assets/program-inquiry-close.svg" alt="" aria-hidden="true" />
+            </button>
+          </div>
+
+          <div class="pim-row">
+            <div class="pim-field" data-field="name">
+              <label class="pim-label" for="shg-name">Name <span class="pim-req">*</span></label>
+              <input class="pim-input" type="text" id="shg-name" name="name" placeholder="Your name" autocomplete="name" required />
+              <p class="pim-error">Please enter your name.</p>
+            </div>
+            <div class="pim-field" data-field="email">
+              <label class="pim-label" for="shg-email">Email <span class="pim-req">*</span></label>
+              <input class="pim-input" type="email" id="shg-email" name="email" placeholder="Your email" autocomplete="email" required />
+              <p class="pim-error">Please enter a valid email address.</p>
+            </div>
+          </div>
+
+          <div class="pim-field" data-field="interests">
+            <label class="pim-label" for="shg-interests">Please share your interests in joining our DAO <span class="pim-req">*</span></label>
+            <input class="pim-input" type="text" id="shg-interests" name="interests" placeholder="e.g., Web3 development, community building, content creation" required />
+            <p class="pim-error">Please share your interests in joining our DAO.</p>
+          </div>
+
+          <div class="pim-field pim-programs" data-field="pronouns">
+            <p class="pim-label" id="shg-pronouns-label">Which pronouns do you most identify? <span class="pim-req">*</span></p>
+            <div class="pim-chip-grid" role="radiogroup" aria-labelledby="shg-pronouns-label">
+              <div class="pim-chip-row">
+                <label class="pim-chip">
+                  <input type="radio" name="pronouns" value="She/Her/Hers" checked />
+                  <span class="pim-checkbox" aria-hidden="true"></span>
+                  <span class="pim-chip-label">She/Her/Hers</span>
+                </label>
+                <label class="pim-chip">
+                  <input type="radio" name="pronouns" value="They/Them/Theirs" />
+                  <span class="pim-checkbox" aria-hidden="true"></span>
+                  <span class="pim-chip-label">They/Them/Theirs</span>
+                </label>
+                <label class="pim-chip">
+                  <input type="radio" name="pronouns" value="Other" />
+                  <span class="pim-checkbox" aria-hidden="true"></span>
+                  <span class="pim-chip-label">Other</span>
+                </label>
+              </div>
+            </div>
+            <p class="pim-error">Please select your pronouns.</p>
+          </div>
+
+          <div class="pim-field" data-field="values">
+            <label class="pim-label" for="shg-values">Please share your personal values <span class="pim-req">*</span></label>
+            <textarea class="pim-textarea" id="shg-values" name="values" placeholder="Write details here" required></textarea>
+            <p class="pim-error">Please share your personal values.</p>
+          </div>
+
+          <div class="pim-field" data-field="source">
+            <label class="pim-label" for="shg-source">How did you hear about our DAO? <span class="pim-req">*</span></label>
+            <input class="pim-input" type="text" id="shg-source" name="source" placeholder="Please tell us how you discovered our DAO" required />
+            <p class="pim-error">Please tell us how you heard about our DAO.</p>
+          </div>
+
+          <div class="pim-field" data-field="handles">
+            <p class="pim-label" id="shg-handles-label">Please share your handle of one or more of the following: <span class="pim-req">*</span></p>
+            <div class="pim-handle-grid" aria-labelledby="shg-handles-label">
+              <div class="pim-handle">
+                <p class="pim-handle-name">LinkedIn</p>
+                <div class="pim-handle-input">
+                  <span class="pim-handle-at" aria-hidden="true">@</span>
+                  <input type="text" id="shg-linkedin" name="linkedin" placeholder="your-linkedin-handle" />
+                </div>
+              </div>
+              <div class="pim-handle">
+                <p class="pim-handle-name">X</p>
+                <div class="pim-handle-input">
+                  <span class="pim-handle-at" aria-hidden="true">@</span>
+                  <input type="text" id="shg-x" name="x" placeholder="your-x-handle" />
+                </div>
+              </div>
+              <div class="pim-handle">
+                <p class="pim-handle-name">Farcaster</p>
+                <div class="pim-handle-input">
+                  <span class="pim-handle-at" aria-hidden="true">@</span>
+                  <input type="text" id="shg-farcaster" name="farcaster" placeholder="your-farcaster-handle" />
+                </div>
+              </div>
+            </div>
+            <p class="pim-error">Please share at least one social handle.</p>
+          </div>
+
+          <div class="pim-newsletter">
+            <p class="pim-newsletter-label">Do you agree to our one-time $300 membership fee (paid in cryptocurrency)? After your application has been approved, we will send you the payment and onboarding info.</p>
+            <div class="pim-toggle" role="radiogroup" aria-label="Membership fee agreement">
+              <label>
+                <input type="radio" name="membership-fee" value="yes" checked />
+                <span class="pim-toggle-pill">Yes</span>
+              </label>
+              <label>
+                <input type="radio" name="membership-fee" value="no" />
+                <span class="pim-toggle-pill">No</span>
+              </label>
+            </div>
+          </div>
+
+          <button class="pim-submit" type="submit">Submit Application</button>
+        </form>
+
+        <div class="pim-success">
+          <span class="pim-success-icon" aria-hidden="true">&#10003;</span>
+          <p class="pim-success-title">Thanks &mdash; you&rsquo;re on our radar.</p>
+          <p class="pim-success-copy">A member of our team will review your application and connect with you shortly about next steps for joining as a Si Her Guide.</p>
+          <button type="button" class="pim-success-close" id="shg-success-close">Close</button>
+        </div>
+      </div>
+    </div>
     <main class="dao-page">
       <!-- ============================================================
            Hero — Figma 196:2.
@@ -3736,9 +3863,9 @@
             <span>DAO</span>
           </h1>
           <p>A decentralizing collaborative of womxn-led communities and industry leaders.</p>
-          <a class="dao-cta" href="#dao-learn">
+          <a class="dao-cta" href="#" id="dao-hero-cta">
             <span>
-              Explore our DAO
+              Explore SI HER DAO
               <img src="./si-assets/si-inline-arrow.svg" alt="" />
             </span>
             <span class="dao-cta-line" aria-hidden="true"></span>
@@ -5365,6 +5492,172 @@
         applyPinVisibility("all");
         pins.forEach((p) => p.classList.toggle("is-active", p.dataset.region === activeRegion));
         renderDrawer(activeRegion);
+      })();
+    </script>
+
+    <script>
+      /* ---------- Si Her Guides application modal (Figma "SI<3> Forms" 13:2) ----------
+         Opens off the hero "Explore SI HER DAO" CTA. Validates client-side
+         (required Name/Email/Interests/Pronouns/Values/Source, at least one
+         social handle) and shows a success panel in place of the form on
+         submit — there's no backend wired up on this static prototype, so
+         this is an honest "it worked" confirmation rather than an actual
+         send. Checkbox/toggle visuals are driven by native :checked state
+         via CSS :has() (see ProgramInquiryModal.css) — no JS state syncing
+         needed. Same pattern as the Grow3dge Program Inquiry modal. */
+      (() => {
+        const trigger = document.getElementById("dao-hero-cta");
+        const backdrop = document.getElementById("shg-backdrop");
+        const modal = document.getElementById("shg-modal");
+        const form = document.getElementById("shg-form");
+        const closeBtn = document.getElementById("shg-close");
+        const successCloseBtn = document.getElementById("shg-success-close");
+        if (!trigger || !backdrop || !modal || !form) return;
+
+        let lastFocused = null;
+
+        function focusableEls() {
+          return Array.from(
+            modal.querySelectorAll('a[href], button:not([disabled]), input:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])'),
+          ).filter((el) => el.offsetParent !== null);
+        }
+
+        function open() {
+          lastFocused = document.activeElement;
+          backdrop.classList.add("is-open");
+          backdrop.setAttribute("aria-hidden", "false");
+          document.body.style.overflow = "hidden";
+          const nameInput = document.getElementById("shg-name");
+          const first = nameInput || focusableEls()[0];
+          if (first) first.focus();
+          document.addEventListener("keydown", onKeydown);
+        }
+
+        function close() {
+          backdrop.classList.remove("is-open");
+          backdrop.setAttribute("aria-hidden", "true");
+          document.body.style.overflow = "";
+          document.removeEventListener("keydown", onKeydown);
+          if (modal.classList.contains("is-success")) {
+            modal.classList.remove("is-success");
+            form.reset();
+            form.querySelectorAll(".has-error").forEach((el) => el.classList.remove("has-error"));
+          }
+          if (lastFocused) lastFocused.focus();
+        }
+
+        function onKeydown(e) {
+          if (e.key === "Escape") {
+            close();
+            return;
+          }
+          if (e.key !== "Tab") return;
+          const els = focusableEls();
+          if (!els.length) return;
+          const firstEl = els[0];
+          const lastEl = els[els.length - 1];
+          if (e.shiftKey && document.activeElement === firstEl) {
+            e.preventDefault();
+            lastEl.focus();
+          } else if (!e.shiftKey && document.activeElement === lastEl) {
+            e.preventDefault();
+            firstEl.focus();
+          }
+        }
+
+        trigger.addEventListener("click", (e) => {
+          e.preventDefault();
+          open();
+        });
+        closeBtn.addEventListener("click", close);
+        successCloseBtn.addEventListener("click", close);
+        backdrop.addEventListener("click", (e) => {
+          if (e.target === backdrop) close();
+        });
+
+        // ----- Validation -----
+        const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+        function setFieldError(field, hasError) {
+          field.classList.toggle("has-error", hasError);
+        }
+
+        function validate() {
+          let firstInvalid = null;
+
+          const nameField = form.querySelector('[data-field="name"]');
+          const nameInput = document.getElementById("shg-name");
+          const nameOk = nameInput.value.trim().length > 0;
+          setFieldError(nameField, !nameOk);
+          if (!nameOk && !firstInvalid) firstInvalid = nameInput;
+
+          const emailField = form.querySelector('[data-field="email"]');
+          const emailInput = document.getElementById("shg-email");
+          const emailOk = EMAIL_RE.test(emailInput.value.trim());
+          setFieldError(emailField, !emailOk);
+          if (!emailOk && !firstInvalid) firstInvalid = emailInput;
+
+          const interestsField = form.querySelector('[data-field="interests"]');
+          const interestsInput = document.getElementById("shg-interests");
+          const interestsOk = interestsInput.value.trim().length > 0;
+          setFieldError(interestsField, !interestsOk);
+          if (!interestsOk && !firstInvalid) firstInvalid = interestsInput;
+
+          const pronounsField = form.querySelector('[data-field="pronouns"]');
+          const pronounsOk = form.querySelectorAll('input[name="pronouns"]:checked').length > 0;
+          setFieldError(pronounsField, !pronounsOk);
+          if (!pronounsOk && !firstInvalid) firstInvalid = pronounsField.querySelector('input[type="radio"]');
+
+          const valuesField = form.querySelector('[data-field="values"]');
+          const valuesInput = document.getElementById("shg-values");
+          const valuesOk = valuesInput.value.trim().length > 0;
+          setFieldError(valuesField, !valuesOk);
+          if (!valuesOk && !firstInvalid) firstInvalid = valuesInput;
+
+          const sourceField = form.querySelector('[data-field="source"]');
+          const sourceInput = document.getElementById("shg-source");
+          const sourceOk = sourceInput.value.trim().length > 0;
+          setFieldError(sourceField, !sourceOk);
+          if (!sourceOk && !firstInvalid) firstInvalid = sourceInput;
+
+          const handlesField = form.querySelector('[data-field="handles"]');
+          const linkedinInput = document.getElementById("shg-linkedin");
+          const xInput = document.getElementById("shg-x");
+          const farcasterInput = document.getElementById("shg-farcaster");
+          const handlesOk = [linkedinInput, xInput, farcasterInput].some((el) => el.value.trim().length > 0);
+          setFieldError(handlesField, !handlesOk);
+          if (!handlesOk && !firstInvalid) firstInvalid = linkedinInput;
+
+          if (firstInvalid) firstInvalid.focus();
+          return !firstInvalid;
+        }
+
+        // Clear a field's error state as soon as the visitor fixes it.
+        ["shg-name", "shg-email", "shg-interests", "shg-values", "shg-source"].forEach((id) => {
+          const input = document.getElementById(id);
+          input.addEventListener("input", () => {
+            input.closest(".pim-field").classList.remove("has-error");
+          });
+        });
+        form.querySelectorAll('input[name="pronouns"]').forEach((radio) => {
+          radio.addEventListener("change", () => {
+            form.querySelector('[data-field="pronouns"]').classList.remove("has-error");
+          });
+        });
+        ["shg-linkedin", "shg-x", "shg-farcaster"].forEach((id) => {
+          const input = document.getElementById(id);
+          input.addEventListener("input", () => {
+            form.querySelector('[data-field="handles"]').classList.remove("has-error");
+          });
+        });
+
+        form.addEventListener("submit", (e) => {
+          e.preventDefault();
+          if (!validate()) return;
+          modal.classList.add("is-success");
+          const first = successCloseBtn;
+          if (first) first.focus();
+        });
       })();
     </script>
   </body>

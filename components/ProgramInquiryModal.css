@@ -259,7 +259,8 @@
   border-color: rgba(177, 160, 254, 0.5);
 }
 
-.pim-chip input[type="checkbox"] {
+.pim-chip input[type="checkbox"],
+.pim-chip input[type="radio"] {
   position: absolute;
   width: 1px;
   height: 1px;
@@ -305,6 +306,73 @@
   font-family: var(--font-geist), Arial, sans-serif;
   font-size: 14px;
   color: #e0deeb;
+}
+
+.pim-handle-grid {
+  display: flex;
+  gap: 12px;
+  width: 100%;
+}
+
+.pim-handle {
+  display: flex;
+  flex: 1 1 0;
+  min-width: 0;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.pim-handle-name {
+  margin: 0;
+  font-family: var(--font-geist), Arial, sans-serif;
+  font-size: 12.5px;
+  font-weight: 500;
+  color: #a6a1b2;
+}
+
+.pim-handle-input {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  height: 46px;
+  padding: 0 12px 0 14px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+  transition: border-color 0.18s ease, background 0.18s ease;
+}
+
+.pim-handle-input:focus-within {
+  border-color: rgba(177, 160, 254, 0.6);
+  background: rgba(255, 255, 255, 0.07);
+}
+
+.pim-field.has-error .pim-handle-input {
+  border-color: #ff7a7a;
+}
+
+.pim-handle-at {
+  flex: 0 0 auto;
+  font-family: var(--font-geist), Arial, sans-serif;
+  font-size: 13.5px;
+  font-weight: 500;
+  color: #8c8799;
+}
+
+.pim-handle-input input {
+  flex: 1 1 auto;
+  min-width: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  font-family: var(--font-geist), Arial, sans-serif;
+  font-size: 13px;
+  color: #fff;
+  outline: none;
+}
+
+.pim-handle-input input::placeholder {
+  color: #8c8799;
 }
 
 .pim-newsletter {
@@ -457,7 +525,8 @@
 
 @media (max-width: 720px) {
   .pim-row,
-  .pim-chip-row {
+  .pim-chip-row,
+  .pim-handle-grid {
     flex-direction: column;
   }
   .pim-modal {
