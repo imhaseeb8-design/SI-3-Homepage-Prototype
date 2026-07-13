@@ -7,6 +7,7 @@
     <!-- Reuse the homepage's partner-logo styling so brand marks render at
          their native colors/sizes and fade-on-hover identically. -->
     <link rel="stylesheet" href="./components/PartnerSection.module.css" />
+    <link rel="stylesheet" href="./components/ProgramInquiryModal.css" />
     <style>
       @import url("https://fonts.googleapis.com/css2?family=Geist:wght@100..900&family=Geist+Mono:wght@100..900&display=swap");
 
@@ -2231,6 +2232,104 @@
     </style>
   </head>
   <body>
+    <div class="pim-backdrop" id="pim-backdrop" aria-hidden="true">
+      <div class="pim-modal" role="dialog" aria-modal="true" aria-labelledby="pim-title" id="pim-modal">
+        <form class="pim-form" id="pim-form" novalidate>
+          <div class="pim-header">
+            <div class="pim-header-main">
+              <span class="pim-icon" aria-hidden="true">
+                <img src="./si-assets/program-inquiry-icon.svg" alt="" />
+              </span>
+              <div class="pim-header-text">
+                <p class="pim-title" id="pim-title">Program Inquiry</p>
+                <p class="pim-desc">We&rsquo;re excited to explore our program opportunities with you! Please complete this form, and a member of our team will connect.</p>
+              </div>
+            </div>
+            <button type="button" class="pim-close" id="pim-close" aria-label="Close">
+              <img src="./si-assets/program-inquiry-close.svg" alt="" aria-hidden="true" />
+            </button>
+          </div>
+
+          <div class="pim-row">
+            <div class="pim-field" data-field="name">
+              <label class="pim-label" for="pim-name">Name <span class="pim-req">*</span></label>
+              <input class="pim-input" type="text" id="pim-name" name="name" placeholder="Your name" autocomplete="name" required />
+              <p class="pim-error">Please enter your name.</p>
+            </div>
+            <div class="pim-field" data-field="email">
+              <label class="pim-label" for="pim-email">Email <span class="pim-req">*</span></label>
+              <input class="pim-input" type="email" id="pim-email" name="email" placeholder="Your company email" autocomplete="email" required />
+              <p class="pim-error">Please enter a valid email address.</p>
+            </div>
+          </div>
+
+          <div class="pim-field" data-field="company">
+            <label class="pim-label" for="pim-company">Company Name <span class="pim-req">*</span></label>
+            <input class="pim-input" type="text" id="pim-company" name="company" placeholder="Your company name" autocomplete="organization" required />
+            <p class="pim-error">Please enter your company name.</p>
+          </div>
+
+          <div class="pim-field pim-programs" data-field="programs">
+            <p class="pim-label" id="pim-programs-label">Which program(s) are you interested in exploring? <span class="pim-req">*</span></p>
+            <div class="pim-chip-grid" role="group" aria-labelledby="pim-programs-label">
+              <div class="pim-chip-row">
+                <label class="pim-chip">
+                  <input type="checkbox" name="programs" value="Grow3dge Members Club" checked />
+                  <span class="pim-checkbox" aria-hidden="true"></span>
+                  <span class="pim-chip-label">Grow3dge Members Club</span>
+                </label>
+                <label class="pim-chip">
+                  <input type="checkbox" name="programs" value="Grow3dge Builder Growth Incubator" />
+                  <span class="pim-checkbox" aria-hidden="true"></span>
+                  <span class="pim-chip-label">Grow3dge Builder Growth Incubator</span>
+                </label>
+              </div>
+              <div class="pim-chip-row">
+                <label class="pim-chip">
+                  <input type="checkbox" name="programs" value="Grow3dge LinkedIn Live" />
+                  <span class="pim-checkbox" aria-hidden="true"></span>
+                  <span class="pim-chip-label">Grow3dge LinkedIn Live</span>
+                </label>
+                <label class="pim-chip">
+                  <input type="checkbox" name="programs" value="Well-Being in the Web3 Workplace" />
+                  <span class="pim-checkbox" aria-hidden="true"></span>
+                  <span class="pim-chip-label">Well-Being in the Web3 Workplace</span>
+                </label>
+              </div>
+            </div>
+            <p class="pim-error">Please select at least one program.</p>
+          </div>
+
+          <div class="pim-field" data-field="details">
+            <label class="pim-label" for="pim-details">Please share any details you would like us to know about your organization and your interests in program(s). <span class="pim-optional">(optional)</span></label>
+            <textarea class="pim-textarea" id="pim-details" name="details" placeholder="Type details here"></textarea>
+          </div>
+
+          <div class="pim-newsletter">
+            <p class="pim-newsletter-label">Would you like to be added to our SI&lt;3&gt; Ecosystem newsletter?</p>
+            <div class="pim-toggle" role="radiogroup" aria-label="Newsletter opt-in">
+              <label>
+                <input type="radio" name="newsletter" value="yes" checked />
+                <span class="pim-toggle-pill">Yes</span>
+              </label>
+              <label>
+                <input type="radio" name="newsletter" value="no" />
+                <span class="pim-toggle-pill">No</span>
+              </label>
+            </div>
+          </div>
+
+          <button class="pim-submit" type="submit">Submit Inquiry</button>
+        </form>
+
+        <div class="pim-success">
+          <span class="pim-success-icon" aria-hidden="true">&#10003;</span>
+          <p class="pim-success-title">Thanks &mdash; you&rsquo;re on our radar.</p>
+          <p class="pim-success-copy">A member of our team will review your inquiry and connect with you shortly.</p>
+          <button type="button" class="pim-success-close" id="pim-success-close">Close</button>
+        </div>
+      </div>
+    </div>
     <main class="grow3dge-page">
       <section class="grow3dge-preview-band" aria-labelledby="grow3dge-preview-title">
         <img class="grow3dge-preview-bg" src="./si-assets/grow3dge-hero-bg.png" alt="" />
@@ -2259,7 +2358,7 @@
             <span>3dge</span>
           </h1>
           <p>Full-Funnel Growth for the Web3 Era.</p>
-          <a class="grow3dge-cta" href="#">
+          <a class="grow3dge-cta" href="#" id="grow3dge-hero-cta">
             <span>
               Explore Grow3dge
               <img src="./si-assets/si-inline-arrow.svg" alt="" />
@@ -3092,6 +3191,146 @@
 
         // Sync initial progress fill from the default active index.
         setProgress(active);
+      })();
+
+      /* ---------- Program Inquiry modal (Figma "SI<3> Forms" 5:2) ----------
+         Opens off the hero "Explore Grow3dge" CTA. Validates client-side
+         (required Name/Email/Company, at least one program checked) and
+         shows a success panel in place of the form on submit — there's no
+         backend wired up on this static prototype, so this is an honest
+         "it worked" confirmation rather than an actual send. Checkbox/
+         toggle visuals are driven by native :checked state via CSS
+         :has() (see ProgramInquiryModal.css) — no JS state syncing needed. */
+      (() => {
+        const trigger = document.getElementById("grow3dge-hero-cta");
+        const backdrop = document.getElementById("pim-backdrop");
+        const modal = document.getElementById("pim-modal");
+        const form = document.getElementById("pim-form");
+        const closeBtn = document.getElementById("pim-close");
+        const successCloseBtn = document.getElementById("pim-success-close");
+        if (!trigger || !backdrop || !modal || !form) return;
+
+        let lastFocused = null;
+
+        function focusableEls() {
+          return Array.from(
+            modal.querySelectorAll('a[href], button:not([disabled]), input:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])'),
+          ).filter((el) => el.offsetParent !== null);
+        }
+
+        function open() {
+          lastFocused = document.activeElement;
+          backdrop.classList.add("is-open");
+          backdrop.setAttribute("aria-hidden", "false");
+          document.body.style.overflow = "hidden";
+          const nameInput = document.getElementById("pim-name");
+          const first = nameInput || focusableEls()[0];
+          if (first) first.focus();
+          document.addEventListener("keydown", onKeydown);
+        }
+
+        function close() {
+          backdrop.classList.remove("is-open");
+          backdrop.setAttribute("aria-hidden", "true");
+          document.body.style.overflow = "";
+          document.removeEventListener("keydown", onKeydown);
+          // Reset synchronously rather than waiting on a transitionend —
+          // the fade-out hides this happening anyway, and it means reset
+          // doesn't depend on the animation actually completing.
+          if (modal.classList.contains("is-success")) {
+            modal.classList.remove("is-success");
+            form.reset();
+            form.querySelectorAll(".has-error").forEach((el) => el.classList.remove("has-error"));
+          }
+          if (lastFocused) lastFocused.focus();
+        }
+
+        function onKeydown(e) {
+          if (e.key === "Escape") {
+            close();
+            return;
+          }
+          if (e.key !== "Tab") return;
+          const els = focusableEls();
+          if (!els.length) return;
+          const firstEl = els[0];
+          const lastEl = els[els.length - 1];
+          if (e.shiftKey && document.activeElement === firstEl) {
+            e.preventDefault();
+            lastEl.focus();
+          } else if (!e.shiftKey && document.activeElement === lastEl) {
+            e.preventDefault();
+            firstEl.focus();
+          }
+        }
+
+        trigger.addEventListener("click", (e) => {
+          e.preventDefault();
+          open();
+        });
+        closeBtn.addEventListener("click", close);
+        successCloseBtn.addEventListener("click", close);
+        backdrop.addEventListener("click", (e) => {
+          if (e.target === backdrop) close();
+        });
+
+        // ----- Validation -----
+        const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+        function setFieldError(field, hasError) {
+          field.classList.toggle("has-error", hasError);
+        }
+
+        function validate() {
+          let firstInvalid = null;
+          const nameField = form.querySelector('[data-field="name"]');
+          const nameInput = document.getElementById("pim-name");
+          const nameOk = nameInput.value.trim().length > 0;
+          setFieldError(nameField, !nameOk);
+          if (!nameOk && !firstInvalid) firstInvalid = nameInput;
+
+          const emailField = form.querySelector('[data-field="email"]');
+          const emailInput = document.getElementById("pim-email");
+          const emailOk = EMAIL_RE.test(emailInput.value.trim());
+          setFieldError(emailField, !emailOk);
+          if (!emailOk && !firstInvalid) firstInvalid = emailInput;
+
+          const companyField = form.querySelector('[data-field="company"]');
+          const companyInput = document.getElementById("pim-company");
+          const companyOk = companyInput.value.trim().length > 0;
+          setFieldError(companyField, !companyOk);
+          if (!companyOk && !firstInvalid) firstInvalid = companyInput;
+
+          const programsField = form.querySelector('[data-field="programs"]');
+          const programsOk = form.querySelectorAll('input[name="programs"]:checked').length > 0;
+          setFieldError(programsField, !programsOk);
+          if (!programsOk && !firstInvalid) firstInvalid = programsField.querySelector('input[type="checkbox"]');
+
+          if (firstInvalid) firstInvalid.focus();
+          return !firstInvalid;
+        }
+
+        // Clear a field's error state as soon as the visitor fixes it.
+        ["pim-name", "pim-email", "pim-company"].forEach((id) => {
+          const input = document.getElementById(id);
+          input.addEventListener("input", () => {
+            input.closest(".pim-field").classList.remove("has-error");
+          });
+        });
+        form.querySelectorAll('input[name="programs"]').forEach((cb) => {
+          cb.addEventListener("change", () => {
+            form.querySelector('[data-field="programs"]').classList.remove("has-error");
+          });
+        });
+
+        form.addEventListener("submit", (e) => {
+          e.preventDefault();
+          if (!validate()) return;
+          modal.classList.add("is-success");
+          const first = successCloseBtn;
+          if (first) first.focus();
+        });
+
       })();
     </script>
   </body>

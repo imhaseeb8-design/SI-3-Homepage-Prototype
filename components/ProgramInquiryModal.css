@@ -1,0 +1,466 @@
+/* Program Inquiry modal — Figma "SI<3> Forms" node 5:2.
+   Opened by the "Explore Grow3dge" hero CTA on grow3dge.html. */
+
+.pim-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  background: rgba(5, 3, 10, 0.72);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.22s ease, visibility 0s linear 0.22s;
+}
+
+.pim-backdrop.is-open {
+  opacity: 1;
+  visibility: visible;
+  transition: opacity 0.22s ease, visibility 0s;
+}
+
+.pim-modal {
+  position: relative;
+  width: min(820px, 100%);
+  max-height: calc(100vh - 48px);
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  padding: 44px 36px;
+  background: #0e0b16;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 24px;
+  box-shadow: 0 40px 100px rgba(0, 0, 0, 0.55);
+  color: #fff;
+  transform: translateY(12px) scale(0.98);
+  transition: transform 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.pim-backdrop.is-open .pim-modal {
+  transform: translateY(0) scale(1);
+}
+
+.pim-header {
+  display: flex;
+  align-items: flex-start;
+  gap: 20px;
+}
+
+.pim-header-main {
+  display: flex;
+  flex: 1 1 auto;
+  align-items: center;
+  gap: 20px;
+  min-width: 0;
+}
+
+.pim-icon {
+  flex: 0 0 auto;
+  width: 77px;
+  height: 77px;
+}
+
+.pim-icon img {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.pim-header-text {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  min-width: 0;
+}
+
+.pim-title {
+  margin: 0;
+  font-family: var(--font-clesmont), "Clesmont Demo", var(--font-geist), Arial, sans-serif;
+  font-size: 27px;
+  line-height: 1;
+  color: #fff;
+}
+
+.pim-desc {
+  margin: 0;
+  font-family: var(--font-geist), Arial, sans-serif;
+  font-size: 14.5px;
+  line-height: 1.45;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.pim-close {
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.06);
+  cursor: pointer;
+  transition: background 0.18s ease;
+}
+
+.pim-close:hover,
+.pim-close:focus-visible {
+  background: rgba(255, 255, 255, 0.12);
+}
+
+.pim-close img {
+  display: block;
+  width: 8.6px;
+  height: 8.6px;
+}
+
+.pim-row {
+  display: flex;
+  gap: 20px;
+}
+
+.pim-field {
+  display: flex;
+  flex: 1 1 0;
+  min-width: 0;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.pim-label {
+  display: flex;
+  align-items: flex-start;
+  gap: 4px;
+  font-family: var(--font-geist), Arial, sans-serif;
+  font-size: 13.5px;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.pim-label .pim-req {
+  color: #b1a0fe;
+}
+
+.pim-label .pim-optional {
+  font-weight: 400;
+  color: rgba(255, 255, 255, 0.45);
+}
+
+.pim-input,
+.pim-textarea {
+  width: 100%;
+  padding: 0 16px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+  font-family: var(--font-geist), Arial, sans-serif;
+  font-size: 14px;
+  color: #fff;
+  outline: none;
+  transition: border-color 0.18s ease, background 0.18s ease;
+}
+
+.pim-input {
+  height: 48px;
+}
+
+.pim-textarea {
+  height: 104px;
+  padding-top: 14px;
+  resize: none;
+  line-height: 1.4;
+  font-family: var(--font-geist), Arial, sans-serif;
+}
+
+.pim-input::placeholder,
+.pim-textarea::placeholder {
+  color: #8c8799;
+}
+
+.pim-input:focus,
+.pim-textarea:focus {
+  border-color: rgba(177, 160, 254, 0.6);
+  background: rgba(255, 255, 255, 0.07);
+}
+
+.pim-field.has-error .pim-input,
+.pim-field.has-error .pim-textarea {
+  border-color: #ff7a7a;
+}
+
+.pim-error {
+  display: none;
+  margin: 0;
+  font-family: var(--font-geist), Arial, sans-serif;
+  font-size: 12.5px;
+  color: #ff9a9a;
+}
+
+.pim-field.has-error .pim-error {
+  display: block;
+}
+
+.pim-programs {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.pim-chip-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.pim-chip-row {
+  display: flex;
+  gap: 12px;
+}
+
+.pim-chip {
+  display: flex;
+  flex: 1 1 0;
+  min-width: 0;
+  align-items: center;
+  gap: 10px;
+  padding: 13px 16px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background 0.18s ease, border-color 0.18s ease;
+}
+
+.pim-chip:hover {
+  background: rgba(255, 255, 255, 0.06);
+}
+
+/* Driven by the checkbox's native :checked state via :has() — no JS
+   needed to keep the chip's visual in sync with the real form control. */
+.pim-chip:has(input:checked) {
+  background: rgba(255, 255, 255, 0.07);
+  border-color: rgba(177, 160, 254, 0.5);
+}
+
+.pim-chip input[type="checkbox"] {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+}
+
+.pim-checkbox {
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 18px;
+  height: 18px;
+  border: 1.3px solid rgba(255, 255, 255, 0.25);
+  border-radius: 5px;
+  background: transparent;
+  font-size: 12px;
+  color: #fff;
+  transition: background 0.18s ease, border-color 0.18s ease;
+}
+
+.pim-chip input:checked ~ .pim-checkbox {
+  background: #7e5ffe;
+  border-color: #7e5ffe;
+}
+
+.pim-checkbox::after {
+  content: "";
+  width: 9px;
+  height: 6px;
+  border-left: 1.6px solid #fff;
+  border-bottom: 1.6px solid #fff;
+  transform: rotate(-45deg) translate(1px, -1px);
+  opacity: 0;
+}
+
+.pim-chip input:checked ~ .pim-checkbox::after {
+  opacity: 1;
+}
+
+.pim-chip-label {
+  font-family: var(--font-geist), Arial, sans-serif;
+  font-size: 14px;
+  color: #e0deeb;
+}
+
+.pim-newsletter {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.pim-newsletter-label {
+  flex: 1 1 auto;
+  font-family: var(--font-geist), Arial, sans-serif;
+  font-size: 13.5px;
+  font-weight: 500;
+  line-height: 1.4;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.pim-toggle {
+  flex: 0 0 auto;
+  display: flex;
+  gap: 2px;
+  padding: 4px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 999px;
+}
+
+.pim-toggle input {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+}
+
+.pim-toggle-pill {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px 18px;
+  border-radius: 999px;
+  font-family: var(--font-geist), Arial, sans-serif;
+  font-size: 13px;
+  font-weight: 500;
+  color: #a6a1b2;
+  cursor: pointer;
+  transition: background 0.18s ease, color 0.18s ease;
+}
+
+.pim-toggle input:checked + .pim-toggle-pill {
+  background: #7e5ffe;
+  color: #fff;
+}
+
+.pim-submit {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 52px;
+  border: 0;
+  border-radius: 6px;
+  background: linear-gradient(90deg, #7e5ffe, #512ed0);
+  box-shadow: 0 8px 24px -4px rgba(126, 95, 254, 0.35);
+  font-family: var(--font-geist), Arial, sans-serif;
+  font-size: 15px;
+  font-weight: 600;
+  color: #fff;
+  cursor: pointer;
+  transition: filter 0.18s ease, transform 0.18s ease;
+}
+
+.pim-submit:hover {
+  filter: brightness(1.08);
+  transform: translateY(-1px);
+}
+
+.pim-submit:disabled {
+  opacity: 0.6;
+  cursor: default;
+  transform: none;
+}
+
+/* Success state — swaps in for the form once a valid submission goes
+   through. There's no backend wired up (static prototype), so this is
+   the honest "it worked" confirmation rather than a real send. */
+.pim-success {
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  padding: 24px 0 8px;
+  text-align: center;
+}
+
+.pim-modal.is-success .pim-form {
+  display: none;
+}
+
+.pim-modal.is-success .pim-success {
+  display: flex;
+}
+
+.pim-success-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 56px;
+  height: 56px;
+  border-radius: 999px;
+  background: rgba(126, 95, 254, 0.15);
+  border: 1px solid rgba(177, 160, 254, 0.4);
+  color: #b1a0fe;
+  font-size: 24px;
+}
+
+.pim-success-title {
+  margin: 0;
+  font-family: var(--font-clesmont), "Clesmont Demo", var(--font-geist), Arial, sans-serif;
+  font-size: 22px;
+  color: #fff;
+}
+
+.pim-success-copy {
+  margin: 0;
+  max-width: 420px;
+  font-family: var(--font-geist), Arial, sans-serif;
+  font-size: 14.5px;
+  line-height: 1.5;
+  color: rgba(255, 255, 255, 0.75);
+}
+
+.pim-success-close {
+  margin-top: 10px;
+  padding: 12px 28px;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.06);
+  font-family: var(--font-geist), Arial, sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  color: #fff;
+  cursor: pointer;
+  transition: background 0.18s ease;
+}
+
+.pim-success-close:hover {
+  background: rgba(255, 255, 255, 0.12);
+}
+
+@media (max-width: 720px) {
+  .pim-row,
+  .pim-chip-row {
+    flex-direction: column;
+  }
+  .pim-modal {
+    padding: 32px 22px;
+    gap: 22px;
+  }
+  .pim-header-main {
+    gap: 14px;
+  }
+  .pim-icon {
+    width: 56px;
+    height: 56px;
+  }
+  .pim-title {
+    font-size: 22px;
+  }
+}
